@@ -278,8 +278,7 @@
     - type: Tourniquet
       blockedBodyParts:
       - Head
-      - Chest
-      - Groin
+      - Torso
       putOnSound:
         path: "/Audio/Items/Medical/brutepack_begin.ogg"
       putOffSound:
@@ -352,7 +351,13 @@
     state: cream
   - type: Stack
     stackType: AloeCream
-    count: 15 #Was 10, Buffed due to limb damage changes (Goobstation)
+    count: 15 # Goob - was 10, Buffed due to limb damage changes
+  - type: Item
+    storedRotation: 90
+    storedOffset: 4, 0
+    storedSprite:
+      state: cream
+      sprite: Objects/Specific/Hydroponics/aloe.rsi
 
 - type: entity
   parent: BaseHealingItem
@@ -1072,4 +1077,44 @@
         maxVol: 15
         reagents:
         - ReagentId: Stimulants
-          Quantity: 5 # Goobstation edit
+          Quantity: 5 # Goob - was 15
+
+# Entity Tables
+- type: entityTable
+  id: RandomSafePillTable
+  table: !type:GroupSelector
+    children:
+    - !type:NestedSelector # Trauma
+      tableId: RandomSafePillTrauma
+      weight: 3 # keep synced with the table
+    - id: PillBicaridine
+    - id: PillCharcoal
+    - id: PillCopper
+    - id: PillDermaline
+    - id: PillDexalin
+    - id: PillDylovene
+    - id: PillHyronalin
+    - id: PillIron
+    - id: PillKelotane
+    - id: PillPotassiumIodide
+    - id: PillTricordrazine
+    - id: StrangePill
+
+- type: entityTable
+  id: RandomSafeSyringeTable
+  table: !type:GroupSelector
+    children:
+    - !type:NestedSelector # Trauma
+      tableId: RandomSafeSyringeTrauma
+      weight: 3 # keep synced with the table
+    - id: SyringeBicaridine
+    - id: SyringeDermaline
+    - id: SyringeEphedrine
+    - id: SyringeEthylredoxrazine
+    - id: SyringeHyronalin
+    - id: SyringeInaprovaline
+    - id: SyringeIpecac
+    - id: SyringePhalanximine
+    - id: SyringeSaline
+    - id: SyringeSigynate
+    - id: SyringeTranexamicAcid

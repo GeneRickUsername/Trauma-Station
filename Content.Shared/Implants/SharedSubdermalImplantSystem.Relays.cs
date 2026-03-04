@@ -1,3 +1,6 @@
+// <Trauma>
+using System.Linq;
+// </Trauma>
 using Content.Shared.Chat;
 using Content.Shared.IdentityManagement.Components;
 using Content.Shared.Implants.Components;
@@ -15,6 +18,7 @@ public abstract partial class SharedSubdermalImplantSystem
         SubscribeLocalEvent<ImplantedComponent, AfterInteractUsingEvent>(RelayToImplantEvent);
         SubscribeLocalEvent<ImplantedComponent, SuicideEvent>(RelayToImplantEvent);
         SubscribeLocalEvent<ImplantedComponent, TransformSpeakerNameEvent>(RelayToImplantEvent);
+        SubscribeLocalEvent<ImplantedComponent, TransformSpeechEvent>(RelayToImplantEvent);
         SubscribeLocalEvent<ImplantedComponent, SeeIdentityAttemptEvent>(RelayToImplantEvent);
     }
 
@@ -27,7 +31,7 @@ public abstract partial class SharedSubdermalImplantSystem
             return;
 
         var relayEv = new ImplantRelayEvent<T>(args, uid);
-        foreach (var implant in implantContainer.ContainedEntities)
+        foreach (var implant in implantContainer.ContainedEntities.ToList()) // Trauma - copy contained entities to avoid exceptions if they get deleted in the process
         {
             if (args is HandledEntityEventArgs { Handled: true })
                 return;

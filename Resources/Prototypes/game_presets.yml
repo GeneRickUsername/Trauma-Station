@@ -9,7 +9,6 @@
     - MeteorSwarmScheduler
     - RampingStationEventScheduler
     - SpaceTrafficControlEventScheduler
-    - SpaceTrafficControlFriendlyEventScheduler
     - BasicRoundstartVariation
 
 - type: gamePreset
@@ -40,6 +39,7 @@
     - Revolutionary
     - Zombie
     - Wizard
+    - CosmicCult # DeltaV
     - Xenoborgs
     - KesslerSyndromeScheduler
     - RampingStationEventScheduler
@@ -77,7 +77,6 @@
     - MeteorSwarmScheduler
     - RampingStationEventScheduler
     - SpaceTrafficControlEventScheduler
-    - SpaceTrafficControlFriendlyEventScheduler
     - BasicRoundstartVariation
     # <Trauma>
     - Thief
@@ -112,7 +111,6 @@
   showInVote: false #4boring4vote
   description: greenshift-description
   rules:
-  - SpaceTrafficControlFriendlyEventScheduler
   - BasicRoundstartVariation
 
 - type: gamePreset
@@ -138,12 +136,17 @@
     - secret
     - sekrit
   name: secret-title
-  showInVote: false # Goob - Game Director
+  showInVote: true # Trauma
   description: secret-description
   rules:
-    - Secret
-    - BasicStationEventScheduler # Goob
-    - Insurgency # Trauma
+  # <Trauma> - completely changed every rule
+  - Secret
+  - BasicRoundstartVariation
+  - SpaceTrafficControlEventScheduler
+  - BasicStationEventScheduler
+  - Insurgency # Always some shitters for sec to deal with
+  - SubTraitorRandom # Always 50% chance of at least one traitor
+  # </Trauma>
 
 - type: gamePreset
   id: Sandbox
@@ -196,7 +199,7 @@
   rules:
   - Nukeops
   - DummyNonAntagChance
-  - SubGamemodesRule
+  # - SubGamemodesRule
   - BasicStationEventScheduler
   - MeteorSwarmScheduler
   - SpaceTrafficControlEventScheduler
@@ -230,9 +233,9 @@
   rules:
   - Xenoborgs
   - DummyNonAntagChance
-  - SubGamemodesRuleNoWizardNoXenoborg # no two motherships
+  - SubGamemodesRule
   - BasicStationEventScheduler
-  - MeteorSwarmScheduler
+  # - MeteorSwarmScheduler - Trauma
   - SpaceTrafficControlEventScheduler
   - BasicRoundstartVariation
 

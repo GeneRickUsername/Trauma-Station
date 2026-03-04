@@ -1,11 +1,9 @@
 - type: entity
   name: laser raptor
   id: MobLaserRaptor
-  parent: SimpleMobBase
+  parent: [ AppearanceLaserRaptor, SimpleMobBase ] # Shitmed
   description: From the Viking age.
   components:
-    - type: Body # Shitmed Change
-      prototype: LaserRaptor
     - type: NpcFactionMember
       factions:
         - SimpleHostile
@@ -135,7 +133,7 @@
   - type: NPCImprintingOnSpawnBehaviour
     whitelist:
       components:
-      - HumanoidAppearance
+      - HumanoidProfile
   - type: Sprite
     sprite: Mobs/Demons/tomatokiller.rsi
     noRot: true
@@ -223,3 +221,6 @@
   #      Blunt: 0.11
   - type: StaticPrice
     price: 400
+  - type: FadingTimedDespawn # Trauma, otherwise its too easy to make hell armies
+    lifetime: 180
+    fadeOutTime: 60

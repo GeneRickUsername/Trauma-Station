@@ -5,10 +5,9 @@
   targetNode: liberator
   category: construction-category-antagonist
   objectType: Item
-  entityWhitelist:
-    components:
-    - HeadRevolutionary
-    - Revolutionary
+  groups:
+    RevolutionaryKnowledge: 2
+    WeaponsKnowledge: 2
 
 - type: construction
   id: RevResistance
@@ -17,10 +16,9 @@
   targetNode: resistance
   category: construction-category-antagonist
   objectType: Item
-  entityWhitelist:
-    components:
-    - HeadRevolutionary
-    - Revolutionary
+  groups:
+    RevolutionaryKnowledge: 2
+    WeaponsKnowledge: 2
 
 - type: construction
   id: RPG2
@@ -29,10 +27,9 @@
   targetNode: RPG2
   category: construction-category-antagonist
   objectType: Item
-  entityWhitelist:
-    components:
-    - HeadRevolutionary
-    - Revolutionary
+  groups:
+    RevolutionaryKnowledge: 2
+    WeaponsKnowledge: 2
 
 - type: construction
   id: Flamethrower
@@ -41,10 +38,20 @@
   targetNode: Flamethrower
   category: construction-category-antagonist
   objectType: Item
-  entityWhitelist:
-    components:
-    - HeadRevolutionary
-    - Revolutionary
+  groups:
+    RevolutionaryKnowledge: 2
+    WeaponsKnowledge: 2
+
+- type: construction
+  id: Devastator
+  graph: RevGuns
+  startNode: start
+  targetNode: Devastator
+  category: construction-category-antagonist
+  objectType: Item
+  groups:
+    RevolutionaryKnowledge: 2
+    WeaponsKnowledge: 2
 
 - type: construction
   id: RevIED
@@ -53,7 +60,6 @@
   targetNode: IED
   category: construction-category-antagonist
   objectType: Item
-  entityWhitelist:
-    components:
-    - HeadRevolutionary
-    - Revolutionary
+  groups:
+    RevolutionaryKnowledge: 2
+    WeaponsKnowledge: 2

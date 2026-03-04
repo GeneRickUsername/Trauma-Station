@@ -1,13 +1,11 @@
 - type: entity
-  parent: [ SimpleSpaceMobBase, FlyingMobBase ]
+  parent: [ AppearanceDragon, SimpleSpaceMobBase, FlyingMobBase ] # Shitmed
   id: BaseMobDragon
   suffix: ""
   name: space dragon
   description: A flying leviathan, loosely related to space carps.
   abstract: true
   components:
-  - type: Body # Shitmed
-    prototype: SpaceDragon
   - type: Bloodstream
     bleedReductionAmount: 5 #goob
     bloodReferenceSolution:
@@ -115,14 +113,13 @@
     - RadiationProtection
     - Adrenaline
   - type: Temperature
+  - type: TemperatureDamage
     heatDamageThreshold: 2400
   - type: Metabolizer
     solutionOnBody: false
     updateInterval: 0.25
     metabolizerTypes: [ Dragon ]
-    groups:
-    - id: Medicine
-    - id: Poison
+    stages: [ Digestion, Bloodstream ]
   - type: Butcherable
     spawned:
     - id: FoodMeatDragon
@@ -145,7 +142,7 @@
   - type: Devourer
     foodPreferenceWhitelist:
       components:
-      - HumanoidAppearance
+      - HumanoidProfile
     stomachStorageWhitelist:
       components:
       - MobState
@@ -183,8 +180,6 @@
     color: "#808080"
     activateSound: null
     deactivateSound: null
-  - type: CombatPower # Goobstation
-    factor: 4 # times more dangerous than a crew-member
   - type: Fauna # Lavaland Change
   - type: Prying
     pryPowered: true
@@ -192,7 +187,7 @@
     speedModifier: 2.5 # fast because dragon strong
     useSound:
       path: /Audio/Items/crowbar.ogg
-  - type: LanguageKnowledge # goob edit - carp language (keeping basic as an option because the space monster gloating is funny)
+  - type: LanguageSpeaker # Trauma - carp language (keeping basic as an option because the space monster gloating is funny)
     speaks:
     - TauCetiBasic
     - Carptongue

@@ -18,10 +18,8 @@
   - Monkey
   - Kobold
   - Abductor
-  - Yowie
   - IPC
   - Diona
-  - Harpy
   - Vox # Pasha
   - Gingerbread # Soecusn
   - Plasmaman
@@ -31,6 +29,8 @@
   - Vulpkanin
   - SlimePerson
   - Dwarf
+  - Feroxi
+  - Chitinid
   components:
   - type: RandomHumanoidAppearance
     randomizeName: false
@@ -420,7 +420,6 @@
     implants: [ FreedomImplant, NutrimentPumpImplant, SpaceProofImplant ]
   - type: RandomHumanoidAppearance
     randomizeName: false
-    hair: HairBald
   - type: GhostRole
     name: ghost-role-information-conquest-name
     description: ghost-role-information-conquest-description
@@ -474,9 +473,10 @@
       - !type:GibBehavior { }
   - type: NoSlip
   - type: Temperature
-    heatDamageThreshold: 5000
     currentTemperature: 310.15
     specificHeat: 42
+  - type: TemperatureDamage
+    heatDamageThreshold: 5000
     heatDamage:
       types:
         Heat: -1

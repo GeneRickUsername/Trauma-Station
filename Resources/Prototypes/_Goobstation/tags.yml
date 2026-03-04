@@ -47,6 +47,7 @@
 # SPDX-FileCopyrightText: 2025 gluesniffler <linebarrelerenthusiast@gmail.com>
 # SPDX-FileCopyrightText: 2025 gus <august.eymann@gmail.com>
 # SPDX-FileCopyrightText: 2025 pheenty <fedorlukin2006@gmail.com>
+# SPDX-FileCopyrightText: 2025 jvne <juneialduncan21@gmail.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 # Alphabetical order people!
@@ -58,6 +59,9 @@
   id: AthiestsFedora
 
 - type: Tag
+  id: AnchorHereticStructure
+
+- type: Tag
   id: AtmosBackTank # Assmos - Extinguisher Nozzle
 
 - type: Tag
@@ -65,9 +69,6 @@
 
 - type: Tag
   id: AntagGateway
-
-- type: Tag
-  id: AutoinjectorCartridge
 
 - type: Tag
   id: BindSoulAction
@@ -118,9 +119,6 @@
   id: CameraElectronics
 
 - type: Tag
-  id: CannotSuicideAny
-
-- type: Tag
   id: Chair
 
 - type: Tag
@@ -149,6 +147,9 @@
 
 - type: Tag
   id: ClownEmergencyOxygenTank
+
+- type: Tag
+  id: CodexCicatrix
 
 - type: Tag
   id: CombatMech
@@ -196,6 +197,9 @@
   id: DurandTargetingControlModule
 
 - type: Tag
+  id: EldritchFlask
+
+- type: Tag
   id: EmergencyMedipen
 
 - type: Tag
@@ -229,9 +233,6 @@
   id: ExtendedEmergencyPlasmaTank
 
 - type: Tag
-  id: Eyes
-
-- type: Tag
   id: EnergyMagAmmo
 
 - type: Tag
@@ -257,6 +258,9 @@
 
 - type: Tag
   id: GorillaFormAction
+
+- type: Tag
+  id: GoldBar
 
 - type: Tag
   id: GrimoireGhost
@@ -302,12 +306,6 @@
 
 - type: Tag
   id: HandheldCrewMonitor
-
-- type: Tag
-  id: HarpyEmotes
-
-- type: Tag
-  id: Heart
 
 - type: Tag
   id: HereticBlade
@@ -364,9 +362,6 @@
   id: Keyring
 
 - type: Tag
-  id: Kidneys
-
-- type: Tag
   id: LaserLMG
 
 - type: Tag
@@ -376,17 +371,7 @@
   id: Lighter # for whitelisted cig pack strorage
 
 - type: Tag
-  id: Liver
-
-# tag roundstart rules that should be run alone
-- type: Tag
-  id: LoneRunRule
-
-- type: Tag
   id: LoneOpsUplink
-
-- type: Tag
-  id: Lungs
 
 - type: Tag
   id: MagazineAntiMateriel
@@ -584,9 +569,6 @@
   id: Steel
 
 - type: Tag
-  id: Stomach
-
-- type: Tag
   id: StunBaton # for heretic ritual
 
 - type: Tag
@@ -608,7 +590,13 @@
   id: ShellShotgunHeavy
 
 - type: Tag
+  id: SilverBar
+
+- type: Tag
   id: SyringeArmor
+
+- type: Tag
+  id: SyringeCase
 
 - type: Tag
   id: Table
@@ -795,15 +783,6 @@
   id: Jetpack
 
 - type: Tag
-  id: RoundstartAntag
-
-- type: Tag
-  id: CalmAntag
-
-- type: Tag
-  id: MidroundAntag
-
-- type: Tag
   id: DisposableBattery
 
 - type: Tag
@@ -819,6 +798,12 @@
   id: Crate
 
 - type: Tag
+  id: GlovesLatex
+
+- type: Tag
+  id: GlovesNitrile
+
+- type: Tag
   id: GreenGloves
 
 - type: Tag
@@ -832,3 +817,6 @@
 
 - type: Tag
   id: VinylSleeveFit
+
+- type: Tag
+  id: CD

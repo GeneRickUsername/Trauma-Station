@@ -12,7 +12,6 @@ using Content.Shared.Damage.Systems;
 using Content.Shared.Examine;
 using Content.Shared.Item.ItemToggle;
 using Content.Shared.Item.ItemToggle.Components;
-using Content.Shared.Popups;
 using Content.Shared.Power;
 using Content.Shared.Power.Components;
 using Content.Shared.Power.EntitySystems;
@@ -25,9 +24,7 @@ namespace Content.Server._White.Blocking;
 public sealed class RechargeableBlockingSystem : EntitySystem
 {
     [Dependency] private readonly ItemToggleSystem _itemToggle = default!;
-    [Dependency] private readonly PowerCellSystem _powerCell = default!;
     [Dependency] private readonly SharedBatterySystem _battery = default!;
-    [Dependency] private readonly SharedPopupSystem _popup = default!;
 
     public override void Initialize()
     {
@@ -49,13 +46,11 @@ public sealed class RechargeableBlockingSystem : EntitySystem
 
     private int GetRemainingTime(EntityUid uid)
     {
-        if (_battery.GetBattery(uid) is not {} battery
-            || !TryComp<BatterySelfRechargerComponent>(battery, out var recharger)
-            || recharger is not { AutoRechargeRate: > 0, AutoRecharge: true })
+        if (_battery.GetBattery(uid) is not {} battery || battery.Comp.ChargeRate == 0)
             return 0;
 
-        return (int) MathF.Round((battery.Comp.MaxCharge - battery.Comp.CurrentCharge) /
-                                 recharger.AutoRechargeRate);
+        var remaining = battery.Comp.MaxCharge - _battery.GetCharge(battery.AsNullable());
+        return (int) MathF.Round(remaining / battery.Comp.ChargeRate);
     }
 
     private void OnDamageChanged(EntityUid uid, RechargeableBlockingComponent component, DamageChangedEvent args)
@@ -65,7 +60,7 @@ public sealed class RechargeableBlockingSystem : EntitySystem
             || args.DamageDelta == null)
             return;
 
-        var batteryUse = Math.Min(args.DamageDelta.GetTotal().Float(), battery.Comp.CurrentCharge);
+        var batteryUse = args.DamageDelta.GetTotal().Float();
         _battery.TryUseCharge(battery.AsNullable(), batteryUse);
     }
 
@@ -97,21 +92,28 @@ public sealed class RechargeableBlockingSystem : EntitySystem
             return;
 
         BatterySelfRechargerComponent? recharger;
-        if (battery.Comp.CurrentCharge < 1)
+        var charge = _battery.GetCharge(battery.AsNullable());
+        if (charge < 1)
         {
             if (TryComp(uid, out recharger))
+            {
                 recharger.AutoRechargeRate = component.DischargedRechargeRate;
+                Dirty(uid, recharger);
+            }
 
             component.Discharged = true;
             _itemToggle.TryDeactivate(uid, predicted: false);
             return;
         }
 
-        if (MathF.Round(battery.Comp.CurrentCharge / battery.Comp.MaxCharge, 2) < component.RechargePercentage)
+        if (MathF.Round(charge / battery.Comp.MaxCharge, 2) < component.RechargePercentage)
             return;
 
         component.Discharged = false;
         if (TryComp(uid, out recharger))
+        {
             recharger.AutoRechargeRate = component.ChargedRechargeRate;
+            Dirty(uid, recharger);
+        }
     }
 }

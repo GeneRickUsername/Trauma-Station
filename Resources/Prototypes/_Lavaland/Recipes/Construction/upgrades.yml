@@ -1,0 +1,29 @@
+- type: construction
+  id: CrusherUpgradeCrystalConstruction
+  graph: CrusherUpgradeCrystalConstructionGraph
+  category: construction-category-weapons
+  targetNode: crystal
+  objectType: Item
+  groups:
+    TechnologyKnowledge: 2
+    WeaponsKnowledge: 2
+
+- type: construction
+  id: CrusherUpgradeLavaCrystalConstruction
+  graph: CrusherUpgradeLavaCrystalConstructionGraph
+  category: construction-category-weapons
+  targetNode: crystal
+  objectType: Item
+  groups:
+    TechnologyKnowledge: 2
+    WeaponsKnowledge: 2
+
+- type: construction
+  id: CrusherUpgradeIceCrystalConstruction
+  graph: CrusherUpgradeIceCrystalConstructionGraph
+  category: construction-category-weapons
+  targetNode: crystal
+  objectType: Item
+  groups:
+    TechnologyKnowledge: 2
+    WeaponsKnowledge: 2

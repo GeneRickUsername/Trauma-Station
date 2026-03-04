@@ -123,7 +123,6 @@
   - type: Appearance
   - type: WiresVisuals
   - type: LanguageSpeaker # Einstein Engines - Languages
-  - type: LanguageKnowledge # Einstein Engines - Languages
     speaks:
     - TauCetiBasic
     - RobotTalk
@@ -1538,12 +1537,11 @@
         type: MiningVoucherBoundUserInterface
   - type: MiningVendor # Lavaland Change
     kits:
-    - MiningCrusher
+    - MiningCombat
     - MiningExtraction
-    #- MiningResonator
     - MiningSurvival
+    - MiningMedical
     #- MiningDrone
-    - MiningConscription
   - type: Wires # DeltaV: Use shop vendor wires layout
     layoutId: ShopVendor
   - type: AccessReader
@@ -2117,7 +2115,7 @@
     - state: panel
       map: ["enum.WiresVisualLayers.MaintenancePanel"]
   - type: AccessReader
-    access: [["Medical"]]
+    access: [["Genetics"]] # Trauma - was Medical
 
 - type: entity
   parent: VendingMachine

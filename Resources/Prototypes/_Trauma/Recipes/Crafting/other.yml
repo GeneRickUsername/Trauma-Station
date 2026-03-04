@@ -5,3 +5,15 @@
   targetNode: paper sheet
   category: construction-category-materials
   objectType: Item
+  groups:
+    RevolutionaryKnowledge: 0
+
+- type: construction
+  id: PowerArmorStand
+  graph: PowerArmorStand
+  startNode: start
+  targetNode: PowerArmorStand
+  category: construction-category-antagonist
+  objectType: Item
+  groups:
+    RevolutionaryKnowledge: 2

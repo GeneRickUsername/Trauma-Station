@@ -1,4 +1,4 @@
-using Content.Server.Body.Systems;
+using Content.Medical.Common.Body;
 using Content.Server.Popups;
 using Content.Server.Stunnable;
 using Content.Shared.Clothing.Components;
@@ -19,13 +19,14 @@ using Robust.Shared.Random;
 using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 using Content.Shared._White.Xenomorphs.Infection;
-using Content.Shared.Body.Components; // Goobstation start
+using Content.Shared.Body;
+using Content.Shared.Body.Components;
 using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.Chemistry.Reagent;
-using Content.Goobstation.Maths.FixedPoint;
+using Content.Shared.FixedPoint;
 using Content.Goobstation.Shared.Clothing.Components;
 using Content.Server.Construction.Conditions;
 using Content.Shared._White.Xenomorphs.FaceHugger;
@@ -34,7 +35,6 @@ using Content.Shared.Throwing;
 using Content.Shared.Atmos.Components;
 using Content.Server.Nutrition.EntitySystems;
 using Content.Shared.Nutrition.Components;
-
 
 namespace Content.Server._White.Xenomorphs.FaceHugger;
 
@@ -45,17 +45,17 @@ public sealed class FaceHuggerSystem : EntitySystem
     [Dependency] private readonly SharedSolutionContainerSystem _solutions = default!; // Goobstation
     [Dependency] private readonly SharedBloodstreamSystem _bloodstream = default!;
     [Dependency] private readonly SharedTransformSystem _transform = default!; // Goobstation
-
     [Dependency] private readonly AudioSystem _audio = default!;
     [Dependency] private readonly BodySystem _body = default!;
+    [Dependency] private readonly CommonBodyPartSystem _part = default!;
     [Dependency] private readonly ContainerSystem _container = default!;
     [Dependency] private readonly DamageableSystem _damageable = default!;
-    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
     [Dependency] private readonly EntityWhitelistSystem _entityWhitelist = default!;
     [Dependency] private readonly InventorySystem _inventory = default!;
     [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly PopupSystem _popup = default!;
     [Dependency] private readonly StunSystem _stun = default!;
+    [Dependency] private readonly EntityLookupSystem _entityLookup = default!;
 
     public override void Initialize()
     {
@@ -74,7 +74,10 @@ public sealed class FaceHuggerSystem : EntitySystem
     }
 
     private void OnCollideEvent(EntityUid uid, FaceHuggerComponent component, StartCollideEvent args)
-        => TryEquipFaceHugger(uid, args.OtherEntity, component);
+    {
+        TryEquipFaceHugger(uid, args.OtherEntity, component);
+    }
+
 
     private void OnMeleeHit(EntityUid uid, FaceHuggerComponent component, MeleeHitEvent args)
     {
@@ -124,7 +127,7 @@ public sealed class FaceHuggerSystem : EntitySystem
         BeingUnequippedAttemptEvent args)
     {
         if (component.Slot != args.Slot || args.Unequipee != args.UnEquipTarget ||
-            !component.InfectionPrototype.HasValue || _mobState.IsDead(uid))
+            component.InfectionPrototype == null || _mobState.IsDead(uid))
             return;
 
         _popup.PopupEntity(
@@ -154,7 +157,7 @@ public sealed class FaceHuggerSystem : EntitySystem
 
             // Handle continuous chemical injection when equipped
             // Goobstation
-            if (TryComp<ClothingComponent>(uid, out var clothing) && clothing.InSlot != null)
+            if (TryComp<ClothingComponent>(uid, out var clothing) && clothing.InSlot != null && !_mobState.IsDead(uid))
             {
                 // Initialize NextInjectionTime if it's zero
                 if (faceHugger.NextInjectionTime == TimeSpan.Zero)
@@ -176,7 +179,6 @@ public sealed class FaceHuggerSystem : EntitySystem
             }
             // Goobstaion end
 
-            // Check for nearby entities to latch onto
             if (faceHugger.Active && clothing?.InSlot == null)
             {
                 foreach (var entity in _entityLookup.GetEntitiesInRange<InventoryComponent>(Transform(uid).Coordinates,
@@ -191,25 +193,32 @@ public sealed class FaceHuggerSystem : EntitySystem
 
     private void Infect(EntityUid uid, FaceHuggerComponent component)
     {
-        if (!component.InfectionPrototype.HasValue
+        if (component.InfectionPrototype is not {} proto
             || !TryComp<ClothingComponent>(uid, out var clothing)
             || clothing.InSlot != component.Slot
-            || !_container.TryGetContainingContainer((uid, null, null), out var target))
+            || !_container.TryGetContainingContainer((uid, null, null), out var target)
+            || _body.GetOrgan(target.Owner, component.InfectionTarget) is not {} targetOrgan)
             return;
 
-        var bodyPart = _body.GetBodyChildrenOfType(target.Owner,
-                component.InfectionBodyPart.Type,
-                symmetry: component.InfectionBodyPart.Symmetry)
-            .FirstOrNull();
-        if (!bodyPart.HasValue)
-            return;
-
-        var organ = Spawn(component.InfectionPrototype);
-        _body.TryCreateOrganSlot(bodyPart.Value.Id, component.InfectionSlotId, out _, bodyPart.Value.Component);
-
-        if (!_body.InsertOrgan(bodyPart.Value.Id, organ, component.InfectionSlotId, bodyPart.Value.Component))
+        var organ = Spawn(proto);
+        if (_body.GetCategory(organ) is not {} category)
         {
-            QueueDel(organ);
+            Log.Error($"Invalid xeno larva {ToPrettyString(organ)} had no organ category!");
+            Del(organ);
+            return;
+        }
+
+        if (_body.GetOrgan(target.Owner, category) != null)
+        {
+            // already infected
+            Del(organ);
+            return;
+        }
+
+        _part.TryAddSlot(targetOrgan, category); // ensure it can be inserted
+        if (!_body.InsertOrgan(target.Owner, organ))
+        {
+            Del(organ);
             return;
         }
 
@@ -292,18 +301,18 @@ public sealed class FaceHuggerSystem : EntitySystem
     /// </summary>
     public bool CanInject(EntityUid uid, FaceHuggerComponent component, EntityUid target)
     {
+        // injection disabled
+        if (component.SleepChem is not {} reagent)
+            return false;
+
         // Check if facehugger is properly equipped
         if (!TryComp<ClothingComponent>(uid, out var clothingComp) || clothingComp.InSlot == null)
-        {
-            if (!component.Active)
-                return false;
-            return true;
-        }
+            return component.Active;
 
         // Check if target already has the sleep chemical
         if (TryComp<BloodstreamComponent>(target, out var bloodstream) &&
             _solutions.ResolveSolution(target, bloodstream.BloodSolutionName, ref bloodstream.BloodSolution, out var bloodSolution) &&
-            bloodSolution.TryGetReagentQuantity(new ReagentId(component.SleepChem, null), out var quantity) &&
+            bloodSolution.TryGetReagentQuantity(new ReagentId(reagent, null), out var quantity) &&
             quantity > FixedPoint2.New(component.MinChemicalThreshold))
         {
             return false;
@@ -317,7 +326,8 @@ public sealed class FaceHuggerSystem : EntitySystem
     public Solution CreateSleepChemicalSolution(FaceHuggerComponent component, float amount)
     {
         var solution = new Solution();
-        solution.AddReagent(component.SleepChem, amount);
+        if (component.SleepChem is {} reagent)
+            solution.AddReagent(reagent, amount);
         return solution;
     }
 

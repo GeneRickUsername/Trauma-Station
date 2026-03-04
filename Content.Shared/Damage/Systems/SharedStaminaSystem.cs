@@ -1,11 +1,7 @@
 // <Trauma>
 using Content.Goobstation.Common.Damage.Events;
-using Content.Goobstation.Common.MartialArts;
 using Content.Goobstation.Common.Stunnable;
 using Content.Shared._Shitcode.Weapons.Misc;
-using Content.Shared.Jittering;
-using Content.Shared.Speech.EntitySystems;
-using Robust.Shared.Random;
 // </Trauma>
 using System.Linq;
 using Content.Shared.Administration.Logs;
@@ -16,7 +12,7 @@ using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Events;
 using Content.Shared.Database;
 using Content.Shared.Effects;
-using Content.Goobstation.Maths.FixedPoint;
+using Content.Shared.FixedPoint;
 using Content.Shared.Movement.Components;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Projectiles;
@@ -165,13 +161,6 @@ public abstract partial class SharedStaminaSystem : EntitySystem
             return;
         }
 
-        // Goobstation - Martial Arts
-        if (TryComp<MartialArtsKnowledgeComponent>(args.User, out var knowledgeComp)
-            && TryComp<MartialArtBlockedComponent>(args.Weapon, out var blockedComp)
-            && knowledgeComp.MartialArtsForm == blockedComp.Form)
-            return;
-        // Goobstation
-
         var ev = new StaminaDamageOnHitAttemptEvent(args.Direction == null, false); // Goob edit
         RaiseLocalEvent(uid, ref ev);
         if (ev.Cancelled)
@@ -222,7 +211,7 @@ public abstract partial class SharedStaminaSystem : EntitySystem
 
     private void OnProjectileHit(EntityUid uid, StaminaDamageOnCollideComponent component, ref ProjectileHitEvent args)
     {
-        OnCollide(uid, component, args.Target);
+        OnCollide(uid, component, args.Target, args.Shooter); // Goob - added shooter
     }
 
     private void OnProjectileEmbed(EntityUid uid, StaminaDamageOnEmbedComponent component, ref EmbedEvent args)
@@ -238,7 +227,7 @@ public abstract partial class SharedStaminaSystem : EntitySystem
         OnCollide(uid, component, args.Target);
     }
 
-    private void OnCollide(EntityUid uid, StaminaDamageOnCollideComponent component, EntityUid target)
+    private void OnCollide(EntityUid uid, StaminaDamageOnCollideComponent component, EntityUid target, EntityUid? source = null) // Goob - added source
     {
         // you can't inflict stamina damage on things with no stamina component
         // this prevents stun batons from using up charges when throwing it at lockers or lights
@@ -260,7 +249,7 @@ public abstract partial class SharedStaminaSystem : EntitySystem
         damage *= hitEvent.Value;
         overtime *= hitEvent.Value;
 
-        TakeStaminaDamage(target, damage, source: uid, sound: component.Sound);
+        TakeStaminaDamage(target, damage, source: source ?? uid, sound: component.Sound); // Goob edit - use source as damage source if not null
         TakeOvertimeStaminaDamage(target, overtime); // Goobstation
     }
 

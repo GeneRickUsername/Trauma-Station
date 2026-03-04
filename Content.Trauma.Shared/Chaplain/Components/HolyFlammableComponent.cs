@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Content.Shared.Alert;
 using Content.Shared.Damage;
 using Robust.Shared.GameStates;
@@ -34,7 +36,7 @@ public sealed partial class HolyFlammableComponent : Component
     {
         DamageDict =
         {
-            ["Holy"] = 0.5
+            ["Holy"] = 0.5f
         }
     };
 

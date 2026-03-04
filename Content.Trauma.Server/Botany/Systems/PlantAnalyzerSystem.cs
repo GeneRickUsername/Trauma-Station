@@ -1,8 +1,4 @@
-// SPDX-FileCopyrightText: 2025 Liamofthesky <157073227+Liamofthesky@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 ReconPangolin <67752926+ReconPangolin@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 taydeo <td12233a@gmail.com>
-//
-// SPDX-License-Identifier: AGPL-3.0-or-later AND MIT
+// SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Linq;
 using Content.Server.Botany;
@@ -458,7 +454,8 @@ public sealed class PlantAnalyzerSystem : EntitySystem
                         19 => (float) Convert.ToInt16(seed.Viable),
                         20 => (float) Convert.ToInt16(seed.Ligneous),
                         21 => (float) Convert.ToInt16(seed.CanScream),
-                        22 => (float) Convert.ToInt16(seed.TurnIntoKudzu)
+                        22 => (float) Convert.ToInt16(seed.TurnIntoKudzu),
+                        _ => 0f
                     };
                     ent.Comp.GeneBank.Add(new GeneData(index, value));
                     break;

@@ -9,11 +9,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Goobstation.Common.Religion;
+using Content.Goobstation.Common.Temperature;
 using Content.Shared._Goobstation.Heretic.Components;
+using Content.Shared._Shitcode.Heretic.Systems;
 using Content.Shared.Heretic;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Movement.Systems;
-using Content.Shared.Temperature;
 using Content.Shared.Temperature.Components;
 
 namespace Content.Shared._Goobstation.Heretic.Systems;
@@ -21,6 +22,7 @@ namespace Content.Shared._Goobstation.Heretic.Systems;
 public abstract class SharedVoidCurseSystem : EntitySystem
 {
     [Dependency] private readonly MovementSpeedModifierSystem _modifier = default!;
+    [Dependency] private readonly SharedHereticSystem _heretic = default!;
 
     public override void Initialize()
     {
@@ -42,7 +44,7 @@ public abstract class SharedVoidCurseSystem : EntitySystem
     private void OnTemperatureChangeAttempt(Entity<VoidCurseComponent> ent, ref TemperatureChangeAttemptEvent args)
     {
         if (!args.Cancelled && ent.Comp.Stacks >= ent.Comp.MaxStacks && args.CurrentTemperature > args.LastTemperature)
-            args.Cancel();
+            args.Cancelled = true;
     }
 
     private void OnRefreshMoveSpeed(Entity<VoidCurseComponent> ent, ref RefreshMovementSpeedModifiersEvent args)
@@ -70,7 +72,8 @@ public abstract class SharedVoidCurseSystem : EntitySystem
         if (!HasComp<MobStateComponent>(uid))
             return false; // ignore non mobs because holy shit
 
-        if (TryComp<HereticComponent>(uid, out var h) && h.CurrentPath == "Void" || HasComp<GhoulComponent>(uid))
+        if (_heretic.TryGetHereticComponent(uid, out var h, out _) && h.CurrentPath == "Void" ||
+            HasComp<GhoulComponent>(uid))
             return false;
 
         var ev = new BeforeCastTouchSpellEvent(uid, false);

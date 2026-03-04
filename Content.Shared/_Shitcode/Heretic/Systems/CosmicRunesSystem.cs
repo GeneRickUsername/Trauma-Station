@@ -1,13 +1,12 @@
 using System.Linq;
 using Content.Goobstation.Common.BlockTeleport;
-using Content.Goobstation.Common.MartialArts;
+using Content.Trauma.Common.MartialArts;
 using Content.Goobstation.Common.Religion;
 using Content.Goobstation.Shared.Bible;
 using Content.Shared._Goobstation.Wizard.FadingTimedDespawn;
 using Content.Shared._Shitcode.Heretic.Components;
 using Content.Shared._Shitcode.Heretic.Systems.Abilities;
 using Content.Shared.Coordinates;
-using Content.Shared.Heretic;
 using Content.Shared.Interaction;
 using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Systems;
@@ -24,7 +23,6 @@ public sealed class CosmicRunesSystem : EntitySystem
     [Dependency] private readonly INetManager _net = default!;
     [Dependency] private readonly IGameTiming _timing = default!;
 
-    [Dependency] private readonly SharedStarTouchSystem _starTouch = default!;
     [Dependency] private readonly UseDelaySystem _useDelay = default!;
     [Dependency] private readonly PullingSystem _pulling = default!;
     [Dependency] private readonly EntityLookupSystem _lookup = default!;
@@ -141,8 +139,7 @@ public sealed class CosmicRunesSystem : EntitySystem
         var grabStage = GrabStage.No;
         PullerComponent? puller = null;
 
-        var isUserCosmosHeretic = HasComp<StarGazerComponent>(user) ||
-                                  TryComp(user, out HereticComponent? heretic) && heretic.CurrentPath == "Cosmos";
+        var isUserCosmosHeretic = HasComp<StarGazerComponent>(user) || HasComp<CosmosPassiveComponent>(user);
 
         if (isUserCosmosHeretic && TryComp(user, out puller) && puller.Pulling != null)
         {

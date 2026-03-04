@@ -5,7 +5,6 @@
 //
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Server.Chat.Systems;
 using Content.Server.Lightning;
 using Content.Server.Popups;
 using Content.Shared.PowerCell;
@@ -33,8 +32,7 @@ public sealed class DeadStartupButtonSystem : SharedDeadStartupButtonSystem
     [Dependency] private readonly IRobustRandom _robustRandom = default!;
     [Dependency] private readonly LightningSystem _lightning = default!;
     [Dependency] private readonly PowerCellSystem _powerCell = default!;
-    [Dependency] private readonly ChatSystem _chatSystem = default!;
-    [Dependency] private readonly PredictedBatterySystem _battery = default!; // Goobstation - Energycrit
+    [Dependency] private readonly SharedBatterySystem _battery = default!; // Goobstation - Energycrit
 
     /// <inheritdoc/>
     public override void Initialize()

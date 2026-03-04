@@ -1,12 +1,11 @@
-using System.Linq;
 using Content.Shared.Damage.Components;
-using Content.Goobstation.Maths.FixedPoint;
-using Content.Shared._Shitmed.Body;
-using Content.Shared.Body.Components;
-using Content.Shared.Body.Part;
+using Content.Shared.FixedPoint;
 
 namespace Content.Shared.Mobs.Systems;
 
+/// <summary>
+/// Goob - vital damage API.
+/// </summary>
 public sealed partial class MobThresholdSystem
 {
     /// <summary>
@@ -20,33 +19,16 @@ public sealed partial class MobThresholdSystem
     {
         var damage = damageableComponent.TotalDamage;
 
-        if (!TryComp(target, out BodyComponent? body) ||
-            body.BodyType != BodyType.Complex)
+        if (!_bodyQuery.TryComp(target, out var body))
             return damage;
 
-        if (body.RootContainer?.ContainedEntity is not { } rootPart)
-            return damage;
-
-        FixedPoint2 result = FixedPoint2.Zero;
-
-        var criticalParts = new[]
+        var result = FixedPoint2.Zero;
+        foreach (var woundable in _body.GetVitalParts(target))
         {
-            BodyPartType.Head,
-            BodyPartType.Chest,
-            BodyPartType.Groin
-        };
-
-        foreach (var (woundable, _) in _wound.GetAllWoundableChildren(rootPart))
-        {
-            if (!TryComp(woundable, out DamageableComponent? wdc) ||
-                !TryComp(woundable, out BodyPartComponent? bpc))
-                continue;
-
-            if (criticalParts.Contains(bpc.PartType))
-                result += wdc.TotalDamage;
+            if (_damageQuery.TryComp(woundable, out var partDamage))
+                result += partDamage.TotalDamage;
         }
 
         return result;
     }
-
 }

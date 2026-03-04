@@ -87,7 +87,7 @@
           Slash: 15
           Structural: 50
     - type: Insulated
-    - type: Temperature
+    - type: TemperatureDamage
       heatDamageThreshold: 10000
       coldDamageThreshold: -300
     - type: Flammable
@@ -114,8 +114,7 @@
           Burn: -2
           Toxin: -15
           Genetic: -15
-    - type: WeakToHoly
-      alwaysTakeHoly: true
+    - type: AlwaysTakeHoly
     - type: NoSlip
     - type: Bloodstream
       bloodReferenceSolution:
@@ -144,8 +143,6 @@
       tags:
       - DoorBumpOpener
       - FootstepSound
-    - type: CombatPower
-      factor: 10 # times more dangerous than a crew-member
 
 - type: entity
   name: ????

@@ -1,3 +1,5 @@
+// SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Robust.Shared.Configuration;
 
 namespace Content.Trauma.Common.CCVar;
@@ -5,13 +7,20 @@ namespace Content.Trauma.Common.CCVar;
 [CVarDefs]
 public sealed partial class TraumaCVars
 {
-    #region Slop
+    #region Disabling features
 
     /// <summary>
-    ///     Is antag pity enabled
+    /// Whether to enable the ghost bar.
+    /// This is not implemented in the UI, it is just to make tests not take 500 years to run.
     /// </summary>
-    public static readonly CVarDef<bool> AntagPityEnabled =
-        CVarDef.Create("trauma.pity_enabled", false, CVar.SERVER | CVar.REPLICATED);
+    public static readonly CVarDef<bool> GhostBarEnabled =
+        CVarDef.Create("trauma.ghost_bar_enabled", true, CVar.SERVER | CVar.REPLICATED);
+
+    /// <summary>
+    /// Whether to disable pathfinding, used for tests to not balloon memory usage and runtime.
+    /// </summary>
+    public static readonly CVarDef<bool> DisablePathfinding =
+        CVarDef.Create("trauma.disable_pathfinding", false, CVar.SERVER);
 
     #endregion
 
@@ -32,12 +41,6 @@ public sealed partial class TraumaCVars
     #endregion
 
     #region AudioMuffle
-
-    /// <summary>
-    /// Is audio muffle raycast behavior enabled?
-    /// </summary>
-    public static readonly CVarDef<bool> AudioMuffleRaycast =
-        CVarDef.Create("trauma.audio_muffle_raycast", true, CVar.SERVER | CVar.REPLICATED);
 
     /// <summary>
     /// Is audio muffle pathfinding behavior enabled?
@@ -64,6 +67,23 @@ public sealed partial class TraumaCVars
     /// </summary>
     public static readonly CVarDef<float> GunLagCompRange =
         CVarDef.Create("trauma.gun_lag_comp_range", 0.6f, CVar.SERVER);
+
+    #endregion
+
+    #region Softcrit
+
+    /// <summary>
+    /// Speed modifier for softcrit mobs, on top of being forced to crawl.
+    /// </summary>
+    public static readonly CVarDef<float> SoftCritMoveSpeed =
+        CVarDef.Create("trauma.softcrit_move_speed", 0.5f, CVar.SERVER | CVar.REPLICATED);
+
+    /// <summary>
+    /// Inhaled gas modifier for softcrit mobs, makes it harder to breathe.
+    /// This means you can't just crawl around forever if you aren't bleeding out.
+    /// </summary>
+    public static readonly CVarDef<float> SoftCritInhaleModifier =
+        CVarDef.Create("trauma.softcrit_inhale_modifier", 0.3f, CVar.SERVER | CVar.REPLICATED);
 
     #endregion
 }

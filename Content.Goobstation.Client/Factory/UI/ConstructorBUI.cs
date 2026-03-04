@@ -1,8 +1,3 @@
-// SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
-// SPDX-FileCopyrightText: 2025 deltanedas <39013340+deltanedas@users.noreply.github.com>
-// SPDX-FileCopyrightText: 2025 deltanedas <@deltanedas:kde.org>
-// SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
-//
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Client.Construction;
@@ -124,6 +119,9 @@ public sealed class ConstructorBUI : BoundUserInterface
         var isEmptyCategory = string.IsNullOrEmpty(category) || category == _forAllCategoryName;
 
         _recipes.Clear();
+        // <Trauma>
+        var availableGroups = _construction.AvailableConstructionGroups(user);
+        // </Trauma>
         foreach (var recipe in _proto.EnumeratePrototypes<ConstructionPrototype>())
         {
             if (recipe.Hide)
@@ -132,7 +130,12 @@ public sealed class ConstructorBUI : BoundUserInterface
             if (_whitelist.IsWhitelistFail(recipe.EntityWhitelist, user))
                 continue;
 
-            if (searching 
+            // <Trauma>
+            if (_construction.IsKnowledgeHolder(user) && !recipe.Groups.Keys.All(group => availableGroups.ContainsKey(group)))
+                continue;
+            // </Trauma>
+
+            if (searching
                 && recipe.Name != null
                 && !recipe.Name.ToLowerInvariant().Contains(search))
                 continue;

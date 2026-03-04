@@ -4,7 +4,7 @@ using Content.Shared.Alert;
 using Content.Shared.Damage;
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Systems;
-using Content.Goobstation.Maths.FixedPoint;
+using Content.Shared.FixedPoint;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Events;
 using Robust.Shared.GameStates;
@@ -338,9 +338,11 @@ public sealed partial class MobThresholdSystem : EntitySystem // Trauma - made p
     private void CheckThresholds(EntityUid target, MobStateComponent mobStateComponent,
         MobThresholdsComponent thresholdsComponent, DamageableComponent damageableComponent, EntityUid? origin = null)
     {
+        if (_net.IsClient) return; // Trauma - don't predict it, it doesnt get networked somehow and mispredicts badly from shitmed
+        var damage = CheckVitalDamage(target, damageableComponent); // Trauma - check vital damage instead of total
         foreach (var (threshold, mobState) in thresholdsComponent.Thresholds.Reverse())
         {
-            if (CheckVitalDamage(target, damageableComponent) < threshold) // Goob - check vital damage instead of total
+            if (damage < threshold) // Trauma - use damage from above
                 continue;
 
             TriggerThreshold(target, mobState, mobStateComponent, thresholdsComponent, origin);
@@ -370,7 +372,7 @@ public sealed partial class MobThresholdSystem : EntitySystem // Trauma - made p
         _mobStateSystem.UpdateMobState(target, mobState, origin);
     }
 
-    private void UpdateAlerts(EntityUid target, MobState currentMobState, MobThresholdsComponent? threshold = null,
+    public void UpdateAlerts(EntityUid target, MobState currentMobState, MobThresholdsComponent? threshold = null, // Trauma - made public
         DamageableComponent? damageable = null)
     {
         if (!Resolve(target, ref threshold, ref damageable))

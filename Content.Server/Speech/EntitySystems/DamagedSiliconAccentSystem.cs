@@ -2,7 +2,7 @@ using System.Text;
 using Content.Shared.Destructible; // Trauma - moved to shared
 using Content.Shared.Speech.Components;
 using Content.Shared.Damage.Components;
-using Content.Goobstation.Maths.FixedPoint;
+using Content.Shared.FixedPoint;
 using Content.Shared.Power.EntitySystems;
 using Content.Shared.PowerCell;
 using Content.Shared.Speech;
@@ -13,7 +13,7 @@ namespace Content.Server.Speech.EntitySystems;
 public sealed class DamagedSiliconAccentSystem : EntitySystem
 {
     [Dependency] private readonly IRobustRandom _random = default!;
-    [Dependency] private readonly PredictedBatterySystem _battery = default!;
+    [Dependency] private readonly SharedBatterySystem _battery = default!;
     [Dependency] private readonly PowerCellSystem _powerCell = default!;
     [Dependency] private readonly SharedDestructibleSystem _destructibleSystem = default!; // Trauma - use shared version
 

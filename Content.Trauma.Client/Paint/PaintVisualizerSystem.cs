@@ -1,4 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
+
 using Content.Shared.Clothing;
 using Content.Shared.Hands;
 using Content.Trauma.Shared.Paint;
@@ -64,11 +65,8 @@ public sealed class PaintVisualizerSystem : EntitySystem
         var spriteEnt = new Entity<SpriteComponent?>(ent, sprite);
         foreach (var (key, color) in ent.Comp.LayerColors)
         {
-            if (!sprite.LayerMapTryGet(key, out var index))
-                continue;
-
-            sprite.LayerSetShader(index, null, null);
-            _sprite.LayerSetColor(spriteEnt, index, color);
+            sprite.LayerSetShader(key, null, null);
+            _sprite.LayerSetColor(spriteEnt, key, color);
         }
     }
 
@@ -114,7 +112,7 @@ public sealed class PaintVisualizerSystem : EntitySystem
         var spriteEnt = new Entity<SpriteComponent?>(ent, sprite);
         foreach (var key in keys)
         {
-            if (!sprite.LayerMapTryGet(key, out var index))
+            if (!_sprite.LayerMapTryGet(spriteEnt, key, out var index, true))
                 continue;
 
             sprite.LayerSetShader(index, Shader, ShaderId);
