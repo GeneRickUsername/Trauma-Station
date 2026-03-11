@@ -16,36 +16,8 @@
   components:
   - type: EntityTableContainerFill
     containers:
-      entity_storage: !type:AllSelector
-        children:
-        - id: BookStrength
-        - id: BookAthletics
-        - id: BookToughness
-        - id: BookMelee
-        - id: BookShooting
-        - id: BookSurgery
-        - id: BookFirstaid
-        - id: BookMagicalLiteracy
-        - id: BookLiteracy
-        - id: BookJanitor
-        - id: BookTechnology
-        - id: BookLanguageTauCeti
-        - id: BookHandmade
-        - id: BookSurvival
-        - id: BookWeapons
-        - id: BookMaterials
-        - id: BookDoors
-        - id: BookAirlocks
-        - id: BookToys
-        - id: BookBananium
-        - id: BookBots
-        - id: BookFurniture
-        - id: BookInfrastructure
-        - id: BookElectronics
-        - id: BookWalls
-        - id: BookScience
-        - id: BookWindows
-        - id: BookSmokeables
+      entity_storage: !type:NestedSelector
+        tableId: RandomSkillbook
 
 - type: entityTable
   id: RandomSkillbook
@@ -83,25 +55,42 @@
 - type: entity
   parent: BaseItem
   id: BookSkillbook
+  abstract: true
   components:
   - type: Sprite
-    sprite: _Goobstation/Objects/Misc/cqc_manual.rsi
+    sprite: _Trauma/Objects/Misc/skillbooks.rsi
     layers:
-    - state: icon
+    - state: base
   - type: StaticPrice
     price: 20
+  - type: KnowledgeGrantOnUse
+    singleUse: false # crew books are for sharing
   - type: Tag
     tags:
     - Book
   - type: Item
     size: Small
 
+# TODO: These should just give you an xp gain buff rather than make you stronge bruh
+- type: entity
+  parent: BookSkillbook
+  id: BookSchematic
+  name: blueprint
+  abstract: true
+  components:
+  - type: Sprite
+    sprite: _Trauma/Objects/Misc/schematics.rsi
+
 - type: entity
   parent: BookSkillbook
   id: BookStrength
   name: old book
-  description: A small, black manual. There are drawn instructions of curl-ups and sit-ups.
+  suffix: strength
+  description: It contains drawn instructions of curl-ups and sit-ups.
   components:
+  - type: Sprite
+    layers:
+    - state: strength
   - type: KnowledgeGrantOnUse
     skills:
       StrengthKnowledge: 10
@@ -113,8 +102,12 @@
   parent: BookSkillbook
   id: BookAthletics
   name: old book
-  description: A small, black manual. There are drawn instructions of a man running.
+  suffix: athletics
+  description: It contains drawn instructions of a man running.
   components:
+  - type: Sprite
+    layers:
+    - state: athletics
   - type: KnowledgeGrantOnUse
     skills:
       AthleticsKnowledge: 10
@@ -126,8 +119,12 @@
   parent: BookSkillbook
   id: BookToughness
   name: old book
-  description: A small, black manual. There are drawn instructions of a man getting lashed.
+  suffix: toughness
+  description: It contains drawn instructions of a man getting lashed.
   components:
+  - type: Sprite
+    layers:
+    - state: toughness
   - type: KnowledgeGrantOnUse
     skills:
       ToughnessKnowledge: 10
@@ -139,8 +136,12 @@
   parent: BookSkillbook
   id: BookMelee
   name: old book
-  description: A small, black manual. There are drawn instructions of a man in fisticuffs.
+  suffix: melee
+  description: It contains drawn instructions of a man in fisticuffs.
   components:
+  - type: Sprite
+    layers:
+    - state: melee
   - type: KnowledgeGrantOnUse
     skills:
       MeleeKnowledge: 10
@@ -152,8 +153,12 @@
   parent: BookSkillbook
   id: BookShooting
   name: old book
-  description: A small, black manual. There are drawn instructions of a man firing his gun.
+  suffix: shooting
+  description: It contains drawn instructions of a man firing his gun.
   components:
+  - type: Sprite
+    layers:
+    - state: shooting
   - type: KnowledgeGrantOnUse
     skills:
       ShootingKnowledge: 10
@@ -165,8 +170,12 @@
   parent: BookSkillbook
   id: BookSurgery
   name: old book
-  description: A small, black manual. There are drawn instructions of a man operating on a body.
+  suffix: surgery
+  description: It contains drawn instructions of a man operating on a body.
   components:
+  - type: Sprite
+    layers:
+    - state: surgery
   - type: KnowledgeGrantOnUse
     skills:
       SurgeryKnowledge: 10
@@ -178,8 +187,12 @@
   parent: BookSkillbook
   id: BookFirstaid
   name: old book
-  description: A small, black manual. There are drawn instructions of a man applying bandages to himself.
+  suffix: first aid
+  description: It contains drawn instructions of a man applying bandages to himself.
   components:
+  - type: Sprite
+    layers:
+    - state: firstaid
   - type: KnowledgeGrantOnUse
     skills:
       SurgeryKnowledge: 10
@@ -191,8 +204,12 @@
   parent: BookSkillbook
   id: BookMagicalLiteracy
   name: old book
-  description: A small, black manual. There are drawn instructions of a man watching sigils pop out of the page.
+  suffix: magical literacy
+  description: It contains drawn instructions of a man watching sigils pop out of the page.
   components:
+  - type: Sprite
+    layers:
+    - state: magicalliteracy
   - type: KnowledgeGrantOnUse
     skills:
       MagicalLiteracyKnowledge: 10
@@ -204,8 +221,12 @@
   parent: BookSkillbook
   id: BookLiteracy
   name: old book
-  description: A small, black manual. Its a picture book.
+  suffix: literacy
+  description: Its a picture book.
   components:
+  - type: Sprite
+    layers:
+    - state: literacy
   - type: KnowledgeGrantOnUse
     skills:
       LiteracyKnowledge: 26
@@ -217,8 +238,12 @@
   parent: BookSkillbook
   id: BookJanitor
   name: old book
-  description: A small, black manual. Its a picture book.
+  suffix: janitor
+  description: Its a picture book.
   components:
+  - type: Sprite
+    layers:
+    - state: janitor
   - type: KnowledgeGrantOnUse
     skills:
       JanitorKnowledge: 26
@@ -230,8 +255,12 @@
   parent: BookSkillbook
   id: BookTechnology
   name: old book
-  description: A small, black manual. Its a book about the basics of technology.
+  suffix: technology
+  description: Its a book about the basics of technology.
   components:
+  - type: Sprite
+    layers:
+    - state: fabrication
   - type: KnowledgeGrantOnUse
     skills:
       TechnologyKnowledge: 26
@@ -243,8 +272,12 @@
   parent: BookSkillbook
   id: BookThrowing
   name: old book
-  description: A small, black manual. Its a picture book.
+  suffix: throwing
+  description: Its a picture book.
   components:
+  - type: Sprite
+    layers:
+    - state: throwing
   - type: KnowledgeGrantOnUse
     skills:
       ThrowingKnowledge: 26
@@ -256,21 +289,29 @@
   parent: BookSkillbook
   id: BookLanguageTauCeti
   name: old book
-  description: A small, black manual. Its a book on the basics of the Tau Ceti language.
+  suffix: Tau Ceti
+  description: Its a book on the basics of the Tau Ceti language.
   components:
+  - type: Sprite
+    layers:
+    - state: TauCeti
   - type: KnowledgeGrantOnUse
     skills:
-      language-TauCetiBasic: 26
+      LanguageTauCetiBasic: 26
     experience:
-      language-TauCetiBasic: 1
+      LanguageTauCetiBasic: 1
     doAfter: 2
 
 - type: entity
   parent: BookSkillbook
   id: BookHandmade
   name: old book
-  description: A small, black manual. Its a book on the basics of handmade things.
+  suffix: handmade
+  description: Its a book on the basics of handmade things.
   components:
+  - type: Sprite
+    layers:
+    - state: fabrication
   - type: KnowledgeGrantOnUse
     skills:
       HandmadeKnowledge: 26
@@ -282,8 +323,12 @@
   parent: BookSkillbook
   id: BookSurvival
   name: old book
-  description: A small, black manual. Its a book on the basics of survival.
+  suffix: survival
+  description: Its a book on the basics of survival.
   components:
+  - type: Sprite
+    layers:
+    - state: fabrication
   - type: KnowledgeGrantOnUse
     skills:
       SurvivalKnowledge: 26
@@ -295,8 +340,12 @@
   parent: BookSkillbook
   id: BookWeapons
   name: old book
-  description: A small, black manual. Its a book on the basics of weapons.
+  suffix: weapons
+  description: Its a book on the basics of weapons.
   components:
+  - type: Sprite
+    layers:
+    - state: fabrication
   - type: KnowledgeGrantOnUse
     skills:
       WeaponsKnowledge: 26
@@ -305,10 +354,10 @@
     doAfter: 2
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookMaterials
-  name: old book
-  description: A small, black manual. Its a book on the basics of materials.
+  suffix: materials
+  description: A blueprint with designs for materials.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -316,12 +365,15 @@
     experience:
       MaterialsKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: materials
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookDoors
-  name: old book
-  description: A small, black manual. Its a book on the basics of doors.
+  suffix: doors
+  description: A blueprint with designs for doors.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -329,12 +381,15 @@
     experience:
       DoorsKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: doors
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookAirlocks
-  name: old book
-  description: A small, black manual. Its a book on the basics of airlocks.
+  suffix: airlocks
+  description: A blueprint with designs for airlocks.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -342,12 +397,15 @@
     experience:
       AirlocksKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: airlocks
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookToys
-  name: old book
-  description: A small, black manual. Its a book on the basics of toys.
+  suffix: toys
+  description: A blueprint with designs for toys.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -355,12 +413,15 @@
     experience:
       ToysKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: toys
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookBananium
-  name: old book
-  description: A small, black manual. Its a book on the basics of bananium.
+  suffix: bananium
+  description: A blueprint with designs for bananium structures.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -368,12 +429,15 @@
     experience:
       BananiumKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: bananium
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookBots
-  name: old book
-  description: A small, black manual. Its a book on the basics of bots.
+  suffix: bots
+  description: A blueprint with designs for robots.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -381,12 +445,15 @@
     experience:
       BotsKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: bots
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookFurniture
-  name: old book
-  description: A small, black manual. Its a book on the basics of furniture.
+  suffix: furniture
+  description: A blueprint with designs for furniture.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -394,12 +461,15 @@
     experience:
       FurnitureKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: furniture
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookInfrastructure
-  name: old book
-  description: A small, black manual. Its a book on the basics of infrastructure.
+  suffix: infrastructure
+  description: A blueprint with designs for various pieces of infrastructure.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -407,12 +477,15 @@
     experience:
       InfrastructureKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: infrastructure
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookElectronics
-  name: old book
-  description: A small, black manual. Its a book on the basics of electronics.
+  suffix: electronics
+  description: A blueprint with designs for various electronics.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -420,12 +493,15 @@
     experience:
       ElectronicsKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: electronics
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookWalls
-  name: old book
-  description: A small, black manual. Its a book on the basics of walls.
+  suffix: walls
+  description: A blueprint with designs for walls.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -433,13 +509,20 @@
     experience:
       WallsKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: walls
 
 - type: entity
   parent: BookSkillbook
   id: BookScience
   name: old book
-  description: A small, black manual. Its a book on the basics of science.
+  suffix: science
+  description: It's a book on the basics of science.
   components:
+  - type: Sprite
+    layers:
+    - state: fabrication
   - type: KnowledgeGrantOnUse
     skills:
       ScienceKnowledge: 26
@@ -448,10 +531,10 @@
     doAfter: 2
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookWindows
-  name: old book
-  description: A small, black manual. Its a book on the basics of windows.
+  suffix: windows
+  description: A blueprint with designs for windows.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -459,12 +542,15 @@
     experience:
       WindowsKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: windows
 
 - type: entity
-  parent: BookSkillbook
+  parent: BookSchematic
   id: BookSmokeables
-  name: old book
-  description: A small, black manual. Its got instructions on how to make a blunt inside.
+  suffix: smokeables
+  description: A blueprint with designs for blunts.
   components:
   - type: KnowledgeGrantOnUse
     skills:
@@ -472,3 +558,6 @@
     experience:
       SmokeablesKnowledge: 1
     doAfter: 2
+  - type: Sprite
+    layers:
+    - state: smokeables
