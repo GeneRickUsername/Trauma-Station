@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Shared._EinsteinEngines.Language.Systems;
+using Content.Trauma.Shared.Language.Systems;
 using Content.Shared.Body;
 using Content.Shared.Mind.Components;
 using Content.Shared.Random.Helpers;
@@ -35,6 +35,10 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     [Dependency] protected readonly ISharedPlayerManager _player = default!;
     [Dependency] private readonly SharedContainerSystem _container = default!;
     [Dependency] private readonly SharedLanguageSystem _language = default!;
+    [Dependency] private readonly EntityQuery<AwakeMobComponent> _awakeQuery = default!;
+    [Dependency] private readonly EntityQuery<KnowledgeComponent> _query = default!;
+    [Dependency] private readonly EntityQuery<KnowledgeContainerComponent> _containerQuery = default!;
+    [Dependency] private readonly EntityQuery<KnowledgeHolderComponent> _holderQuery = default!;
 
     /// <summary>
     /// Every knowledge prototype and its data.
@@ -48,11 +52,6 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         "expert",
         "master"
     ];
-
-    private EntityQuery<AwakeMobComponent> _awakeQuery;
-    private EntityQuery<KnowledgeComponent> _query;
-    private EntityQuery<KnowledgeContainerComponent> _containerQuery;
-    private EntityQuery<KnowledgeHolderComponent> _holderQuery;
 
     private bool _skillGain;
     private TimeSpan _nextUpdate;
@@ -80,13 +79,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
 
         Subs.CVar(_cfg, TraumaCVars.SkillGain, x => _skillGain = x, true);
 
-        _awakeQuery = GetEntityQuery<AwakeMobComponent>();
-        _query = GetEntityQuery<KnowledgeComponent>();
-        _containerQuery = GetEntityQuery<KnowledgeContainerComponent>();
-        _holderQuery = GetEntityQuery<KnowledgeHolderComponent>();
-
         LoadSkillPrototypes();
-        LoadProfilePrototypes();
     }
 
     public override void Update(float frameTime)
@@ -206,8 +199,6 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     {
         if (args.WasModified<EntityPrototype>())
             LoadSkillPrototypes();
-        if (args.WasModified<KnowledgeProfilePrototype>())
-            LoadProfilePrototypes();
     }
 
     private void LoadSkillPrototypes()
@@ -266,10 +257,10 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             return;
 
         var now = _timing.CurTime;
-        if (now < ent.Comp.TimeToNextExperience || ent.Comp.Level >= Math.Min(limit, 100))
+        if (now < ent.Comp.TimeToNextExperience || ent.Comp.LearnedLevel >= Math.Min(limit, 100))
             return;
 
-        ent.Comp.TimeToNextExperience = now + TimeSpan.FromSeconds(5);
+        ent.Comp.TimeToNextExperience = now + ent.Comp.TimeBetweenExperience;
         ent.Comp.Experience += added + ent.Comp.BonusExperience;
         Dirty(ent);
 
@@ -281,32 +272,32 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// </summary>
     public bool RollForLevelUp(Entity<KnowledgeComponent> ent, EntityUid target)
     {
-        var getMastery = GetMastery(ent.Comp);
+        var getMastery = GetMastery(ent.Comp.NetLevel);
         (int, bool) rollResult = (0, false);
 
         // If we don't have enough experience or level is max, return.
-        if (ent.Comp.Experience < ent.Comp.ExperienceCost || ent.Comp.Level >= 100)
+        if (ent.Comp.Experience < ent.Comp.ExperienceCost || ent.Comp.LearnedLevel >= 100)
             return false;
 
         // This should roll as many times as experience cached experience.
         int timesToRoll = ent.Comp.Experience / ent.Comp.ExperienceCost;
         ent.Comp.Experience -= ent.Comp.ExperienceCost * timesToRoll;
         (int, bool) rollInnard;
-        for (int i = 0; i < timesToRoll && ent.Comp.Level < 100; i++)
+        for (int i = 0; i < timesToRoll && ent.Comp.LearnedLevel < 100; i++)
         {
             rollInnard = RollPenetrating(ent);
             rollResult = (rollInnard.Item1, rollInnard.Item2 || rollResult.Item2);
-            ent.Comp.Level += rollResult.Item1;
+            ent.Comp.LearnedLevel += rollResult.Item1;
         }
 
-        if (ent.Comp.Level > 100) // Ensures Level doesn't go above 100.
-            ent.Comp.Level = 100;
+        if (ent.Comp.LearnedLevel > 100) // Ensures Level doesn't go above 100.
+            ent.Comp.LearnedLevel = 100;
 
         // Controls client popup whatnot when you level up.
         if (rollResult.Item2)
             SkillPopup(Loc.GetString("knowledge-level-epiphany", ("knowledge", Name(ent))), target);
 
-        if (getMastery != GetMastery(ent.Comp.Level) && !rollResult.Item2)
+        if (getMastery != GetMastery(ent.Comp.NetLevel) && !rollResult.Item2)
             SkillPopup(Loc.GetString("knowledge-level-up-popup", ("knowledge", Name(ent)), ("mastery", GetMasteryString(ent).ToLower())), target);
         else if (!rollResult.Item2)
             SkillPopup(Loc.GetString("knowledge-level-more", ("knowledge", Name(ent))), target);
@@ -316,10 +307,10 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
 
     public (ProtoId<KnowledgeCategoryPrototype> Category, KnowledgeInfo Info) GetKnowledgeInfo(Entity<KnowledgeComponent> ent)
     {
-        var knowledgeInfo = new KnowledgeInfo("", "", ent.Comp.Color, ent.Comp.Sprite);
+        var knowledgeInfo = new KnowledgeInfo("", "", ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost);
         // TODO: make this an event raised on ent
         var name = Name(ent);
-        knowledgeInfo.Description = Loc.GetString("knowledge-info-description", ("level", ent.Comp.Level), ("mastery", GetMasteryString(ent)), ("exp", ent.Comp.Experience));
+        knowledgeInfo.Description = Loc.GetString("knowledge-info-description", ("level", ent.Comp.NetLevel), ("mastery", GetMasteryString(ent)), ("exp", ent.Comp.Experience));
         if (_langQuery.TryComp(ent, out var languageKnowledge))
         {
             var locKey = (languageKnowledge.Speaks, languageKnowledge.Understands) switch
@@ -354,9 +345,9 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     {
         if (GetKnowledge(ent, id) is { } existing)
         {
-            if (existing.Comp.Level < level)
+            if (existing.Comp.LearnedLevel < level)
             {
-                existing.Comp.Level = level;
+                existing.Comp.LearnedLevel = level;
                 Dirty(existing, existing.Comp);
             }
             return existing;
@@ -370,7 +361,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         }
 
         var comp = _query.Comp(unit);
-        comp.Level = level;
+        comp.LearnedLevel = level;
         Dirty(unit, comp);
 
         ent.Comp.KnowledgeDict[id] = unit;
@@ -388,6 +379,22 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             SkillPopup(msg, holder);
         }
         return (unit, comp);
+    }
+
+    /// <summary>
+    /// Raises a skill's mastery level by some number.
+    /// Adds the skill if it's missing.
+    /// </summary>
+    public Entity<KnowledgeComponent>? RaiseMastery(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int mastery, bool popup = true)
+    {
+        if (EnsureKnowledge(ent, id, popup: popup) is not { } unit)
+            return null;
+
+        mastery += GetMastery(unit.Comp.LearnedLevel);
+        var level = GetInverseMastery(mastery);
+        unit.Comp.LearnedLevel = Math.Min(level, 100);
+        Dirty(unit);
+        return unit;
     }
 
     /// <summary>
@@ -423,7 +430,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         DirtyField(ent, ent.Comp, nameof(KnowledgeContainerComponent.KnowledgeDict));
 
         var ev = new KnowledgeRemovedEvent(ent, holder);
-        RaiseLocalEvent(ref ev);
+        RaiseLocalEvent(unit, ref ev);
 
         PredictedQueueDel(unit);
 
@@ -511,13 +518,6 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     public bool IsHolder(EntityUid target)
         => _holderQuery.HasComp(target);
 
-    /// <summary>
-    /// Returns true if that knowledge can be removed, by taking
-    /// into account its memory level and knowledge category.
-    /// </summary>
-    public bool CanRemoveKnowledge(KnowledgeComponent comp, ProtoId<KnowledgeCategoryPrototype> category, int level)
-        => !comp.Unremoveable && comp.Category == category && comp.Level <= level;
-
     public override void ClearKnowledge(EntityUid target, bool deleteAll)
     {
         if (GetContainer(target) is not { } ent)
@@ -546,10 +546,14 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             return (uid, comp);
 
         // otherwise try use the cached brain
-        if (_holderQuery.CompOrNull(uid)?.KnowledgeEntity is not { } ent || !ent.IsValid())
+        if (_holderQuery.CompOrNull(uid)?.KnowledgeEntity is not { } ent || TerminatingOrDeleted(ent))
             return null;
 
-        return (ent, _containerQuery.Comp(ent));
+        if (_containerQuery.TryComp(ent, out var container))
+            return (ent, container);
+
+        Log.Error($"Knowledge entity {ToPrettyString(ent)} of holder {ToPrettyString(uid)} did not have KnowledgeContainerComponent!");
+        return null;
     }
 
     /// <summary>
@@ -606,18 +610,15 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     }
 
     public string GetMasteryString(Entity<KnowledgeComponent> ent)
-        => GetMasteryString(GetMastery(ent.Comp.Level));
+        => GetMasteryString(GetMastery(ent.Comp.NetLevel));
 
-    /// <summary>
-    /// Get the name for a given mastery number.
-    /// Throws if it is out of bounds.
-    /// </summary>
-    public string GetMasteryString(int mastery)
-        => Loc.GetString("knowledge-mastery-" + MasteryNames[mastery]);
+    public override string GetMasteryString(int mastery)
+        => Loc.GetString("knowledge-mastery-" + MasteryNames[Math.Clamp(mastery, 0, 5)]);
 
     public override int GetMastery(int level)
         => level switch
         {
+            >= 100 => 6, // 6th mastery doesn't exist, but we can use this to say max level
             >= 88 => 5,
             >= 76 => 4,
             >= 51 => 3,
@@ -635,12 +636,13 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// </summary>
     public int GetLevel(EntityUid uid)
         => _query.TryComp(uid, out var comp)
-            ? Math.Min(comp.Level + comp.TemporaryLevel, 100)
+            ? Math.Clamp(comp.NetLevel, 0, 100)
             : 0;
 
     public override int GetInverseMastery(int mastery)
         => mastery switch
         {
+            >= 6 => 100, // 6th mastery doesn't exist, but we can use this to say max level
             >= 5 => 88,
             >= 4 => 76,
             >= 3 => 51,
@@ -663,7 +665,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     }
 
     public override float SharpCurve(Entity<KnowledgeComponent> knowledge, int offset = 0, float inverseScale = 100.0f)
-        => SharpCurve(knowledge.Comp.Level + knowledge.Comp.TemporaryLevel, offset, inverseScale);
+        => SharpCurve(knowledge.Comp.NetLevel, offset, inverseScale);
 
     public float SharpCurve(int level, int offset = 0, float inverseScale = 100f)
     {
@@ -703,15 +705,16 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         return ent.Comp.Container;
     }
 
-    protected Entity<KnowledgeContainerComponent> EnsureKnowledgeContainer(Entity<KnowledgeHolderComponent> ent)
+    public Entity<KnowledgeContainerComponent> EnsureKnowledgeContainer(EntityUid uid)
     {
-        if (GetContainer(ent) is { } brain)
+        EnsureComp<KnowledgeHolderComponent>(uid);
+        if (GetContainer(uid) is { } brain)
             return brain;
 
         // if there's no brain store knowledge on the mob itself
-        var comp = EnsureComp<KnowledgeContainerComponent>(ent);
-        LinkContainer(ent, (ent, comp));
-        return (ent, comp);
+        var comp = EnsureComp<KnowledgeContainerComponent>(uid);
+        LinkContainer(uid, (uid, comp));
+        return (uid, comp);
     }
 }
 
