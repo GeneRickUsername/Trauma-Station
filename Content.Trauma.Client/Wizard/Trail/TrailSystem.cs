@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Linq;
-using System.Numerics;
 using Content.Shared.Coordinates;
 using Content.Trauma.Common.Wizard.Projectile;
 using Content.Trauma.Shared.Wizard.TimeStop;
@@ -11,7 +10,6 @@ using Robust.Client.Player;
 using Robust.Shared.Animations;
 using Robust.Shared.Map;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Spawners;
 using Robust.Shared.Timing;

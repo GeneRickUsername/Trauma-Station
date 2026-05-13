@@ -15,9 +15,7 @@ using Content.Shared.Verbs;
 using Content.Trauma.Shared.Heretic.Components.PathSpecific.Lock;
 using Content.Trauma.Shared.Heretic.Rituals;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Network;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Trauma.Shared.Heretic.Systems.PathSpecific.Lock;
@@ -69,7 +67,8 @@ public abstract class SharedEldritchIdCardSystem : EntitySystem
             return;
         }
 
-        if (!HasComp<DoorComponent>(target) || !TryComp(target, out PhysicsComponent? body) ||
+        if (!TryComp(target, out DoorComponent? door) || !door.BumpOpen && !door.ClickOpen ||
+            !TryComp(target, out PhysicsComponent? body) ||
             (body.CollisionLayer & LockPortalSystem.LockPortalMask) == 0)
             return;
 

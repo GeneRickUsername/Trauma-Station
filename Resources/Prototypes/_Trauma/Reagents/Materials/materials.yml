@@ -35,10 +35,10 @@
   price: 0
 
 - type: material
-  id: Bone
-  stackEntity: MaterialBones1
-  name: materials-gunpowder
-  unit: materials-unit-piece
-  icon: { sprite: _Trauma/Objects/Materials/materials.rsi, state: bones }
-  color: "#A9A9A9"
+  id: DrillHead
+  stackEntity: DrillHead
+  name: materials-drillhead
+  unit: materials-unit-use
+  icon: { sprite: _Trauma/Objects/Tools/drillhead.rsi, state: icon }
+  color: "#000000"
   price: 0

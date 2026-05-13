@@ -14,9 +14,7 @@ using Content.Trauma.Server.Decals;
 using Content.Trauma.Shared.Footprints;
 using Robust.Shared.Map;
 using Robust.Shared.Map.Components;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Configuration;
-using System.Numerics;
 
 namespace Content.Trauma.Server.Footprints;
 
@@ -153,7 +151,7 @@ public sealed class FootprintSystem : EntitySystem
         if (!_decal.TryAddDecal(id, coords, out var decal, color, rot, zIndex: 1, cleanable: true))
             return; // failed to add it somehow...
 
-        _despawn.QueueDespawn(grid, decal);
+        _despawn.QueueDespawn(decal);
 
         // consume the step, it got placed
         ent.Comp.Steps = step;

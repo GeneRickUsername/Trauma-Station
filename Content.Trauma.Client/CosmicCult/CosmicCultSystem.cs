@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Numerics;
 using Content.Trauma.Shared.CosmicCult;
 using Content.Trauma.Shared.CosmicCult.Components;
 using Content.Trauma.Shared.CosmicCult.Components.Examine;
@@ -13,7 +12,6 @@ using Content.Shared.StatusIcon.Components;
 using Robust.Client.Audio;
 using Robust.Client.GameObjects;
 using Robust.Shared.Audio;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using Timer = Robust.Shared.Timing.Timer;
 

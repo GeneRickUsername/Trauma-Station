@@ -29,7 +29,6 @@ using Content.Shared.Whitelist;
 using Content.Trauma.Common.Carrying;
 using Robust.Shared.Containers;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 
 namespace Content.Goobstation.Server.CloneProjector;
@@ -154,16 +153,17 @@ public sealed partial class CloneProjectorSystem : SharedCloneProjectorSystem
 
     private void OnUnequipped(Entity<CloneProjectorComponent> projector, ref GotUnequippedEvent args)
     {
-        _actions.RemoveProvidedActions(args.Equipee, projector);
+        var target = args.EquipTarget;
+        _actions.RemoveProvidedActions(target, projector);
         TryInsertClone(projector);
 
         var popup = Loc.GetString(projector.Comp.UnequippedMessage);
-        _popup.PopupEntity(popup, args.Equipee, args.Equipee);
+        _popup.PopupEntity(popup, target, target);
 
         if (projector.Comp.DoStun)
-            _stun.TryUpdateParalyzeDuration(args.Equipee, projector.Comp.StunDuration);
+            _stun.TryUpdateParalyzeDuration(target, projector.Comp.StunDuration);
 
-        RemComp<WearingCloneProjectorComponent>(args.Equipee);
+        RemComp<WearingCloneProjectorComponent>(target);
     }
 
 
@@ -236,8 +236,8 @@ public sealed partial class CloneProjectorSystem : SharedCloneProjectorSystem
             _container.TryRemoveFromContainer(oldClone);
             CleanClone(oldClone, true);
 
-            if (_mind.TryGetMind(oldClone, out var id, out _) && !removeMind)
-                _mind.TransferTo(id, clone);
+            if (!removeMind && _mind.TryGetMind(oldClone, out var mindId, out var mind))
+                _mind.TransferTo(mindId, clone, mind: mind);
 
             Del(oldClone);
         }

@@ -3,6 +3,8 @@
 using Content.Goobstation.Common.Religion;
 using Content.Medical.Common.Damage;
 using Content.Medical.Common.Targeting;
+using Content.Medical.Shared.Traumas;
+using Content.Medical.Shared.Wounds;
 using Content.Shared.Actions;
 using Content.Shared.Actions.Events;
 using Content.Shared.Body;
@@ -44,9 +46,7 @@ using Content.Trauma.Shared.Heretic.Systems.PathSpecific.Cosmos;
 using Content.Trauma.Shared.Heretic.Systems.PathSpecific.Void;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
-using Robust.Shared.Network;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
@@ -55,9 +55,10 @@ namespace Content.Trauma.Shared.Heretic.Systems.Abilities;
 public abstract partial class SharedHereticAbilitySystem : EntitySystem
 {
     [Dependency] private readonly IMapManager _mapMan = default!;
-    [Dependency] private readonly ITileDefinitionManager _tileDefinitionManager = default!;
     [Dependency] private readonly INetManager _net = default!;
 
+    [Dependency] protected readonly IPrototypeManager Proto = default!;
+    [Dependency] protected readonly ITileDefinitionManager Tile = default!;
     [Dependency] protected readonly IRobustRandom Random = default!;
     [Dependency] protected readonly IGameTiming Timing = default!;
     [Dependency] protected readonly SharedDoAfterSystem DoAfter = default!;
@@ -90,12 +91,13 @@ public abstract partial class SharedHereticAbilitySystem : EntitySystem
     [Dependency] private readonly SharedEmpSystem _emp = default!;
     [Dependency] private readonly SharedMindSystem _mind = default!;
     [Dependency] private readonly TagSystem _tag = default!;
-    [Dependency] private readonly MobStateSystem _mobState = default!;
     [Dependency] private readonly SharedCuffableSystem _cuffs = default!;
     [Dependency] private readonly SharedEnsnareableSystem _snare = default!;
     [Dependency] private readonly SharedMansusGraspSystem _grasp = default!;
     [Dependency] private readonly TouchSpellSystem _touchSpell = default!;
-    [Dependency] private readonly IPrototypeManager _proto = default!;
+    [Dependency] private readonly TraumaSystem _trauma = default!;
+    [Dependency] private readonly SharedGhoulSystem _ghoul = default!;
+
     [Dependency] private readonly EntityQuery<GhoulComponent> _ghoulQuery = default!;
 
     public static readonly DamageSpecifier AllDamage = new()
@@ -144,9 +146,12 @@ public abstract partial class SharedHereticAbilitySystem : EntitySystem
     private void OnBeforeTouchSpell(Entity<MindContainerComponent> ent, ref BeforeTouchSpellAbilityUsedEvent args)
     {
         if (!TryUseAbility(args.Args, false))
+        {
+            args.Cancelled = true;
             return;
+        }
 
-        if (!_proto.Index(args.Args.TouchSpell).HasComponent<MansusGraspComponent>())
+        if (!Proto.Index(args.Args.TouchSpell).HasComponent<MansusGraspComponent>())
             return;
 
         if (!Heretic.TryGetHereticComponent(ent.AsNullable(), out var heretic, out var mind))
@@ -161,7 +166,7 @@ public abstract partial class SharedHereticAbilitySystem : EntitySystem
             return ent.Comp.MansusGraspProto;
 
         var pathSpecific = ent.Comp.MansusGraspProto + ent.Comp.CurrentPath;
-        return _proto.HasIndex(pathSpecific) ? pathSpecific : ent.Comp.MansusGraspProto;
+        return Proto.HasIndex(pathSpecific) ? pathSpecific : ent.Comp.MansusGraspProto;
     }
 
     private void OnAttempt(Entity<HereticActionComponent> ent, ref ActionAttemptEvent args)
@@ -287,17 +292,19 @@ public abstract partial class SharedHereticAbilitySystem : EntitySystem
     /// <param name="toHeal">how much to heal, null = full heal</param>
     /// <param name="bloodHeal">how much to restore blood, null = fully restore</param>
     /// <param name="bleedHeal">how much to heal bleeding, null = full heal</param>
+    /// <param name="boneHeal">how much to heal bone damage, null = full heal</param>
     public void IHateWoundMed(Entity<DamageableComponent?, BodyComponent?> uid,
         DamageSpecifier? toHeal,
         FixedPoint2? bloodHeal,
-        FixedPoint2? bleedHeal)
+        FixedPoint2? bleedHeal,
+        FixedPoint2? boneHeal)
     {
         if (!Resolve(uid, ref uid.Comp1, false))
             return;
 
         if (toHeal != null)
         {
-            _dmg.TryChangeDamage((uid, uid.Comp1),
+            _dmg.ChangeDamage((uid, uid.Comp1),
                 toHeal,
                 true,
                 false,
@@ -311,6 +318,22 @@ public abstract partial class SharedHereticAbilitySystem : EntitySystem
             _mobThreshold.SetAllowRevives(uid, true, thresholds);
             _dmg.SetAllDamage((uid, uid.Comp1), 0);
             _mobThreshold.SetAllowRevives(uid, false, thresholds);
+        }
+
+        if (boneHeal == null || boneHeal != FixedPoint2.Zero && Resolve(uid, ref uid.Comp2, false))
+        {
+            var parts = _body.GetOrgans<WoundableComponent>((uid, uid.Comp2));
+
+            foreach (var part in parts)
+            {
+                if (_trauma.GetBone(part.AsNullable()) is not {} bone)
+                    continue;
+
+                if (boneHeal is { } heal)
+                    _trauma.ApplyDamageToBone(bone, heal, bone.Comp);
+                else
+                    _trauma.SetBoneIntegrity(bone, bone.Comp.BoneIntegrity, bone.Comp);
+            }
         }
 
         // im too lazy to update some unused shit to reduce pain by an arbitrary number (makes no fucking sense)

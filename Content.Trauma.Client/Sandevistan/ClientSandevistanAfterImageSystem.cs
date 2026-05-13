@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Numerics;
 using Content.Goobstation.Shared.Sandevistan;
 using Content.Shared.Tag;
 using Robust.Client.GameObjects;
-using Robust.Shared.Prototypes;
 using DrawDepthEnum = Content.Shared.DrawDepth.DrawDepth;
 
 namespace Content.Trauma.Client.Sandevistan;

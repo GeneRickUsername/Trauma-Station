@@ -4,10 +4,8 @@ using Content.Server.Antag;
 using Content.Server.Antag.Components;
 using Content.Shared.GameTicking;
 using Content.Shared.Roles;
-using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 
-namespace Content.Goobstation.Server.PendingAntag;
+namespace Content.Trauma.Server.PendingAntag;
 
 public sealed class PendingAntagSystem : EntitySystem
 {

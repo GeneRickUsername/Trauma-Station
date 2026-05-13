@@ -151,17 +151,31 @@ public sealed partial class TackleSystem : EntitySystem
         if (_standing.IsDown(target))
             return false;
 
-        var ourMod = CalculateModifier(user) + speed + mod.SkillMod;
+        var ourMod = CalculateModifier(user, out _) + speed + mod.SkillMod;
+        if (float.IsNaN(ourMod)) // curse of IEEE-754!
+        {
+            Log.Error($"Found NaN modifier for user {ToPrettyString(user)} with speed {speed} and mod {mod.SkillMod}!");
+            return false;
+        }
 
         var stamEv = new BeforeStaminaDamageEvent(1f);
         RaiseLocalEvent(target, ref stamEv);
         var stamResistMod = stamEv.Cancelled ? 1f : 1f - stamEv.Value;
 
-        var theirMod = CalculateModifier(target) + stamResistMod * mod.StamResistModifier;
+        var theirMod = CalculateModifier(target, out var canTackle) + stamResistMod * mod.StamResistModifier;
+
+        if (!canTackle)
+            return true;
+
+        if (float.IsNaN(theirMod)) // curse of IEEE-754!
+        {
+            Log.Error($"Found NaN modifier for target {ToPrettyString(target)} with stamres mods {stamResistMod} and {mod.StamResistModifier}!");
+            return false;
+        }
 
         const float a = 1.1f;
 
-        var result = MathF.Pow(a, ourMod) / MathF.Pow(a, theirMod);
+        var result = MathF.Pow(a, ourMod - theirMod);
         result = Math.Clamp(result, 0.2f, 5f);
         var invResult = 1f / result;
 
@@ -190,10 +204,11 @@ public sealed partial class TackleSystem : EntitySystem
         return true;
     }
 
-    private float CalculateModifier(EntityUid uid)
+    private float CalculateModifier(EntityUid uid, out bool canTackle)
     {
         var ev = new CalculateTackleModifierEvent(0f);
         RaiseLocalEvent(uid, ref ev);
+        canTackle = ev.CanTackle;
         return ev.Modifier;
     }
 

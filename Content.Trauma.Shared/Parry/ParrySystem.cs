@@ -4,7 +4,6 @@ using Content.Trauma.Shared.Wizard.Projectiles;
 using Content.Shared.Random.Helpers;
 using Robust.Shared.Timing;
 using System.Diagnostics.CodeAnalysis;
-using System.Numerics;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
 using Content.Shared.Hands;
@@ -21,7 +20,6 @@ using Content.Trauma.Shared.Knowledge.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Player;
 using Robust.Shared.Random;
 

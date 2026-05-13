@@ -20,14 +20,14 @@ public sealed class StationAiVisionSystem : EntitySystem
     [Dependency] private readonly SharedTransformSystem _xforms = default!;
     [Dependency] private readonly SharedPowerReceiverSystem _power = default!;
 
+    [Dependency] private readonly EntityQuery<OccluderComponent> _occluderQuery = default!;
+
     private SeedJob _seedJob;
     private ViewJob _job;
 
     private readonly HashSet<Entity<OccluderComponent>> _occluders = new();
     private readonly HashSet<Entity<StationAiVisionComponent>> _seeds = new();
     private readonly HashSet<Vector2i> _viewportTiles = new();
-
-    private EntityQuery<OccluderComponent> _occluderQuery;
 
     // Dummy set
     private readonly HashSet<Vector2i> _singleTiles = new();
@@ -44,8 +44,6 @@ public sealed class StationAiVisionSystem : EntitySystem
     public override void Initialize()
     {
         base.Initialize();
-
-        _occluderQuery = GetEntityQuery<OccluderComponent>();
 
         _seedJob = new()
         {
@@ -84,7 +82,7 @@ public sealed class StationAiVisionSystem : EntitySystem
             if (!seed.Comp.Enabled)
                 continue;
 
-            if (seed.Comp.NeedsPower && !_power.IsPowered(seed.Owner))
+            if (seed.Comp.NeedsPower && !Paused(seed.Owner) && !_power.IsPowered(seed.Owner)) // Trauma - ignore power check if paused
                 continue;
 
             if (seed.Comp.NeedsAnchoring && !Transform(seed.Owner).Anchored)
@@ -171,7 +169,7 @@ public sealed class StationAiVisionSystem : EntitySystem
             if (!seed.Comp.Enabled)
                 continue;
 
-            if (seed.Comp.NeedsPower && !_power.IsPowered(seed.Owner))
+            if (seed.Comp.NeedsPower && !Paused(seed.Owner) && !_power.IsPowered(seed.Owner)) // Trauma - ignore power check if paused
                 continue;
 
             if (seed.Comp.NeedsAnchoring && !Transform(seed.Owner).Anchored)

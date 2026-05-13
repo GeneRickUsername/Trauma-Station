@@ -23,11 +23,8 @@ using Content.Shared.Verbs;
 using Content.Shared.Weapons.Melee.Events;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
-using Robust.Shared.Serialization;
 using Robust.Shared.Timing;
 
 namespace Content.Goobstation.Shared.ReverseBearTrap;
@@ -71,7 +68,7 @@ public sealed partial class ReverseBearTrapSystem : EntitySystem
         if (args.Slot != "head" || _timing.ApplyingState)
             return;
 
-        ArmTrap(uid, trap, args.Equipee, args.Equipee);
+        ArmTrap(uid, trap, args.EquipTarget, args.EquipTarget);
     }
 
     private void OnMeleeHit(EntityUid uid, ReverseBearTrapComponent trap, MeleeHitEvent args)

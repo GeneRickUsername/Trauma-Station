@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Numerics;
 using Content.Goobstation.Common.Bingle;
 using Content.Goobstation.Shared.Bingle;
 using Content.Server.Polymorph.Components;
@@ -13,7 +12,6 @@ using Content.Shared.Actions;
 using Content.Shared.Polymorph;
 using Content.Shared.Actions.Events;
 using Robust.Shared.Map;
-using Robust.Shared.Prototypes;
 
 // TODO: predict everything but polymorph bruh
 namespace Content.Goobstation.Server.Bingle;

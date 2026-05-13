@@ -18,12 +18,10 @@ using Content.Trauma.Shared.Heretic.Components.PathSpecific.Cosmos;
 using Content.Trauma.Shared.Heretic.Components.StatusEffects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
-using Robust.Shared.Network;
 using Robust.Shared.Physics;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Events;
 using Robust.Shared.Physics.Systems;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Spawners;
 using Robust.Shared.Timing;
 
@@ -101,7 +99,9 @@ public abstract class SharedStarMarkSystem : EntitySystem
 
         var curTime = _timing.CurTime;
 
-        var query2 = EntityQueryEnumerator<CosmosPassiveComponent, SpeedModifiedByContactComponent, StaminaComponent, PhysicsComponent>();
+        var query2 =
+            EntityQueryEnumerator<CosmosPassiveComponent, SpeedModifiedByContactComponent, StaminaComponent,
+                PhysicsComponent>();
         while (query2.MoveNext(out var uid, out var passive, out _, out var stam, out var phys))
         {
             if (curTime < passive.NextUpdate)
@@ -138,7 +138,7 @@ public abstract class SharedStarMarkSystem : EntitySystem
 
     private void OnStartCollide(Entity<CosmicFieldComponent> ent, ref StartCollideEvent args)
     {
-        if (args.OurFixture.Hard || ent.Comp.Strength < 7)
+        if (args.OurFixture.Hard || ent.Comp.Strength < 2)
             return;
 
         var other = args.OtherEntity;
@@ -197,6 +197,7 @@ public abstract class SharedStarMarkSystem : EntitySystem
     public void SpawnCosmicFields(EntityCoordinates coords,
         int range,
         int strength,
+        bool hollow = false,
         float lifetime = 30f,
         bool predicted = true)
     {
@@ -210,6 +211,9 @@ public abstract class SharedStarMarkSystem : EntitySystem
         {
             for (var x = -range; x <= range; x++)
             {
+                if (hollow && Math.Abs(x) != range && Math.Abs(y) != range)
+                    continue;
+
                 SpawnCosmicField(coords.Offset(new Vector2i(x, y)), strength, lifetime, predicted);
             }
         }
@@ -257,7 +261,7 @@ public abstract class SharedStarMarkSystem : EntitySystem
         }
     }
 
-    public bool TryApplyStarMark(Entity<MobStateComponent?> entity)
+    public bool TryApplyStarMark(Entity<MobStateComponent?> entity, TimeSpan? delay = null)
     {
         if (!Resolve(entity, ref entity.Comp, false) ||
             _heretic.TryGetHereticComponent(entity.Owner, out var heretic, out _) &&
@@ -269,7 +273,10 @@ public abstract class SharedStarMarkSystem : EntitySystem
         RaiseLocalEvent(entity, ev, true);
 
         var result = !ev.Cancelled &&
-                     _status.TryUpdateStatusEffectDuration(entity, StarMarkStatusEffect, TimeSpan.FromSeconds(30));
+                     _status.TryUpdateStatusEffectDuration(entity,
+                         StarMarkStatusEffect,
+                         TimeSpan.FromSeconds(30),
+                         delay);
 
         if (!result)
             return false;
@@ -283,7 +290,7 @@ public abstract class SharedStarMarkSystem : EntitySystem
         field.Comp.Strength = strength;
         Dirty(field);
 
-        if (strength < 10 || !TryComp(field, out VelocityModifierContactsComponent? modifier))
+        if (strength < 3 || !TryComp(field, out VelocityModifierContactsComponent? modifier))
             return;
 
         modifier.IsActive = true;

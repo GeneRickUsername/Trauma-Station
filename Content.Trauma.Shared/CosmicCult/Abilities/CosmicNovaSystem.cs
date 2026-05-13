@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Numerics;
 using Content.Trauma.Shared.CosmicCult.Components;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Interaction;
@@ -13,7 +12,6 @@ using Content.Shared.Whitelist;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Events;
-using Robust.Shared.Prototypes;
 
 namespace Content.Trauma.Shared.CosmicCult.Abilities;
 

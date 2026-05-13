@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Numerics;
 using Content.Goobstation.Shared.Bloodtrak;
 using Content.Server.Forensics;
 using Content.Shared.Fluids.Components;
@@ -11,7 +10,6 @@ using Content.Shared.Popups;
 using Content.Shared.Tag;
 using Content.Shared.Timing;
 using Robust.Shared.Timing;
-using Robust.Shared.Prototypes;
 
 namespace Content.Goobstation.Server.Bloodtrak;
 

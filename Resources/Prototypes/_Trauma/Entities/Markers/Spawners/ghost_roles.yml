@@ -16,3 +16,46 @@
     - state: passenger
     - sprite: Clothing/Mask/gas.rsi
       state: icon
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: BaseAntagSpawner
+  id: GhostRoleSpawnerMorph
+  name: morph ghost role spawner
+  components:
+  - type: GhostRole
+    name: ghost-role-information-morph-name
+    description: ghost-role-information-morph-description
+    rules: ghost-role-information-rules-team-antagonist
+    mindRoles:
+    - MindRoleMorph
+    raffle:
+      settings: default
+  - type: Sprite
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - sprite: _Trauma/Mobs/morph.rsi
+      state: morph
+
+- type: entity
+  categories: [ HideSpawnMenu, Spawner ]
+  parent: BaseAntagSpawner
+  id: GhostRoleSpawnerShadowling
+  name: shadowling ghost role spawner
+  components:
+  - type: GhostRole
+    name: roles-antag-shadowling-name
+    description: roles-antag-shadowling-description
+    rules: ghost-role-information-rules-team-antagonist
+    mindRoles:
+    - MindRoleShadowling
+    raffle:
+      settings: default
+  - type: Sprite
+    sprite: _EinsteinEngines/Shadowling/egg.rsi
+    layers:
+    - sprite: Markers/jobs.rsi
+      state: green
+    - state: base
+    - state: closed

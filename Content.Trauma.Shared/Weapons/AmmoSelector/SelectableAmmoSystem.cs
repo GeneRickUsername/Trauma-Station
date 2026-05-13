@@ -10,8 +10,6 @@ using Content.Shared.Weapons.Ranged.Systems;
 using Content.Trauma.Common.Weapons.AmmoSelector;
 using Content.Trauma.Shared.Wizard.UserInterface;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Prototypes;
-using Robust.Shared.Serialization;
 
 namespace Content.Trauma.Shared.Weapons.AmmoSelector;
 
@@ -131,6 +129,8 @@ public sealed class SelectableAmmoSystem : CommonSelectableAmmoSystem
             // this will never have a rounding error TRUST
             battery.Shots = (int) Math.Round(battery.Shots * fireCostRatio);
             battery.Capacity = (int) Math.Round(battery.Capacity * fireCostRatio);
+            battery.ShotsFloat *= fireCostRatio;
+            battery.CapacityFloat *= fireCostRatio;
             Dirty(uid, battery);
             return true;
         }

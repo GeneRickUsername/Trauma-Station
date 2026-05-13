@@ -31,15 +31,12 @@ public sealed class MetabolizerSystem : EntitySystem
     [Dependency] private readonly SharedEntityEffectsSystem _entityEffects = default!;
     [Dependency] private readonly SharedSolutionContainerSystem _solutionContainerSystem = default!;
 
-    private EntityQuery<OrganComponent> _organQuery;
-    private EntityQuery<SolutionContainerManagerComponent> _solutionQuery;
+    [Dependency] private readonly EntityQuery<OrganComponent> _organQuery = default!;
+    [Dependency] private readonly EntityQuery<SolutionContainerManagerComponent> _solutionQuery = default!;
 
     public override void Initialize()
     {
         base.Initialize();
-
-        _organQuery = GetEntityQuery<OrganComponent>();
-        _solutionQuery = GetEntityQuery<SolutionContainerManagerComponent>();
 
         SubscribeLocalEvent<MetabolizerComponent, MapInitEvent>(OnMapInit);
         SubscribeLocalEvent<MetabolizerComponent, BodyRelayedEvent<ApplyMetabolicMultiplierEvent>>(OnApplyMetabolicMultiplier);
@@ -57,12 +54,15 @@ public sealed class MetabolizerSystem : EntitySystem
         Dirty(ent);
     }
 
+    private List<Entity<MetabolizerComponent>> _updating = new(); // Trauma
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
 
         var query = EntityQueryEnumerator<MetabolizerComponent>();
 
+        // <Trauma> - split querying and actually updating them to prevent errors
+        _updating.Clear();
         while (query.MoveNext(out var uid, out var comp))
         {
             // Only update as frequently as it should
@@ -70,9 +70,15 @@ public sealed class MetabolizerSystem : EntitySystem
                 continue;
 
             comp.NextUpdate += comp.AdjustedUpdateInterval;
-            TryMetabolize((uid, comp));
             Dirty(uid, comp);
+            _updating.Add((uid, comp));
         }
+
+        foreach (var ent in _updating)
+        {
+            TryMetabolize(ent);
+        }
+        // </Trauma>
     }
 
     /// <summary>
