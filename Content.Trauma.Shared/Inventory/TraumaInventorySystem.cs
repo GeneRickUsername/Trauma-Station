@@ -9,18 +9,20 @@ using Content.Trauma.Common.Weapons;
 using Content.Trauma.Shared.Heretic.Events;
 using Content.Trauma.Shared.Tackle;
 using Content.Trauma.Shared.Viewcone;
+using Content.Trauma.Shared.Weapons.SheathCounterattack;
 
 namespace Content.Trauma.Shared.Inventory;
 
-public sealed class TraumaInventorySystem : EntitySystem
+public sealed partial class TraumaInventorySystem : EntitySystem
 {
-    [Dependency] private readonly InventorySystem _inventory = default!;
+    [Dependency] private InventorySystem _inventory = default!;
 
     public override void Initialize()
     {
         base.Initialize();
 
         SubscribeLocalEvent<InventoryComponent, TackleEvent>(_inventory.RelayEvent);
+        SubscribeLocalEvent<InventoryComponent, GetCounterAttackSheathEvent>(_inventory.RelayEvent);
         SubscribeLocalEvent<InventoryComponent, CalculateTackleModifierEvent>(_inventory.RelayEvent);
         SubscribeLocalEvent<InventoryComponent, CheckMagicItemEvent>(_inventory.RelayEvent);
         SubscribeLocalEvent<InventoryComponent, TransformSpeakerJobIconEvent>(_inventory.RelayEvent);
