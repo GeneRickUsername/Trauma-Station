@@ -1,28 +1,28 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Trauma.Shared.Wizard.Projectiles;
-using Content.Shared.Random.Helpers;
-using Robust.Shared.Timing;
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Alert;
 using Content.Shared.Database;
+using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Item.ItemToggle;
+using Content.Shared.Localizations;
 using Content.Shared.Popups;
 using Content.Shared.Projectiles;
+using Content.Shared.Random.Helpers;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
-using Content.Shared.Examine;
-using Content.Shared.Localizations;
 using Content.Shared.Weapons.Reflect;
 using Content.Trauma.Common.Weapons;
 using Content.Trauma.Shared.Knowledge.Systems;
+using Content.Trauma.Shared.Weapons.Classes;
+using Content.Trauma.Shared.Wizard.Projectiles;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using Content.Trauma.Shared.Weapons.Classes;
+using Robust.Shared.Timing;
 
 namespace Content.Trauma.Shared.Parry;
 
@@ -229,15 +229,6 @@ public sealed partial class ParrySystem : EntitySystem
     /// <summary>
     /// Check if the entity has sufficient knowledge to parry/reflect
     /// </summary>
-<<<<<<< HEAD
-    private bool CheckKnowledge(EntityUid user, EntProtoId knowledge, int minLevel)
-    {
-        return _proto.Resolve(knowledge, out var skillProto)
-            && _knowledge.GetContainer(user) is { } brain
-            && _knowledge.GetSkill(brain, skillProto) is { } skill
-            && skill.Comp.NetLevel >= minLevel;
-    }
-=======
     private bool CheckKnowledge(EntityUid user, EntityUid weapon, int minLevel)
         => GetSkillLevel(user, weapon) >= minLevel;
 
@@ -250,10 +241,9 @@ public sealed partial class ParrySystem : EntitySystem
 
     private int GetSkillLevel(EntityUid user, EntProtoId skillProto)
         => _knowledge.GetContainer(user) is { } brain
-           && _knowledge.GetKnowledge(brain, skillProto) is { } skill
+           && _knowledge.GetSkill(brain, skillProto) is { } skill
             ? skill.Comp.NetLevel
             : 0;
->>>>>>> upstream
 
     /// <summary>
     /// Check if the entity is too exhausted to parry/reflect and add an appropriate amount of exhaustion
@@ -262,16 +252,9 @@ public sealed partial class ParrySystem : EntitySystem
     {
         var comp = EnsureComp<ParryExhaustionComponent>(user);
 
-<<<<<<< HEAD
-        if (!_proto.Resolve(item.Comp.RequiredSkill, out var skillProto)
-        || _knowledge.GetContainer(user) is not { } brain
-        || _knowledge.GetSkill(brain, skillProto) is not { } skill)
-            return false; // Shouldn't ever happen because we check this right after checking knowledge
-=======
         var maxExh = isReflect ? comp.MaxReflectExhaustion : comp.MaxParryExhaustion;
         var cost = isReflect ? item.Comp.ReflectExhaustionCost : item.Comp.ParryExhaustionCost;
         var newExh = comp.Exhaustion + cost;
->>>>>>> upstream
 
         if (comp.Exhaustion >= maxExh || newExh > 1f)
             return false;
@@ -292,14 +275,7 @@ public sealed partial class ParrySystem : EntitySystem
 
     private void AppendParryExamine(Entity<ParryComponent> ent, ref ExaminedEvent args)
     {
-<<<<<<< HEAD
-        if (ent.Comp.MaxParries <= 0 ||
-            !_proto.Resolve(ent.Comp.RequiredSkill, out var skillProto) ||
-            _knowledge.GetContainer(args.Examiner) is not { } brain ||
-            _knowledge.GetSkill(brain, skillProto) is not { } skill)
-=======
         if (ent.Comp.ParryExhaustionCost > 1f)
->>>>>>> upstream
             return;
 
         var level = GetSkillLevel(args.Examiner, ent);
@@ -324,14 +300,7 @@ public sealed partial class ParrySystem : EntitySystem
     private void AppendReflectExamine(Entity<ParryComponent> ent, ref ExaminedEvent args)
     {
         if (ent.Comp.Reflects == ReflectType.None ||
-<<<<<<< HEAD
-            ent.Comp.MaxReflects <= 0 ||
-            !_proto.Resolve(ent.Comp.RequiredSkill, out var skillProto) ||
-            _knowledge.GetContainer(args.Examiner) is not { } brain ||
-            _knowledge.GetSkill(brain, skillProto) is not { } skill)
-=======
             ent.Comp.ReflectExhaustionCost > 1f)
->>>>>>> upstream
             return;
 
         var compTypes = ent.Comp.Reflects.ToString().Split(", ");
