@@ -662,13 +662,12 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         Interaction.DoContactInteraction(user, target);
 
         // <Trauma>
-        if (component.CanParryLight)
-        {
-            var parryAttemptEv = new ParryAttemptEvent(meleeUid, user, target.Value);
-            RaiseLocalEvent(target.Value, ref parryAttemptEv);
-            if (parryAttemptEv.Parried)
-                return;
-        }
+        var attackAttemptEv = new ActiveMeleeResolveEvent(target.Value, meleeUid, damage);
+        RaiseLocalEvent(user, ref attackAttemptEv);
+        target = attackAttemptEv.Defender;
+        if (attackAttemptEv.Cancelled)
+            return;
+        damage = attackAttemptEv.Damage;
         // </Trauma>
 
         // For stuff that cares about it being attacked.
@@ -844,13 +843,13 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             }
 
             // <Trauma>
-            if (component.CanParryWide)
-            {
-                var parryAttemptEv = new ParryAttemptEvent(meleeUid, user, entity);
-                RaiseLocalEvent(entity, ref parryAttemptEv);
-                if (parryAttemptEv.Parried)
-                    continue;
-            }
+            var attackAttemptEv = new ActiveMeleeResolveEvent(entity, meleeUid, damage);
+            RaiseLocalEvent(user, ref attackAttemptEv);
+            targets[i] = attackAttemptEv.Defender;
+            entity = attackAttemptEv.Defender;
+            if (attackAttemptEv.Cancelled)
+                continue;
+            var adjustedDamage = attackAttemptEv.Damage;
             // </Trauma>
 
             var attackedEvent = new AttackedEvent(meleeUid, user, GetCoordinates(ev.Coordinates));

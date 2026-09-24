@@ -14,6 +14,17 @@ public record struct GetDamageModifierEvent(int Mod = 0);
 [ByRefEvent]
 public record struct GetSpeedModifierEvent(int Mod = 0);
 
+/// Raised on an attribute holder to calculate the defense modifier.
+/// </summary>
+[ByRefEvent]
+public record struct GetDefenseModifierEvent(int Mod = 0);
+
+/// <summary>
+/// Raised on an attribute holder to calculate the attack modifier.
+/// </summary>
+[ByRefEvent]
+public record struct GetAttackModifierEvent(int Mod = 0);
+
 /// <summary>
 /// Raised on an attribute holder to calculate carry limits.
 /// </summary>
@@ -31,7 +42,6 @@ public record struct GetStrengthFeatEvent(int Mod = 0);
 /// </summary>
 [ByRefEvent]
 public record struct GetAgilityFeatEvent(int Mod = 0);
-
 
 /// <summary>
 /// Raised on an attribute holder to calculate agility modifier. This guy is really one going to be used to dodge projectiles.

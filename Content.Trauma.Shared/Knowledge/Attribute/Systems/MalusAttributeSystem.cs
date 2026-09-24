@@ -2,6 +2,7 @@
 
 using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Shared.Knowledge.Attribute.Attribute.Components;
+using Content.Trauma.Shared.Knowledge.Miscellanious.Systems;
 
 namespace Content.Trauma.Shared.Knowledge.Attribute.Attribute.Systems;
 
@@ -12,7 +13,7 @@ public sealed partial class MalusAttributeSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<StrengthFeatTierdownComponent, GetStrengthFeatEvent>(OnStrengthFeatMalus);
-        SubscribeLocalEvent<AgilityFeatTierdownComponent, GetAgilityFeatEvent>(OnAgilityFeatMalus);
+        SubscribeLocalEvent<DefenseTierdownComponent, GetDefenseDice>(OnDefenseMalus, after: [typeof(CombatSystem)]);
     }
 
     public override void Update(float frameTime)
@@ -29,14 +30,14 @@ public sealed partial class MalusAttributeSystem : EntitySystem
                 RemCompDeferred<StrengthFeatTierdownComponent>(ent);
         }
 
-        var defQuery = EntityQueryEnumerator<AgilityFeatTierdownComponent>();
+        var defQuery = EntityQueryEnumerator<DefenseTierdownComponent>();
         while (defQuery.MoveNext(out var ent, out var comp))
         {
             comp.Mod = Math.Min(comp.Mod, 6.0f);
             comp.Mod -= frameTime / 1.5f;
             Dirty(ent, comp);
             if (comp.Mod < 0)
-                RemCompDeferred<AgilityFeatTierdownComponent>(ent);
+                RemCompDeferred<DefenseTierdownComponent>(ent);
         }
     }
 
@@ -45,8 +46,8 @@ public sealed partial class MalusAttributeSystem : EntitySystem
         args.Mod -= (int) Math.Ceiling(ent.Comp.Mod); //Go for a ceiling because this is a malus.
     }
 
-    private void OnAgilityFeatMalus(Entity<AgilityFeatTierdownComponent> ent, ref GetAgilityFeatEvent args)
+    private void OnDefenseMalus(Entity<DefenseTierdownComponent> ent, ref GetDefenseDice args)
     {
-        args.Mod -= (int) Math.Ceiling(ent.Comp.Mod);
+        args.Dice -= (int) Math.Ceiling(ent.Comp.Mod); // Beatdown
     }
 }

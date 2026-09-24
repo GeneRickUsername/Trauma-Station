@@ -6,6 +6,22 @@
 
 - type: entity
   parent: BaseTalent
+  id: AttackBonusTalent
+  name: Attack Talent
+  description: Hit easier. 
+  components:
+  - type: AttackTalent
+
+- type: entity
+  parent: BaseTalent
+  id: DefenseBonusTalent
+  name: Defense Talent
+  description: Turtle Style, Go!
+  components:
+  - type: DefenseTalent
+
+- type: entity
+  parent: BaseTalent
   id: DamageBonusTalent
   name: Damage Talent
   description: Hit harder.
@@ -24,7 +40,7 @@
   parent: BaseTalent
   id: DodgeTalent
   name: Dodge Talent
-  description: You want to dodge things? Look no further!
+  description: You want to dodge bullets? Look no further! Taking this talent will give you the chance to dodge a bullet, but it'll get harder the more you dodge! It'll also help your defense.
   components:
   - type: Dodge
 
@@ -50,7 +66,7 @@
   parent: BaseTalent
   id: StoutTalent
   name: Stout
-  description: Get knocked down less.
+  description: Get knocked down less 
   components:
   - type: Stout
 

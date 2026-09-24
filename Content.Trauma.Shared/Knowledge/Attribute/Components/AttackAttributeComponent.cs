@@ -3,7 +3,7 @@
 namespace Content.Trauma.Shared.Knowledge.Attribute.Attribute.Components;
 
 /// <summary>
-/// Attribute component to modify damage.
+/// Attribute component to modify attack.
 /// </summary>
 [RegisterComponent, NetworkedComponent]
-public sealed partial class SpeedAttributeComponent : BaseAttributeComponent;
+public sealed partial class AttackAttributeComponent : BaseAttributeComponent;
