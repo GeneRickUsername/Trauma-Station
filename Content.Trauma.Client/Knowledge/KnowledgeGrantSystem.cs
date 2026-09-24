@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using System.Runtime.InteropServices;
 using Content.Trauma.Client.Knowledge.UI;
 using Content.Trauma.Shared.Knowledge;
 using Content.Trauma.Shared.Knowledge.Skills.Components;
@@ -21,9 +22,7 @@ public sealed partial class KnowledgeGrantSystem : SharedKnowledgeGrantSystem
             return;
 
         gymWindow.UpdateTime(ent.Comp.IdealRhythmInterval);
-        var (staminaDamage, accuracy) = gymWindow.StaminaDamageInput();
-        StaminaDamage(user, staminaDamage, accuracy);
-        if (gymWindow.ShouldSendMessage())
-            HandleRep(ent, user, gymWindow.HandleRepInput());
+        var (_, accuracy) = gymWindow.StaminaDamageInput();
+        HandleRep(ent, user, accuracy);
     }
 }

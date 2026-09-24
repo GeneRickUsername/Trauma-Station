@@ -14,6 +14,7 @@ public sealed partial class ThrowingSkillSystem : EntitySystem
     [Dependency] private SharedKnowledgeSystem _knowledge = default!;
 
     private static readonly EntProtoId ThrowingKnowledge = "ThrowingKnowledge";
+    private static readonly EntProtoId StrengthAttribute = "StrengthAttribute";
 
     public override void Initialize()
     {
@@ -49,9 +50,9 @@ public sealed partial class ThrowingSkillSystem : EntitySystem
 
         // Make it so you gotta throw it further then just at a wall in front.
         _knowledge.AddExperience(brain, ThrowingKnowledge, 1, (int) args.Distance * 5);
-        
+
         // Make it so you can't just throw a wrapper over and over again.
-        _knowledge.AddExperience(brain, StrengthKnowledge, 1, (int) (weight / 10));
+        _knowledge.AddExperience(brain, StrengthAttribute, 1, (int) (weight / 10));
 
         args.BaseThrowSpeed = baseThrowSpeed;
     }

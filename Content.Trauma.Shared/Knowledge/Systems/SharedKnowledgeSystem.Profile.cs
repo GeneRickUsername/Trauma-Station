@@ -85,7 +85,7 @@ public abstract partial class SharedKnowledgeSystem
         if (!SkillsEnabled)
             return;
 
-        foreach (var (id, mastery) in profile.SkillRolls)
+        foreach (var (id, rolls) in profile.SkillRolls)
         {
             if (SkillCost(id, rolls) is not { } cost || points < cost)
                 return; // were done here, outdated profile in DB
@@ -107,6 +107,7 @@ public abstract partial class SharedKnowledgeSystem
             }
 
             _attribute.AdjustAttribute(unit, purchases);
+            points -= purchases;
             // TODO: Figure out point shit.
         }
     }

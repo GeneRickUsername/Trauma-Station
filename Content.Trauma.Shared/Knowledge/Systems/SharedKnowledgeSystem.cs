@@ -263,7 +263,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     {
         AllAttributes.Clear();
         var name = Factory.GetComponentName<AttributeComponent>();
-        foreach (var proto in _proto.EnumeratePrototypes<EntityPrototype>())
+        foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
         {
             // TODO: replace with TryComp after engine update
             if (!proto.TryGetComponent<AttributeComponent>(name, out var comp))
@@ -407,7 +407,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         var name = meta.EntityName;
         var desc = meta.EntityDescription;
         var levelStr = Loc.GetString("knowledge-info-description", ("level", ent.Comp.NetLevel), ("mastery", GetMasteryString(ent)));
-        var knowledgeInfo = new KnowledgeInfo(name, desc, levelStr, ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost);
+        var knowledgeInfo = new SkillInfo(name, desc, ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost);
         // TODO: make this an event raised on ent
         if (_langQuery.TryComp(ent, out var languageKnowledge))
         {
@@ -454,14 +454,16 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         if (!SkillsEnabled && _whitelist.IsWhitelistFail(DisabledSkillWhitelist, id))
             return null; // no crafting etc skills when disabled
 
-        if (GetKnowledge(ent, id) is { } existing)
+        EntityUid unit;
+
+        if (GetSkill(ent, id) is { } existing)
         {
             if (existing.Comp.LearnedLevel < level)
             {
                 existing.Comp.LearnedLevel = level;
                 Dirty(existing, existing.Comp);
             }
-            return existing.Owner;
+            unit = existing.Owner;
         }
         else if (GetAttribute(ent, id) is { } attribute)
         {
@@ -470,13 +472,12 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
                 attribute.Comp.Inherent = level;
                 Dirty(attribute, attribute.Comp);
             }
-            return attribute.Owner;
+            unit = attribute.Owner;
         }
         else if (GetProficiency(ent, id) is { } proficiency)
         {
-            return proficiency.Owner;
+            unit = proficiency.Owner;
         }
-
         else if (GetTalent(ent, id) is { } talent)
         {
             if (talent.Comp.Strength < level)
@@ -484,54 +485,59 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
                 talent.Comp.Strength = level;
                 Dirty(talent, talent.Comp);
             }
-            return talent.Owner;
+            unit = talent.Owner;
         }
-        // Checkslop
-
-        PredictedTrySpawnInContainer(id, ent.Owner, KnowledgeContainerComponent.ContainerId, out var spawned);
-        if (spawned is not { } unit)
+        else
         {
-            Log.Error($"Failed to spawn knowledge {id} for {ToPrettyString(ent)}!");
-            return null;
+            PredictedTrySpawnInContainer(id, ent.Owner, KnowledgeContainerComponent.ContainerId, out var spawned);
+            if (spawned is not { } spawnedUnit)
+            {
+                Log.Error($"Failed to spawn knowledge {id} for {ToPrettyString(ent)}!");
+                return null;
+            }
+            unit = spawnedUnit;
+
+            if (_skillQuery.TryComp(unit, out var comp))
+            {
+                comp.LearnedLevel = level;
+                Dirty(unit, comp);
+            }
+            else if (_attributeQuery.TryComp(unit, out var attributeComp))
+            {
+                attributeComp.Inherent = level;
+                Dirty(unit, attributeComp);
+            }
+            else if (_proficiencyQuery.TryComp(unit, out var proficiencyComp))
+            {
+                // Intentionally empty
+            }
+            else if (_talentQuery.TryComp(unit, out var talentComp))
+            {
+                talentComp.Strength = level;
+                Dirty(unit, talentComp);
+            }
+
+            ent.Comp.KnowledgeDict[id] = unit;
+            DirtyField(ent, ent.Comp, nameof(KnowledgeContainerComponent.KnowledgeDict));
         }
 
-        // Checkslop
-        if (_skillQuery.TryComp(unit, out var comp))
+        if (ent.Comp.Holder is { } holder)
         {
-            comp.LearnedLevel = level;
-            Dirty(unit, comp);
-        }
-        else if (_attributeQuery.TryComp(unit, out var attribute))
-        {
-            attribute.Inherent = level;
-            Dirty(unit, attribute);
-        }
-        else if (_proficiencyQuery.TryComp(unit, out var proficiency))
-        {
+            var ev = new KnowledgeAddedEvent(ent, holder);
+            RaiseLocalEvent(unit, ref ev);
 
-        }
-        else if (_talentQuery.TryComp(unit, out var talent))
-        {
-            talent.Strength = level;
-            Dirty(unit, talent);
+            if (popup)
+            {
+                var msg = Loc.GetString("knowledge-unit-learned-popup", ("knowledge", Name(unit)));
+                SkillPopup(msg, holder);
+            }
         }
 
-        ent.Comp.KnowledgeDict[id] = unit;
-        DirtyField(ent, ent.Comp, nameof(KnowledgeContainerComponent.KnowledgeDict));
+        // Resolves the EntityUid -> Entity<T> translation securely
+        if (TryComp<T>(unit, out var requestedComp))
+            return new Entity<T>(unit, requestedComp);
 
-        if (ent.Comp.Holder is not { } holder)
-            return unit; // added knowledge to a loose brain...
-        // Checkslop
-
-        var ev = new KnowledgeAddedEvent(ent, holder);
-        RaiseLocalEvent(unit, ref ev);
-
-        if (popup)
-        {
-            var msg = Loc.GetString("knowledge-unit-learned-popup", ("knowledge", Name(unit)));
-            SkillPopup(msg, holder);
-        }
-        return unit;
+        return null;
     }
 
     /// <summary>

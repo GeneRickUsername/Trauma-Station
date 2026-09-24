@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared.Damage;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
@@ -8,6 +9,7 @@ using Content.Shared.Projectiles;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Common.Knowledge.Components;
+using Content.Trauma.Common.Weapons;
 using Content.Trauma.Shared.Knowledge.Attribute.Attribute.Components;
 using Content.Trauma.Shared.Knowledge.FightingStance;
 using Content.Trauma.Shared.Knowledge.Miscellanious.Components;
@@ -30,24 +32,50 @@ public sealed partial class CombatSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedKnowledgeSystem _knowledge = default!;
 
-    private SoundSpecifier _parrySound = new SoundPathSpecifier("/Audio/_Goobstation/Heretic/parry.ogg", AudioParams.Default.WithVariation(0.05f));
-    private EntProtoId _dodgeTalent = "DodgeTalent";
+    private static readonly SoundSpecifier ParrySound = new SoundPathSpecifier("/Audio/_Goobstation/Heretic/parry.ogg", AudioParams.Default.WithVariation(0.05f));
+    private static readonly EntProtoId DodgeTalent = "DodgeTalent";
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<KnowledgeHolderComponent, ActiveMeleeResolveEvent>(ResolveAttack);
-        SubscribeLocalEvent<KnowledgeHolderComponent, ProjectileReflectAttemptEvent>(TryDodgeProjectile);
-        SubscribeLocalEvent<KnowledgeHolderComponent, HitScanReflectAttemptEvent>(TryDodgeHitscan);
-        SubscribeLocalEvent<KnowledgeHolderComponent, GetDefenseDice>(CalculateDefenseDice);
-    }
-
-    private void ResolveAttack(Entity<KnowledgeHolderComponent> ent, ref ActiveMeleeResolveEvent args)
+    [SubscribeLocalEvent]
+    private void ResolveAttack(Entity<KnowledgeHolderComponent> ent, ref BeforeHarmfulActionEvent args)
     {
         var attacker = ent.Owner;
-        var defender = args.Defender;
+        var defender = args.Target;
+        ResolveAttack(attacker, defender, args.Used ?? defender, args.Damage, out var cancelled);
+        args.Cancelled = cancelled;
+    }
 
+    [SubscribeLocalEvent]
+    private void TryDodgeProjectile(Entity<KnowledgeHolderComponent> ent, ref ProjectileReflectAttemptEvent args)
+    {
+        if (TryDodge(ent, args.ProjUid))
+            args.Cancelled = true;
+    }
+
+    [SubscribeLocalEvent]
+    private void TryDodgeHitscan(Entity<KnowledgeHolderComponent> ent, ref HitScanReflectAttemptEvent args)
+    {
+        if (TryDodge(ent, args.SourceItem))
+            args.Reflected = true;
+    }
+
+    [SubscribeLocalEvent]
+    private void CalculateDefenseDice(Entity<KnowledgeHolderComponent> ent, ref GetDefenseDice args)
+    {
+        if (!_mobState.IsAlive(ent))
+            return;
+
+        if (!TryComp<FightingStanceComponent>(ent, out var fighting))
+        {
+            args.Dice = 12;
+            return;
+        }
+
+        args.Dice = fighting.DefenseDice;
+    }
+
+    private void ResolveAttack(EntityUid attacker, EntityUid defender, EntityUid weapon, DamageSpecifier? damage, out bool cancelled)
+    {
+        cancelled = false;
         if (_mobState.IsIncapacitated(defender) || !HasComp<MobStateComponent>(defender) || attacker == defender) // ever seen a corpse parry? Can't say I have.
             return;
 
@@ -71,8 +99,8 @@ public sealed partial class CombatSystem : EntitySystem
 
         if (evOpposedContest.CriticallyFailedUser && evOpposedContest.CriticallyFailedOpposed)
         {
-            args.Cancelled = true;
-            _popup.PopupClient("You try to strike the enemy, but end up not doing much of anything.", ent, ent, PopupType.Small);
+            cancelled = true;
+            _popup.PopupEntity("You try to strike the enemy, but end up not doing much of anything.", attacker, attacker, PopupType.Small);
             _popup.PopupEntity("You stumble around like a bummbling fool, not doing anything effect.", defender, defender, PopupType.Small);
         }
 
@@ -89,24 +117,24 @@ public sealed partial class CombatSystem : EntitySystem
                 RaiseLocalEvent(attacker, ref fumbleEv);
             }
 
-            var parrySound = _parrySound;
-            if (TryComp<ParryComponent>(args.Weapon, out var parryComp))
+            var parrySound = ParrySound;
+            if (TryComp<ParryComponent>(weapon, out var parryComp))
                 parrySound = parryComp.SoundOnParry;
             _audio.PlayLocal(parrySound, defender, _player.LocalEntity);
             if (evOpposedContest.ModOpposed >= 19)
             {
                 var queued = AddComp<QueuedStrikeComponent>(defender); // Defender gets a free strike.
                 queued.TimeToHit = _timing.CurTime + TimeSpan.FromSeconds(1); // Hit next second.
-                queued.Target = ent;
+                queued.Target = attacker;
                 queued.Offhand = !evOpposedContest.CriticallySucceededOpposed;
                 Dirty(defender, queued);
                 // TODO: Replace with sound effects to not flood up chat.
-                _popup.PopupClient("You've shown an opening!", ent, ent, PopupType.Small);
+                _popup.PopupEntity("You've shown an opening!", attacker, attacker, PopupType.Small);
                 _popup.PopupEntity("The opponent has shown an opening, prepare for an attack!", defender, defender, PopupType.Small);
             }
             else
             {
-                _popup.PopupClient("You've been parried.", ent, ent, PopupType.Small);
+                _popup.PopupEntity("You've been parried.", attacker, attacker, PopupType.Small);
                 _popup.PopupEntity("You've successfully defended against an opponent.", defender, defender, PopupType.Small);
             }
 
@@ -123,42 +151,30 @@ public sealed partial class CombatSystem : EntitySystem
                     }
 
                     if (_hands.TryGetHeldItem(defender, hand, out var item))
-                        args.Defender = item.Value;
+                        defender = item.Value;
                     else
                         return; // TODO: Replace with hand targeting.
                     return;
                 }
             }
             else
-                args.Cancelled = true;
+                cancelled = true;
             return;
         }
 
         if (evOpposedContest.CriticallyFailedOpposed)
         {
-            _popup.PopupClient("You missed, but it could have been worse.", ent, ent, PopupType.Small);
-            args.Cancelled = true;
+            _popup.PopupEntity("You missed, but it could have been worse.", attacker, attacker, PopupType.Small);
+            cancelled = true;
             return;
         }
 
         if (evOpposedContest.CriticallySucceededUser)
         {
-            var ev = new CriticalHitEvent(attacker, args.Damage);
+            var ev = new CriticalHitEvent(attacker, damage ?? new());
             RaiseLocalEvent(defender, ref ev);
-            _popup.PopupClient("Good strike!", ent, ent, PopupType.Small);
+            _popup.PopupEntity("Good strike!", attacker, attacker, PopupType.Small);
         }
-    }
-
-    private void TryDodgeProjectile(Entity<KnowledgeHolderComponent> ent, ref ProjectileReflectAttemptEvent args)
-    {
-        if (TryDodge(ent, args.ProjUid))
-            args.Cancelled = true;
-    }
-
-    private void TryDodgeHitscan(Entity<KnowledgeHolderComponent> ent, ref HitScanReflectAttemptEvent args)
-    {
-        if (TryDodge(ent, args.SourceItem))
-            args.Reflected = true;
     }
 
     private bool TryDodge(Entity<KnowledgeHolderComponent> ent, EntityUid projectile)
@@ -167,7 +183,7 @@ public sealed partial class CombatSystem : EntitySystem
             return false;
 
         int defense = 0;
-        if (_knowledge.GetContainer(ent.Owner) is { } brain && _knowledge.GetTalent(brain, _dodgeTalent) is { } talent)
+        if (_knowledge.GetContainer(ent.Owner) is { } brain && _knowledge.GetTalent(brain, DodgeTalent) is { } talent)
         {
             var defenseEv = new GetDefenseModifierEvent();
             RaiseLocalEvent(ent, ref defenseEv);
@@ -178,19 +194,5 @@ public sealed partial class CombatSystem : EntitySystem
         var ev = new SingleContestEvent(20, defense, 20);
         RaiseLocalEvent(ent, ref ev);
         return !ev.Failed;
-    }
-
-    private void CalculateDefenseDice(Entity<KnowledgeHolderComponent> ent, ref GetDefenseDice args)
-    {
-        if (!_mobState.IsAlive(ent))
-            return;
-
-        if (!TryComp<FightingStanceComponent>(ent, out var fighting))
-        {
-            args.Dice = 12;
-            return;
-        }
-
-        args.Dice = fighting.DefenseDice;
     }
 }

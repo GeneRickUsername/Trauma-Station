@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.Actions;
-using Content.Shared.Damage.Events;
 using Content.Shared.Damage.Systems;
 using Content.Shared.Interaction;
 using Content.Shared.Mobs.Components;
-using Content.Shared.Mobs.Systems;
 using Content.Shared.Movement.Systems;
 using Content.Shared.Popups;
 using Content.Shared.Projectiles;
@@ -15,6 +13,7 @@ using Content.Shared.Weapons.Ranged.Events;
 using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.MartialArts;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 using Content.Trauma.Shared.MartialArts;
 using Content.Trauma.Shared.MartialArts.Components;
 
@@ -25,7 +24,7 @@ public abstract partial class SharedKnowledgeSystem
     [Dependency] private SharedActionsSystem _actions = default!;
     [Dependency] protected SharedPopupSystem _popup = default!;
     [Dependency] private MovementSpeedModifierSystem _speed = default!;
-    [Dependency] private EntityQuery<MartialArtsKnowledgeComponent> _artQuery = default!;
+    [Dependency] private EntityQuery<MartialArtsSkillComponent> _artQuery = default!;
 
     private void InitializeMartialArts()
     {
@@ -40,7 +39,7 @@ public abstract partial class SharedKnowledgeSystem
     }
 
     [SubscribeLocalEvent]
-    private void OnMartialArtAdded(Entity<MartialArtsKnowledgeComponent> ent, ref KnowledgeAddedEvent args)
+    private void OnMartialArtAdded(Entity<MartialArtsSkillComponent> ent, ref KnowledgeAddedEvent args)
     {
         // if you learn a martial art without one active, automatically select it
         if (args.Container.Comp.ActiveMartialArt != null)
@@ -50,7 +49,7 @@ public abstract partial class SharedKnowledgeSystem
     }
 
     [SubscribeLocalEvent]
-    private void OnMartialArtRemoved(Entity<MartialArtsKnowledgeComponent> ent, ref KnowledgeRemovedEvent args)
+    private void OnMartialArtRemoved(Entity<MartialArtsSkillComponent> ent, ref KnowledgeRemovedEvent args)
     {
         if (args.Container.Comp.ActiveMartialArt == ent.Owner)
             ChangeMartialArts(args.Container, args.Holder, null); // disables the skill internally
@@ -124,7 +123,7 @@ public abstract partial class SharedKnowledgeSystem
             return;
 
         var unit = ev.Knowledge is { } id
-            ? GetKnowledge(ent, id)
+            ? GetSkill(ent, id)
             : null;
 
         if (unit != null && !_artQuery.HasComp(unit))

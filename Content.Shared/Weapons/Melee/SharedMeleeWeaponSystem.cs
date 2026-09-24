@@ -634,13 +634,15 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         }
 
         // <Trauma>
-        var beforeEvent = new BeforeHarmfulActionEvent(user, target.Value, HarmfulActionType.Harm, meleeUid, ev.CanParry);
+        var beforeEvent = new BeforeHarmfulActionEvent(user, target.Value, HarmfulActionType.Harm, damage, meleeUid, ev.CanParry);
         RaiseLocalEvent(target.Value, ref beforeEvent);
         if (beforeEvent.Cancelled)
         {
             DoLungeAnimation(user, weapon, component.Angle, TransformSystem.ToMapCoordinates(target.Value.ToCoordinates()), rangeEv.Range, component.Animation, component.AnimationRotation, component.FlipAnimation, source);
             return;
         }
+        target = beforeEvent.Target;
+        damage = beforeEvent.Damage;
         // </Trauma>
 
         // Sawmill.Debug($"Melee damage is {damage.Total} out of {component.Damage.Total}");
@@ -664,15 +666,6 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         // If the user is using a long-range weapon, this probably shouldn't be happening? But I'll interpret melee as a
         // somewhat messy scuffle. See also, heavy attacks.
         Interaction.DoContactInteraction(user, target);
-
-        // <Trauma>
-        var attackAttemptEv = new ActiveMeleeResolveEvent(target.Value, meleeUid, damage);
-        RaiseLocalEvent(user, ref attackAttemptEv);
-        target = attackAttemptEv.Defender;
-        if (attackAttemptEv.Cancelled)
-            return;
-        damage = attackAttemptEv.Damage;
-        // </Trauma>
 
         // For stuff that cares about it being attacked.
         var attackedEvent = new AttackedEvent(meleeUid, user, targetXform.Coordinates);
@@ -808,13 +801,15 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                 continue;
 
             // <Trauma>
-            var beforeEvent = new BeforeHarmfulActionEvent(user, entity, HarmfulActionType.Harm, meleeUid);
+            var beforeEvent = new BeforeHarmfulActionEvent(user, entity, HarmfulActionType.Harm, damage, meleeUid);
             RaiseLocalEvent(entity, ref beforeEvent);
             if (beforeEvent.Cancelled)
                 continue;
+            var target = beforeEvent.Target;
+            damage = beforeEvent.Damage;
             // </Trauma>
 
-            targets.Add(entity);
+            targets.Add(target);
         }
 
         // Sawmill.Debug($"Melee damage is {damage.Total} out of {component.Damage.Total}");

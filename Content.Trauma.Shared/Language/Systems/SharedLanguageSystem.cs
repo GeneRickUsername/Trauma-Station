@@ -120,7 +120,7 @@ public abstract partial class SharedLanguageSystem : CommonLanguageSystem
         // Kind of important that knowledge holders don't understand everything so they use the obfuscation logic.
         var canUnderstand = true;
         if (_knowledge.GetContainer(ent.Owner) is { } brain)
-            canUnderstand = _knowledge.GetKnowledge(brain, _knowledge.LanguageUnit(language)) is { } unit && _knowledge.GetMastery(unit.Comp) >= 2;
+            canUnderstand = _knowledge.GetSkill(brain, _knowledge.LanguageUnit(language)) is { } unit && _knowledge.GetMastery(unit.Comp) >= 2;
 
         return Resolve(ent, ref ent.Comp, logMissing: false) && ent.Comp.Understands.Contains(language) && canUnderstand;
     }

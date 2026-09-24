@@ -7,13 +7,8 @@ using Content.Shared.Examine;
 using Content.Shared.Implants;
 using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Silicons.Borgs;
-<<<<<<< HEAD
-using Content.Trauma.Shared.Knowledge.Skills.Components;
-=======
 using Content.Trauma.Shared.Body.Chips;
-using Content.Trauma.Shared.Knowledge.Components;
-using Content.Trauma.Shared.MartialArts.Components;
->>>>>>> upstream
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 
 namespace Content.Trauma.Shared.Knowledge.Systems;
 
@@ -36,7 +31,7 @@ public abstract partial class SharedKnowledgeSystem
         using (args.PushGroup(nameof(KnowledgeGrantOnWearComponent)))
         {
             args.PushMarkup("This offsets these skills when used:");
-            foreach (var (skill, level) in ent.Comp.Skills)
+            foreach (var (skill, level) in ent.Comp.Knowledge)
             {
                 var color = level < 0
                     ? "red"

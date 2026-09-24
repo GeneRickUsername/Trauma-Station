@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Medical.Common.Body;
 using Content.Medical.Common.Traumas;
 using Content.Shared.Atmos.Rotting;
 using Content.Shared.Body;
@@ -144,31 +143,19 @@ public abstract partial class SharedCPRSystem : EntitySystem
     {
         if (_rottingQuery.HasComp(target))
         {
-<<<<<<< HEAD
-            _popup.PopupClient(Loc.GetString("cpr-target-rotting", ("entity", identity)), uid, uid, PopupType.LargeCaution);
-=======
-            _popup.PopupEntity(Loc.GetString("cpr-target-rotting", ("entity", identity)), ent, ent, PopupType.LargeCaution);
->>>>>>> upstream
+            _popup.PopupEntity(Loc.GetString("cpr-target-rotting", ("entity", identity)), uid, uid, PopupType.LargeCaution);
             return false;
         }
 
         if (GetLungs(target) == null || GetLungs(uid) == null)
         {
-<<<<<<< HEAD
-            _popup.PopupClient(Loc.GetString("cpr-target-cantbreathe", ("entity", identity)), uid, uid, PopupType.MediumCaution);
-=======
-            _popup.PopupEntity(Loc.GetString("cpr-target-cantbreathe", ("entity", identity)), ent, ent, PopupType.MediumCaution);
->>>>>>> upstream
+            _popup.PopupEntity(Loc.GetString("cpr-target-cantbreathe", ("entity", identity)), uid, uid, PopupType.MediumCaution);
             return false;
         }
 
         if (_inventory.TryGetSlotEntity(target, "outerClothing", out var outer))
         {
-<<<<<<< HEAD
-            _popup.PopupClient(Loc.GetString("cpr-must-remove", ("clothing", outer)), uid, uid, PopupType.Medium);
-=======
-            _popup.PopupEntity(Loc.GetString("cpr-must-remove", ("clothing", outer)), ent, ent, PopupType.Medium);
->>>>>>> upstream
+            _popup.PopupEntity(Loc.GetString("cpr-must-remove", ("clothing", outer)), uid, uid, PopupType.Medium);
             return false;
         }
 

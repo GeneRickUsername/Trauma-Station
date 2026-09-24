@@ -288,12 +288,12 @@ public sealed partial class QualitySystem : EntitySystem
         var rand = SharedRandomExtensions.PredictedRandom(_timing, GetNetEntity(ent));
         var roll = rand.Next(1, 100);
         var modifier = 100 - roll * 2; // 99 to -100 if skills are disabled, purely random
-        if (_knowledge.SkillsEnabled)
-        {
-            var (knowledgeToUse, lowestId, lowestDelta, skillDelta) = FindLowestDelta(brain, ent.Comp.LevelDeltas);
-            var added = _knowledge.GetKnowledge(brain, knowledgeToUse)?.Comp.NetLevel ?? -1;
-            modifier = added + lowestDelta * 15 + ent.Comp.Quality + ent.Comp.QualityModifiers - roll;
-        }
+        if (!_knowledge.SkillsEnabled)
+            return;
+
+        var (knowledgeToUse, lowestId, lowestDelta, skillDelta) = FindLowestDelta(brain, ent.Comp.LevelDeltas);
+        var added = _knowledge.GetSkill(brain, knowledgeToUse)?.Comp.NetLevel ?? -1;
+        modifier = added + lowestDelta * 15 + ent.Comp.Quality + ent.Comp.QualityModifiers - roll;
 
         var skill = _knowledge.GetSkill(brain, knowledgeToUse)?.Comp.NetLevel ?? -1;
         var mastery = _knowledge.GetMastery(skill) + lowestDelta;

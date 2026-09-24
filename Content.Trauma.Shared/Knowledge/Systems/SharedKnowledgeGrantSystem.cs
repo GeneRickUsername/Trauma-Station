@@ -52,13 +52,13 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
             // no checking if you already had it, don't waste a cqc book if you already know it chud
             foreach (var (id, level) in ent.Comp.Knowledge)
             {
-                _knowledge.EnsureKnowledge(brain, id, level);
+                _knowledge.EnsureKnowledge<SkillComponent>(brain, id, level);
             }
             if (ent.Comp.GrantEverything)
             {
                 foreach (var id in _knowledge.AllSkills.Keys)
                 {
-                    _knowledge.EnsureKnowledge(brain, id, 100);
+                    _knowledge.EnsureKnowledge<SkillComponent>(brain, id, 100);
                 }
             }
             if (ent.Comp.SingleUse)
@@ -89,7 +89,7 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         _stamina.TakeStaminaDamage(actor, Math.Max(1 - timingAccuracy, 0.0f) * 15);
         if (timingAccuracy < 0.4f)
         {
-            _popup.PopupClient("Poor form!", actor, actor, PopupType.SmallCaution);
+            _popup.PopupEntity("Poor form!", actor, actor, PopupType.SmallCaution);
             return;
         }
 
@@ -99,7 +99,7 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         bool hasLearned = false;
         foreach (var (id, xp) in ent.Comp.Experience)
         {
-            if (_knowledge.EnsureKnowledge(brain, id) is not { } skill)
+            if (_knowledge.EnsureKnowledge<SkillComponent>(brain, id) is not { } skill)
                 continue;
 
             if (!(!ent.Comp.Knowledge.TryGetValue(id, out var skillCap) || (_knowledge.GetLevel(skill) < skillCap || skillCap < 0)))
@@ -110,11 +110,11 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         }
 
         if (!hasLearned)
-            _popup.PopupClient(Loc.GetString("knowledge-could-not-learn"), actor, actor, PopupType.SmallCaution);
+            _popup.PopupEntity(Loc.GetString("knowledge-could-not-learn"), actor, actor, PopupType.SmallCaution);
         else
         {
             var qualityString = timingAccuracy > 0.85f ? "Perfect!" : "Good!";
-            _popup.PopupClient($"{qualityString}", actor, actor, PopupType.Medium);
+            _popup.PopupEntity($"{qualityString}", actor, actor, PopupType.Medium);
         }
     }
 }

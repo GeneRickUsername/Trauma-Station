@@ -1,13 +1,11 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Trauma.Shared.Knowledge.Skills.Systems;
-
 namespace Content.Trauma.Shared.Knowledge.Skills.Components;
 
 /// <summary>
 /// Adds bonus damage to your melee attacks using weapons or punching.
 /// </summary>
-[RegisterComponent, NetworkedComponent, Access(typeof(MeleeSkillSystem))]
+[RegisterComponent, NetworkedComponent]
 public sealed partial class MeleeDamageSkillComponent : Component
 {
     /// <summary>

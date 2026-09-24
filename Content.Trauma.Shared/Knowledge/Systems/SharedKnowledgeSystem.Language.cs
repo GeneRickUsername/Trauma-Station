@@ -212,7 +212,7 @@ public abstract partial class SharedKnowledgeSystem
                 continue;
 
             // Add if you don't know shit.
-            if (EnsureKnowledge(brain, LanguageUnit(lang), 100) is not { } unit)
+            if (EnsureKnowledge<SkillComponent>(brain, LanguageUnit(lang), 100) is not { } unit)
             {
                 Log.Error($"Failed to add language knowledge {lang} to {ToPrettyString(ent)}!");
                 continue;
@@ -260,7 +260,7 @@ public abstract partial class SharedKnowledgeSystem
         var languageId = LanguageUnit(args.Language);
 
         // Try obfuscate speech if can't listen well.
-        if (GetKnowledge(brain, LanguageUnit(args.Language)) is { } unit && GetMastery(unit.Owner) >= 2)
+        if (GetSkill(brain, LanguageUnit(args.Language)) is { } unit && GetMastery(unit.Owner) >= 2)
             return;
 
         // Use Obfuscate logic through language system.

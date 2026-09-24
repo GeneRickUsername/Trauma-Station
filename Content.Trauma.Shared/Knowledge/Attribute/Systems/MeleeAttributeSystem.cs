@@ -41,7 +41,7 @@ public sealed partial class MeleeAttributeSystem : EntitySystem
             if (!DamageTypes.Contains(key))
                 continue;
 
-            damage.FlatReduction.Add(key, -selfEv.Mod); // Negative for more damage.
+            damage.FlatReductions.Add(key, -selfEv.Mod); // Negative for more damage.
         }
         args.Modifiers.Add(damage);
     }
