@@ -124,7 +124,7 @@ public abstract partial class SharedGunSystem
         DebugTools.Assert(spread <= comp.MaxAngleModified.Theta * angleEv.Modifier);
         return angle;
     }
-    
+
     public (float, float) GetBatteryShotsFloat(Entity<BatteryAmmoProviderComponent> ent)
     {
         var ev = new GetChargeEvent();
