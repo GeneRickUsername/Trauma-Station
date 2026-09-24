@@ -1,8 +1,3 @@
-# SPDX-FileCopyrightText: 2024 Nim <128169402+Nimfar11@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-#
-# SPDX-License-Identifier: MIT
-
 - type: entity
   id: CollideFloorTrap
   abstract: true
@@ -104,7 +99,6 @@
     - type: DeleteOnTrigger
 
 - type: entity
-  abstract: true # Trauma - no chud xenos
   parent: CollideFloorTrapSpawn
   id: SpawnFloorTrapXenoDrone
   suffix: Xeno. Drone
@@ -117,7 +111,6 @@
     - type: DeleteOnTrigger
 
 - type: entity
-  abstract: true # Trauma - no chud xenos
   parent: CollideFloorTrapSpawn
   id: SpawnFloorTrapXenoBurrower
   suffix: Xeno. Burrower

@@ -23,17 +23,17 @@ public sealed partial class RehydratableSystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<RehydratableComponent, SolutionContainerChangedEvent>(OnSolutionChange);
+        SubscribeLocalEvent<RehydratableComponent, SolutionChangedEvent>(OnSolutionChange);
     }
 
-    private void OnSolutionChange(Entity<RehydratableComponent> ent, ref SolutionContainerChangedEvent args)
+    private void OnSolutionChange(Entity<RehydratableComponent> ent, ref SolutionChangedEvent args)
     {
         // The changes are already networked as part of the same game state.
         if (_timing.ApplyingState)
             return;
 
-        var quantity = _solutions.GetTotalPrototypeQuantity(ent, ent.Comp.CatalystPrototype);
-        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner)} was hydrated, now contains a solution of: {SharedSolutionContainerSystem.ToPrettyString(args.Solution)}.");
+        var quantity = _solutions.GetTotalPrototypeQuantity(ent.Owner, ent.Comp.CatalystPrototype);
+        _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner)} was hydrated, now contains a solution of: {SharedSolutionContainerSystem.ToPrettyString(args.Solution.Comp.Solution)}.");
         if (quantity != FixedPoint2.Zero && quantity >= ent.Comp.CatalystMinimum)
         {
             Expand(ent);
@@ -50,12 +50,14 @@ public sealed partial class RehydratableSystem : EntitySystem
 
         var randomMob = _random.Pick(comp.PossibleSpawns);
 
-        var target = Spawn(randomMob, Transform(uid).Coordinates);
+        if (!_xform.TryGetMapOrGridCoordinates(uid, out var spawnCoordinates))
+            return;
+
+        var target = Spawn(randomMob, spawnCoordinates.Value);
         _adminLogger.Add(LogType.Action, LogImpact.Medium, $"{ToPrettyString(ent.Owner)} has been hydrated correctly and spawned: {ToPrettyString(target)}.");
 
         _popup.PopupEntity(Loc.GetString("rehydratable-component-expands-message", ("owner", uid)), target);
 
-        _xform.AttachToGridOrMap(target);
         var ev = new GotRehydratedEvent(target);
         RaiseLocalEvent(uid, ref ev);
 

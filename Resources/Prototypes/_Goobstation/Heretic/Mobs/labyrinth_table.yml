@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: weightedRandomEntity
   id: LabyrinthPortalSpawnTable
   weights:
@@ -7,3 +9,4 @@
     MobGhoulFireShark: 4
     MobGhoulRustWalker: 4
     MobGhoulShattered: 1
+    MobGhoulAshSpirit: 1

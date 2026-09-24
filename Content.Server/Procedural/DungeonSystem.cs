@@ -9,7 +9,6 @@ using Content.Shared.GameTicking;
 using Content.Shared.Maps;
 using Content.Shared.Physics;
 using Content.Shared.Procedural;
-using Robust.Server.GameObjects;
 using Robust.Shared.Configuration;
 using Robust.Shared.Console;
 using Robust.Shared.EntitySerialization;
@@ -26,7 +25,6 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
 {
     [Dependency] private IConfigurationManager _configManager = default!;
     [Dependency] private IConsoleHost _console = default!;
-    [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ITileDefinitionManager _tileDefManager = default!;
     [Dependency] private AnchorableSystem _anchorable = default!;
@@ -96,7 +94,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             return;
 
         // Force all templates to be setup.
-        foreach (var room in _prototype.EnumeratePrototypes<DungeonRoomPrototype>())
+        foreach (var room in ProtoMan.EnumeratePrototypes<DungeonRoomPrototype>())
         {
             GetOrCreateTemplate(room);
         }
@@ -202,7 +200,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             Log,
             DungeonJobTime,
             EntityManager,
-            _prototype,
+            ProtoMan,
             _tileDefManager,
             _anchorable,
             _decals,
@@ -235,7 +233,7 @@ public sealed partial class DungeonSystem : SharedDungeonSystem
             Log,
             DungeonJobTime,
             EntityManager,
-            _prototype,
+            ProtoMan,
             _tileDefManager,
             _anchorable,
             _decals,

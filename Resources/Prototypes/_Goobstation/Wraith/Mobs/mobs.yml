@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # This holds all simplemobs summoned by void portal.
 
 - type: entity
@@ -55,8 +57,9 @@
         layer:
           - MobLayer
   - type: Damageable
-    damageContainer: Inorganic
     damageModifierSet: Skeleton
+  - type: Injurable
+    damageContainer: Inorganic
   - type: NoSlip
   - type: Pullable
   - type: ZombieImmune
@@ -85,24 +88,23 @@
   - type: Vocal
     wilhelm: "/Audio/_Goobstation/Voice/badtothebone.ogg"
     wilhelmProbability: 0.1
-    sounds:
-      Male: Skeleton
-      Female: Skeleton
-      Unsexed: Skeleton
+    emoteSounds: Skeleton
   - type: SkeletonAccent
   - type: TypingIndicator
     proto: skeleton
 
 - type: entity
-  id: MobCrunched
   parent: [ BaseMob, MobCombat ]
+  id: MobCrunched
   name: transposed scientist
   description: A fellow who seems to have been shunted between dimensions. Not a good state to be in.
   components:
-  - type: Advertise
-    pack: CrunchedSpeech
-    minimumWait: 10
-    maximumWait: 45
+  - type: Vocalizer
+    minVocalizeInterval: 10
+    maxVocalizeInterval: 45
+    hideChat: true
+  - type: DatasetVocalizer
+    dataset: CrunchedSpeech
   - type: Prying
     pryPowered: true
   - type: ComplexInteraction
@@ -144,8 +146,9 @@
         layer:
           - MobLayer
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Bingle
+  - type: Injurable
+    damageContainer: Biological
   - type: NoSlip
   - type: Pullable
   - type: Speech
@@ -167,15 +170,17 @@
     - FootstepSound
 
 - type: entity
-  id: MobShade
   parent: [ BaseMob, MobCombat ]
+  id: MobShade
   name: darkness
   description: Oh god.
   components:
-  - type: Advertise
-    pack: Shade
-    minimumWait: 10
-    maximumWait: 45
+  - type: Vocalizer
+    minVocalizeInterval: 10
+    maxVocalizeInterval: 45
+    hideChat: true
+  - type: DatasetVocalizer
+    dataset: Shade
   - type: SpamEmitSound
     minInterval: 5
     maxInterval: 25
@@ -224,8 +229,9 @@
         layer:
           - MobLayer
   - type: Damageable
-    damageContainer: ManifestedSpirit
     damageModifierSet: HeavyArmorSyndi # Massive daamge reduction, but very low health.
+  - type: Injurable
+    damageContainer: ManifestedSpirit
   - type: NoSlip
   - type: Pullable
   - type: Speech
@@ -280,8 +286,9 @@
       0: Alive
       35: Dead
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Biological
   - type: MeleeWeapon
     altDisarm: false
     animation: WeaponArcBite
@@ -363,8 +370,9 @@
         layer:
           - MobLayer
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Biological
   - type: NoSlip
   - type: Pullable
   - type: Destructible
@@ -404,8 +412,9 @@
       Dead:
         Base: lion_dead
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Bingle
+  - type: Injurable
+    damageContainer: Biological
   - type: MindContainer
   - type: MindExaminable
   - type: MobState
@@ -436,15 +445,16 @@
     - DoorBumpOpener
 
 - type: entity
-  id: MobAncientRepairBot # This mob is supposed to be a drone that auto-repairs stuff, but out of scope, and olny for adventure zones anyway.
   parent: [ BaseMob, MobCombat ]
+  id: MobAncientRepairBot # This mob is supposed to be a drone that auto-repairs stuff, but out of scope, and olny for adventure zones anyway.
   name: strange robot  #This mob is also supposed to shoot lightning bolts instead of slicing in meelee range, but since we don't have AI capable of using mob skills, that is to be added.
   description: It looks like some sort of floating repair bot or something?
   components:
-  - type: Advertise
-    pack: Repairbot
-    minimumWait: 15
-    maximumWait: 45
+  - type: Vocalizer
+    minVocalizeInterval: 15
+    maxVocalizeInterval: 45
+  - type: DatasetVocalizer
+    dataset: Repairbot
   - type: HTN
     rootTask:
       task: SimpleHostileCompound
@@ -493,8 +503,9 @@
         maxDistance: 12
         variation: 0.05
   - type: Damageable
-    damageContainer: Inorganic
     damageModifierSet: HeavyArmorSyndi
+  - type: Injurable
+    damageContainer: Inorganic
   - type: PointLight
     enabled: true
     color: "#790c24"
@@ -595,8 +606,9 @@
     footstepSoundCollection:
       collection: FootstepHeavySuit
   - type: Damageable
-    damageContainer: Inorganic
     damageModifierSet: HeavyArmorSyndi
+  - type: Injurable
+    damageContainer: Inorganic
   - type: Destructible
     thresholds:
       - trigger:
@@ -693,6 +705,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -713,6 +727,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -731,6 +747,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -752,6 +770,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -770,6 +790,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -788,6 +810,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -806,6 +830,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -824,6 +850,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -842,6 +870,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -860,6 +890,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -878,6 +910,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -896,6 +930,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -914,6 +950,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -932,6 +970,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -953,6 +993,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -974,6 +1016,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable
@@ -1011,6 +1055,8 @@
     name: ghost-role-information-voidsummon-name
     description: ghost-role-information-voidsummon-description
     rules: ghost-role-information-nascent-rules
+    mindRoles:
+    - MindRoleGhostRoleTeamAntagonist
     raffle:
       settings: short
   - type: GhostTakeoverAvailable

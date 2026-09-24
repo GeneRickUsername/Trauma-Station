@@ -114,23 +114,6 @@
         Plasma: 5
 
 - type: entity
-  parent: BaseMachineCircuitboard
-  id: PlumbingPumpCircuitboard
-  name: liquid pump board
-  components:
-  - type: Sprite
-    state: engineering
-  - type: MachineBoard
-    prototype: PlumbingPump
-    stackRequirements:
-      Manipulator: 4
-      Steel: 5
-    tagRequirements:
-      GlassBeaker:
-        amount: 2
-        defaultPrototype: Beaker
-
-- type: entity
   id: EnergyChemDispenserMachineCircuitboard
   parent: BaseMachineCircuitboard
   name: energy chem dispenser machine board
@@ -142,8 +125,9 @@
       prototype: EnergyChemDispenser
       stackRequirements:
         Manipulator: 1
-        Glass: 1
-        Steel: 3
+        Glass: 5
+        Steel: 5
+        BSCrystal: 1
       tagRequirements:
         GlassBeaker:
           amount: 2

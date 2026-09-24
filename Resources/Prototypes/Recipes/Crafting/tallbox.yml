@@ -1,6 +1,25 @@
+# region Base
 - type: construction
+  abstract: true
+  id: BaseCloset
+  targetNode: done
+  category: construction-category-storage
+  canRotate: false
+  # <Trauma>
+  theory:
+    FurnitureKnowledge: 0
+  practical:
+    MetalworkingKnowledge: 1
+    MechanicsKnowledge: 1
+  # </Trauma>
+# endregion
+
+# region Closets
+- type: construction
+  parent: BaseCloset
   id: ClosetSteel
   graph: ClosetSteel
+<<<<<<< HEAD
   startNode: start
   targetNode: done
   category: construction-category-storage
@@ -12,10 +31,14 @@
     ManufacturingKnowledge: 1
     MechanicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseCloset
   id: ClosetSteelSecure
   graph: ClosetSteelSecure
+<<<<<<< HEAD
   startNode: start
   targetNode: done
   category: construction-category-storage
@@ -28,11 +51,15 @@
     ManufacturingKnowledge: 1
     MechanicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseCloset
   id: ClosetFreezer
   name: construction-recipe-closet-freezer
   graph: ClosetFreezer
+<<<<<<< HEAD
   startNode: start
   targetNode: done
   category: construction-category-storage
@@ -44,33 +71,33 @@
     ManufacturingKnowledge: 1
     MechanicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseCloset
   id: GunSafe
   graph: GunSafe
-  startNode: start
-  targetNode: done
-  category: construction-category-storage
-  objectType: Structure
   # <Trauma>
+<<<<<<< HEAD
   theory:
     ConstructionKnowledge: 0
+=======
+>>>>>>> upstream
   practical:
     ManufacturingKnowledge: 2
     MechanicsKnowledge: 2
   # </Trauma>
 
 - type: construction
+  parent: BaseCloset
   id: ClosetWall
   graph: ClosetWall
-  startNode: start
-  targetNode: done
-  category: construction-category-storage
-  objectType: Structure
   placementMode: SnapgridCenter
   canRotate: true
   canBuildInImpassable: true
   conditions:
+<<<<<<< HEAD
     - !type:WallmountCondition
   # <Trauma>
   theory:
@@ -79,3 +106,7 @@
     ManufacturingKnowledge: 1
     MechanicsKnowledge: 1
   # </Trauma>
+=======
+  - !type:WallmountCondition
+# endregion Closets
+>>>>>>> upstream

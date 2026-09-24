@@ -22,28 +22,10 @@ public sealed partial class NinjaConditionsSystem : EntitySystem
 
     public override void Initialize()
     {
-        SubscribeLocalEvent<DoorjackConditionComponent, ObjectiveGetProgressEvent>(OnDoorjackGetProgress);
-
         SubscribeLocalEvent<SpiderChargeConditionComponent, RequirementCheckEvent>(OnSpiderChargeRequirementCheck);
         SubscribeLocalEvent<SpiderChargeConditionComponent, ObjectiveAfterAssignEvent>(OnSpiderChargeAfterAssign);
 
         SubscribeLocalEvent<StealResearchConditionComponent, ObjectiveGetProgressEvent>(OnStealResearchGetProgress);
-    }
-
-    // doorjack
-
-    private void OnDoorjackGetProgress(EntityUid uid, DoorjackConditionComponent comp, ref ObjectiveGetProgressEvent args)
-    {
-        args.Progress = DoorjackProgress(comp, _number.GetTarget(uid));
-    }
-
-    private float DoorjackProgress(DoorjackConditionComponent comp, int target)
-    {
-        // prevent divide-by-zero
-        if (target == 0)
-            return 1f;
-
-        return MathF.Min(comp.DoorsJacked / (float) target, 1f);
     }
 
     // spider charge
@@ -94,7 +76,7 @@ public sealed partial class NinjaConditionsSystem : EntitySystem
         }
         else
         {
-            title = Loc.GetString("objective-condition-spider-charge-title", ("location", warp.Location));
+            title = Loc.GetString("objective-condition-spider-charge-title", ("location", Loc.TryGetString(warp.Location, out var location) ? location : warp.Location)); // Trauma - use TryGetString
         }
         _metaData.SetEntityName(uid, title, args.Meta);
     }

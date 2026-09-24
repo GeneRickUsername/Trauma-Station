@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Emotes that every mob's emotes inherit from
 - type: emoteSounds
   abstract: true
@@ -145,3 +147,12 @@
       path: /Audio/_EinsteinEngines/Voice/IPC/pai_whistle.ogg
       params:
         variation: 0.125
+
+- type: emoteSounds
+  parent: BaseMobEmotes
+  id: ClownChicken
+  params:
+    variation: 0.125
+  sounds:
+    Honk:
+      collection: BikeHorn

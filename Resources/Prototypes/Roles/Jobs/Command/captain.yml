@@ -6,37 +6,46 @@
   requirements:
     - !type:DepartmentTimeRequirement
       department: Engineering
-      time: 1h # Trauma was 4
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 1h # Trauma was 4
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Science
-      time: 1h # Trauma was 4
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Security
-      time: 1h # Trauma was 4
+      time: 4h
     - !type:DepartmentTimeRequirement
       department: Command
       time: 4h
-  guides: # goobstation
+  # <Trauma>
+  guides:
   - Command
-  weight: 20
+  # </Trauma>
   startingGear: CaptainGear
   icon: "JobIconCaptain"
   joinNotifyCrew: true
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   special:
+  # <Trauma>
+  - !type:OrganChipsSpecial
+    chips:
+    - SkillChipEchelonEducation
+    - SkillChipLaser
+    - SkillChipLongBlade
+  # </Trauma>
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
   - !type:AddComponentSpecial
     components:
-      - type: CommandStaff
-      - type: Condemned # Goobstation - Nanotrasen owns your soul pal.
+      # <Trauma>
+      - type: Condemned # Nanotrasen owns your soul pal.
         soulOwnedNotDevil: true
+      # </Trauma>
+      - type: CommandStaff
 
 - type: startingGear
   id: CaptainGear
@@ -44,7 +53,7 @@
     shoes: ClothingShoesBootsLaceup
     eyes: ClothingEyesGlassesCommand
     #gloves: ClothingHandsGlovesCaptain # Goobstation, moved to loadouts
-    id: CaptainPDA
+    #id: CaptainPDA # Trauma - moved to loadouts
     ears: ClothingHeadsetAltCommand
   storage:
     back:

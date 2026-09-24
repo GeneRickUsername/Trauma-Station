@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Client.Eye;
+using Content.Goobstation.Shared.SpaceWhale;
 using Content.Shared.CCVar;
 using Content.Shared.MouseRotator;
+using Content.Shared.Movement.Pulling.Components;
 using Content.Shared.Movement.Pulling.Events;
+using Content.Trauma.Client.Sprite;
 using Content.Trauma.Client.Viewcone.Overlays;
 using Content.Trauma.Common.CCVar;
 using Content.Trauma.Common.Popups;
@@ -31,23 +34,14 @@ public sealed partial class ViewconeOverlaySystem : EntitySystem
     [Dependency] private IPlayerManager _player = default!;
     [Dependency] private IOverlayManager _overlay = default!;
     [Dependency] private SharedTransformSystem _xform = default!;
-    [Dependency] private SpriteSystem _sprite = default!;
     [Dependency] private ViewconeAngleSystem _angle = default!;
+    [Dependency] private SpriteVisibilitySystem _spriteVis = default!;
     [Dependency] private EntityQuery<MouseRotatorComponent> _rotatorQuery = default!;
 
     private ViewconeConeOverlay _coneOverlay = default!;
     private ViewconeSetAlphaOverlay _setAlphaOverlay = default!;
-    private ViewconeResetAlphaOverlay _resetAlphaOverlay = default!;
 
     private const float LerpHalfLife = 0.065f;
-
-    // slightly balls state management, but
-    // done so we don't have to requery within the same frame
-    // this is always cleared at the end of resetting alpha
-    // it is the least thread safe code of all time obviously. but rendering not threaded. so
-    // we can abuse the fact that the overlays will always draw sequentially in the order we expect, and
-    // one wont start rendering in the middle of rendering another
-    internal List<(Entity<SpriteComponent> ent, float baseAlpha)> CachedBaseAlphas = new(128);
 
     // raw grain scale ignoring reduced motion setting
     // reduced motion locks it to 0
@@ -60,21 +54,8 @@ public sealed partial class ViewconeOverlaySystem : EntitySystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<ViewconeComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<ViewconeComponent, ComponentShutdown>(OnShutdown);
-        SubscribeLocalEvent<ViewconeComponent, ShowPopupAttemptEvent>(OnShowPopupAttempt);
-
-        SubscribeLocalEvent<ViewconeComponent, LocalPlayerAttachedEvent>(OnPlayerAttached);
-        SubscribeLocalEvent<ViewconeComponent, LocalPlayerDetachedEvent>(OnPlayerDetached);
-
-        SubscribeLocalEvent<ViewconeOccludableComponent, PullStartedMessage>(OnPullStarted);
-        SubscribeLocalEvent<ViewconeOccludableComponent, PullStoppedMessage>(OnPullStopped);
-        SubscribeLocalEvent<ViewconeOccludableComponent, ComponentShutdown>(OnOccludableShutdown);
-        SubscribeLocalEvent<ViewconeOccludableComponent, EntParentChangedMessage>(OnOccludableParentChanged);
-
         _coneOverlay = new();
         _setAlphaOverlay = new();
-        _resetAlphaOverlay = new();
 
         Subs.CVar(_cfg, TraumaCVars.VisionGrainScale, SetGrainScale, true);
         Subs.CVar(_cfg, TraumaCVars.DisableVisionCones, SetConesDisabled, true);
@@ -187,27 +168,50 @@ public sealed partial class ViewconeOverlaySystem : EntitySystem
         return angleDist < MathHelper.DegreesToRadians(ent.Comp.CurrentConeAngle) * 0.5f;
     }
 
+    [SubscribeLocalEvent]
+    private void OnPullableOverride(Entity<PullableComponent> ent, ref ViewconeOverrideEvent args)
+    {
+        if (ent.Comp.Puller != _player.LocalEntity)
+            return;
+
+        args.Override = true;
+    }
+
+    [SubscribeLocalEvent]
+    private void OnTailedOverride(Entity<TailedEntitySegmentComponent> ent, ref ViewconeOverrideEvent args)
+    {
+        if (ent.Comp.Head != _player.LocalEntity)
+            return;
+
+        args.Override = true;
+    }
+
+    [SubscribeLocalEvent]
     private void OnPlayerAttached(Entity<ViewconeComponent> ent, ref LocalPlayerAttachedEvent args)
     {
         AddOverlays();
     }
 
+    [SubscribeLocalEvent]
     private void OnPlayerDetached(Entity<ViewconeComponent> ent, ref LocalPlayerDetachedEvent args)
     {
         RemoveOverlays();
     }
 
+    [SubscribeLocalEvent]
     private void OnInit(Entity<ViewconeComponent> ent, ref ComponentInit args)
     {
         if (ent.Owner == _player.LocalEntity)
             AddOverlays();
     }
 
+    [SubscribeLocalEvent]
     private void OnShowPopupAttempt(Entity<ViewconeComponent> ent, ref ShowPopupAttemptEvent args)
     {
         args.Cancelled |= !IsVisible(ent, args.ViewerPos, args.WorldPos);
     }
 
+    [SubscribeLocalEvent]
     private void OnShutdown(Entity<ViewconeComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Owner == _player.LocalEntity)
@@ -223,7 +227,6 @@ public sealed partial class ViewconeOverlaySystem : EntitySystem
 
         _overlay.AddOverlay(_coneOverlay);
         _overlay.AddOverlay(_setAlphaOverlay);
-        _overlay.AddOverlay(_resetAlphaOverlay);
     }
 
     private void RemoveOverlays(bool setActive = true)
@@ -233,55 +236,34 @@ public sealed partial class ViewconeOverlaySystem : EntitySystem
 
         _overlay.RemoveOverlay(_coneOverlay);
         _overlay.RemoveOverlay(_setAlphaOverlay);
-        _overlay.RemoveOverlay(_resetAlphaOverlay);
 
-        // hide memories
+        // hide memories and reset everythings opacity
         var query = EntityQueryEnumerator<ViewconeOccludableComponent>();
-        while (query.MoveNext(out var comp))
+        while (query.MoveNext(out var uid, out var comp))
         {
-            if (comp.Memory is { } memory)
-                _sprite.SetVisible(memory, false);
-        }
+            if (comp.Memory is { } memory && !TerminatingOrDeleted(memory))
+                SetAlpha(memory, 0f);
 
-        // reset everythings opacity
-        var query2 = EntityQueryEnumerator<ViewconeOccludedComponent>();
-        while (query2.MoveNext(out var uid, out var comp))
-        {
-            _sprite.SetVisible(uid, true);
-            RemCompDeferred(uid, comp);
+            SetAlpha(uid, 1f);
+            RemCompDeferred<ViewconeOccludedComponent>(uid);
         }
     }
 
-    // Logic for disabling occluding of entities that you're currently pulling.
-    private void OnPullStarted(Entity<ViewconeOccludableComponent> ent, ref PullStartedMessage args)
+    [SubscribeLocalEvent]
+    private void OnOccludableInit(Entity<ViewconeOccludableComponent> ent, ref ComponentInit args)
     {
-        // can this even happen? idk
-        if (args.PullerUid != _player.LocalEntity || !_timing.IsFirstTimePredicted)
-            return;
-
-        EnsureComp<ViewconeClientOverrideComponent>(ent);
+        if (ent.Comp.Inverted)
+            SetAlpha(ent, 0f); // wait for overlay to maybe show effects next frame
     }
 
-    private void OnPullStopped(Entity<ViewconeOccludableComponent> ent, ref PullStoppedMessage args)
-    {
-        if (args.PullerUid != _player.LocalEntity)
-            return;
-
-        // why the fuck can this even happen? it stops the pull clientside and never restarts it?
-        // is clientside pulling just bugged upstream?
-        // the flow is "applying state -> reset virtual hand ent -> delete it (??) -> AUGHHHH THAT MEANS STOP PULLING I GUESS"
-        if (_timing.ApplyingState)
-            return;
-
-        RemComp<ViewconeClientOverrideComponent>(ent);
-    }
-
+    [SubscribeLocalEvent]
     private void OnOccludableShutdown(Entity<ViewconeOccludableComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.Memory is { } memory && !TerminatingOrDeleted(memory))
             Del(memory);
     }
 
+    [SubscribeLocalEvent]
     private void OnOccludableParentChanged(Entity<ViewconeOccludableComponent> ent, ref EntParentChangedMessage args)
     {
         if (ent.Comp.Memory is not { } memory ||
@@ -290,6 +272,18 @@ public sealed partial class ViewconeOverlaySystem : EntitySystem
 
         // if the map changes for any reason, hide the memory
         // this may happen from leaving PVS or FTLing, etc
-        _sprite.SetVisible(memory, false);
+        SetAlpha(memory, 0f);
+    }
+
+    public void SetAlpha(EntityUid uid, float alpha)
+    {
+        _spriteVis.UpdateVisibilityModifiers(uid, nameof(ViewconeOccludedComponent), alpha);
+    }
+
+    public bool IgnoresViewcone(EntityUid uid)
+    {
+        var ev = new ViewconeOverrideEvent();
+        RaiseLocalEvent(uid, ref ev);
+        return ev.Override;
     }
 }

@@ -1,3 +1,5 @@
+# Best job.
+
 - type: job
   id: ChiefMedicalOfficer
   name: job-name-cmo
@@ -6,23 +8,16 @@
   requirements:
     - !type:RoleTimeRequirement
       role: JobChemist
-      time: 1h # Trauma was 2.5
+      time: 2.5h
     - !type:RoleTimeRequirement
       role: JobMedicalDoctor
-      time: 2h # Trauma was 5
+      time: 5h
     - !type:DepartmentTimeRequirement
       department: Medical
-      time: 5h # Trauma was 10
-  weight: 10
+      time: 10h
   startingGear: CMOGear
   icon: "JobIconChiefMedicalOfficer"
   supervisors: job-supervisors-captain
-  canBeAntag: false
-  guides: # goobstation
-  - Medical
-  - Command
-  - Chemicals
-  - Virology
   access:
   - Medical
   - Command
@@ -31,7 +26,6 @@
   - ChiefMedicalOfficer
   - Brig
   - Cryogenics
-  - External # goobstation
   special:
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant ]
@@ -43,12 +37,10 @@
   id: CMOGear
   equipment:
     id: CMOPDA
-    ears: ClothingHeadsetAltMedical # Goobstation
-    eyes: ClothingEyesGlassesMed # Goobstation
+    ears: ClothingHeadsetCMO
   storage:
     back:
     - Flash
-    - TelescopicBaton # Goobstation
 
 - type: chameleonOutfit
   id: ChiefMedicalOfficerChameleonOutfit

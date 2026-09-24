@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Gate
   mapName: 'Gate Station'
@@ -63,3 +65,4 @@
           Librarian: [ 1, 1 ]
           Reporter: [ 2, 2 ]
           Lawyer: [ 2, 2 ]
+          DClass: [ -1, -1 ]

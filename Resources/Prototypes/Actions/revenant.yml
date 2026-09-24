@@ -1,13 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Nemanja <98561806+EmoGarbage404@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 DrSmugleaf <DrSmugleaf@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 metalgearsloth <31366439+metalgearsloth@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2024 Leon Friedrich <60421075+ElectroJr@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
-# SPDX-FileCopyrightText: 2025 OnsenCapy <101037138+OnsenCapy@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
   parent: ActionIntrinsicStore
   id: ActionRevenantShop
@@ -22,7 +12,10 @@
   components:
   - type: Action
     useDelay: 15
-    icon: Interface/Actions/defile.png
+    itemIconStyle: BigAction
+  - type: Sprite
+    layers:
+    - texture: Interface/Actions/defile.png
   - type: InstantAction
     event: !type:RevenantDefileActionEvent
 
@@ -33,8 +26,11 @@
   description: Summons lightning from nearby lights. Costs 40 Essence. #Goob edit
   components:
   - type: Action
-    icon: Interface/Actions/overloadlight.png
     useDelay: 20
+    itemIconStyle: BigAction
+  - type: Sprite
+    layers:
+    - texture: Interface/Actions/overloadlight.png
   - type: InstantAction
     event: !type:RevenantOverloadLightsActionEvent
 
@@ -57,7 +53,10 @@
   description: Causes nearby mechanisms to malfunction. Costs 60 Essence. #Goob edit
   components:
   - type: Action
-    icon: Interface/Actions/malfunction.png
     useDelay: 20
+    itemIconStyle: BigAction
+  - type: Sprite
+    layers:
+    - texture: Interface/Actions/malfunction.png
   - type: InstantAction
     event: !type:RevenantMalfunctionActionEvent

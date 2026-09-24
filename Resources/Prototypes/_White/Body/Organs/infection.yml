@@ -1,5 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
-  parent: [ OrganBaseInternal ]
+  parent: [ OrganBaseChildInternal ]
   id: XenomorphInfection
   name: xenomorph larva embryo
   description: A parasitic life form in its early stages of development. It has a worm-like body shape, underdeveloped limbs, and a tail appendage.
@@ -15,7 +17,8 @@
     price: 2000
   - type: XenomorphInfection
     maxGrowthStage: 6
-    growProb: 0.75
+    growProb: 1.0
+    growTime: 40
     infectedIcons:
       0: XenomorphInfectionIconStageZero
       1: XenomorphInfectionIconStageOne
@@ -31,18 +34,12 @@
         visualType: SmallCaution
       - !type:ModifyParalysis
         time: 1
-      - !type:GenericStatusEffect
-        key: Muted
-        component: Muted
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectMuted
         time: 1
-        refresh: true
-      - !type:GenericStatusEffect
-        key: TemporaryBlindness
-        component: TemporaryBlindness
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectBlindness
         time: 1
-        refresh: true
       - !type:Jitter
         time: 2
       3:
@@ -51,18 +48,13 @@
         visualType: SmallCaution
       - !type:ModifyParalysis
         time: 2
-      - !type:GenericStatusEffect
-        key: Muted
-        component: Muted
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectMuted
         time: 2
-        refresh: true
-      - !type:GenericStatusEffect
-        key: TemporaryBlindness
-        component: TemporaryBlindness
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectBlindness
+        type: Update
         time: 2
-        refresh: true
       - !type:Jitter
         time: 4
       4:
@@ -71,18 +63,13 @@
         visualType: SmallCaution
       - !type:ModifyParalysis
         time: 4
-      - !type:GenericStatusEffect
-        key: Muted
-        component: Muted
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectMuted
         time: 4
-        refresh: true
-      - !type:GenericStatusEffect
-        key: TemporaryBlindness
-        component: TemporaryBlindness
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectBlindness
+        type: Update
         time: 4
-        refresh: true
       - !type:Jitter
         time: 8
       6:
@@ -91,21 +78,17 @@
         visualType: Medium
       - !type:ModifyParalysis
         time: 8
-      - !type:GenericStatusEffect
-        key: Muted
-        component: Muted
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectMuted
         time: 8
-        refresh: true
-      - !type:GenericStatusEffect
-        key: TemporaryBlindness
-        component: TemporaryBlindness
-        type: Add
+      - !type:ModifyStatusEffect
+        effectProto: StatusEffectBlindness
+        type: Update
         time: 8
-        refresh: true
       - !type:HealthChange
         damage:
           types:
-            Blunt: 40
+            Blunt: 1000
+            Piercing: 1000
       - !type:Jitter
         time: 16

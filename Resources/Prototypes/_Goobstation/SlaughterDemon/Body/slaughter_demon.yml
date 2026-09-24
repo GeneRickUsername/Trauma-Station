@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## Mob
 
 - type: entity
@@ -101,7 +103,7 @@
   components:
   - type: Sprite
     sprite: _Goobstation/SlaughterDemon/heart.rsi
-  - type: InternalOrgan
+  - type: InternalChildOrgan
     intCap: 30
     integrity: 30
     integrityThresholds:

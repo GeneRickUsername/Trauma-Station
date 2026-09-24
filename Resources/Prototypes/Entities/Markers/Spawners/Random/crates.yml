@@ -1,14 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Morb <14136326+Morb0@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2022 Peptide90 <78795277+Peptide90@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2022 Pieter-Jan Briers <pieterjan.briers+git@gmail.com>
-# SPDX-FileCopyrightText: 2024 Flareguy <78941145+Flareguy@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2024 brainfood1183 <113240905+brainfood1183@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2024 metalgearsloth <31366439+metalgearsloth@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Southbridge <7013162+southbridge-fur@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
   parent: MarkerBase
   id: CrateEmptySpawner
@@ -82,7 +71,7 @@
   table: !type:GroupSelector
     children:
     - id: CrateEmergencyFire
-    - id: CrateEmergencyInternals
+    - id: CrateEmergencyEVA
     - id: CrateEmergencyInflatablewall
       weight: 0.5
 
@@ -90,8 +79,8 @@
   id: LowValueServiceCrateTable
   table: !type:GroupSelector
     children:
-    - id: CrateServiceColorfulLights
-    - id: CrateServiceReplacementLights
+    - id: CrateJanitorialColorfulLights
+    - id: CrateJanitorialReplacementLights
     - id: CrateServiceBureaucracy
     - id: PetCarrier
     - id: CrateHydroponicsTools
@@ -100,7 +89,7 @@
       weight: 0.5
     - id: CrateHydroponicsSeedsMedicinal
       weight: 0.5
-    - id: CrateServiceJanitorialSupplies
+    - id: CrateJanitorialSupplies
     - id: JanitorialTrolley
       weight: 0.2
 
@@ -215,14 +204,15 @@
         - id: CrateEngineeringSingularityCollector
         - id: CrateEngineeringTeslaCoil
         - id: CrateEngineeringSingularityEmitter
-        - id: CrateEngineeringGyroscope
-        - id: CrateEngineeringThruster
         - id: CrateEngineeringToolbox
-        - id: CrateEngineeringShuttle
         - id: CrateEngineeringSolar
-        - id: CrateEngineeringJetpack
         - id: CrateEmergencyRadiation
         - id: CrateRadiation
+        # EVA/shuttle supplies aren't technically "engineering" crates, but there's enough overlap to put them here
+        - id: CrateSpaceGyroscope
+        - id: CrateSpaceJetpack
+        - id: CrateSpaceShuttlePower
+        - id: CrateSpaceThruster
       - !type:GroupSelector
         weight: 2
         children:
@@ -257,7 +247,6 @@
         - id: CrateTrainingBombs
         - id: CrateTrackingImplants
         - id: CrateSecurityTrackingMindshieldImplants
-        - id: CrateSecurityHelmet
         - id: CrateSecurityArmor
         - id: CrateRestraints
         - id: CrateEmergencyExplosive

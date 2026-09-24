@@ -1,16 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
-  id: BaseMedicalKnowledge
-  parent: BaseKnowledge
   abstract: true
+  parent: BaseKnowledge
+  id: BaseMedicalKnowledge
   components:
   - type: Skill
     category: Medical
     color: "#1865d8"
 
 - type: entity
-  id: BasePhysicalKnowledge
-  parent: BaseKnowledge
   abstract: true
+<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
   components:
   - type: Skill
     category: Physical
@@ -18,14 +19,20 @@
     color: "#16e720"
 
 - type: entity
-  id: BaseWarKnowledge
+=======
   parent: BaseKnowledge
-  abstract: true
+>>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
+  id: BaseWarKnowledge
   components:
+<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
   - type: Skill
     category: War
     cost: 3
+=======
+  - type: Knowledge
+>>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
     color: "#f71818"
+    experienceCost: 15
 
 - type: entity
   parent: BaseKnowledge
@@ -57,12 +64,28 @@
 
 - type: entity
   parent: BaseKnowledge
-  id: BaseLanguageKnowledge
+<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
+=======
+  id: BaseRecipesKnowledge
   abstract: true
+  components:
+  - type: Knowledge
+    category: Recipes
+    color: "#f39b29"
+    experienceCost: 20
+    timeBetweenExperience: 1
+
+- type: entity
+  abstract: true
+  parent: BaseKnowledge
+>>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
+  id: BaseLanguageKnowledge
+  name: Language
+  description: The ability to speak and understand a language.
   components:
   - type: Skill
     category: Language
-    learnedLevel: 26
+    learnedLevel: 0
     experienceCost: 16
     color: "#ADD8E6"
     cost: null # its currently fucked, have to use traits still :(
@@ -111,9 +134,19 @@
   id: Language
   name: knowledge-category-Languages
 
+<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
 - type: skillCategory
   id: War
   name: knowledge-category-Combat
+=======
+- type: knowledgeCategory
+  id: MeleeCombat
+  name: knowledge-category-MeleeCombat
+
+- type: knowledgeCategory
+  id: RangedCombat
+  name: knowledge-category-RangedCombat
+>>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
 
 - type: skillCategory
   id: Medical

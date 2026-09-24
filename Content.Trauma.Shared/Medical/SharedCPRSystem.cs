@@ -41,7 +41,7 @@ public abstract partial class SharedCPRSystem : EntitySystem
     [Dependency] private EntityQuery<ActiveCPRComponent> _activeQuery = default!;
     [Dependency] private EntityQuery<DamageableComponent> _damageQuery = default!;
     [Dependency] private EntityQuery<MobStateComponent> _mobQuery = default!;
-    [Dependency] private EntityQuery<InternalOrganComponent> _organQuery = default!;
+    [Dependency] private EntityQuery<InternalChildOrganComponent> _organQuery = default!;
     [Dependency] private EntityQuery<RottingComponent> _rottingQuery = default!;
     [Dependency] private EntityQuery<UnrevivableComponent> _unrevivableQuery = default!;
 
@@ -100,7 +100,7 @@ public abstract partial class SharedCPRSystem : EntitySystem
             return;
 
         var userIdentity = Identity.Entity(ent, EntityManager);
-        _popup.PopupClient(Loc.GetString("cpr-start-second-person", ("target", identity)), target, ent);
+        _popup.PopupEntity(Loc.GetString("cpr-start-second-person", ("target", identity)), target, ent);
         _popup.PopupEntity(Loc.GetString("cpr-start-second-person-patient", ("user", userIdentity)), target, target);
 
         var doAfterArgs = new DoAfterArgs(
@@ -133,7 +133,7 @@ public abstract partial class SharedCPRSystem : EntitySystem
     {
         if (_activeQuery.HasComp(target))
         {
-            _popup.PopupClient(Loc.GetString("cpr-already-performing", ("entity", identity)), ent, ent, PopupType.Medium);
+            _popup.PopupEntity(Loc.GetString("cpr-already-performing", ("entity", identity)), ent, ent, PopupType.Medium);
             return false;
         }
 
@@ -144,19 +144,31 @@ public abstract partial class SharedCPRSystem : EntitySystem
     {
         if (_rottingQuery.HasComp(target))
         {
+<<<<<<< HEAD
             _popup.PopupClient(Loc.GetString("cpr-target-rotting", ("entity", identity)), uid, uid, PopupType.LargeCaution);
+=======
+            _popup.PopupEntity(Loc.GetString("cpr-target-rotting", ("entity", identity)), ent, ent, PopupType.LargeCaution);
+>>>>>>> upstream
             return false;
         }
 
         if (GetLungs(target) == null || GetLungs(uid) == null)
         {
+<<<<<<< HEAD
             _popup.PopupClient(Loc.GetString("cpr-target-cantbreathe", ("entity", identity)), uid, uid, PopupType.MediumCaution);
+=======
+            _popup.PopupEntity(Loc.GetString("cpr-target-cantbreathe", ("entity", identity)), ent, ent, PopupType.MediumCaution);
+>>>>>>> upstream
             return false;
         }
 
         if (_inventory.TryGetSlotEntity(target, "outerClothing", out var outer))
         {
+<<<<<<< HEAD
             _popup.PopupClient(Loc.GetString("cpr-must-remove", ("clothing", outer)), uid, uid, PopupType.Medium);
+=======
+            _popup.PopupEntity(Loc.GetString("cpr-must-remove", ("clothing", outer)), ent, ent, PopupType.Medium);
+>>>>>>> upstream
             return false;
         }
 
@@ -189,7 +201,7 @@ public abstract partial class SharedCPRSystem : EntitySystem
 
         if (!HasHealthyLungs(ent))
         {
-            _popup.PopupClient(Loc.GetString("cpr-failed-lungs-damaged", ("target", identity)), user, user, PopupType.LargeCaution);
+            _popup.PopupEntity(Loc.GetString("cpr-failed-lungs-damaged", ("target", identity)), user, user, PopupType.LargeCaution);
             RemCompDeferred(ent, ent.Comp);
             return;
         }

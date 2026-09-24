@@ -1,4 +1,4 @@
-# Disruption
+# SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: listing
   id: UplinkCrateNPCGondola
@@ -26,7 +26,7 @@
   description: uplink-reagent-grenades-desc
   productEntity: BoxReagentGrenades
   cost:
-    Telecrystal: 30
+    Telecrystal: 20
   categories:
     -  UplinkDisruption
 
@@ -36,9 +36,10 @@
   description: uplink-sarin-gas-grenade-desc
   productEntity: SarinGasGrenade
   cost:
-    Telecrystal: 10
+    Telecrystal: 15 # Not on the same level as other grenades
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
+  restockTime: 300 # Trauma
   conditions:
   - !type:StoreWhitelistCondition
     blacklist:
@@ -53,9 +54,9 @@
   description: uplink-sarin-gas-grenade-desc
   productEntity: SarinGasGrenade
   cost:
-    Telecrystal: 5
+    Telecrystal: 10
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -70,7 +71,7 @@
   cost:
     Telecrystal: 5
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -85,7 +86,7 @@
   cost:
     Telecrystal: 2
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -100,7 +101,7 @@
   cost:
     Telecrystal: 12
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -109,28 +110,13 @@
 
 - type: listing
   id: UplinkSupermatterGrenadeNukeops
-  name: uplink-supermatter-grenade-name
-  description: uplink-supermatter-grenade-desc
+  name: uplink-singularity-grenade-name
+  description: uplink-singularity-grenade-desc
   productEntity: SupermatterGrenade
   cost:
     Telecrystal: 10
   categories:
-  - UplinkExplosives
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - NukeOpsUplink
-
-- type: listing
-  id: UplinkWhiteholeGrenadeNukeops
-  name: uplink-whitehole-grenade-name
-  description: uplink-whitehole-grenade-desc
-  productEntity: WhiteholeGrenade
-  cost:
-    Telecrystal: 2
-  categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -145,7 +131,7 @@
   cost:
     Telecrystal: 4
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -154,13 +140,13 @@
 
 - type: listing
   id: UplinkC4BundleNukeops
-  name: uplink-c4-bundle-name
+  name: uplink-c4-bundle-name-trauma # Trauma - Added -trauma
   description: uplink-c4-bundle-desc
   productEntity: ClothingBackpackDuffelSyndicateC4tBundle
   cost:
-    Telecrystal: 26
+    Telecrystal: 24
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -175,7 +161,7 @@
   cost:
     Telecrystal: 2
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -190,7 +176,7 @@
   cost:
     Telecrystal: 11
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -205,7 +191,7 @@
   cost:
     Telecrystal: 4
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -220,7 +206,7 @@
   cost:
     Telecrystal: 4
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -229,23 +215,12 @@
 
 # Weaponry
 
-# - type: listing
-#   id: UplinkEswordDouble
-#   name: uplink-esword-double-name
-#   description: uplink-esword-double-desc
-#   icon: { sprite: /Textures/Objects/Weapons/Melee/e_sword_double.rsi, state: icon }
-#   productEntity: EnergySwordDouble
-#   cost:
-#     Telecrystal: 80
-#   categories:
-#   - UplinkWeaponry
-
 - type: listing
   id: UplinkContractorBaton
   name: uplink-contractor-baton-name
   description: uplink-contractor-baton-desc
   icon: { sprite: /Textures/_Goobstation/Objects/Weapons/Melee/contractor_baton.rsi, state: uplink }
-  productEntity: ContractorBaton
+  productEntity: BriefcaseWeaponContractorBatonFilled
   cost:
     Telecrystal: 35
   categories:
@@ -262,9 +237,10 @@
   id: UplinkFireAxeFlaming
   name: uplink-fire-axe-flaming-name
   description: uplink-fire-axe-flaming-desc
-  productEntity: FireAxeFlaming
+  icon: { sprite: /Textures/Objects/Weapons/Melee/fireaxeflaming.rsi, state: icon }
+  productEntity: BriefcaseWeaponFireaxeFilled
   cost:
-    Telecrystal: 60
+    Telecrystal: 65
   categories:
   - UplinkWeaponry
 
@@ -273,9 +249,9 @@
   name: uplink-weapon-burner-name
   description: uplink-weapon-burner-desc
   icon: { sprite: /Textures/_Goobstation/Objects/Weapons/Guns/Rifles/burner.rsi, state: icon }
-  productEntity: WeaponRifleBurner
+  productEntity: BriefcaseWeaponBurnerFilled
   cost:
-    Telecrystal: 100 # don't kill me piras
+    Telecrystal: 100
   categories:
   - UplinkWeaponry
   conditions:
@@ -283,15 +259,17 @@
     whitelist:
       tags:
       - NukeOpsUplink
+      components:
+      - SpyRule
 
 - type: listing
   id: UplinkBowHardlight
   name: uplink-hardlight-bow-name
   description: uplink-hardlight-bow-desc
   icon: { sprite:  /Textures/_Goobstation/Objects/Weapons/Guns/Bow/hardlight_bow.rsi, state: icon }
-  productEntity: BowHardlight
+  productEntity: BriefcaseWeaponHardlightBowFilled
   cost:
-    Telecrystal: 60
+    Telecrystal: 90
   categories:
   - UplinkWeaponry
   conditions:
@@ -315,9 +293,10 @@
   id: UplinkPistolAnaconda
   name: uplink-anaconda-name
   description: uplink-anaconda-desc
-  productEntity: WeaponPistolAnaconda
+  icon: { sprite:  /Textures/_Goobstation/Objects/Weapons/Guns/Pistols/anaconda.rsi, state: icon }
+  productEntity: BriefcaseWeaponAnacondaFilled
   cost:
-    Telecrystal: 38 # This + esword = 75 TC
+    Telecrystal: 40
   categories:
   - UplinkWeaponry
   conditions:
@@ -328,7 +307,7 @@
 
 - type: listing
   id: UplinkBulkMosin
-  name: uplink-bulk-mosin-name
+  name: uplink-bulk-mosin-name-trauma # Trauma - Added -trauma
   description: uplink-bulk-mosin-desc
   productEntity: CrateSyndicateBulkMosin
   cost:
@@ -420,7 +399,7 @@
   icon: { sprite: /Textures/_Goobstation/Clothing/Head/Helmets/reverse_bear_trap.rsi, state: icon }
   productEntity: BoxReverseBearTrap
   cost:
-    Telecrystal: 23 # novelty item for rp
+    Telecrystal: 20 # novelty item for rp
   categories:
   - UplinkWearables
 
@@ -432,7 +411,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Cannons/pie_cannon.rsi, state: piecannon }
   productEntity: LauncherCreamPieRegenerating
   cost:
-    Telecrystal: 40
+    Telecrystal: 35
   categories:
   - UplinkJob
   conditions:
@@ -468,15 +447,19 @@
   - !type:BuyerJobCondition
     whitelist:
     - Chaplain
+  - !type:BuyerWhitelistCondition
+    blacklist:
+      components:
+      - SurplusBundle
 
 
 - type: listing
   id: UplinkLubeGrenade
-  name: Lube grenade
-  description: Make the floor slippery!
+  name: uplink-lube-grenade-name
+  description: uplink-lube-grenade-desc
   productEntity: LubeGrenade
   cost:
-    Telecrystal: 14
+    Telecrystal: 10
   categories:
     -  UplinkJob
   conditions:
@@ -488,8 +471,8 @@
 
 - type: listing
   id: UplinkGlueGrenade
-  name: Glue grenade
-  description: Make the floor hard to walk in!
+  name: uplink-glue-grenade-name
+  description: uplink-glue-grenade-desc
   productEntity: GlueGrenade
   cost:
     Telecrystal: 5
@@ -539,17 +522,17 @@
   icon: { sprite: _Goobstation/Objects/Devices/communication.rsi, state: radio-syndiroach }
   productEntity: ReinforcementRadioSyndicateSyndiRoach
   cost:
-    Telecrystal: 30
+    Telecrystal: 15
   categories:
     - UplinkAllies
 
 - type: listing
-  id: uplinkBeeNades    #goob - bee update
-  name: uplink-beenades-name
-  description: uplink-beenades-desc
+  id: UplinkBeeNades  #goob - bee update
+  name: uplink-beenade-name
+  description: uplink-beenade-desc
   productEntity: BeeGrenade
   cost:
-    Telecrystal: 16
+    Telecrystal: 15
   categories:
   - UplinkJob
   conditions:
@@ -615,6 +598,10 @@
     - Passenger
   - !type:ListingLimitedStockCondition
     stock: 1
+  - !type:BuyerWhitelistCondition
+    blacklist:
+      components:
+      - SurplusBundle
 
 - type: listing
   id: UplinkAdvMimery
@@ -641,7 +628,7 @@
   description: uplink-advanced-combat-medipen-desc
   productEntity: AdvancedCombatMedipen
   cost:
-    Telecrystal: 24
+    Telecrystal: 20
   categories:
   - UplinkChemicals
 
@@ -721,14 +708,14 @@
   icon: { sprite: /Textures/Objects/Specific/Medical/syndi_implanter.rsi, state: implanter0 }
   productEntity: MindcontrolImplanter
   cost:
-    Telecrystal: 25 # Half the budget #bounty someone want it cheaper.
+    Telecrystal: 35 # no longer can you buy 4 mind control implants
   categories:
     - UplinkImplants
   conditions:
     - !type:StoreWhitelistCondition
       blacklist:
         tags:
-          - NukeOpsUplink # i guess we dont let nukies have this, they have to mutch TC
+          - NukeOpsUplink # I guess we don't let nukies have this, they have too much TC
           - ContravendUplink
 
 - type: listing
@@ -753,30 +740,6 @@
   categories:
   - UplinkImplants
 
-# I don't know if this is balanced, so i'm just going to leave it commented out.
-# If you want to add this in the future, feel free. - Sol
-#- type: listing
-#  id: UplinkStypticStimulatorImplanter
-#  name: uplink-styptic-stimulator-implant-name
-#  description: uplink-styptic-stimulator-implant-desc
-#  icon: { sprite: Objects/Specific/Medical/medical.rsi, state: brutepack }
-#  productEntity: StypticStimulatorImplanter
-#  cost:
-#    Telecrystal: 40
-#  categories:
-#  - UplinkImplants
-
-#- type: listing - Warden exclusive martial art
-#  id: UplinkKravMagaImplanter
-#  name: uplink-krav-maga-implant-name
-#  description: uplink-krav-maga-implant-desc
-#  icon: { sprite: /Textures/_Goobstation/Clothing/Hands/Gloves/kravgloves.rsi, state: icon }
-#  productEntity: KravMagaImplanter
-#  cost:
-#    Telecrystal: 40
-#  categories:
-#    - UplinkImplants
-
 - type: listing
   id: UplinkBinaryImplant
   name: uplink-binary-implant-name
@@ -784,7 +747,7 @@
   icon: { sprite: /Textures/Objects/Devices/encryption_keys.rsi, state: ai_label }
   productEntity: BinaryImplanter
   cost:
-    Telecrystal: 5 # goob
+    Telecrystal: 5
   categories:
   - UplinkImplants
 
@@ -811,39 +774,6 @@
   - UplinkImplants
 
 - type: listing
-  id: UplinkAutosurgeonSandevistan
-  name: uplink-autosurgeon-sandevistan-name
-  description: uplink-autosurgeon-sandevistan-desc
-  icon: { sprite: _Goobstation/Objects/Misc/sandevistan.rsi, state: icon }
-  productEntity: AutosurgeonSandevistan
-  cost:
-    Telecrystal: 66 # The urge to make it 65...
-  categories:
-  - UplinkImplants
-  conditions:
-  - !type:StoreWhitelistCondition
-    blacklist:
-      tags:
-      - NukeOpsUplink
-
-- type: listing
-  id: NukieUplinkAutosurgeonSandevistan
-  name: uplink-autosurgeon-sandevistan-name
-  description: uplink-autosurgeon-sandevistan-desc
-  icon: { sprite: _Goobstation/Objects/Misc/sandevistan.rsi, state: icon }
-  productEntity: AutosurgeonSandevistan
-  cost:
-    Telecrystal: 124
-  categories:
-  - UplinkImplants
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - LoneOpsUplink
-
-
-- type: listing
   id: UplinkClothingOuterDavidsJacketValid
   name: uplink-davids-jacket-name
   description: uplink-davids-jacket-desc
@@ -860,7 +790,7 @@
     whitelist:
     - UplinkAutosurgeonRightMantisBlade
     - UplinkAutosurgeonLeftMantisBlade
-    - UplinkAutosurgeonSandevistan
+    - UplinkAutosurgeonStatvekaSandevistan
   - !type:BuyerWhitelistCondition
     blacklist:
       components:
@@ -888,16 +818,16 @@
   categories:
   - UplinkImplants
 
-- type: listing
-  id: UplinkAutosurgeonBerserkerHeart
-  name: uplink-autosurgeon-berserker-heart-name
-  description: uplink-autosurgeon-berserker-heart-desc
-  icon: { sprite: _Goobstation/Objects/Misc/berserker_heart.rsi, state: icon }
-  productEntity: AutosurgeonBerserker
-  cost:
-    Telecrystal: 66
-  categories:
-  - UplinkImplants
+# - type: listing
+#   id: UplinkAutosurgeonBerserkerHeart
+#   name: uplink-autosurgeon-berserker-heart-name
+#   description: uplink-autosurgeon-berserker-heart-desc
+#   icon: { sprite: _Goobstation/Objects/Misc/berserker_heart.rsi, state: icon }
+#   productEntity: AutosurgeonBerserker
+#   cost:
+#     Telecrystal: 66
+#   categories:
+#   - UplinkImplants
 
 - type: listing
   id: UplinkAutosurgeonJumpstarter
@@ -936,7 +866,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Explosives/explosives.rsi, state: blast }
   productEntity: GrenadeBlast
   cost:
-    Telecrystal: 12 # Buying granades this way is ~14% cheaper than getting them from china-lake bundles
+    Telecrystal: 12 # Buying grenades this way is ~14% cheaper than getting them from china-lake bundles
   categories:
   - UplinkAmmo
   conditions:
@@ -952,7 +882,7 @@
   icon: { sprite: /Textures/Objects/Weapons/Guns/Ammunition/Explosives/explosives.rsi, state: frag }
   productEntity: GrenadeFrag
   cost:
-    Telecrystal: 12 # Buying granades this way is ~14% cheaper than getting them from china-lake bundles
+    Telecrystal: 12 # Buying grenades this way is ~14% cheaper than getting them from china-lake bundles
   categories:
   - UplinkAmmo
   conditions:
@@ -992,6 +922,8 @@
     whitelist:
       tags:
       - NukeOpsUplink
+      components:
+      - SpyRule
 
 - type: listing
   id: UplinkMagazineHighCaliber
@@ -1097,38 +1029,16 @@
     Telecrystal: 60
   categories:
   - UplinkWeaponry
-  conditions:
-  - !type:StoreWhitelistCondition
-    whitelist:
-      tags:
-      - NukeOpsUplink
-      - ContravendUplink
 
 - type: listing
-  id: UplinkCQCManualChef
-  name: uplink-cqc-name
-  description: uplink-cqc-desc
-  productEntity: CQCManual
+  id: UplinkCapoeiraManual
+  name: uplink-capoeira-name
+  description: uplink-capoeira-desc
+  productEntity: CapoeiraManual
   cost:
     Telecrystal: 60
   categories:
-  - UplinkJob
-  conditions:
-  - !type:ListingLimitedStockCondition
-    stock: 1
-  - !type:BuyerJobCondition
-    whitelist:
-    - Chef
-
-# - type: listing
-#   id: UplinkCapoeiraManual
-#   name: uplink-capoeira-name
-#   description: uplink-capoeira-desc
-#   productEntity: CapoeiraManual
-#   cost:
-#     Telecrystal: 35
-#   categories:
-#   - UplinkWeaponry
+  - UplinkWeaponry
 
 - type: listing
   id: UplinkMysteriousScroll
@@ -1136,7 +1046,8 @@
   description: uplink-sleeping-carp-desc
   productEntity: SleepingCarpScroll
   cost:
-    Telecrystal: 70
+    Telecrystal: 100
+  discountCategory: null
   categories:
   - UplinkWeaponry
   conditions:
@@ -1155,7 +1066,13 @@
   cost:
     Telecrystal: 10  # Goob
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
+  restockTime: 300 # Trauma
+  conditions:
+  - !type:StoreWhitelistCondition
+    whitelist:
+      tags:
+      - NukeOpsUplink
 
 - type: listing
   id: UplinkPizzaParty
@@ -1165,7 +1082,8 @@
   cost:
     Telecrystal: 50  # Goob Bundle, get 8 pizza bombs and 7 regular pizzas. Bundle + Pizza boxes not telling the dangerous ones justifies the discount.
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
+  restockTime: 300
 
 - type: listing
   id: UplinkM172
@@ -1176,7 +1094,7 @@
   cost:
     Telecrystal: 6 # Basically a worse C4 but ranged
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -1192,7 +1110,7 @@
   cost:
     Telecrystal: 40 #Should be alot, its an investment item
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
 
 - type: listing
   id: UplinkExplosivePayloadBlueprint
@@ -1203,7 +1121,7 @@
   cost:
     Telecrystal: 6 # one and a half incendiary grenades, takes up the same space as three
   categories:
-  - UplinkExplosives
+    - UplinkExplosives
   conditions:
   - !type:StoreWhitelistCondition
     whitelist:
@@ -1240,7 +1158,7 @@
   name: uplink-energy-pickaxe-name
   description: uplink-energy-pickaxe-desc
   icon: { sprite: /Textures/_NF/Objects/Weapons/Melee/energy_pickaxe.rsi, state: icon }
-  productEntity: NFEnergyPickaxe
+  productEntity: BriefcaseWeaponEnergyPickaxeFilled
   cost:
     Telecrystal: 32 # Worse than esword for combat, better for breaching
   categories:

@@ -8,14 +8,14 @@ using Content.Server.Body.Systems;
 using Content.Server.Chat;
 using Content.Server.Chat.Systems;
 using Content.Server.Emoting.Systems;
-using Content.Server.Speech.EntitySystems;
+using Content.Shared.Speech.EntitySystems;
 using Content.Shared.Anomaly.Components;
 using Content.Shared.Armor;
 using Content.Shared.Bed.Sleep;
+using Content.Shared.Body.Systems;
 using Content.Shared.Cloning.Events;
 using Content.Shared.Chat;
 using Content.Shared.Damage.Systems;
-using Content.Shared.Humanoid;
 using Content.Shared.Inventory;
 using Content.Shared.Mind;
 using Content.Shared.Mind.Components;
@@ -23,6 +23,7 @@ using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
+using Content.Shared.Revolutionary;
 using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Content.Shared.Weapons.Melee.Events;
@@ -30,13 +31,15 @@ using Content.Shared.Zombies;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Timing;
+using Content.Server.Ghost.Roles.Components;
+using Content.Shared.Medical;
+using Content.Shared.Construction.Steps;
 
 namespace Content.Server.Zombies
 {
     public sealed partial class ZombieSystem : SharedZombieSystem
     {
         [Dependency] private IGameTiming _timing = default!;
-        [Dependency] private IPrototypeManager _protoManager = default!;
         [Dependency] private IRobustRandom _random = default!;
         [Dependency] private BloodstreamSystem _bloodstream = default!;
         [Dependency] private DamageableSystem _damageable = default!;
@@ -75,6 +78,7 @@ namespace Content.Server.Zombies
             SubscribeLocalEvent<ZombieComponent, GetCharacterUnrevivableIcEvent>(OnGetCharacterUnrevivableIC);
             SubscribeLocalEvent<ZombieComponent, MindAddedMessage>(OnMindAdded);
             SubscribeLocalEvent<ZombieComponent, MindRemovedMessage>(OnMindRemoved);
+            SubscribeLocalEvent<ZombieComponent, AttemptConvertRevolutionaryEvent>(OnAttemptConvert);
 
             SubscribeLocalEvent<PendingZombieComponent, MapInitEvent>(OnPendingMapInit);
             SubscribeLocalEvent<PendingZombieComponent, BeforeRemoveAnomalyOnDeathEvent>(OnBeforeRemoveAnomalyOnDeath);
@@ -189,7 +193,7 @@ namespace Content.Server.Zombies
             if (args.Handled)
                 return;
 
-            _protoManager.Resolve(component.EmoteSoundsId, out var sounds);
+            ProtoMan.Resolve(component.EmoteSoundsId, out var sounds);
 
             args.Handled = _chat.TryPlayEmoteSound(uid, sounds, args.Emote);
         }
@@ -311,6 +315,13 @@ namespace Content.Server.Zombies
 
             _bloodstream.ChangeBloodReagents(target, zombiecomp.BeforeZombifiedBloodReagents);
 
+            // Restore the blood refresh amount to what it was before zombification. They can't regain blood otherwise.
+            _bloodstream.ChangeBloodRefreshAmount(target, zombiecomp.BeforeZombifiedBloodRefresh);
+            _bloodstream.ChangeBloodIncreaseEnabled(target, true);
+
+            // Remove the tags that we added during Zombification
+            _tag.RemoveTag(target, CannotSuicideTag);
+            _tag.RemoveTag(target, InvalidForGlobalSpawnSpellTag);
             return true;
         }
 
@@ -327,9 +338,31 @@ namespace Content.Server.Zombies
         }
 
         // Remove the role when getting cloned, getting gibbed and borged, or leaving the body via any other method.
+        // We also need to make sure the zombie is a ghost role because zombies with minds do not get a ghostrolecomponent
         private void OnMindRemoved(Entity<ZombieComponent> ent, ref MindRemovedMessage args)
         {
             _role.MindRemoveRole<ZombieRoleComponent>((args.Mind.Owner,  args.Mind.Comp));
+            MakeGhostRole(ent.Owner);
+        }
+
+        private void OnAttemptConvert(Entity<ZombieComponent> ent, ref AttemptConvertRevolutionaryEvent args)
+        {
+            args.Cancelled = true;
+        }
+
+        /// <summary>
+        /// Makes the target entity a zombie ghost role. Should only be fired when the entity does not have a mind.
+        /// </summary>
+        private void MakeGhostRole(EntityUid ent)
+        {
+            //yet more hardcoding. Visit zombie.ftl for more information.
+            var ghostRole = EnsureComp<GhostRoleComponent>(ent);
+            EnsureComp<GhostTakeoverAvailableComponent>(ent);
+
+            ghostRole.RoleName = Loc.GetString("zombie-generic");
+            ghostRole.RoleDescription = Loc.GetString("zombie-role-desc");
+            ghostRole.RoleRules = Loc.GetString("zombie-role-rules");
+            ghostRole.MindRoles.Add(MindRoleZombie);
         }
     }
 }

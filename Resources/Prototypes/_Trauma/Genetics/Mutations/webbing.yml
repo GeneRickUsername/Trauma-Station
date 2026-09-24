@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: BaseMutation
   id: MutationWebbingProduction
@@ -17,5 +19,6 @@
       productionLength: 2
       entityProduced: MaterialWebSilk1
       hungerCost: 4
+      minHungerThreshold: Peckish
     - type: Spider # man, does whatever a spider can
     - type: IgnoreSpiderWeb

@@ -10,10 +10,9 @@ using Content.Server.Medical.SuitSensors;
 using Content.Server.Objectives.Components;
 using Content.Shared.GameTicking.Components;
 using Content.Shared.Gibbing.Components;
-using Content.Shared.Medical.SuitSensor;
+using Content.Shared.Medical.SuitSensors;
 using Content.Shared.Mind;
 using Content.Shared.Objectives.Systems;
-using Content.Shared.Random.Helpers;
 using Robust.Shared.Random;
 
 namespace Content.Server.GameTicking.Rules;
@@ -25,10 +24,9 @@ public sealed partial class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxClone
     // </Trauma>
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private CloningSystem _cloning = default!;
-    [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private SharedMindSystem _mind = default!;
     [Dependency] private SuitSensorSystem _sensor = default!;
-    [Dependency] private TargetSystem _target = default!;
+    [Dependency] private AliveHumanoidTargetSystem _target = default!;
 
     public override void Initialize()
     {
@@ -43,8 +41,13 @@ public sealed partial class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxClone
         base.Started(uid, component, gameRule, args);
 
         // check if we got enough potential cloning targets, otherwise cancel the gamerule so that the ghost role does not show up
-        var allHumans = _target.GetAliveHumans();
-        allHumans.RemoveWhere(human => _whitelist.IsWhitelistPass(component.TargetBlacklist, human)); // Goobstation
+        var allHumans = _target.GetMinds();
+        // <Trauma>
+        if (component.TargetBlacklist is { } blacklist)
+        {
+            allHumans.RemoveWhere(mind => _whitelist.IsValid(blacklist, mind.Comp.OwnedEntity));
+        }
+        // </Trauma>
 
         if (allHumans.Count == 0)
         {
@@ -56,9 +59,6 @@ public sealed partial class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxClone
     // we have to do the spawning here so we can transfer the mind to the correct entity and can assign the objectives correctly
     private void OnAntagSelectEntity(Entity<ParadoxCloneRuleComponent> ent, ref AntagSelectEntityEvent args)
     {
-        if (args.Session?.AttachedEntity is not { } spawner)
-            return;
-
         if (ent.Comp.OriginalBody != null) // target was overridden, for example by admin antag control
         {
             if (Deleted(ent.Comp.OriginalBody.Value) || !_mind.TryGetMind(ent.Comp.OriginalBody.Value, out var originalMindId, out var _))
@@ -71,8 +71,13 @@ public sealed partial class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxClone
         else
         {
             // get possible targets
-            var allAliveHumanoids = _target.GetAliveHumans();
-            allAliveHumanoids.RemoveWhere(human => _whitelist.IsWhitelistPass(ent.Comp.TargetBlacklist, human)); // Goobstation
+            var allAliveHumanoids = _target.GetMinds();
+            // <Trauma>
+            if (ent.Comp.TargetBlacklist is { } blacklist)
+            {
+                allAliveHumanoids.RemoveWhere(mind => _whitelist.IsValid(blacklist, mind.Comp.OwnedEntity));
+            }
+            // </Trauma>
 
             // we already checked when starting the gamerule, but someone might have died since then.
             if (allAliveHumanoids.Count == 0)
@@ -88,7 +93,7 @@ public sealed partial class ParadoxCloneRuleSystem : GameRuleSystem<ParadoxClone
 
         }
 
-        if (ent.Comp.OriginalBody == null || !_cloning.TryCloning(ent.Comp.OriginalBody.Value, _transform.GetMapCoordinates(spawner), ent.Comp.Settings, out var clone))
+        if (ent.Comp.OriginalBody == null || !_cloning.TryCloning(ent.Comp.OriginalBody.Value, args.Coords, ent.Comp.Settings, out var clone))
         {
             Log.Error($"Unable to make a paradox clone of entity {ToPrettyString(ent.Comp.OriginalBody)}");
             return;

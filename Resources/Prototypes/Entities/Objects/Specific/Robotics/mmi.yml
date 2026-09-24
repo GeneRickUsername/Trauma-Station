@@ -86,7 +86,7 @@
   description: An artificial brain capable of spontaneous neural activity.
   components:
     # <Trauma>
-    - type: InternalOrgan
+    - type: InternalChildOrgan
     - type: ChildOrgan
       parents: [ Torso ] # ipc stores its brain in the torso not head
     - type: Organ
@@ -103,6 +103,12 @@
       channels:
       - Binary
     - type: IntellicardableMind
+    - type: OrganChipContainer
+      limit: 3
+    - type: ContainerContainer
+      containers:
+        knowledge: !type:Container
+        organ_chips: !type:Container
     # </Trauma>
     - type: Sprite
       sprite: Objects/Specific/Robotics/mmi.rsi

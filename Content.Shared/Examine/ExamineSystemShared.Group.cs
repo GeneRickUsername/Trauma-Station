@@ -35,7 +35,7 @@ namespace Content.Shared.Examine
                         group.Entries.Clear();
                     },
                     Text = Loc.GetString(group.ContextText),
-                    Message = Loc.GetString(group.HoverMessage),
+                    Message = group.HoverMessage is { } message ? Loc.GetString(message) : null, // Trauma - HoverMessage is nullable now
                     Category = VerbCategory.Examine,
                     Icon = group.Icon,
                 };
@@ -79,6 +79,9 @@ namespace Content.Shared.Examine
             SendExamineTooltip(user, target, message, getVerbs: false, centerAtCursor: false);
         }
 
+        /// <summary>
+        /// Build a formatted message from a list of examine entries to be displayed in an examine window.
+        /// </summary>
         /// <returns>A FormattedMessage based on all <paramref name="entries"/>, sorted.</returns>
         public static FormattedMessage GetFormattedMessageFromExamineEntries(List<ExamineEntry> entries)
         {

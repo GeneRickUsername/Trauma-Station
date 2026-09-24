@@ -4,6 +4,7 @@ using System.Text;
 using Content.Goobstation.Shared.Changeling.Components;
 using Content.Server.Antag;
 using Content.Server.GameTicking.Rules;
+using Content.Server.GameTicking.Rules.Components;
 using Content.Server.Mind;
 using Content.Server.Objectives;
 using Content.Shared.NPC.Prototypes;
@@ -12,14 +13,12 @@ using Content.Shared.Roles;
 using Content.Shared.Roles.Components;
 using Content.Shared.Store;
 using Content.Shared.Store.Components;
-using Content.Trauma.Common.Silicon;
 using Robust.Shared.Audio;
 
 namespace Content.Goobstation.Server.Changeling.GameTicking.Rules;
 
 public sealed partial class ChangelingRuleSystem : GameRuleSystem<ChangelingRuleComponent>
 {
-    [Dependency] private CommonSiliconSystem _silicon = default!;
     [Dependency] private MindSystem _mind = default!;
     [Dependency] private AntagSelectionSystem _antag = default!;
     [Dependency] private SharedRoleSystem _role = default!;
@@ -29,51 +28,32 @@ public sealed partial class ChangelingRuleSystem : GameRuleSystem<ChangelingRule
 
     public readonly SoundSpecifier BriefingSound = new SoundPathSpecifier("/Audio/_Goobstation/Ambience/Antag/changeling_start.ogg");
 
-    public readonly ProtoId<AntagPrototype> ChangelingPrototypeId = "Changeling";
-
     public readonly ProtoId<NpcFactionPrototype> ChangelingFactionId = "Changeling";
 
     public readonly ProtoId<NpcFactionPrototype> NanotrasenFactionId = "NanoTrasen";
 
     public readonly ProtoId<CurrencyPrototype> Currency = "EvolutionPoint";
 
-    public readonly int StartingCurrency = 6;
+    public readonly int StartingCurrency = 6; // have to keep this in sync with MindRoleChangeling manually :(
 
-    public static readonly EntProtoId<ChangelingRoleComponent> MindRole = "MindRoleChangeling";
-
-    public override void Initialize()
+    [SubscribeLocalEvent]
+    private void OnSelectAntag(Entity<ChangelingRuleComponent> ent, ref AfterAntagEntitySelectedEvent args)
     {
-        base.Initialize();
-
-        SubscribeLocalEvent<ChangelingRuleComponent, AfterAntagEntitySelectedEvent>(OnSelectAntag);
-        SubscribeLocalEvent<ChangelingRuleComponent, ObjectivesTextPrependEvent>(OnTextPrepend);
-    }
-
-    private void OnSelectAntag(EntityUid uid, ChangelingRuleComponent comp, ref AfterAntagEntitySelectedEvent args)
-    {
-        MakeChangeling(args.EntityUid, comp);
-    }
-    public bool MakeChangeling(EntityUid target, ChangelingRuleComponent rule)
-    {
-        if (_silicon.IsSilicon(target))
-            return false;
-
+        var target = args.EntityUid;
         if (!_mind.TryGetMind(target, out var mindId, out var mind))
-            return false;
-
-        _role.MindAddRole(mindId, MindRole, mind, true);
+            return;
 
         // briefing
-        var name = Name(target) ?? Loc.GetString("generic-unknown-title");
-        var briefing = Loc.GetString("changeling-role-greeting", ("name", name));
+        var name = Name(target);
+        var briefing = Loc.GetString("changeling-role-greeting-trauma", ("name", name));
         var briefingShort = Loc.GetString("changeling-role-greeting-short", ("name", name));
 
         _antag.SendBriefing(target, briefing, Color.Yellow, BriefingSound);
 
         if (!_role.MindHasRole<ChangelingRoleComponent>(mindId, out var mr))
         {
-            Log.Error($"Mind role {MindRole} did not have ChangelingRoleComponent!");
-            return false;
+            Log.Error($"Changeling {ToPrettyString(target)} had no role!");
+            return;
         }
 
         var role = mr.Value.Owner;
@@ -82,28 +62,9 @@ public sealed partial class ChangelingRuleSystem : GameRuleSystem<ChangelingRule
         // hivemind stuff
         _npcFaction.RemoveFaction(target, NanotrasenFactionId, false);
         _npcFaction.AddFaction(target, ChangelingFactionId);
-
-        // make them a changeling
-        EnsureComp<ChangelingComponent>(target);
-
-        // add store
-        var store = EnsureComp<StoreComponent>(role);
-        foreach (var category in rule.StoreCategories)
-            store.Categories.Add(category);
-        store.CurrencyWhitelist.Add(Currency);
-        store.Balance.Add(Currency, StartingCurrency);
-        // TODO: uncomment if store gets predicted
-        //Dirty(role, store)
-
-        // no range or validation because it's on the mind and would immediately get closed
-        var uiData = new InterfaceData("StoreBoundUserInterface", 0f, false);
-        _ui.SetUi(role, StoreUiKey.Key, uiData);
-
-        rule.ChangelingMinds.Add(mindId);
-
-        return true;
     }
 
+    [SubscribeLocalEvent]
     private void OnTextPrepend(Entity<ChangelingRuleComponent> ent, ref ObjectivesTextPrependEvent args)
     {
         var mostAbsorbedName = string.Empty;

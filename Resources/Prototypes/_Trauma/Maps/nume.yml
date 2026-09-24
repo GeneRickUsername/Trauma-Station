@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Nume
   mapName: 'Nume Station'
@@ -67,3 +69,4 @@
           Reporter: [ 2, 2 ]
           RadioHost: [ 1, 1 ]
           Lawyer: [ 2, 2 ]
+          DClass: [ -1, -1 ]

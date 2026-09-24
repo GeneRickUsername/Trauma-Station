@@ -10,3 +10,14 @@ entity-condition-popup-not-vox-raider = {$self ->
     [true] You aren't
     *[false] {$target} isn't
 } a vox!
+
+entity-effect-popup-blood-swells = Your blood swells...
+entity-effect-popup-blood-stops-swelling = Your blood stops swelling.
+
+entity-effect-popup-vampire-light-1 = The sunlight burns you!
+entity-effect-popup-vampire-light-2 = You should go away from space...
+entity-effect-popup-vampire-light-3 = You look pale!
+
+entity-effect-popup-pressurized-slime-death = The blob ruptures, spraying the area with liquid!
+
+entity-effect-popup-blood-cult-summon-dagger = {CAPITALIZE($entity)}'s hand glows red for a moment.

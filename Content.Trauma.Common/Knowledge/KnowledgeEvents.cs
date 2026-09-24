@@ -62,3 +62,8 @@ public record struct CriticalHitEvent(EntityUid Attacker, DamageSpecifier Damage
 /// </summary>
 [ByRefEvent]
 public record struct OnFumbleEvent(int FumbleDifference);
+
+/// Called in order to modify shield block fraction based on skills/etc.
+/// </summary>
+[ByRefEvent]
+public record struct GetBlockFractionEvent(EntityUid User, EntityUid Blocker, float Fraction);

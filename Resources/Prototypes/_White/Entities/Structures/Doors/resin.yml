@@ -1,11 +1,15 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
-  parent: CMBaseXenoStructure
+  parent: BaseStructure
   id: ResinDoor
   name: resin Door
   description: Thick resin solidified into a door.
   placement:
     mode: SnapgridCenter
   components:
+  - type: SoundBlocker
+    soundBlockPercent: 1.0
   - type: InteractionOutline
   - type: Sprite
     sprite: _RMC14/Structures/Xenos/xeno_resin_door.rsi
@@ -51,8 +55,9 @@
     noAirWhenFullyAirBlocked: false
   - type: Occluder
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Resin
+  - type: Injurable
+    damageContainer: Biological
   - type: MeleeSound
     soundGroups:
       Brute:
@@ -90,4 +95,7 @@
     closingSpriteState: closed_unlit
   - type: AccessReader
     access: [["Xenomorph"]]
-    breakOnAccessBreaker: false # Goobstation
+    breakOnAccessBreaker: false
+  - type: NpcFactionMember
+    factions:
+    - Xeno

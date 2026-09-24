@@ -248,7 +248,7 @@ public sealed partial class PullingSystem : EntitySystem
 
     private void OnStopBeingPulledAlert(Entity<PullableComponent> ent, ref StopBeingPulledAlertEvent args)
     {
-        if (args.Handled || !_blocker.CanInteract(ent, null)) // Trauma - check action blockers
+        if (args.Handled)
             return;
 
         args.Handled = TryStopPull(ent, ent, ent);
@@ -323,7 +323,7 @@ public sealed partial class PullingSystem : EntitySystem
     private void OnRefreshMovespeed(EntityUid uid, PullerComponent component, RefreshMovementSpeedModifiersEvent args)
     {
         // <Trauma>
-		// skip this if ApplySpeedModifier is false
+        // skip this if ApplySpeedModifier is false
         if (!component.ApplySpeedModifier)
             return;
 
@@ -732,6 +732,11 @@ public sealed partial class PullingSystem : EntitySystem
         if (pullerUidNull == null)
             return true;
 
+        // <Trauma> - check action blockers so you cant break grabs while stunned asleep etc
+        if (user is { } userUid && !_blocker.CanInteract(userUid, pullableUid))
+            return false;
+        // </Trauma>
+
         var msg = new AttemptStopPullingEvent(user);
         RaiseLocalEvent(pullableUid, ref msg, true);
 
@@ -745,5 +750,22 @@ public sealed partial class PullingSystem : EntitySystem
 
         StopPulling(pullableUid, pullable);
         return true;
+    }
+
+    /// <summary>
+    /// Copies compatible datafields of <see cref="PullerComponent"/> onto the target entity.
+    /// </summary>
+    /// <param name="source">The entity who's component will be taken.</param>
+    /// <param name="target">The entity to apply it to.</param>
+    public void CopyPullerComponent(Entity<PullerComponent?> source, EntityUid target)
+    {
+        if (!Resolve(source, ref source.Comp))
+            return;
+
+        var targetComp = EnsureComp<PullerComponent>(target);
+        targetComp.ThrowCooldown = source.Comp.ThrowCooldown;
+        targetComp.NeedsHands = source.Comp.NeedsHands;
+        targetComp.PullingAlert = source.Comp.PullingAlert;
+        Dirty(target, targetComp);
     }
 }

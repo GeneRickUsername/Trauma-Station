@@ -1,12 +1,3 @@
-# SPDX-FileCopyrightText: 2024 BombasterDS <115770678+BombasterDS@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Armok <155400926+ARMOKS@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
-# SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
-# SPDX-FileCopyrightText: 2025 SX-7 <92227810+SX-7@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 coderabbitai[bot] <136622811+coderabbitai[bot]@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
-#
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: latheRecipe
@@ -15,7 +6,6 @@
   completetime: 30
   materials:
     Biomass: 70 # Cloning needs that amount
-    Plasma: 250
 
 - type: latheRecipe
   id: DionaCube
@@ -23,7 +13,6 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250
 
 - type: latheRecipe
   id: GingerbreadCube
@@ -31,7 +20,6 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250
 
 - type: latheRecipe
   id: MothCube
@@ -39,7 +27,6 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250
 
 - type: latheRecipe
   id: DwarfCube
@@ -47,7 +34,6 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250
 
 - type: latheRecipe
   id: ReptilianCube
@@ -55,7 +41,6 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250
 
 - type: latheRecipe
   id: SlimePersonCube
@@ -63,7 +48,6 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250
 
 - type: latheRecipe
   id: VoxCube
@@ -71,4 +55,3 @@
   completetime: 30
   materials:
     Biomass: 70
-    Plasma: 250

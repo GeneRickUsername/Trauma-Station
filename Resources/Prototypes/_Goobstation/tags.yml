@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Alphabetical order people!
 
 - type: Tag
@@ -17,9 +19,6 @@
 
 - type: Tag
   id: BindSoulAction
-
-- type: Tag
-  id: Bible
 
 - type: Tag
   id: Blobbernaut
@@ -280,9 +279,6 @@
   id: HonkmotherMaw
 
 - type: Tag
-  id: HydroponicsToolClippers
-
-- type: Tag
   id: IgnoreBindSoul
 
 - type: Tag
@@ -361,9 +357,6 @@
   id: MechUnGrabbable
 
 - type: Tag
-  id: MedicalPatch
-
-- type: Tag
   id: Medipen
 
 - type: Tag
@@ -433,7 +426,7 @@
   id: NukeOpsReinforcementUplink
 
 - type: Tag
-  id: Nullrod
+  id: Nullrod # Allows transforming it into an altar's specific nullrod. Given to the Nullrod entity specifically.
 
 - type: Tag
   id: NunHood
@@ -520,9 +513,6 @@
   id: Steel
 
 - type: Tag
-  id: StunBaton # for heretic ritual
-
-- type: Tag
   id: SummonSimiansMaxLevelAction
 
 - type: Tag
@@ -572,9 +562,6 @@
 
 - type: Tag
   id: MakeshiftShield
-
-- type: Tag
-  id: MolotovConstruction
 
 - type: Tag
   id: IgnitionSource

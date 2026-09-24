@@ -1,8 +1,17 @@
-# Like BaseLathe but without wire panel or constructible/powered machine
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  abstract: true
+  parent: BaseLatheNoSilo
+  id: BaseLathe
+  components:
+  - type: OreSiloClient
+
+# Like BaseLatheNoSilo but without wire panel or constructible/powered machine
 - type: entity
   abstract: true
   parent: [ BaseMachine, BaseRevMinorContraband ]
-  id: BaseRevIndustry
+  id: BaseRevIndustryNoSilo
   components:
   - type: Transform
     noRot: false
@@ -51,12 +60,27 @@
     - !type:AutomatedMaterialStorage
       input: AutomationSlotMaterials
       output: null
+    - !type:AutomatedPorts
+      sinks:
+      - LathePrint
+      - LatheSetRecipe
+      - LatheQuantity
+      sources:
+      - LatheCurrentRecipe
+  - type: LatheAutomation
   - type: Animateable
   - type: LightningTarget
     priority: 1
   - type: Construction
     deconstructionTarget: null
     graph: RevMachine
+
+- type: entity
+  abstract: true
+  parent: BaseRevIndustryNoSilo
+  id: BaseRevIndustry
+  components:
+  - type: OreSiloClient
 
 - type: entity
   parent: BaseRevIndustry
@@ -185,10 +209,10 @@
     node: telecomms workshop
 
 - type: entity
-  parent: BaseRevIndustry
+  parent: BaseRevIndustryNoSilo
   id: RevTelesphere
   name: telesphere
-  description: An experimental device, it can be used to remotely steal materials from passing trade ships using plasma. Additionally; it can be used as a material silo for the revolution.
+  description: An experimental device, it can be used to remotely steal materials from passing trade ships using phoron. Additionally; it can be used as a material silo for the revolution.
   components:
   - type: Sprite
     sprite: _Trauma/Structures/Machines/telesphere.rsi
@@ -205,15 +229,38 @@
     color: "#ffffff"
     radius: 1.5
     energy: 5.0
-  - type: WirelessNetworkConnection
-    range: 1000
-  - type: DeviceLinkSource
-    range: 1000
-    ports:
-    - MaterialSilo
+  - type: AlternateUI
+    key: enum.OreSiloUiKey.Key
+    verbText: Open Ore Silo UI
+  - type: OreSilo
+    range: 15
+  - type: MasterSiloClient # theft
   - type: MaterialStorage
     ignoreColor: true
-  - type: Silo
+    whitelist:
+      tags:
+      - Sheet
+      - Ingot
+  # prevent lathe restricting it to just plasma and deleting everything else
+  - type: MaterialStorageWhitelist
+    whitelist:
+    - Steel
+    - Glass
+    - Plastic
+    - Gold
+    - Silver
+    - Plasma
+    - Uranium
+    - Diamond
+    - BSCrystal
+    - Cloth
+    - Durathread
+  - type: UserInterface
+    interfaces:
+      enum.LatheUiKey.Key:
+        type: LatheBoundUserInterface
+      enum.OreSiloUiKey.Key:
+        type: OreSiloBoundUserInterface
 
 - type: entity
   parent: BaseRevIndustry
@@ -343,8 +390,8 @@
 - type: entity
   parent: BaseRevIndustry
   id: RevPlasmaFoundry
-  name: plasma foundry
-  description: An advanced foundry powered by plasma, it melts metals incredibly fast and produces advanced components.
+  name: phoron foundry
+  description: An advanced foundry powered by phoron sheets, it melts metals incredibly fast and produces advanced components.
   components:
   - type: Sprite
     sprite: _Trauma/Structures/Machines/plasmaforge.rsi
@@ -371,7 +418,7 @@
     containers:
       blueprint: !type:Container
   - type: Construction
-    node: plasma foundry
+    node: phoron foundry
 
 - type: entity
   parent: BaseRevIndustry
@@ -391,8 +438,48 @@
     node: start
   - type: Strap
     buckleOnInteractHand: false
-    addBuckleverb: false
+    addBuckleVerb: false
     buckleOffset: "0, 0.2"
     whitelist:
       tags:
       - T45Frame
+
+- type: entity
+  parent: BaseRevIndustry
+  id: RevMedFab
+  name: hidden medifab
+  description: A hidden subfloor fabricator that can make medical equipment.
+  components:
+  - type: Sprite
+    sprite: _Trauma/Structures/Machines/hiddenmedifab.rsi
+  - type: SubFloorHide
+  - type: Visibility # This kills the test fail.
+  - type: CollideOnAnchor # This kills the test fail.
+  - type: Physics # This kills the test fail.
+    bodyType: Static
+    canCollide: false
+  - type: Lathe
+    producingSound:
+      path: /Audio/Machines/uniformprinter.ogg
+    runningState: icon
+    staticPacks:
+    - RevMedicalStatic
+    - ChemistryStatic
+    - SurgeryStatic
+    - MedicalStatic
+  - type: MaterialStorage
+    whitelist:
+      tags:
+      - Sheet
+      - Metal
+      - Wooden
+      - RawMaterial
+      - Plastic
+  - type: ContainerContainer
+    containers:
+      blueprint: !type:Container
+  - type: EmptyOnMachineDeconstruct
+    containers:
+    - blueprint
+  - type: Construction
+    node: hidden medifab

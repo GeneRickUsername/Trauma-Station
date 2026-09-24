@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   id: ShadowlingAbilitiesPostHatch
   name: shadowling post-hatch abilities
@@ -8,9 +10,7 @@
   - type: ShadowlingEnthrall
   - type: ShadowlingVeil
   - type: ShadowlingRapidRehatch
-  - type: ShadowlingShadowWalk
   - type: ShadowlingIcyVeins
-  - type: ShadowlingDestroyEngines
   - type: ShadowlingCollectiveMind
     availableAbilities:
     - SonicScreech
@@ -51,7 +51,6 @@
   - type: ShadowlingHypnosis
   - type: ShadowlingVeil
   - type: ShadowlingIcyVeins
-  - type: ShadowlingDestroyEngines
   - type: ShadowlingBlindnessSmoke
   - type: ShadowlingNullCharge
   - type: ShadowlingSonicScreech
@@ -69,7 +68,6 @@
   - type: LightEaterUser
   - type: ShadowlingPlaneShift
   - type: Reflect
-  - type: PressureImmunity
 
 - type: entity
   id: LesserShadowlingAbilities
@@ -78,7 +76,6 @@
   categories: [ HideSpawnMenu ]
   components:
   - type: LesserShadowling
-  - type: ShadowlingShadowWalk
   - type: ShadowlingGlare
     maxGlareStunTime: 4
     muteTime: 2
@@ -94,4 +91,5 @@
   components:
   - type: Thrall
   - type: NightVision
+    lightingColor: white
   - type: ThrallGuise

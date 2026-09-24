@@ -1,5 +1,10 @@
+// <Trauma>
+using Content.Trauma.Common.Sprite;
+// </Trauma>
 using System.Numerics;
+using Content.Client.Anomaly.UI;
 using Content.Client.Gravity;
+using Content.Client.Items;
 using Content.Shared.Anomaly;
 using Content.Shared.Anomaly.Components;
 using Robust.Client.GameObjects;
@@ -9,6 +14,7 @@ namespace Content.Client.Anomaly;
 
 public sealed partial class AnomalySystem : SharedAnomalySystem
 {
+    [Dependency] private CommonSpriteVisibilitySystem _spriteVis = default!; // Trauma
     [Dependency] private IGameTiming _timing = default!;
     [Dependency] private FloatingVisualizerSystem _floating = default!;
     [Dependency] private SpriteSystem _sprite = default!;
@@ -23,6 +29,8 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
         SubscribeLocalEvent<AnomalyComponent, AnimationCompletedEvent>(OnAnimationComplete);
 
         SubscribeLocalEvent<AnomalySupercriticalComponent, ComponentShutdown>(OnShutdown);
+
+        Subs.ItemStatus<CorePoweredThrowerComponent>(entity => new AnomalyStatusControl(entity));
     }
 
     private void OnStartup(EntityUid uid, AnomalyComponent component, ComponentStartup args)
@@ -72,10 +80,14 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
             _sprite.SetScale((uid, sprite), new Vector2(scale, scale));
 
             var transparency = (byte)(65 * (1f - completion) + 190);
+            // <Trauma>
+            _spriteVis.UpdateVisibilityModifiers(uid, nameof(AnomalyComponent), transparency);
+            /*
             if (transparency < sprite.Color.AByte)
             {
                 _sprite.SetColor((uid, sprite), sprite.Color.WithAlpha(transparency));
             }
+            </Trauma> */
         }
     }
 
@@ -85,6 +97,9 @@ public sealed partial class AnomalySystem : SharedAnomalySystem
             return;
 
         _sprite.SetScale((ent.Owner, sprite), Vector2.One);
-        _sprite.SetColor((ent.Owner, sprite), sprite.Color.WithAlpha(1f));
+        // <Trauma>
+        _spriteVis.UpdateVisibilityModifiers(ent, nameof(AnomalyComponent), 1f);
+        // _sprite.SetColor((ent.Owner, sprite), sprite.Color.WithAlpha(1f));
+        // </Trauma>
     }
 }

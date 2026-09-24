@@ -80,7 +80,7 @@
         time: 90
       StatusEffectCurseOfAmok:
         time: 90
-      StatusEffectCurseOfBlindness:
+      StatusEffectBlindness:
         time: 150
       StatusEffectCurseOfFragility:
         time: 300
@@ -125,10 +125,10 @@
     maxFillLevels: 2
     fillBaseName: phylactery
     metamorphic: false
-  - type: SolutionContainerManager
-    solutions:
-      injector:
-        maxVol: 10
+  - type: Solution
+    id: injector
+    solution:
+      maxVol: 10
   - type: MixableSolution
     solution: injector
   - type: ExaminableSolution
@@ -154,15 +154,29 @@
   description: A flask filled with an unknown substance. Who knows what will happen when you take a sip from it.
   components:
   - type: UnholyItem
+  - type: Openable
+    sound:
+      collection: bottleOpenSounds
+    closeable: true
+    closeSound:
+      collection: bottleCloseSounds
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.OpenableVisuals.Opened:
+        enum.OpenableVisuals.Layer:
+          True: {visible: false}
+          False: {visible: true}
   - type: Sprite
-    sprite: _Goobstation/Heretic/items.rsi
-    state: eldritch_flask
-  - type: Icon
-    sprite: _Goobstation/Heretic/items.rsi
-    state: eldritch_flask
-  - type: SolutionContainerManager
-    solutions:
-      drink:
+    sprite: _Goobstation/Heretic/Entities/eldritch_flask.rsi
+    layers:
+    - state: potion
+      map: [ "enum.SolutionContainerLayers.Base" ]
+    - state: closed
+      map: ["enum.OpenableVisuals.Layer"]
+      visible: false
+  - type: Solution
+    solution:
         # it's a cryostasis flash filled with healing goodies what could possibly go wrong?
         # i will certainly not abuse it as a heretic chemist
         maxVol: 100
@@ -222,17 +236,19 @@
   - type: Projectile
     impactEffect: BulletImpactEffectKinetic
     ignoreResistances: true
+    increaseOnly: true
     damage:
       types:
         Slash: 25
         Structural: 100
     soundHit:
-      path: /Audio/Weapons/Guns/Hits/bullet_hit.ogg
+      path: /Audio/_Goobstation/Weapons/Effects/guillotine.ogg
+    forceSound: true
   - type: Reflective
     reflective: Magic
 
 - type: entity
-  id: Inkofimaginination
+  id: InkOfImaginination
   name: Ink of imaginination
   description: Call to the great minimal to bring forth true existence... A closing truth
   parent: BaseItem
@@ -344,6 +360,7 @@
     damageMultiplier: 1.5
   - type: CrackedLanternSummon
   - type: Damageable
+  - type: Injurable
     damageContainer: Biological
   - type: AlwaysTakeHoly
   - type: Sprite
@@ -366,9 +383,8 @@
           !type:PhysShapeCircle
           radius: 0.35
         density: 25
-  - type: Tag
-    tags:
-    - WideSwingIgnore
+        layer:
+        - BulletImpassable
   - type: FactionException
   - type: NpcFactionMember
     factions:
@@ -429,7 +445,6 @@
         range: 5
         flags: Static
         effect: !type:ToggleDoorState
-          predicted: false
     - name: eldritch-coin-side-blade
       spriteState: blade
       userEffects:
@@ -459,4 +474,29 @@
         range: 5
         flags: Static
         effect: !type:ToggleDoorBolts
-          predicted: false
+
+- type: entity
+  parent: [BaseItem, BaseMagicalContraband]
+  id: Serpentclave
+  name: serpentclave
+  description: A strange key made of bones. You can tell by glance that no door will accept it.
+  components:
+  - type: UnholyItem
+  - type: Sprite
+    sprite: _Goobstation/Heretic/Entities/serpentclave.rsi
+    layers:
+    - state: icon
+  - type: Item
+    storedRotation: -90
+    size: Small
+  - type: Serpentclave
+  - type: Tag
+    tags:
+    - HereticItem
+
+- type: entity
+  parent: [PassengerIDCard, BaseMagicalContraband]
+  id: EldritchIdCard
+  suffix: Heretic
+  components:
+  - type: EldritchIdCard

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: polymorph
   id: AshJaunt
   configuration:
@@ -13,8 +15,9 @@
   configuration:
     entity: PolymorphAshJaunt
     forced: true
-    duration: 7
+    duration: 6
     attachToGridOrMap: true
+    showPopup: false
     allowRepeatedMorphs: true
 
 - type: polymorph
@@ -64,7 +67,7 @@
     revertOnCrit: false
     revertOnDeath: false
     allowRepeatedMorphs: false
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
@@ -93,13 +96,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftHonkBot
@@ -108,13 +112,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftAdultSlimesBlue
@@ -123,13 +128,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftBat
@@ -138,13 +144,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftMothroach
@@ -153,13 +160,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftCrab
@@ -168,13 +176,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftGoose
@@ -183,13 +192,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftLizard
@@ -198,13 +208,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftParrot
@@ -213,13 +224,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftGiantSpider
@@ -228,13 +240,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftFox
@@ -243,13 +256,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftCorgi
@@ -258,13 +272,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftCat
@@ -273,13 +288,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftHamster
@@ -288,13 +304,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftCarp
@@ -303,13 +320,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftBingle
@@ -318,13 +336,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftLaserRaptor
@@ -333,13 +352,14 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
     - component: LanguageSpeaker
     - component: Grammar
     - component: Ghoul
+    - component: HereticMinion
 
 - type: polymorph
   id: ShapeshiftStalkerLock
@@ -349,7 +369,7 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
@@ -364,7 +384,7 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
@@ -379,7 +399,7 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
@@ -394,7 +414,22 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
+    allowRepeatedMorphs: true
+    componentsToTransfer:
+    - component: LanguageKnowledge
+    - component: LanguageSpeaker
+    - component: Grammar
+
+- type: polymorph
+  id: ShapeshiftAshSpiritLock
+  configuration:
+    entity: MobGhoulAshSpiritLock
+    transferName: true
+    transferDamage: true
+    revertOnCrit: true
+    revertOnDeath: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
@@ -409,7 +444,7 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge
@@ -424,7 +459,7 @@
     transferDamage: true
     revertOnCrit: true
     revertOnDeath: true
-    skipRevertConfirmation: true
+    revertConfirmationPopup: false
     allowRepeatedMorphs: true
     componentsToTransfer:
     - component: LanguageKnowledge

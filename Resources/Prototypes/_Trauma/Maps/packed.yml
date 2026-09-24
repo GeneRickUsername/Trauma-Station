@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Packed
   mapName: 'Packed'
@@ -64,6 +66,7 @@
           Chaplain: [ 1, 1 ]
           Librarian: [ 1, 1 ]
           Lawyer: [ 1, 1 ]
+          DClass: [ -1, -1 ]
       - type: StationBlobConfig
         stageBegin: 25
         stageCritical: 350

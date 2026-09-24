@@ -1,6 +1,3 @@
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aviu00 <93730715+Aviu00@users.noreply.github.com>
-#
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: entity
@@ -192,15 +189,16 @@
   name: sparks
   categories: [ HideSpawnMenu ]
   components:
-  - type: TimedDespawn
+  - type: PredictedPhysicsEffect
+  - type: TimedClientDespawn
     lifetime: 1
   - type: Sprite
     drawdepth: Effects
     noRot: true
     layers:
-      - shader: unshaded
-        sprite: _Goobstation/Wizard/Effects/effects.rsi
-        state: sparks
+    - shader: unshaded
+      sprite: _Goobstation/Wizard/Effects/effects.rsi
+      state: sparks
   - type: AnimationPlayer
   - type: PointLight
     enabled: true
@@ -315,7 +313,7 @@
     castShadows: false
     radius: 5
     energy: 8
-    mask: /Textures/_Goobstation/Wizard/Effects/LightMasks/ray.png
+    lightMask: Ray
   - type: RotatingLight
     speed: 60
     maxSpeed: 180

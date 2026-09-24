@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   id: SpawnPodEvaKit
   categories: [ HideSpawnMenu ]
@@ -258,15 +260,6 @@
   components:
   - type: SpawnOnDespawn
     prototype: CrateArmoryCombatHardsuit
-
-- type: entity
-  id: SpawnPodTaskFlatpack
-  categories: [ HideSpawnMenu ]
-  name: SpawnSupplyTaskFlatpack
-  parent: SpawnSupplyEmpty
-  components:
-  - type: SpawnOnDespawn
-    prototype: ComputerNTRTasksFlatpack
 
 - type: entity
   id: SpawnPodMarlen

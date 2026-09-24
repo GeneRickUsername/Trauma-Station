@@ -28,7 +28,7 @@ public sealed partial class HealingSystem : EntitySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private DamageableSystem _damageable = default!;
-    [Dependency] private SharedBloodstreamSystem _bloodstreamSystem = default!;
+    [Dependency] private BloodstreamSystem _bloodstreamSystem = default!;
     [Dependency] private SharedDoAfterSystem _doAfter = default!;
     [Dependency] private SharedStackSystem _stacks = default!;
     [Dependency] private SharedInteractionSystem _interactionSystem = default!;
@@ -57,9 +57,12 @@ public sealed partial class HealingSystem : EntitySystem
             || HasComp<BodyComponent>(target)) // Shitmed - let body handle it separately
             return;
 
+        if (!TryComp<InjurableComponent>(target, out var injurable))
+            return;
+
         if (healing.DamageContainers is not null &&
-            target.Comp.DamageContainerID is not null &&
-            !healing.DamageContainers.Contains(target.Comp.DamageContainerID.Value))
+            injurable.DamageContainer is not null &&
+            !healing.DamageContainers.Contains(injurable.DamageContainer.Value))
         {
             return;
         }
@@ -76,7 +79,7 @@ public sealed partial class HealingSystem : EntitySystem
                 var popup = (args.User == target.Owner)
                     ? Loc.GetString("medical-item-stop-bleeding-self")
                     : Loc.GetString("medical-item-stop-bleeding", ("target", Identity.Entity(target.Owner, EntityManager)));
-                _popupSystem.PopupClient(popup, target, args.User);
+                _popupSystem.PopupEntity(popup, target, args.User);
             }
         }
 
@@ -125,7 +128,7 @@ public sealed partial class HealingSystem : EntitySystem
 
         if (!args.Repeat)
         {
-            _popupSystem.PopupClient(Loc.GetString("medical-item-finished-using", ("item", args.Used)), target.Owner, args.User);
+            _popupSystem.PopupEntity(Loc.GetString("medical-item-finished-using", ("item", args.Used)), target.Owner, args.User);
             return;
         }
 
@@ -189,9 +192,12 @@ public sealed partial class HealingSystem : EntitySystem
         if (!Resolve(target, ref target.Comp, false))
             return false;
 
+        if (!TryComp<InjurableComponent>(target, out var injurable))
+            return false;
+
         if (healing.Comp.DamageContainers is not null &&
-            target.Comp.DamageContainerID is not null &&
-            !healing.Comp.DamageContainers.Contains(target.Comp.DamageContainerID.Value))
+            injurable.DamageContainer is not null &&
+            !healing.Comp.DamageContainers.Contains(injurable.DamageContainer.Value))
         {
             return false;
         }
@@ -214,7 +220,7 @@ public sealed partial class HealingSystem : EntitySystem
 
         if (!anythingToDo)
         {
-            _popupSystem.PopupClient(Loc.GetString("medical-item-cant-use", ("item", healing.Owner)), healing, user);
+            _popupSystem.PopupEntity(Loc.GetString("medical-item-cant-use", ("item", healing.Owner)), healing, user);
             return false;
         }
         // Shitmed Change End

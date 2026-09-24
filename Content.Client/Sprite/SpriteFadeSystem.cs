@@ -1,4 +1,7 @@
-using System.Numerics;
+// <Trauma>
+using Content.Trauma.Common.Sprite;
+// </Trauma>
+using System.Linq;
 using Content.Client.Gameplay;
 using Content.Shared.Sprite;
 using Robust.Client.GameObjects;
@@ -27,7 +30,10 @@ public sealed partial class SpriteFadeSystem : EntitySystem
     [Dependency] private IUserInterfaceManager _uiManager = default!;
     [Dependency] private IInputManager _inputManager = default!;
     [Dependency] private SharedPhysicsSystem _physics = default!;
-    [Dependency] private SpriteSystem _sprite = default!;
+    // <Trauma>
+    [Dependency] private CommonSpriteVisibilitySystem _spriteVis = default!;
+    // [Dependency] private SpriteSystem _sprite = default!;
+    // </Trauma>
     [Dependency] private EntityQuery<SpriteComponent> _spriteQuery = default!;
     [Dependency] private EntityQuery<SpriteFadeComponent> _fadeQuery = default!;
     [Dependency] private EntityQuery<FadingSpriteComponent> _fadingQuery = default!;
@@ -52,7 +58,10 @@ public sealed partial class SpriteFadeSystem : EntitySystem
         if (MetaData(uid).EntityLifeStage >= EntityLifeStage.Terminating || !TryComp<SpriteComponent>(uid, out var sprite))
             return;
 
-        _sprite.SetColor((uid, sprite), sprite.Color.WithAlpha(component.OriginalAlpha));
+        // <Trauma>
+        _spriteVis.UpdateVisibilityModifiers(uid, nameof(FadingSpriteComponent), 1f);
+        // _sprite.SetColor((uid, sprite), sprite.Color.WithAlpha(component.OriginalAlpha));
+        // </Trauma>
     }
 
     /// <summary>
@@ -79,11 +88,17 @@ public sealed partial class SpriteFadeSystem : EntitySystem
         {
             foreach (var (mapPos, excludeBB) in _points)
             {
+
+                var clickable = state.GetClickableEntities(mapPos, excludeFaded: false).ToList();
+
                 // Also want to handle large entities even if they may not be clickable.
-                foreach (var ent in state.GetClickableEntities(mapPos, excludeFaded: false))
+                // We need to know if we're at the end of the list or not.
+                for (var i = 0; i < clickable.Count; i++)
                 {
+                    var ent = clickable[i];
+
                     if (ent == player ||
-                        !_fadeQuery.HasComponent(ent) ||
+                        !_fadeQuery.TryGetComponent(ent, out var fadeComp) ||
                         !_spriteQuery.TryGetComponent(ent, out var sprite) ||
                         sprite.DrawDepth < playerSprite.DrawDepth)
                     {
@@ -113,6 +128,10 @@ public sealed partial class SpriteFadeSystem : EntitySystem
                         {
                             continue;
                         }
+
+                        // If this sprite doesn't always fade, and it's at the bottom of the stack, then don't fade!
+                        if (!fadeComp.AlwaysFade && i + 1 == clickable.Count)
+                            break;
                     }
 
                     if (!_fadingQuery.TryComp(ent, out var fading))
@@ -126,7 +145,10 @@ public sealed partial class SpriteFadeSystem : EntitySystem
 
                     if (!sprite.Color.A.Equals(newColor))
                     {
-                        _sprite.SetColor((ent, sprite), sprite.Color.WithAlpha(newColor));
+                        // <Trauma>
+                        _spriteVis.UpdateVisibilityModifiers(ent, nameof(FadingSpriteComponent), newColor);
+                        // _sprite.SetColor((ent, sprite), sprite.Color.WithAlpha(newColor));
+                        // </Trauma>
                     }
                 }
             }
@@ -151,7 +173,10 @@ public sealed partial class SpriteFadeSystem : EntitySystem
 
             if (!newColor.Equals(sprite.Color.A))
             {
-                _sprite.SetColor((uid, sprite), sprite.Color.WithAlpha(newColor));
+                // <Trauma>
+                _spriteVis.UpdateVisibilityModifiers(uid, nameof(FadingSpriteComponent), newColor);
+                // _sprite.SetColor((uid, sprite), sprite.Color.WithAlpha(newColor));
+                // </Trauma>
             }
             else
             {

@@ -1,2 +1,3 @@
 markings-organ-Hypoport = Hypoport
-markings-organ-BrainChip = Brain Chip
+
+wings-burned-message = {CAPITALIZE(THE($ent))} burned up!

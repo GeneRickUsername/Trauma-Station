@@ -1,11 +1,18 @@
 # Base
 
 - type: entity
-  parent: [FoodInjectableBase, ItemHeftyBase]
+  parent: [SolutionVeryTiny, FoodInjectableBase, ItemHeftyBase]
   id: FoodEggBase
   description: An egg!
   abstract: true
   components:
+  # <Trauma>
+  - type: Rehydratable
+    catalyst: UnstableMutagen
+    catalystMinimum: 5
+    possibleSpawns:
+    - MobHomunculus
+  # </Trauma>
   - type: Tag
     tags:
       - Egg
@@ -18,18 +25,12 @@
   - type: Item
     sprite: Objects/Consumable/Food/egg.rsi
     size: Tiny
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 11 #Goob edit - homunculus
-        reagents:
-        - ReagentId: Egg
-          Quantity: 6
-  - type: Rehydratable #Goob start
-    catalyst: UnstableMutagen
-    catalystMinimum: 5
-    possibleSpawns:
-    - MobHomunculus #Goob end
+  - type: Solution
+    solution:
+      maxVol: 11 # Trauma - allow injecting 5u for homonculus
+      reagents:
+      - ReagentId: Egg
+        Quantity: 6 # About 50ml which is the expected size of an egg
   - type: DrawableSolution
     solution: food
   - type: SolutionSpiker
@@ -43,6 +44,7 @@
       types:
         Blunt: 1
   - type: Damageable
+  - type: Injurable
     damageContainer: Biological
   - type: Destructible
     thresholds:
@@ -64,20 +66,18 @@
           FoodEggRaw:
             min: 1
             max: 1
-          #</Trauma>
+          # </Trauma>
           # Wow double-yolk you're so lucky!
       - !type:DoActsBehavior
         acts: [ "Destruction" ]
   # all below are for egg cooking/exploding
   - type: AtmosExposed
   - type: Temperature
+    thermalConductivity: 1
+    temperature: 293.15
+    heatCapacity: 15000
   - type: TemperatureDamage
   - type: InternalTemperature
-    # ~1mm shell and ~1cm of albumen
-    thickness: 0.011
-    area: 0.04
-    # conductivity of egg shell based on a paper from Romanoff and Romanoff (1949)
-    conductivity: 0.456
 
 # Splat
 - type: entity
@@ -92,13 +92,6 @@
     state: eggshells
   - type: Item
     size: Tiny
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 2
-        reagents:
-        - ReagentId: Egg
-          Quantity: 1
   - type: Tag
     tags:
     - Egg
@@ -135,14 +128,12 @@
     layers:
     - state: icon
       map: [ "enum.DamageStateVisualLayers.Base" ]
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        maxVol: 6
-        reagents:
-        - ReagentId: EggCooked
-          Quantity: 6
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: EggCooked
+        Quantity: 6
   - type: Temperature
-    # preserve temperature from the boiling step
-    currentTemperature: 344
+    temperature: 344.0 # preserve temperature from the boiling step, TODO: Construction system that doesn't suck.
+    heatCapacity: 15000
   - type: TemperatureDamage

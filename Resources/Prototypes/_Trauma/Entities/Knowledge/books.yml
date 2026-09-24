@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: cargoProduct
   id: RandomSkillbooks
   icon:
@@ -26,10 +28,8 @@
     - id: BookJanitor
     - id: BookFabrication
     - id: BookSurvival
-    - id: BookMaterials
     - id: BookDoors
     - id: BookAirlocks
-    - id: BookToys
     - id: BookBananium
     - id: BookBots
     - id: BookFurniture
@@ -105,12 +105,28 @@
     layers:
     - state: melee
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       MeleeKnowledge: 35
       WeaponsKnowledge: 35
+=======
+    skills:
+      MeleeKnowledge: 30
+      WeaponsKnowledge: 50
+      KnowledgeWeaponsPolearm: 30
+      KnowledgeWeaponsShortBlade: 30
+      KnowledgeWeaponsLongBlade: 30
+      KnowledgeWeaponsBludgeon: 30
+      KnowledgeWeaponsNonLethal: 30 # For Rev Mace
+>>>>>>> upstream
     experience:
       MeleeKnowledge: 15
       WeaponsKnowledge: 15
+      KnowledgeWeaponsPolearm: 15
+      KnowledgeWeaponsShortBlade: 15
+      KnowledgeWeaponsLongBlade: 15
+      KnowledgeWeaponsBludgeon: 15
+      KnowledgeWeaponsNonLethal: 15
     doAfter: 2
 
 # Shooting
@@ -126,12 +142,28 @@
     layers:
     - state: shooting
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ShootingKnowledge: 35
       WeaponsKnowledge: 35
+=======
+    skills:
+      ShootingKnowledge: 30
+      GunsmithingKnowledge: 30
+      KnowledgeWeaponsPistol: 30
+      KnowledgeWeaponsSMG: 30
+      KnowledgeWeaponsShotgun: 30
+      KnowledgeWeaponsRifle: 30
+      KnowledgeWeaponsHeavy: 30 # For Flamethrower/RPG
+>>>>>>> upstream
     experience:
       ShootingKnowledge: 5
-      WeaponsKnowledge: 4
+      GunsmithingKnowledge: 5
+      KnowledgeWeaponsPistol: 5
+      KnowledgeWeaponsSMG: 5
+      KnowledgeWeaponsShotgun: 5
+      KnowledgeWeaponsRifle: 5
+      KnowledgeWeaponsHeavy: 5
     doAfter: 2
 
 # Magic
@@ -147,9 +179,15 @@
     layers:
     - state: janitor
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ThrowingKnowledge: 26
       JanitorKnowledge: 26
+=======
+    skills:
+      ThrowingKnowledge: 25
+      JanitorKnowledge: 25
+>>>>>>> upstream
     experience:
       ThrowingKnowledge: 3
       JanitorKnowledge: 3
@@ -185,8 +223,13 @@
     layers:
     - state: fabrication
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ManufacturingKnowledge: 26
+=======
+    skills:
+      FabricationKnowledge: 25
+>>>>>>> upstream
     experience:
       ManufacturingKnowledge: 4
     doAfter: 2
@@ -221,8 +264,13 @@
     layers:
     - state: fabrication
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       SurvivalKnowledge: 26
+=======
+    skills:
+      CarvingKnowledge: 25
+>>>>>>> upstream
     experience:
       SurvivalKnowledge: 4
     doAfter: 2
@@ -231,6 +279,7 @@
 
 - type: entity
   parent: BookSchematic
+<<<<<<< HEAD
   id: BookMaterials
   suffix: materials
   description: A blueprint with designs for materials.
@@ -247,13 +296,20 @@
 
 - type: entity
   parent: BookSchematic
+=======
+>>>>>>> upstream
   id: BookDoors
   suffix: doors
   description: A blueprint with designs for doors.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ConstructionKnowledge: 26
+=======
+    skills:
+      DoorsKnowledge: 25
+>>>>>>> upstream
     experience:
       ConstructionKnowledge: 5
     doAfter: 2
@@ -268,8 +324,13 @@
   description: A blueprint with designs for airlocks.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ConstructionKnowledge: 26
+=======
+    skills:
+      AirlocksKnowledge: 25
+>>>>>>> upstream
     experience:
       ConstructionKnowledge: 5
     doAfter: 2
@@ -279,6 +340,7 @@
 
 - type: entity
   parent: BookSchematic
+<<<<<<< HEAD
   id: BookToys
   suffix: toys
   description: A blueprint with designs for toys.
@@ -295,13 +357,20 @@
 
 - type: entity
   parent: BookSchematic
+=======
+>>>>>>> upstream
   id: BookBananium
   suffix: bananium
   description: A blueprint with designs for bananium structures.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ScienceKnowledge: 26
+=======
+    skills:
+      BananiumKnowledge: 25
+>>>>>>> upstream
     experience:
       ScienceKnowledge: 5
     doAfter: 2
@@ -316,8 +385,13 @@
   description: A blueprint with designs for robots.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       MechanicsKnowledge: 26
+=======
+    skills:
+      BotsKnowledge: 25
+>>>>>>> upstream
     experience:
       MechanicsKnowledge: 5
     doAfter: 2
@@ -332,8 +406,13 @@
   description: A blueprint with designs for furniture.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ConstructionKnowledge: 26
+=======
+    skills:
+      FurnitureKnowledge: 25
+>>>>>>> upstream
     experience:
       ConstructionKnowledge: 5
     doAfter: 2
@@ -348,8 +427,13 @@
   description: A blueprint with designs for various pieces of infrastructure.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ConstructionKnowledge: 26
+=======
+    skills:
+      InfrastructureKnowledge: 25
+>>>>>>> upstream
     experience:
       ConstructionKnowledge: 5
     doAfter: 2
@@ -364,8 +448,13 @@
   description: A blueprint with designs for various electronics.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ElectronicsKnowledge: 26
+=======
+    skills:
+      ElectronicsKnowledge: 25
+>>>>>>> upstream
     experience:
       ElectronicsKnowledge: 5
     doAfter: 2
@@ -380,8 +469,13 @@
   description: A blueprint with designs for walls.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ConstructionKnowledge: 26
+=======
+    skills:
+      WallsKnowledge: 25
+>>>>>>> upstream
     experience:
       ConstructionKnowledge: 5
     doAfter: 2
@@ -396,8 +490,13 @@
   description: A blueprint with designs for windows.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       ConstructionKnowledge: 26
+=======
+    skills:
+      WindowsKnowledge: 25
+>>>>>>> upstream
     experience:
       ConstructionKnowledge: 5
     doAfter: 2
@@ -412,8 +511,13 @@
   description: A blueprint with designs for blunts.
   components:
   - type: KnowledgeGrantOnUse
+<<<<<<< HEAD
     knowledge:
       SurvivalKnowledge: 26
+=======
+    skills:
+      SmokeablesKnowledge: 25
+>>>>>>> upstream
     experience:
       SurvivalKnowledge: 5
     doAfter: 2

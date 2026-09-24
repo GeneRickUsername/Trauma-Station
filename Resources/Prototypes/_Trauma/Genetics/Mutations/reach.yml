@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: BaseMutation
   id: MutationTelekinesis
@@ -22,11 +24,12 @@
   name: Use Telekinesis
   description: Move an object using the power of your mind!
   components:
+  - type: Sprite
+    sprite: Mobs/Species/Human/organs.rsi
+    layers:
+    - state: brain
   - type: Action
     raiseOnUser: true
-    icon:
-      sprite: Mobs/Species/Human/organs.rsi
-      state: brain
     itemIconStyle: BigAction
     useDelay: 1
   - type: TargetAction

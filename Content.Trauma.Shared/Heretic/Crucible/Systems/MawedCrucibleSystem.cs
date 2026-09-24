@@ -113,11 +113,11 @@ public sealed partial class MawedCrucibleSystem : EntitySystem
     {
         if (ent.Comp.CurrentMass <= 0)
         {
-            _popup.PopupClient(Loc.GetString("mawed-crucible-not-enough-fuel-message"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("mawed-crucible-not-enough-fuel-message"), ent, args.User);
             return;
         }
 
-        if (!TryComp(args.Used, out SolutionContainerManagerComponent? container))
+        if (!TryComp(args.Used, out SolutionManagerComponent? container))
             return;
 
         if (!_sol.TryGetSolution((args.Used, container), "drink", out var sol))
@@ -125,7 +125,7 @@ public sealed partial class MawedCrucibleSystem : EntitySystem
 
         if (sol.Value.Comp.Solution.AvailableVolume == FixedPoint2.Zero)
         {
-            _popup.PopupClient(Loc.GetString("mawed-crucible-flask-full-message"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("mawed-crucible-flask-full-message"), ent, args.User);
             return;
         }
 
@@ -144,7 +144,7 @@ public sealed partial class MawedCrucibleSystem : EntitySystem
 
         if (ent.Comp.CurrentMass >= ent.Comp.MaxMass)
         {
-            _popup.PopupClient(Loc.GetString("mawed-crucible-full-message"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("mawed-crucible-full-message"), ent, args.User);
             return;
         }
 
@@ -159,7 +159,7 @@ public sealed partial class MawedCrucibleSystem : EntitySystem
         if (ent.Comp.Anchored)
         {
             _transform.Unanchor(ent);
-            _popup.PopupClient(Loc.GetString("anchorable-unanchored"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("anchorable-unanchored"), ent, args.User);
             args.Handled = true;
             return;
         }
@@ -170,11 +170,11 @@ public sealed partial class MawedCrucibleSystem : EntitySystem
             if (!_transform.AnchorEntity(ent))
                 return;
 
-            _popup.PopupClient(Loc.GetString("anchorable-anchored"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("anchorable-anchored"), ent, args.User);
             args.Handled = true;
         }
         else
-            _popup.PopupClient(Loc.GetString("anchorable-occupied"), ent, args.User);
+            _popup.PopupEntity(Loc.GetString("anchorable-occupied"), ent, args.User);
     }
 
     public override void Update(float frameTime)

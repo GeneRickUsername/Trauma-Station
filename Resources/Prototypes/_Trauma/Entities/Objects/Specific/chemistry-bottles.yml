@@ -1,17 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: BaseChemistryBottleFilled
   id: ChemistryBottleBananadine
   suffix: bananadine
   components:
   - type: Label
-    currentLabel: reagent-name-bananadine
-  - type: SolutionContainerManager
-    solutions:
-      drink:
-        maxVol: 30
-        reagents:
-        - ReagentId: Bananadine
-          Quantity: 30
+    localizedLabel: reagent-name-bananadine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Bananadine
+        Quantity: 30
 
 # Entity tables
 

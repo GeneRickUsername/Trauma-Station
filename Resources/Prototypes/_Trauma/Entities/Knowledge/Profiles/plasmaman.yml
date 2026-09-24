@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: knowledgeProfile
   id: Plasmaman
   pointsLimit: 50 # NT hired a walking bomb.
@@ -9,9 +11,23 @@
     ConstitutionAttribute: 0
     LooksAttribute: 0
     CharismaAttribute: 0
-  mastery:
+  skillRolls:
     # Intelectual Skills
     LiteracyKnowledge: 12
+    # Crafting Recipe Skills
+    CookingKnowledge: 0
+    DoorsKnowledge: 1
+    AirlocksKnowledge: 1
+    BananiumKnowledge: 0
+    BotsKnowledge: 0
+    FurnitureKnowledge: 1
+    InfrastructureKnowledge: 1
+    ElectronicsKnowledge: 1
+    WallsKnowledge: 1
+    WindowsKnowledge: 1
+    SmokeablesKnowledge: 0
+    # Intelectual Skills
+    LiteracyKnowledge: 0
     MagicalLiteracyKnowledge: 0
     # Language Skills
     LanguageCalcic: 9
@@ -22,6 +38,11 @@
     # Physical Skill
     ThrowingKnowledge: 0
     AthleticsKnowledge: 0
+    # Combat Skill
+    ThrowingKnowledge: 0
+    MeleeKnowledge: 0
+    ShootingKnowledge: 0
+    KnowledgeWeaponsShield: 0
     # Crafting Quality
     CookingKnowledge: 0
     ManufacturingKnowledge: 3

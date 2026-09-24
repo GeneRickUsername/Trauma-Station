@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## Mob
 
 - type: entity
@@ -60,7 +62,7 @@
 
 - type: entity
   abstract: true
-  parent: [ OrganBananaMen, FoodBanana ]
+  parent: OrganBananaMen
   id: OrganBananaMenInternal
   name: banana
   components:
@@ -71,7 +73,7 @@
 
 - type: entity
   abstract: true
-  parent: [ OrganBananaMen, FoodBanana ]
+  parent: OrganBananaMen
   id: OrganBananaMenExternal
   components:
   - type: Sprite
@@ -163,17 +165,13 @@
   suffix: lungs
   description: "A very odd-looking banana, it looks flabby enough to store air or something."
   components:
-  - type: SolutionContainerManager
-    solutions:
-      Lung:
-        maxVol: 100
-        canReact: false
-      food:
-        reagents:
-        - ReagentId: Nutriment
-          Quantity: 4
-        - ReagentId: Vitamin
-          Quantity: 2
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Nutriment
+        Quantity: 4
+      - ReagentId: Vitamin
+        Quantity: 2
 
 - type: entity
   parent: [ OrganBananaMenInternal, OrganHumanHeart ]

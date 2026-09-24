@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: technology
   id: ED209
   name: research-technology-military-bots
@@ -170,8 +172,6 @@
   - UpgradedCyberneticLungs
   - JawsOfLifeLeftArm
   - JawsOfLifeRightArm
-  - SpeedLeftLeg
-  - SpeedRightLeg
   - DexLeftHand
   - DexRightHand
   - DiagnosticCyberneticEyes
@@ -239,19 +239,3 @@
   - AugmentUtilityPanelElectronics
   - AugmentBotanyPanelElectronics
   - AugmentSurgeryPanelElectronics
-
-- type: technology
-  id: CombatAugmentation
-  name: research-technology-combat-augmentation
-  icon:
-    sprite: _Shitmed/Objects/Augments/arm.rsi
-    state: strength
-  discipline: Robotics
-  tier: 2
-  cost: 10000
-  position: -6,5
-  technologyPrerequisites:
-  - ImplantedTools
-  recipeUnlocks:
-  - AugmentStrengthCasing
-  - AugmentStrengthElectronics

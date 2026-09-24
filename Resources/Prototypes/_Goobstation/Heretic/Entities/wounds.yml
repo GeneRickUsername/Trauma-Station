@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   id: WeepingAvulsion
   parent: WoundBase
@@ -5,10 +7,7 @@
   components:
   - type: Wound
     damageType: Slash
-    woundType: External
-    woundVisibility: Always
     scarWound: SlashScar
-    selfHealMultiplier: 0
     mangleSeverity: Severe
     canBeHealed: false # Only heals via tend wounds surgery
     textString: weeping-avulsion

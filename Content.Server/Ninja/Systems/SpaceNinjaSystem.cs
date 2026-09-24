@@ -1,4 +1,6 @@
-using Content.Goobstation.Common.Effects;
+// <Trauma>
+using Content.Trauma.Common.Effects;
+// </Trauma>
 using Content.Server.Communications;
 using Content.Server.CriminalRecords.Systems;
 using Content.Server.Objectives.Components;
@@ -24,18 +26,19 @@ namespace Content.Server.Ninja.Systems;
 /// </summary>
 public sealed partial class SpaceNinjaSystem : SharedSpaceNinjaSystem
 {
+    // <Trauma>
+    [Dependency] private CommonSparksSystem _sparks = default!;
+    // </Trauma>
     [Dependency] private AlertsSystem _alerts = default!;
     [Dependency] private SharedBatterySystem _battery = default!;
     [Dependency] private CodeConditionSystem _codeCondition = default!;
     [Dependency] private PowerCellSystem _powerCell = default!;
     [Dependency] private SharedMindSystem _mind = default!;
-    [Dependency] private SparksSystem _sparks = default!; // goob edit - sparks everywhere
 
     public override void Initialize()
     {
         base.Initialize();
 
-        SubscribeLocalEvent<SpaceNinjaComponent, EmaggedSomethingEvent>(OnDoorjack);
         SubscribeLocalEvent<SpaceNinjaComponent, ResearchStolenEvent>(OnResearchStolen);
         SubscribeLocalEvent<SpaceNinjaComponent, ThreatCalledInEvent>(OnThreatCalledIn);
         SubscribeLocalEvent<SpaceNinjaComponent, CriminalRecordsHackedEvent>(OnCriminalRecordsHacked);
@@ -116,23 +119,6 @@ public sealed partial class SpaceNinjaSystem : SharedSpaceNinjaSystem
     }
 
     /// <summary>
-    /// Increment greentext when emagging a door.
-    /// </summary>
-    private void OnDoorjack(EntityUid uid, SpaceNinjaComponent comp, ref EmaggedSomethingEvent args)
-    {
-        // incase someone lets ninja emag non-doors double check it here
-        if (!HasComp<DoorComponent>(args.Target))
-            return;
-
-        // this popup is serverside since door emag logic is serverside (power funnies)
-        Popup.PopupEntity(Loc.GetString("ninja-doorjack-success", ("target", Identity.Entity(args.Target, EntityManager))), uid, uid, PopupType.Medium);
-
-        // handle greentext
-        if (_mind.TryGetObjectiveComp<DoorjackConditionComponent>(uid, out var obj))
-            obj.DoorsJacked++;
-    }
-
-    /// <summary>
     /// Add to greentext when stealing technologies.
     /// </summary>
     private void OnResearchStolen(EntityUid uid, SpaceNinjaComponent comp, ref ResearchStolenEvent args)
@@ -143,19 +129,19 @@ public sealed partial class SpaceNinjaSystem : SharedSpaceNinjaSystem
             : Loc.GetString("ninja-research-steal-success", ("count", gained), ("server", args.Target));
 
         Popup.PopupEntity(str, uid, uid, PopupType.Medium);
-        _sparks.DoSparks(Transform(args.Target).Coordinates); // goob edit - sparks everywhere
+        _sparks.DoSparks(args.Target, user: null); // Trauma
     }
 
     private void OnThreatCalledIn(Entity<SpaceNinjaComponent> ent, ref ThreatCalledInEvent args)
     {
         _codeCondition.SetCompleted(ent.Owner, ent.Comp.TerrorObjective);
-        _sparks.DoSparks(Transform(args.Target).Coordinates); // goob edit - sparks everywhere
+        _sparks.DoSparks(args.Target, user: null); // Trauma
     }
 
     private void OnCriminalRecordsHacked(Entity<SpaceNinjaComponent> ent, ref CriminalRecordsHackedEvent args)
     {
         _codeCondition.SetCompleted(ent.Owner, ent.Comp.MassArrestObjective);
-        _sparks.DoSparks(Transform(args.Target).Coordinates); // goob edit - sparks everywhere
+        _sparks.DoSparks(args.Target, user: null); // Trauma
     }
 
     /// <summary>

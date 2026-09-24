@@ -75,12 +75,10 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
     {
         var comp = toggleable.Comp;
 
-        if (!args.CanAccess || !args.CanInteract || args.Hands == null || comp.ClothingUids.Count == 0 || comp.Container == null)
+        if (!args.CanAccess || !args.CanInteract || args.Hands == null || comp.ClothingUids.Count == 0 || comp.Container == null ||
+            !args.CanComplexInteract) // Trauma
             return;
 
-        var text = comp.VerbText ?? (comp.ActionEntity == null ? null : Name(comp.ActionEntity.Value));
-        if (text == null)
-            return;
 
         if (!_inventorySystem.InSlotWithFlags(toggleable.Owner, comp.RequiredFlags))
             return;
@@ -94,7 +92,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
         var verb = new EquipmentVerb()
         {
             Icon = new SpriteSpecifier.Texture(new("/Textures/Interface/VerbIcons/outfit.svg.192dpi.png")),
-            Text = Loc.GetString(text),
+            Text = comp.ActionEntity is { } action ? Name(action) : Loc.GetString(comp.VerbText), // Trauma - use action's name if it exists
         };
 
         if (user == wearer)
@@ -111,7 +109,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
 
     private void StartDoAfter(EntityUid user, Entity<ToggleableClothingComponent> toggleable, EntityUid wearer)
     {
-        _popupSystem.PopupClient("You begin toggling the suit.", wearer, user);
+        _popupSystem.PopupEntity("You begin toggling the suit.", wearer, user);
         var comp = toggleable.Comp;
 
         if (comp.StripDelay == null)
@@ -235,7 +233,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
         if (GetAttachedToggleStatus(args.UnEquipTarget, toggleable, true) == ToggleableClothingAttachedStatus.NoneToggled)
             return;
 
-        _popupSystem.PopupClient(Loc.GetString("toggleable-clothing-remove-all-attached-first"), args.UnEquipTarget, args.User);
+        _popupSystem.PopupEntity(Loc.GetString("toggleable-clothing-remove-all-attached-first"), args.UnEquipTarget, args.User);
 
         args.Cancel();
     }
@@ -441,8 +439,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
 
         if (toggleableComp.Container is {} container && !TerminatingOrDeleted(container.Owner))
         {
-            var succ = _containerSystem.Insert(attached.Owner, container, force: true);
-            Log.Debug($"Trying to insert {ToPrettyString(attached)} into {ToPrettyString(container.Owner)}: {succ}");
+            _containerSystem.Insert(attached.Owner, container, force: true);
         }
         // </Trauma>
     }
@@ -486,7 +483,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
     private void ForceSuitStorage(EntityUid user, EntityUid? suitStorageItem)
     {
         if (suitStorageItem != null && !_inventorySystem.TryEquip(user, suitStorageItem.Value, "suitstorage", silent: true))
-            _popupSystem.PopupClient(Loc.GetString("inventory-component-dropped-from-unequip", ("items", 1)), user, user);
+            _popupSystem.PopupEntity(Loc.GetString("inventory-component-dropped-from-unequip", ("items", 1)), user, user);
     }
 
     /// <summary>
@@ -613,7 +610,7 @@ public sealed partial class ToggleableClothingSystem : EntitySystem
             // Check if we need to replace current clothing
             if (!TryComp<AttachedClothingComponent>(clothing, out var attachedComp) || !comp.ReplaceCurrentClothing)
             {
-                _popupSystem.PopupClient(Loc.GetString("toggleable-clothing-remove-first", ("entity", currentClothing)), user, user);
+                _popupSystem.PopupEntity(Loc.GetString("toggleable-clothing-remove-first", ("entity", currentClothing)), user, user);
                 return false; // Goobstation
             }
 

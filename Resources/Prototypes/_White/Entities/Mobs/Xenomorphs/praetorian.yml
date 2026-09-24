@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: [ BaseMobXenomorphAdult, AppearanceXenomorphPraetorian ]
   id: BaseMobXenomorphPraetorian
@@ -5,6 +7,8 @@
   description: An elite specimen designed to protect the Hive and the Queen, his very presence instills fear and trepidation into the enemy ranks.
   abstract: true
   components:
+  - type: Stamina
+    baseCritThreshold: 500
   - type: Sprite
     sprite: _White/Mobs/Aliens/Xenomorphs/praetorian.rsi
     layers:
@@ -55,7 +59,7 @@
   #   - XenomorphPraetorian
 
 - type: entity
-  parent: BaseMobXenomorphPraetorian
+  parent: [ BaseMobXenomorphPraetorian, BaseXenomorphGhostRole ]
   id: MobXenomorphPraetorian
   components:
   - type: XenomorphEvolution
@@ -63,17 +67,8 @@
     evolvesTo:
     - prototype: MobXenomorphQueen
   - type: GhostRole
-    allowMovement: true
-    allowSpeech: true
-    makeSentient: true
     name: ghost-role-information-xenomorph-praetorian-name
     description: ghost-role-information-xenomorph-praetorian-description
-    rules: ghost-role-information-rules-default-xeno
-    mindRoles:
-    - MindRoleGhostRoleTeamAntagonist
-    raffle:
-      settings: default
-  - type: GhostTakeoverAvailable
 
 - type: entity
   parent: [BaseMobXenomorphDungeon, BaseMobXenomorphPraetorian]

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   id: VirologyServer
   parent: BaseMachinePowered
@@ -21,16 +23,6 @@
       containers:
         machine_board: !type:Container
         machine_parts: !type:Container
-    # - type: VirologyServer # TODO virology ui
-    - type: SingletonDeviceNetServer
-    - type: DeviceNetwork
-      deviceNetId: Wireless
-      transmitFrequencyId: VirologyServer
-      receiveFrequencyId: VirologyServer
-      autoConnect: false
-    - type: WirelessNetworkConnection
-      range: 500
-    - type: StationLimitedNetwork
     - type: ApcPowerReceiver
       powerLoad: 200
     - type: ExtensionCableReceiver

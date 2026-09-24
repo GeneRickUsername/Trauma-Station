@@ -2,6 +2,7 @@
 
 using Content.Shared.Damage.Components;
 using Content.Shared.Damage.Prototypes;
+using Content.Shared.Destructible;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.FixedPoint;
 using Content.Shared.Projectiles;
@@ -21,7 +22,6 @@ namespace Content.Trauma.Shared.Forging;
 public sealed partial class ForgingSystem : EntitySystem
 {
     [Dependency] private DurabilitySystem _durability = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private SharedMetalSystem _metal = default!;
@@ -56,17 +56,21 @@ public sealed partial class ForgingSystem : EntitySystem
     private void OnWrought(Entity<ForgedItemComponent> ent, ref MetalWroughtEvent args)
     {
         var metal = _metal.GetMetalOrThrow(ent.Owner);
-        var item = _proto.Index(ent.Comp.Item);
+        var item = ProtoMan.Index(ent.Comp.Item);
         var uid = args.Result;
         // for procgen colour and stuff
         _metal.SetMetal(uid, metal);
         SetItemProto(uid, ent.Comp.Item, completed: true);
-        var metalProto = _proto.Index(metal);
+        var metalProto = ProtoMan.Index(metal);
         MakeOverheatable(uid, metalProto, completed: true);
-        var itemName = item.DisplayName(_proto);
+        var itemName = item.DisplayName(ProtoMan);
         ModifyResult(uid, args.User, metalProto, item, itemName);
         if (item.Tag is {} tag)
             _metal.AddUnworkableTag(uid, tag); // added once it cools down
+
+        // for items that dont have any construction steps to finish set the price as soon as its wrought
+        if (item.Result != null)
+            SetPrice(uid, metalProto, item);
     }
 
     private void OnMeleeCompleted(Entity<MeleeWeaponComponent> ent, ref ForgingCompletedEvent args)
@@ -80,7 +84,7 @@ public sealed partial class ForgingSystem : EntitySystem
         if (args.Metal.Damage.Count == 0)
             return;
 
-        ModifyDamage(ent.Comp.Damage.DamageDict, args.Metal.Damage);
+        ModifyDamage(ent.Comp.Damage.DamageDict, args.Metal);
         DirtyField(ent, ent.Comp, nameof(MeleeWeaponComponent.Damage));
     }
 
@@ -89,7 +93,7 @@ public sealed partial class ForgingSystem : EntitySystem
         if (args.Metal.Damage.Count == 0)
             return;
 
-        ModifyDamage(ent.Comp.Damage.DamageDict, args.Metal.Damage);
+        ModifyDamage(ent.Comp.Damage.DamageDict, args.Metal);
         Dirty(ent);
     }
 
@@ -98,7 +102,7 @@ public sealed partial class ForgingSystem : EntitySystem
         if (args.Metal.Damage.Count == 0)
             return;
 
-        ModifyDamage(ent.Comp.BonusDamage.DamageDict, args.Metal.Damage);
+        ModifyDamage(ent.Comp.BonusDamage.DamageDict, args.Metal);
         Dirty(ent);
     }
 
@@ -107,7 +111,7 @@ public sealed partial class ForgingSystem : EntitySystem
         if (args.Metal.Damage.Count == 0)
             return;
 
-        ModifyDamage(ent.Comp.Damage.DamageDict, args.Metal.Damage);
+        ModifyDamage(ent.Comp.Damage.DamageDict, args.Metal);
         Dirty(ent);
     }
 
@@ -130,14 +134,14 @@ public sealed partial class ForgingSystem : EntitySystem
     {
         AllItems.Clear();
 
-        foreach (var category in _proto.EnumeratePrototypes<ForgingCategoryPrototype>())
+        foreach (var category in ProtoMan.EnumeratePrototypes<ForgingCategoryPrototype>())
         {
             AllItems[category] = new();
         }
 
-        foreach (var item in _proto.EnumeratePrototypes<ForgedItemPrototype>())
+        foreach (var item in ProtoMan.EnumeratePrototypes<ForgedItemPrototype>())
         {
-            var category = _proto.Index(item.Category);
+            var category = ProtoMan.Index(item.Category);
             AllItems[category].Add(item);
         }
 
@@ -147,12 +151,24 @@ public sealed partial class ForgingSystem : EntitySystem
         }
     }
 
-    private void ModifyDamage(Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> damage, Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> modifiers)
+    private void ModifyDamage(Dictionary<ProtoId<DamageTypePrototype>, FixedPoint2> damage, MetalPrototype metal)
     {
-        foreach (var (type, modifier) in modifiers)
+        var baseTotal = FixedPoint2.Zero;
+        foreach (var (type, modifier) in metal.Damage)
         {
             if (damage.TryGetValue(type, out var old))
+            {
+                baseTotal += old;
                 damage[type] = old * modifier;
+            }
+        }
+
+        foreach (var (type, modifier) in metal.DamageBonus)
+        {
+            var bonus = baseTotal * modifier;
+            damage[type] = damage.TryGetValue(type, out var old)
+                ? old + bonus
+                : bonus;
         }
     }
 
@@ -166,11 +182,11 @@ public sealed partial class ForgingSystem : EntitySystem
 
         _metal.SetMetal(uid, metal);
         SetItemProto(uid, item);
-        var metalProto = _proto.Index(metal);
+        var metalProto = ProtoMan.Index(metal);
         MakeOverheatable(uid, metalProto);
         var metalName = metalProto.Name;
-        var itemProto = _proto.Index(item);
-        var itemName = itemProto.DisplayName(_proto);
+        var itemProto = ProtoMan.Index(item);
+        var itemName = itemProto.DisplayName(ProtoMan);
         _meta.SetEntityName(uid, $"unfinished {metalName} {itemName}");
 
         // actually let the result be made by working it
@@ -179,6 +195,14 @@ public sealed partial class ForgingSystem : EntitySystem
         _workable.SetRemaining((uid, workable), work);
         _workable.SetResult((uid, workable), itemProto.Result ?? DefaultResult);
         _workable.SetAmount((uid, workable), itemProto.Amount);
+
+        // calculate the damage an item would take to break, based on total work needed * damage trigger from the YML
+        if (TryComp<DestructibleComponent>(uid, out var destructible))
+        {
+            destructible.Scale = work;
+            Dirty(uid, destructible);
+        }
+
         // TODO: other shit?
         return uid;
     }
@@ -235,7 +259,7 @@ public sealed partial class ForgingSystem : EntitySystem
             return;
         }
 
-        var item = _proto.Index(comp.Item);
+        var item = ProtoMan.Index(comp.Item);
         if (item.Finished is not {} finished)
         {
             Log.Error($"Forged item {comp.Item} from {ToPrettyString(part)} did not have a finished prototype!");
@@ -247,7 +271,7 @@ public sealed partial class ForgingSystem : EntitySystem
         var xform = Transform(part);
         var rot = xform.LocalRotation;
         var uid = Spawn(finished, xform.Coordinates);
-        var metal = _proto.Index(_metal.GetMetalOrThrow(part));
+        var metal = ProtoMan.Index(_metal.GetMetalOrThrow(part));
         _metal.SetMetal(uid, metal); // TODO: completely modular weapons, dont delete the original and just use it for visuals by composing sprite layers
         ModifyResult(uid, user, metal, item, Name(uid));
         QueueDel(part);
@@ -258,8 +282,11 @@ public sealed partial class ForgingSystem : EntitySystem
         if (wasHolding)
             _hands.TryPickupAnyHand(user!.Value, uid);
 
-        var ev = new ConstructionChangedEvent(uid);
+        SetPrice(uid, metal, item);
+
+        var ev = new ConstructionChangedEvent(uid, part, user);
         RaiseLocalEvent(part, ref ev);
+        RaiseLocalEvent(uid, ref ev);
     }
 
     /// <summary>
@@ -268,4 +295,11 @@ public sealed partial class ForgingSystem : EntitySystem
     public bool CanMakeFrom(ForgedItemPrototype item, [ForbidLiteral] ProtoId<MetalPrototype> metal)
         => item.Whitelist?.Contains(metal) != false &&
             item.Blacklist?.Contains(metal) != true;
+
+    private void SetPrice(EntityUid uid, MetalPrototype metal, ForgedItemPrototype item)
+    {
+        var totalWork = item.Work * metal.WorkScale;
+        var itemWork = totalWork / item.Amount;
+        _metal.SetPrice(uid, (metal.Price * itemWork * item.Cost).Double());
+    }
 }

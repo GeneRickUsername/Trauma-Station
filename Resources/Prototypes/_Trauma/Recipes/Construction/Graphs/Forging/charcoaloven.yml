@@ -1,6 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: constructionGraph
   id: CharcoalOven
-  start: start
   graph:
   - node: start
     edges:

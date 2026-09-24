@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: latheRecipePack
   id: RevForgeStatic
   recipes:
@@ -12,6 +14,7 @@
   - ClothingOuterArmorRev
   - RevArmorPlate
   - RevCuffs
+  - RevBallBearings
 
 - type: latheRecipePack
   id: RevPrintingPress
@@ -61,13 +64,17 @@
   recipes:
   - RevGunParts
   - RevTurretMagazine
+  - RevTurretMagazineHeavy
   - RevSMGMagazine
+  - RevStraightPipe
+  - RevModularReceiver
 
 - type: latheRecipePack
   id: RevBulletPressStatic
   recipes:
   - RevTurretBullet
   - RevPistolBullet
+  - RevMagnumBullet
   - RevRifleBullet
   - RevBuckShell
   - RevSlugShell
@@ -83,6 +90,7 @@
   - RevVisor
   - PinpointerCommand
   - FusionCore
+  - RevToolkit
 
 - type: latheRecipePack
   id: RevClothingStatic
@@ -104,6 +112,16 @@
   - DataChipReflectivePlate
   - DataChipFakeMindshield
   - DataChipShieldRipper
+  - MoldMeleeUpgrades
+
+- type: latheRecipePack
+  id: RevMedicalStatic
+  recipes:
+  - MedicatedSuture
+  - RegenerativeMesh
+  - RevGauze
+  - RevBrutepack
+  - RevOintment
 
 - type: latheRecipePack
   id: RevFoundryStatic

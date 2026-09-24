@@ -1,6 +1,7 @@
 // <Trauma>
 using Content.Medical.Common.Body;
 using Content.Shared.Localizations;
+using Content.Trauma.Common.Armor;
 using System.Linq;
 // </Trauma>
 using Content.Shared.Clothing.Components;
@@ -54,11 +55,32 @@ public abstract partial class SharedArmorSystem : EntitySystem
             return;
 
         // <Trauma>
-        if (args.Args.TargetPart is not {} partType || !component.ArmorCoverage.Contains(partType))
+        if (args.Args.TargetPart is not { } partType || !component.ArmorCoverage.Contains(partType))
             return;
 
-        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage,
-            DamageSpecifier.PenetrateArmor(component.Modifiers, args.Args.Damage.ArmorPenetration)); // apply penetration to base modifiers
+        var isPrecise = (args.Args.Damage.Flags & DamageSpecifier.DamageFlags.PreciseHit) != 0;
+        var ev = new ArmorProtectAttemptEvent(args.Args.Origin, isPrecise);
+        RaiseLocalEvent(uid, ref ev);
+        var mult = ev.Multiplier;
+        if (mult <= 0f)
+            return;
+
+        // apply penetration to base modifiers
+        var modifierSet = DamageSpecifier.PenetrateArmor(component.Modifiers, args.Args.Damage.ArmorPenetration);
+        if (mult >= 1f)
+        {
+            args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, modifierSet);
+            return;
+        }
+
+        var newModifierSet = new DamageModifierSet();
+        foreach (var (key, value) in modifierSet.Coefficients)
+        {
+            newModifierSet.Coefficients[key] = 1f - (1f - value) * mult;
+        }
+
+        newModifierSet.FlatReductions = modifierSet.FlatReductions;
+        args.Args.Damage = DamageSpecifier.ApplyModifierSet(args.Args.Damage, newModifierSet);
         // </Trauma>
     }
 
@@ -97,7 +119,7 @@ public abstract partial class SharedArmorSystem : EntitySystem
         var msg = new FormattedMessage();
         msg.AddMarkupOrThrow(Loc.GetString("armor-examine"));
 
-        if (!component.Modifiers.Coefficients.Any() && !component.Modifiers.FlatReduction.Any())
+        if (!component.Modifiers.Coefficients.Any() && !component.Modifiers.FlatReductions.Any())
             return msg;
 
         var coverage = component.ArmorCoverage;
@@ -121,18 +143,19 @@ public abstract partial class SharedArmorSystem : EntitySystem
             foreach (var coefficientArmor in armorModifiers.Coefficients)
             {
                 msg.PushNewline();
-                var armorType = Loc.GetString("armor-damage-type-" + coefficientArmor.Key.ToLower());
+                // TODO: probably make these prototype fields or have a test that they all exist
+                var armorType = Loc.GetString("armor-damage-type-" + coefficientArmor.Key.Id.ToLower());
                 msg.AddMarkupOrThrow(Loc.GetString("armor-coefficient-value-trauma", // Trauma - better locale string
                     ("type", armorType),
                     ("value", MathF.Abs(1f - coefficientArmor.Value) * 100), ("protect", coefficientArmor.Value < 1f) // Trauma - better values
                 ));
             }
 
-            foreach (var flatArmor in armorModifiers.FlatReduction)
+            foreach (var flatArmor in armorModifiers.FlatReductions)
             {
                 msg.PushNewline();
 
-                var armorType = Loc.GetString("armor-damage-type-" + flatArmor.Key.ToLower());
+                var armorType = Loc.GetString("armor-damage-type-" + flatArmor.Key.Id.ToLower());
                 msg.AddMarkupOrThrow(Loc.GetString("armor-reduction-value",
                     ("type", armorType),
                     ("value", flatArmor.Value)

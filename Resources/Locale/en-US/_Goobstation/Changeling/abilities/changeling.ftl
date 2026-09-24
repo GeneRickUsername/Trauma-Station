@@ -1,13 +1,3 @@
-# SPDX-FileCopyrightText: 2024 Piras314 <p1r4s@proton.me>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <aiden@djkraz.com>
-# SPDX-FileCopyrightText: 2025 Aviu00 <93730715+Aviu00@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Ilya246 <57039557+Ilya246@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Ted Lukin <66275205+pheenty@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 gus <august.eymann@gmail.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 # Abilities
 changeling-biomass-deficit = Not enough biomass!
 changeling-chemicals-deficit = Not enough chemicals!
@@ -34,7 +24,6 @@ changeling-absorbbiomatter-bad-food = This food is not absorbable.
 
 changeling-transform-cycle = Switched to {$target}'s DNA.
 changeling-transform-cycle-empty = We don't have any DNA strains!
-changeling-transform-others = {CAPITALIZE(THE($user))}'s body twists and takes shape of another being!
 changeling-transform-fail-self = We can't transform into the current form!
 changeling-transform-fail-choose = We did not choose a form to transform into!
 changeling-transform-fail-absorbed = We can't transform a husk!
@@ -53,12 +42,10 @@ changeling-sting-extract-max = Need to get rid of the stored DNA beforehand
 
 changeling-dartgun-no-stings = We don't have any reagent stings evolved!
 
-changeling-stasis-enter = We enter regenerative stasis...
 changeling-stasis-enter-damaged = We enter regenerative stasis. Our sustained injuries will prove troublesome to heal...
 changeling-stasis-enter-catastrophic = We enter regenerative stasis. Our catastrophic injuries will take extreme time to heal...
 changeling-stasis-enter-fail = Can't enter stasis!
 changeling-stasis-finished = Our regeneration is complete. We are ready to awaken.
-changeling-stasis-exit = We exit regenerative stasis, clear of wounds and injuries...
 changeling-stasis-exit-fail = We're not in stasis!
 changeling-stasis-exit-fail-dead = We feel... hollow. It is over.
 changeling-stasis-exit-fail-time = Our body is still recovering!

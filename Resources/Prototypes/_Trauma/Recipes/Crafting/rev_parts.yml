@@ -1,13 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # less material and time efficient than a forge, basically
 # only for bootstrapping if you lose your starting parts
 - type: construction
   abstract: true
+  parent: BaseRev
   id: BaseRevParts
   graph: RevParts
-  category: construction-category-antagonist
   objectType: Item
-  theory:
-    RevolutionaryKnowledge: 0
   practical:
     ManufacturingKnowledge: 1
   useQuality: false

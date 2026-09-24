@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   abstract: true
   parent: BaseMobBody
@@ -43,7 +45,7 @@
   - type: Sprite
     sprite: _Goobstation/SlaughterDemon/heart.rsi
     color: "#000000"
-  - type: InternalOrgan
+  - type: InternalChildOrgan
     intCap: 30
     integrity: 30
     integrityThresholds:

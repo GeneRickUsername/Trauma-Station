@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Hypoport
 
 - type: entity
@@ -40,39 +42,6 @@
   - type: SurgeryOrganCondition
     organ: Hypoport
 
-# Brain Chip
-
-- type: entity
-  parent: BaseSurgeryInsertOrgan
-  id: SurgeryInsertBrainChip
-  name: Install Brain Chip
-  components:
-  - type: Surgery
-    steps:
-    - SurgeryStepOpenIncisionScalpel
-    - SurgeryStepClampBleeders
-    - SurgeryStepOpenPanel
-    - SurgeryStepInsertBrainChip
-    - SurgeryStepSealOrganWound
-  - type: SurgeryOrganSlotCondition
-    organSlot: BrainChip
-  - type: SurgeryOrganCondition
-    organ: BrainChip
-
-- type: entity
-  parent: BaseSurgeryRemoveOrgan
-  id: SurgeryRemoveBrainChip
-  name: Extract Brain Chip
-  components:
-  - type: Surgery
-    steps:
-    - SurgeryStepOpenIncisionScalpel
-    - SurgeryStepClampBleeders
-    - SurgeryStepOpenPanel
-    - SurgeryStepRemoveOrgan
-  - type: SurgeryOrganCondition
-    organ: BrainChip
-
 # Tail
 
 - type: entity
@@ -95,26 +64,31 @@
 # Tongue
 
 - type: entity
-  parent: BaseSurgeryRemoveOrgan
+  parent: SurgeryBase
   id: SurgeryRemoveTongue
   name: Remove Tongue
   components:
+  - type: Surgery
+    steps:
+    - SurgeryStepOpenIncisionScalpel
+    - SurgeryStepRemoveOrganHand
   - type: SurgeryOrganCondition
     organ: Tongue
 
 - type: entity
-  parent: BaseSurgeryInsertOrgan
+  parent: SurgeryBase
   id: SurgeryInsertTongue
   name: Insert Tongue
   components:
   - type: Surgery
     steps:
-    - SurgeryStepSawBones
     - SurgeryStepInsertOrgan
     - SurgeryStepSealOrganWound
   - type: SurgeryOrganSlotCondition
     organSlot: Tongue
   - type: SurgeryOrganCondition
+    inverse: true
+    reattaching: true
     organ: Tongue
 
 # Kidneys

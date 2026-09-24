@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Leonid
   mapName: 'Leonid Station'
@@ -46,6 +48,7 @@
           Scientist: [ 6, 6 ]
           ResearchAssistant: [ 6, 6 ]
           Geneticist: [ 2, 2 ]
+          Roboticist: [ 2, 2 ]
           # Security
           HeadOfSecurity: [ 1, 1 ]
           Warden: [ 1, 1 ]
@@ -67,6 +70,7 @@
           Reporter: [ 1, 1 ]
           RadioHost: [ 1, 1 ]
           Lawyer: [ 3, 3 ]
+          DClass: [ -1, -1 ]
       - type: StationBlobConfig
         stageBegin: 40
         stageCritical: 450

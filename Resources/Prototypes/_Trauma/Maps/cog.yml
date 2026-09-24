@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Cog
   mapName: 'Cog'
@@ -27,6 +29,7 @@
             Botanist: [ 3, 3 ]
             Chef: [ 2, 2 ]
             ServiceWorker: [ 3, 3 ]
+            Rancher: [ 2, 2 ]
             # Engineering
             ChiefEngineer: [ 1, 1 ]
             AtmosphericTechnician: [ 3, 3 ]
@@ -43,6 +46,7 @@
             # Science
             ResearchDirector: [ 1, 1 ]
             Geneticist: [ 2, 2 ]
+            Roboticist: [ 2, 2 ]
             Scientist: [ 5, 5 ]
             ResearchAssistant: [ 3, 3 ]
             # Security
@@ -66,6 +70,7 @@
             RadioHost: [ 1, 1 ]
             Librarian: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
+            DClass: [ -1, -1 ]
         - type: StationBlobConfig
           stageBegin: 40
           stageCritical: 450

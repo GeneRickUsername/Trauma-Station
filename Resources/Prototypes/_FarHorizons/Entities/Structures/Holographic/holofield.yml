@@ -1,7 +1,7 @@
 - type: entity
-  parent: [BaseStructure, ConstructibleMachine]
-  id: GenericFieldGeneratorBase
   abstract: true
+  parent: [ BaseStructure, ConstructibleMachine, BaseConstructibleMachineDestructible ]
+  id: GenericFieldGeneratorBase
   components:
   - type: Fixtures
     fixtures:
@@ -76,9 +76,7 @@
           False: { visible: false }
   - type: Airtight
     noAirWhenFullyAirBlocked: true
-  - type: Tag
-    tags:
-    - Wall
+  - type: Wall
   - type: ExaminableBattery
   - type: WiresPanel
   - type: Lock
@@ -123,8 +121,9 @@
   - type: StaticPrice
     price: 150
   - type: Damageable
-    damageContainer: Inorganic
     damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Inorganic
   - type: Destructible
     thresholds:
     - trigger:
@@ -275,9 +274,7 @@
   - type: Transform
     anchored: true
   - type: BlockWeather
-  - type: Tag
-    tags:
-    - Wall
+  - type: Wall
   - type: PointLight
     enabled: true
     radius: 3
@@ -332,9 +329,7 @@
   - type: Transform
     anchored: true
   - type: BlockWeather
-  - type: Tag
-    tags:
-    - Wall
+  - type: Wall
   - type: PointLight
     enabled: true
     radius: 3
@@ -349,8 +344,9 @@
         collection:
           EnergyMiss
   - type: Damageable
-    damageContainer: Shield
     damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: Shield
   - type: ExaminableDamage
     messages: FieldMessages
   - type: Destructible

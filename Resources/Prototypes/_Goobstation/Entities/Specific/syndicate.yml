@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: [BaseItem, BaseSyndicateContraband, BaseBookSounds]
   id: CQCManual
@@ -14,8 +16,8 @@
     price: 3000
   - type: UseRequiresSight
   - type: KnowledgeGrantOnUse
-    knowledge:
-      MartialArtCQC: 70
+    skills:
+      MartialArtCQC: 88
     doAfter: 2
   - type: GuideHelp
     guides:
@@ -38,8 +40,8 @@
     price: 3000
   - type: UseRequiresSight
   - type: KnowledgeGrantOnUse
-    knowledge:
-      MartialArtSleepingCarp: 70
+    skills:
+      MartialArtSleepingCarp: 88
     doAfter: 2
   - type: GuideHelp
     guides:
@@ -61,8 +63,8 @@
     price: 3000
   - type: UseRequiresSight
   - type: KnowledgeGrantOnUse
-    knowledge:
-      MartialArtCapoeira: 26 # Starts you with all moves, +12.5% movespeed, +50% attack speed, +50% damage
+    skills:
+      MartialArtCapoeira: 88
     doAfter: 2
   - type: GuideHelp
     guides:

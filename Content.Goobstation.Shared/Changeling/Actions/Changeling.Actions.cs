@@ -49,17 +49,16 @@ public sealed partial class ActionAnatomicPanaceaEvent : InstantActionEvent;
 public sealed partial class ActionBiodegradeEvent : InstantActionEvent;
 public sealed partial class ActionChameleonSkinEvent : InstantActionEvent;
 public sealed partial class ActionAdrenalineReservesEvent : InstantActionEvent;
-public sealed partial class ActionFleshmendEvent : InstantActionEvent
-{
-    [DataField]
-    public ProtoId<StatusEffectPrototype> StatusID = "Fleshmend";
-
-    [DataField]
-    public TimeSpan Duration = TimeSpan.FromSeconds(10);
-}
 public sealed partial class ActionLastResortEvent : InstantActionEvent;
 public sealed partial class ActionLesserFormEvent : InstantActionEvent;
-public sealed partial class ActionVoidAdaptEvent : InstantActionEvent;
+public sealed partial class ActionVoidAdaptEvent : InstantActionEvent
+{
+    [DataField(required: true)]
+    public ComponentRegistry AddedComponents = default!;
+
+    [DataField(required: true)]
+    public List<EntProtoId> StatusEffects = default!;
+}
 public sealed partial class ActionHivemindAccessEvent : InstantActionEvent;
 public sealed partial class ActionContortBodyEvent : InstantActionEvent;
 

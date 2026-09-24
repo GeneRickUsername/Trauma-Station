@@ -9,7 +9,8 @@ using Content.Server.Ghost.Roles.Components;
 using Content.Server.Shuttles.Events;
 using Content.Server.Shuttles.Systems;
 using Content.Shared.Atmos;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
+using Content.Shared.Decals;
 using Content.Shared.Gravity;
 using Content.Shared.Light.Components;
 using Content.Shared.Parallax.Biomes;
@@ -39,9 +40,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 {
     [Dependency] private IConfigurationManager _configManager = default!;
     [Dependency] private IConsoleHost _console = default!;
-    [Dependency] private IMapManager _mapManager = default!;
     [Dependency] private IParallelManager _parallel = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IPlayerManager _playerManager = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
@@ -52,10 +51,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     [Dependency] private ShuttleSystem _shuttles = default!;
     [Dependency] private TagSystem _tags = default!;
 
-    private EntityQuery<BiomeComponent> _biomeQuery;
-    private EntityQuery<FixturesComponent> _fixturesQuery;
-    private EntityQuery<GhostComponent> _ghostQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    [Dependency] private EntityQuery<BiomeComponent> _biomeQuery = default!;
+    [Dependency] private EntityQuery<FixturesComponent> _fixturesQuery = default!;
+    [Dependency] private EntityQuery<GhostComponent> _ghostQuery = default!;
+    [Dependency] private EntityQuery<TransformComponent> _xformQuery = default!;
 
     private readonly HashSet<EntityUid> _handledEntities = new();
     private const float DefaultLoadRange = 16f;
@@ -84,10 +83,6 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
     {
         base.Initialize();
         Log.Level = LogLevel.Debug;
-        _biomeQuery = GetEntityQuery<BiomeComponent>();
-        _fixturesQuery = GetEntityQuery<FixturesComponent>();
-        _ghostQuery = GetEntityQuery<GhostComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
         SubscribeLocalEvent<BiomeComponent, MapInitEvent>(OnBiomeMapInit);
         SubscribeLocalEvent<FTLStartedEvent>(OnFTLStarted);
         SubscribeLocalEvent<ShuttleFlattenEvent>(OnShuttleFlatten);
@@ -126,7 +121,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             SetSeed(uid, component, _random.Next());
         }
 
-        if (_proto.Resolve(component.Template, out var biome))
+        if (ProtoMan.Resolve(component.Template, out var biome))
             SetTemplate(uid, component, biome);
 
         var xform = Transform(uid);
@@ -136,7 +131,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         {
             var setTiles = new List<(Vector2i Index, Tile tile)>();
 
-            foreach (var grid in _mapManager.GetAllGrids(mapId))
+            foreach (var grid in _mapSystem.GetAllGrids(mapId))
             {
                 if (!_fixturesQuery.TryGetComponent(grid.Owner, out var fixtures))
                     continue;
@@ -309,7 +304,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
         foreach (var layer in markers)
         {
-            var proto = ProtoManager.Index(layer);
+            var proto = ProtoMan.Index(layer);
             var enumerator = new ChunkIndicesEnumerator(area, proto.Size);
 
             while (enumerator.MoveNext(out var chunk))
@@ -354,7 +349,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
                 foreach (var layer in biome.MarkerLayers)
                 {
-                    var layerProto = ProtoManager.Index(layer);
+                    var layerProto = ProtoMan.Index(layer);
                     AddMarkerChunksInRange(biome, worldPos, layerProto);
                 }
             }
@@ -375,7 +370,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
                 foreach (var layer in biome.MarkerLayers)
                 {
-                    var layerProto = ProtoManager.Index(layer);
+                    var layerProto = ProtoMan.Index(layer);
                     AddMarkerChunksInRange(biome, worldPos, layerProto);
                 }
             }
@@ -497,9 +492,10 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
                 // Essentially get the seed + work out a buffer to adjacent chunks so we don't
                 // inadvertantly spawn too many near the edges.
-                var layerProto = ProtoManager.Index<BiomeMarkerLayerPrototype>(layer);
+                var layerProto = ProtoMan.Index<BiomeMarkerLayerPrototype>(layer);
                 var markerSeed = seed + chunk.X * ChunkSize + chunk.Y + localIdx;
-                var rand = new Random(markerSeed);
+                var rand = new RobustRandom();
+                rand.SetSeed(markerSeed);
                 var buffer = (int)(layerProto.Radius / 2f);
                 var bounds = new Box2i(chunk + buffer, chunk + layerProto.Size - buffer);
                 var count = (int)(bounds.Area / (layerProto.Radius * layerProto.Radius));
@@ -582,7 +578,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         bool forced,
         Box2i bounds,
         int count,
-        Random rand,
+        IRobustRandom rand,
         out Dictionary<Vector2i, string?> spawnSet,
         out HashSet<EntityUid> existingEnts,
         bool emptyTiles = true)
@@ -607,7 +603,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                     continue;
 
                 // Check if it's a valid spawn, if so then use it.
-                var enumerator = _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, node);
+                var enumerator = _mapSystem.GetAnchoredEntities(gridUid, grid, node);
                 enumerator.MoveNext(out var existing);
 
                 if (!forced && existing != null)
@@ -653,7 +649,8 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
             // While we have remaining tiles keep iterating
             while (groupSize > 0 && remainingTiles.Count > 0)
             {
-                var startNode = rand.PickAndTake(remainingTiles);
+                var startNode = rand.Pick(remainingTiles);
+                remainingTiles.Remove(startNode);
                 frontier.Clear();
                 frontier.Add(startNode);
 
@@ -726,7 +723,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
 
         foreach (var (layer, nodes) in layers)
         {
-            var layerProto = ProtoManager.Index<BiomeMarkerLayerPrototype>(layer);
+            var layerProto = ProtoMan.Index<BiomeMarkerLayerPrototype>(layer);
 
             foreach (var node in nodes)
             {
@@ -824,7 +821,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                     continue;
 
                 // Don't mess with anything that's potentially anchored.
-                var anchored = _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, indices);
+                var anchored = _mapSystem.GetAnchoredEntities(gridUid, grid, indices);
 
                 if (anchored.MoveNext(out _) || !TryGetEntity(indices, component, (gridUid, grid), out var entPrototype))
                     continue;
@@ -857,7 +854,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                     continue;
 
                 // Don't mess with anything that's potentially anchored.
-                var anchored = _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, indices);
+                var anchored = _mapSystem.GetAnchoredEntities(gridUid, grid, indices);
 
                 if (anchored.MoveNext(out _) || !TryGetDecals(indices, component.Layers, seed, (gridUid, grid), out var decals))
                     continue;
@@ -932,11 +929,9 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
         // Ideally any entities that aren't modified just get deleted and re-generated later
         // This is because if we want to save the map (e.g. persistent server) it makes the file much smaller
         // and also if the map is enormous will make stuff like physics broadphase much faster
-        var xformQuery = GetEntityQuery<TransformComponent>();
-
         foreach (var (ent, tile) in component.LoadedEntities[chunk])
         {
-            if (Deleted(ent) || !xformQuery.TryGetComponent(ent, out var xform))
+            if (Deleted(ent) || !TryComp(ent, out TransformComponent? xform))
             {
                 modified.Add(tile);
                 continue;
@@ -974,7 +969,7 @@ public sealed partial class BiomeSystem : SharedBiomeSystem
                     continue;
 
                 // Don't mess with anything that's potentially anchored.
-                var anchored = _mapSystem.GetAnchoredEntitiesEnumerator(gridUid, grid, indices);
+                var anchored = _mapSystem.GetAnchoredEntities(gridUid, grid, indices);
 
                 if (anchored.MoveNext(out _))
                 {

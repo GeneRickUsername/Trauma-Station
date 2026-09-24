@@ -6,7 +6,7 @@ using Robust.Shared.Physics.Systems;
 
 namespace Content.Server.SurveillanceCamera;
 
-public partial class SurveillanceCameraSystem
+public sealed partial class SurveillanceCameraSystem
 {
     [Dependency] private SharedPhysicsSystem _physics = default!;
     [Dependency] private SharedPowerReceiverSystem _power = default!;
@@ -81,6 +81,11 @@ public partial class SurveillanceCameraSystem
 
         if (!_cameraQuery.TryComp(args.OtherEntity, out var cameraCollider))
             return;
+
+        // <Trauma> - don't show AI if its not powered, it can't see through it here
+        if (!_power.IsPowered(args.OtherEntity))
+            return;
+        // </Trauma>
 
         cameraCollider.Enabled = true;
         Dirty(args.OtherEntity, cameraCollider);

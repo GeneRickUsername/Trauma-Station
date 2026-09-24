@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   name: coca leaves
   parent: [ ProduceBaseRuminant, BaseMinorContraband ]
@@ -7,10 +9,9 @@
   - type: Sprite
     sprite: _Trauma/Objects/Specific/Hydroponics/coca_plant.rsi
   - type: Produce
-    seedId: CocaPlant
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        reagents:
-        - ReagentId: CocaSlurry
-          Quantity: 10
+    plantId: CocaPlants
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: CocaSlurry
+        Quantity: 10

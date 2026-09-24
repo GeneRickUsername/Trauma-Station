@@ -101,7 +101,7 @@ public sealed partial class GeneticsConsoleSystem
             return;
         }
 
-        _adminLog.Add(LogType.Genetics, LogImpact.Low, $"{ToPrettyString(mob)} was scanned by {ToPrettyString(args.User)} with console {ToPrettyString(ent)}");
+        _adminLog.Add(LogType.Genetics, LogImpact.Low, $"{mob:target} was scanned by {args.User:user} with console {ent.Owner:console}");
         _audio.PlayPredicted(ent.Comp.ScanSound, ent, args.User);
 
         Speak(ent, "scanned");
@@ -153,6 +153,14 @@ public sealed partial class GeneticsConsoleSystem
 
         ent.Comp.Busy = busy;
         DirtyField(ent, nameof(GeneticsScannerComponent.Busy));
+    }
+
+    private void SetBusy(Entity<GeneticsScannerComponent?> ent, DoAfterArgs args)
+    {
+        // set it first incase an aghost is using it so it doesn't get stuck as true, the event handler would run before the SetBusy otherwise
+        SetBusy(ent, true);
+        if (!_doAfter.TryStartDoAfter(args))
+            SetBusy(ent, false);
     }
 
     private void UpdateUI(Entity<GeneticsScannerComponent?> ent)

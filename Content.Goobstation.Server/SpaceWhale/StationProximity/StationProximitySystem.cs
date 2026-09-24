@@ -3,13 +3,13 @@
 using System.Linq;
 using Content.Goobstation.Common.CCVar;
 using Content.Server.Popups;
-using Content.Server.Station.Components;
 using Content.Goobstation.Server.MobCaller;
 using Content.Shared.Coordinates;
 using Content.Shared.Humanoid;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Popups;
+using Content.Shared.Station.Components;
 using Robust.Server.Audio;
 using Robust.Shared.Audio;
 using Robust.Shared.Configuration;
@@ -88,10 +88,12 @@ public sealed partial class StationProximitySystem : EntitySystem
     {
         base.Update(frameTime);
 
-        if (_timing.CurTime > _nextCheck)
+        var now = _timing.CurTime;
+
+        if (now < _nextCheck)
             return;
 
-        _nextCheck = _timing.CurTime + CheckDelay;
+        _nextCheck = now + CheckDelay;
         CheckStationProximity();
     }
 

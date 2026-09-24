@@ -6,9 +6,13 @@ using Content.Shared.Database;
 using Content.Shared.Examine;
 using Content.Shared.Interaction;
 using Content.Shared.Popups;
+using Content.Shared.Random.Helpers;
 using Content.Shared.Stacks;
+using Content.Shared.Whitelist;
+using Content.Trauma.Common.Knowledge.Systems;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Random;
+using Robust.Shared.Timing;
 
 namespace Content.Goobstation.Shared.Enchanting.Systems;
 
@@ -17,7 +21,10 @@ namespace Content.Goobstation.Shared.Enchanting.Systems;
 /// </summary>
 public sealed partial class EnchanterSystem : EntitySystem
 {
+    [Dependency] private CommonKnowledgeSystem _knowledge = default!;
     [Dependency] private EnchantingSystem _enchanting = default!;
+    [Dependency] private EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private IGameTiming _timing = default!;
     [Dependency] private INetManager _net = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ISharedAdminLogManager _adminLogger = default!;
@@ -26,20 +33,10 @@ public sealed partial class EnchanterSystem : EntitySystem
     [Dependency] private SharedStackSystem _stack = default!;
 
     private List<EntProtoId<EnchantComponent>> _pool = new();
-    private EntityQuery<CanEnchantComponent> _userQuery;
 
-    public override void Initialize()
-    {
-        base.Initialize();
+    private static readonly EntProtoId MagicalLiteracy = "MagicalLiteracyKnowledge";
 
-        _userQuery = GetEntityQuery<CanEnchantComponent>();
-
-        SubscribeLocalEvent<EnchanterComponent, ExaminedEvent>(OnExamined);
-
-        SubscribeLocalEvent<EnchantingToolComponent, ExaminedEvent>(OnToolExamined);
-        SubscribeLocalEvent<EnchantingToolComponent, BeforeRangedInteractEvent>(OnBeforeInteract);
-    }
-
+    [SubscribeLocalEvent]
     private void OnExamined(Entity<EnchanterComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
@@ -48,6 +45,7 @@ public sealed partial class EnchanterSystem : EntitySystem
         args.PushMarkup(Loc.GetString("enchanter-examine"));
     }
 
+    [SubscribeLocalEvent]
     private void OnToolExamined(Entity<EnchantingToolComponent> ent, ref ExaminedEvent args)
     {
         if (!args.IsInDetailsRange)
@@ -56,6 +54,7 @@ public sealed partial class EnchanterSystem : EntitySystem
         args.PushMarkup(Loc.GetString("enchanting-tool-examine"));
     }
 
+    [SubscribeLocalEvent]
     private void OnBeforeInteract(Entity<EnchantingToolComponent> ent, ref BeforeRangedInteractEvent args)
     {
         if (!args.CanReach || args.Target is not {} item)
@@ -67,17 +66,17 @@ public sealed partial class EnchanterSystem : EntitySystem
 
         args.Handled = true;
 
-        // need an enchanter on the altar as well as the target
         var user = args.User;
-        if (_enchanting.FindEnchanter(item) is not {} enchanter)
+        if (_whitelist.IsWhitelistFail(ent.Comp.UserWhitelist, user))
         {
-            _popup.PopupClient(Loc.GetString("enchanting-tool-no-enchanter"), user, user);
+            _popup.PopupEntity("Your spirit is too weak to use this holy book...", user, user, PopupType.MediumCaution);
             return;
         }
 
-        if (_userQuery.HasComp(user) == false)
+        // need an enchanter on the altar as well as the target
+        if (_enchanting.FindEnchanter(item) is not {} enchanter)
         {
-            _popup.PopupClient(Loc.GetString("enchanter-disallowed-enchant"), user, user);
+            _popup.PopupEntity(Loc.GetString("enchanting-tool-no-enchanter"), user, user);
             return;
         }
 
@@ -102,36 +101,48 @@ public sealed partial class EnchanterSystem : EntitySystem
         GetPossibleEnchants(ent, item);
         if (_pool.Count == 0)
         {
-            _popup.PopupClient(Loc.GetString("enchanter-cant-enchant"), item, user);
+            _popup.PopupEntity(Loc.GetString("enchanter-cant-enchant"), item, user);
             return false;
         }
 
-        // can't predict any further due to rng + spawning
-        if (_net.IsClient)
-            return true;
+        if (_knowledge.GetKnowledge(user, MagicalLiteracy) is not { } skill || _knowledge.GetMastery(skill.Comp) < 1)
+        {
+            _popup.PopupEntity(Loc.GetString("enchanter-no-skill"), item, user);
+            return false;
+        }
 
-        // pick a random enchant then do it
-        var picking = _random.NextFloat(ent.Comp.MinCount, ent.Comp.MaxCount);
+        var random = SharedRandomExtensions.PredictedRandom(_timing, GetNetEntity(ent), GetNetEntity(user));
+        var picking = random.NextFloat(ent.Comp.MinCount, ent.Comp.MaxCount);
         var total = 0f;
         for (int i = 0; i < 20 && total < picking; i++)
         {
-            var id = _random.Pick(_pool);
-            var level = (int) _random.NextFloat(ent.Comp.MinLevel, ent.Comp.MaxLevel);
+            var id = random.Pick(_pool);
+            // TODO: Integrate with skills 2
+            var level = (int) random.NextFloat(ent.Comp.MinLevel, _knowledge.GetMastery(skill.Comp) + ent.Comp.AdjustLevel);
             if (_enchanting.Enchant(item, id, level))
                 total += 1f;
         }
 
-        _audio.PlayPvs(ent.Comp.Sound, item);
-        _popup.PopupEntity(Loc.GetString("enchanter-enchanted", ("item", item)), item, PopupType.Large);
+        _audio.PlayPredicted(ent.Comp.Sound, item, user);
+        _popup.PopupEntity(Loc.GetString("enchanter-enchanted", ("item", item)), item, user, PopupType.Large);
 
-        _adminLogger.Add(LogType.EntityDelete, LogImpact.Low,
-            $"{ToPrettyString(user):player} enchanted {ToPrettyString(item):item} using {ToPrettyString(ent):enchanter}");
+        _adminLogger.Add(LogType.EntityDelete, LogImpact.Low, $"{user:player} enchanted {item:item} using {ent:enchanter}");
 
         if (!TryComp<StackComponent>(ent, out var stack) || !_stack.TryUse((ent, stack), 1))
         {
             ent.Comp.Enchants = new(); // prevent double enchanting by malf client
-            QueueDel(ent);
+            PredictedQueueDel(ent);
         }
+        return true;
+    }
+
+    public bool AddEnchant(Entity<EnchanterComponent?> ent, [ForbidLiteral] EntProtoId<EnchantComponent> id)
+    {
+        ent.Comp ??= EnsureComp<EnchanterComponent>(ent);
+        if (ent.Comp.Enchants.Contains(id))
+            return false;
+
+        ent.Comp.Enchants.Add(id);
         return true;
     }
 }

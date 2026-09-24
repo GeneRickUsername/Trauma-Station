@@ -2,7 +2,8 @@
 
 using Content.Trauma.Shared.Wizard.ScryingOrb;
 using Content.Shared.Eye;
-using Content.Shared.Ghost;
+using Content.Shared.Ghost.Components;
+using Content.Shared.Ghost.Systems;
 using Content.Shared.Hands;
 using Content.Shared.Interaction;
 using Content.Shared.Inventory.Events;
@@ -114,6 +115,6 @@ public sealed partial class ScryingOrbSystem : SharedScryingOrbSystem
             _meta.SetEntityName(ghost, session.Name);
 
         _mind.Visit(mind, ghost, mindComp);
-        _ghost.SetCanReturnToBody(Comp<GhostComponent>(ghost), true);
+        _ghost.SetCanReturnToBody((ghost, null), true);
     }
 }

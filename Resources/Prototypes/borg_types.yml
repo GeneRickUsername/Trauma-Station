@@ -21,6 +21,7 @@
   radioChannels:
   - Science
 
+<<<<<<< HEAD
   # <Trauma>
   addComponents:
   - type: ModifyKnowledgeGrant
@@ -31,6 +32,8 @@
       ConstructionKnowledge: 20 # not good at much else
   # </Trauma>
 
+=======
+>>>>>>> upstream
   # Visual
   inventoryTemplateId: borgShort
   spriteBodyState: robot
@@ -64,12 +67,11 @@
   - BorgModuleRCD
   - BorgModuleCable
 
-  lawset: Engineer # DeltaV: Custom lawset
-
   radioChannels:
   - Engineering
   - Science
 
+<<<<<<< HEAD
   # <Trauma>
   addComponents:
   - type: ModifyKnowledgeGrant
@@ -83,6 +85,8 @@
       ScienceKnowledge: 10 # sciborg is better
   # </Trauma>
 
+=======
+>>>>>>> upstream
   # Visual
   inventoryTemplateId: borgShort
   spriteBodyState: engineer
@@ -115,12 +119,12 @@
   - BorgModuleMining
   - BorgModuleTraversal
   - BorgModuleAppraisal
-  - BorgModulePKA # Lavaland
 
   radioChannels:
   - Supply
   - Science
 
+<<<<<<< HEAD
   # <Trauma>
   addComponents:
   - type: NoWieldNeeded
@@ -134,6 +138,8 @@
 
   lawset: Salvage # DeltaV: Custom lawset
 
+=======
+>>>>>>> upstream
   # Visual
   inventoryTemplateId: borgTall
   spriteBodyState: miner
@@ -162,7 +168,6 @@
     - BorgModuleJanitor
 
   defaultModules:
-  - BorgModuleTool # Trauma - fuck you borgs get tools
   - BorgModulePrying
   - BorgModuleCleaning
   - BorgModuleCustodial
@@ -171,6 +176,7 @@
   - Science
   - Service
 
+<<<<<<< HEAD
   # <Trauma>
   addComponents:
   - type: ModifyKnowledgeGrant
@@ -182,6 +188,8 @@
 
   lawset: Janitor # DeltaV: Custom lawset
 
+=======
+>>>>>>> upstream
   # Visual
   inventoryTemplateId: borgShort
   spriteBodyState: janitor
@@ -210,20 +218,14 @@
     - BorgModuleMedical
 
   defaultModules:
-  - BorgModuleTool # Trauma - fuck you borgs get tools
   - BorgModulePrying
   - BorgModuleChemical
   - BorgModuleTopicals
   - BorgModuleRescue
-  - BorgModuleSurgery
-  - BorgModuleLollypop # Goobstation
-
-  lawset: Medical # DeltaV: Custom lawset
 
   radioChannels:
   - Science
   - Medical
-
 
   addComponents:
   - type: SolutionScanner
@@ -233,16 +235,6 @@
   - type: ShowHealthIcons
     damageContainers:
     - Biological
-  # <Trauma>
-  - type: ModifyKnowledgeGrant
-    skills:
-      FirstAidKnowledge: 50
-      SurgeryKnowledge: 80 # robots are unsurprisingly good at making cuts
-  - type: Sanitized # Shitmed
-  - type: SurgeryIgnoreClothing
-  - type: SurgerySpeedModifier
-    speedModifier: 1.5
-  # </Trauma>
 
   # Visual
   inventoryTemplateId: borgDutch
@@ -276,20 +268,17 @@
     - BorgModuleService
 
   defaultModules:
-  - BorgModuleTool # Trauma - serviceborgs on suicide watch
   - BorgModulePrying
   - BorgModuleMusique
   - BorgModuleService
   - BorgModuleClowning
   - BorgModuleGardening
   - BorgModuleHarvesting
-
-  lawset: Clown # DeltaV: Custom lawset
-
   radioChannels:
   - Science
   - Service
 
+<<<<<<< HEAD
   # <Trauma>
   addComponents:
   - type: ModifyKnowledgeGrant
@@ -297,6 +286,8 @@
       MechanicsKnowledge: 80 # the clown's bitch
   # </Trauma>
 
+=======
+>>>>>>> upstream
   # Visual
   inventoryTemplateId: borgTall
   spriteBodyState: service

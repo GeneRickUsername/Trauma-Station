@@ -51,6 +51,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
 
     public void Initialize()
     {
+        InitializeTrauma(); // Trauma
         _netManager.RegisterNetMessage<MsgRoleBans>();
 
         _db.SubscribeToJsonNotification<BanNotificationData>(
@@ -125,6 +126,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
         var (banDef, expires) = await CreateBanDef(banInfo, BanType.Server, null);
 
         await _db.AddBanAsync(banDef);
+        SendBanWebhook(banDef); // Trauma
 
         if (_cfg.GetCVar(CCVars.ServerBanResetLastReadRules))
         {
@@ -299,7 +301,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
             GetSeverityForServerBan(banInfo, CCVars.ServerBanDefaultSeverity),
             banInfo.BanningAdmin,
             null,
-            roles: roleBans), expires);
+            roles: roleBans).WithWebhookReason(banInfo.WebhookReason), expires); // Trauma - set WebhookReason
     }
 
     private async Task<TimeSpan> GetPlayTime(CreateBanInfo banInfo)
@@ -347,6 +349,7 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
     private async Task AddRoleBan(BanDef banDef)
     {
         banDef = await _db.AddBanAsync(banDef);
+        SendBanWebhook(banDef); // Trauma
 
         foreach (var user in banDef.UserIds)
         {
@@ -441,17 +444,17 @@ public sealed partial class BanManager : IBanManager, IPostInjectInit
             : null;
     }
 
-    public bool IsRoleBanned(ICommonSession player, List<ProtoId<JobPrototype>> jobs)
+    public bool IsRoleBanned(ICommonSession player, params List<ProtoId<JobPrototype>> jobs)
     {
         return IsRoleBanned<JobPrototype>(player, jobs);
     }
 
-    public bool IsRoleBanned(ICommonSession player, List<ProtoId<AntagPrototype>> antags)
+    public bool IsRoleBanned(ICommonSession player, params List<ProtoId<AntagPrototype>> antags)
     {
         return IsRoleBanned<AntagPrototype>(player, antags);
     }
 
-    private bool IsRoleBanned<T>(ICommonSession player, List<ProtoId<T>> roles) where T : class, IPrototype
+    private bool IsRoleBanned<T>(ICommonSession player, params List<ProtoId<T>> roles) where T : class, IPrototype
     {
         var bans = GetRoleBans(player.UserId);
 

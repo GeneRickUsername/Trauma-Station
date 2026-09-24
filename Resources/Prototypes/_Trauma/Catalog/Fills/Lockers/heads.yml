@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entityTable
   id: LockerFillQuarterMasterTrauma
   table: !type:AllSelector
@@ -14,6 +16,7 @@
     - id: CommandMegaphone
     - id: ReinforcementCallerHoP
     - id: ArmoryOverrideKeyComponents
+    - id: BoxSkillChipsService
 
 - type: entityTable
   id: LockerFillChiefEngineerTrauma
@@ -26,7 +29,6 @@
     - id: CartridgeRocketSingularityBuster
     - id: CartridgeRocketSingularityBuster
     - id: WeaponLauncherSingularityBuster
-    - id: MachinePowerTransmissionLaserFlatpack
     - id: ArmoryOverrideKeyComponents
 
 - type: entityTable
@@ -56,12 +58,12 @@
     - id: MMI
     - id: FreeformLawboard
     - id: ArmoryOverrideKeyComponents
+    - id: ClothingOuterArmorReactiveRD
 
 - type: entityTable
   id: LockerFillHeadOfSecurityTrauma
   table: !type:AllSelector
     children:
-    - id: BoxSkillChipsSec
     - id: ClothingBeltSheathHeadOfSecurityFilled
     - id: TelescopicShield
     - id: ArmoryOverrideKeyComponents

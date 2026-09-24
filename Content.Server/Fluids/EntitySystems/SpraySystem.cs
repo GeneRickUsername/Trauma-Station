@@ -1,29 +1,30 @@
 // <Trauma>
 using Content.Goobstation.Shared.OfficeChair;
+using Content.Server.Chemistry.Components;
+using Content.Shared.Chemistry.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Inventory;
+using Content.Shared.Vapor;
 using Content.Shared.Whitelist;
+using Robust.Shared.Prototypes;
 // </Trauma>
-using Content.Server.Chemistry.Components;
 using Content.Server.Chemistry.EntitySystems;
 using Content.Server.Gravity;
 using Content.Server.Popups;
 using Content.Shared.CCVar;
 using Content.Shared.Chemistry.EntitySystems;
-using Content.Shared.FixedPoint;
 using Content.Shared.Fluids;
 using Content.Shared.Interaction;
-using Content.Shared.Timing;
-using Content.Shared.Vapor;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Configuration;
 using Robust.Shared.Physics.Components;
-using Robust.Shared.Prototypes;
 using System.Numerics;
 using Content.Shared.Fluids.EntitySystems;
 using Content.Shared.Fluids.Components;
+using Content.Shared.Timing.Systems;
 using Robust.Server.Containers;
+using Robust.Shared.Audio;
 using Robust.Shared.Map;
 
 namespace Content.Server.Fluids.EntitySystems;
@@ -33,9 +34,9 @@ public sealed partial class SpraySystem : SharedSpraySystem
     // <Trauma>
     [Dependency] private InventorySystem _inventory = default!;
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
+    [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     // </Trauma>
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private GravitySystem _gravity = default!;
     [Dependency] private PhysicsSystem _physics = default!;
     [Dependency] private UseDelaySystem _useDelay = default!;
@@ -43,7 +44,6 @@ public sealed partial class SpraySystem : SharedSpraySystem
     [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private SharedSolutionContainerSystem _solutionContainer = default!;
     [Dependency] private VaporSystem _vapor = default!;
-    [Dependency] private SharedAppearanceSystem _appearance = default!;
     [Dependency] private SharedTransformSystem _transform = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private ContainerSystem _container = default!;
@@ -66,7 +66,7 @@ public sealed partial class SpraySystem : SharedSpraySystem
 
         args.Handled = true;
 
-        var targetMapPos = _transform.GetMapCoordinates(GetEntityQuery<TransformComponent>().GetComponent(args.Target));
+        var targetMapPos = _transform.GetMapCoordinates(Transform(args.Target));
 
         Spray(entity, targetMapPos, args.User);
     }
@@ -151,7 +151,7 @@ public sealed partial class SpraySystem : SharedSpraySystem
         if (ev.Cancelled)
         {
             if (ev.CancelPopupMessage != null && user != null)
-                _popupSystem.PopupEntity(Loc.GetString(ev.CancelPopupMessage), entity.Owner, user.Value);
+                _popupSystem.PopupEntity(ev.CancelPopupMessage, entity.Owner, user.Value); // Trauma - removed Loc.GetString, the 1 system using this already does that
             return;
         }
 
@@ -165,8 +165,7 @@ public sealed partial class SpraySystem : SharedSpraySystem
             return;
         }
 
-        var xformQuery = GetEntityQuery<TransformComponent>();
-        var sprayerXform = xformQuery.GetComponent(entity);
+        var sprayerXform = Transform(entity);
 
         var sprayerMapPos = _transform.GetMapCoordinates(sprayerXform);
         var clickMapPos = mapcoord;
@@ -188,17 +187,17 @@ public sealed partial class SpraySystem : SharedSpraySystem
                 // Spawn vapor with a slight offset to create movement
                 var offset = new Vector2(0.1f, 0); // Small offset to ensure collision
                 var vapor = Spawn(entity.Comp.SprayedPrototype, sprayerMapPos.Offset(offset));
-                var vaporXform = xformQuery.GetComponent(vapor);
+                var vaporXform = Transform(vapor);
 
                 if (TryComp(vapor, out AppearanceComponent? appearance))
                 {
-                    _appearance.SetData(vapor, VaporVisuals.Color, solution.GetColor(_proto).WithAlpha(1f), appearance);
+                    _appearance.SetData(vapor, VaporVisuals.Color, solution.GetColor(ProtoMan).WithAlpha(1f), appearance);
                     _appearance.SetData(vapor, VaporVisuals.State, true, appearance);
                 }
 
                 var vaporComponent = Comp<VaporComponent>(vapor);
                 var ent = (vapor, vaporComponent);
-                _vapor.TryAddSolution(ent, newSolution);
+                _solutionContainer.TryAddSolution((vapor, Comp<SolutionComponent>(vapor)), newSolution);
 
                 // Create a slight movement effect
                 var rotation = Angle.FromDegrees(45);
@@ -218,8 +217,7 @@ public sealed partial class SpraySystem : SharedSpraySystem
 
                 _audio.PlayPvs(entity.Comp.SpraySound, entity, entity.Comp.SpraySound.Params.WithVariation(0.125f));
 
-                if (TryComp<UseDelayComponent>(entity, out var useDelay))
-                    _useDelay.TryResetDelay((entity.Owner, useDelay));
+                _useDelay.TryResetDelay(entity.Owner);
 
                 return;
             }
@@ -258,34 +256,21 @@ public sealed partial class SpraySystem : SharedSpraySystem
                 target = sprayerMapPos.Offset(diffNorm * entity.Comp.SprayDistance);
 
             var adjustedSolutionAmount = entity.Comp.TransferAmount / entity.Comp.VaporAmount;
-            var newSolution = _solutionContainer.SplitSolution(soln.Value, adjustedSolutionAmount);
-
-            if (newSolution.Volume <= FixedPoint2.Zero)
-                break;
 
             // Spawn the vapor cloud onto the grid/map the user is present on. Offset the start position based on how far the target destination is.
             var vaporPos = sprayerMapPos.Offset(distance < 1 ? quarter : threeQuarters);
             var vapor = Spawn(entity.Comp.SprayedPrototype, vaporPos);
-            var vaporXform = xformQuery.GetComponent(vapor);
+            var vaporXform = Transform(vapor);
 
             _transform.SetWorldRotation(vaporXform, rotation);
 
-            if (TryComp(vapor, out AppearanceComponent? appearance))
-            {
-                _appearance.SetData(vapor, VaporVisuals.Color, solution.GetColor(_proto).WithAlpha(1f), appearance);
-                _appearance.SetData(vapor, VaporVisuals.State, true, appearance);
-            }
-
-            // Add the solution to the vapor and actually send the thing
-            var vaporComponent = Comp<VaporComponent>(vapor);
-            var ent = (vapor, vaporComponent);
-            _vapor.TryAddSolution(ent, newSolution);
+            _vapor.TryAddSolution(vapor, soln.Value, adjustedSolutionAmount);
 
             // impulse direction is defined in world-coordinates, not local coordinates
             var impulseDirection = rotation.ToVec();
             var time = diffLength / entity.Comp.SprayVelocity;
 
-            _vapor.Start(ent, vaporXform, impulseDirection * diffLength, entity.Comp.SprayVelocity, target, time, user);
+            _vapor.Start(vapor, vaporXform, impulseDirection * diffLength, entity.Comp.SprayVelocity, target, time, user);
 
             var thingGettingPushed = entity.Owner;
             if (_container.TryGetOuterContainer(entity, sprayerXform, out var container))
@@ -302,7 +287,7 @@ public sealed partial class SpraySystem : SharedSpraySystem
                 {
                     // push back the grid the player is standing on
                     var userTransform = Transform(thingGettingPushed);
-                    if (userTransform.GridUid == userTransform.ParentUid)
+                    if (userTransform.GridUid == userTransform.ParentUid && userTransform.ParentUid != userTransform.MapUid) // Trauma - check map too
                     {
                         // apply both linear and angular momentum depending on the player position
                         // multiply by a cvar because grid mass is currently extremely small compared to all other masses
@@ -314,11 +299,15 @@ public sealed partial class SpraySystem : SharedSpraySystem
             accumulatedVehiclePush += -impulseDirection * entity.Comp.PushbackAmount; // Goobstation - Vehicle Spray Pushback (Office chairs)
         }
 
+        // <Trauma>
         if (user != null)
-            RaiseLocalEvent(user.Value, new SprayUserImpulseEvent(accumulatedVehiclePush));  // Goobstation - Vehicle Spray Pushback (Office chairs)
+            RaiseLocalEvent(user.Value, new SprayUserImpulseEvent(accumulatedVehiclePush));
+        // </Trauma>
 
-        _audio.PlayPvs(entity.Comp.SpraySound, entity, entity.Comp.SpraySound.Params.WithVariation(0.125f));
+        var audioParams = entity.Comp.SpraySound?.Params ?? AudioParams.Default;
+        audioParams = audioParams.WithVariation(0.125f);
+        _audio.PlayPvs(entity.Comp.SpraySound, entity, audioParams);
 
-        _useDelay.TryResetDelay(entity);
+        _useDelay.TryResetDelay(entity.Owner);
     }
 }

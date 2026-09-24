@@ -1,11 +1,3 @@
-# SPDX-FileCopyrightText: 2022 Nemanja <98561806+EmoGarbage404@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 DrSmugleaf <DrSmugleaf@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 metalgearsloth <comedian_vs_clown@hotmail.com>
-# SPDX-FileCopyrightText: 2024 Leon Friedrich <60421075+ElectroJr@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
   abstract: true
   parent: BaseAction
@@ -22,9 +14,10 @@
   components:
   - type: Action
     useDelay: 0.5
-    icon:
-      sprite: Interface/Actions/actions_mecha.rsi
-      state: mech_cycle_equip_on
+  - type: Sprite
+    sprite: Interface/Actions/actions_mecha.rsi
+    layers:
+    - state: mech_cycle_equip_on
   - type: InstantAction
     event: !type:MechToggleEquipmentEvent
 
@@ -36,9 +29,10 @@
   components:
   - type: Action
     useDelay: 1
-    icon:
-      sprite: Interface/Actions/actions_mecha.rsi
-      state: mech_view_stats
+  - type: Sprite
+    sprite: Interface/Actions/actions_mecha.rsi
+    layers:
+    - state: mech_view_stats
   - type: InstantAction
     event: !type:MechOpenUiEvent
 
@@ -49,8 +43,9 @@
   description: Ejects the pilot from the mech
   components:
   - type: Action
-    icon:
-      sprite: Interface/Actions/actions_mecha.rsi
-      state: mech_eject
+  - type: Sprite
+    sprite: Interface/Actions/actions_mecha.rsi
+    layers:
+    - state: mech_eject
   - type: InstantAction
     event: !type:MechEjectPilotEvent

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## Markings
 
 - type: markingsGroup
@@ -57,6 +59,7 @@
 ## Mob
 
 - type: entity
+  categories: [ HideSpawnMenu ]
   parent: BaseSpeciesAppearance
   id: AppearanceIPC
   name: IPC appearance
@@ -82,9 +85,12 @@
       IPCPump: OrganIPCPump
   - type: HumanoidProfile
     species: IPC
-    # <Trauma>
   - type: KnowledgeHolder
-    # </Trauma>
+  - type: AnimatedEmotesBlacklist
+    blacklist:
+    - Cry
+    - Blush
+    - Tongue
 
 - type: entity
   parent:
@@ -92,6 +98,7 @@
   - MobFlammable
   - BaseSpeciesMob
   id: MobIPC
+  name: Urist McPositronic
   components:
   - type: LanguageSpeaker
     speaks:
@@ -135,8 +142,9 @@
     - NanoTrasen
   - type: StandingState
   - type: Damageable
-    damageContainer: SiliconRadiation
     damageModifierSet: IPC
+  - type: Injurable
+    damageContainer: SiliconRadiation
   - type: MobState
     allowedStates:
     - Alive
@@ -169,7 +177,6 @@
     guides:
     - IPC
   - type: Silicon
-    entityType: enum.SiliconType.Player
     batteryPowered: true
     drainPerSecond: 1.5
     chargeThresholdMid: 0.80
@@ -204,9 +211,10 @@
     selfRepairPenalty: 2.0
     damage:
       types:
-        Blunt: -15
-        Piercing: -15
-        Slash: -15
+        Blunt: -10
+        Piercing: -10
+        Slash: -10
+        Ballistic: -10
   - type: DamagedSiliconAccent
     enableChargeCorruption: false
   - type: Uncloneable # it a fucking robot
@@ -224,10 +232,28 @@
         - MobMask
         layer:
         - MobLayer
+  - type: Reactive
+    groups:
+      Flammable: [ Touch ]
+      Extinguish: [ Touch ]
+    reactions:
+    - reagents: [ Water, SpaceCleaner ]
+      methods: [ Touch ]
+      effects:
+      - !type:WashCreamPie
+    - reagents: [ Water ]
+      methods: [ Touch ]
+      effects:
+      - !type:Jitter
+      - !type:HealthChange
+        ignoreResistances: true
+        splitDamage: Split
+        damage:
+          types:
+            Shock: 1.5
   - type: Temperature
-    currentTemperature: 310.15 # 310K is the standard operating temperature of a home circuit breaker
-    specificHeat: 42
-    atmosTemperatureTransferEfficiency: 0.05
+    specificHeat: 300
+    temperature: 310.15 # 310K is the standard operating temperature of a home circuit breaker
   - type: TemperatureDamage
     heatDamageThreshold: 450 # Wanted to do 363.15 for le realism, but reptiles have 400K limit which is ????
     coldDamageThreshold: 260
@@ -243,6 +269,8 @@
     needsCritical: false
   - type: SurgeryTarget
     sepsisImmune: true
+  - type: IntellicardableMind # recovery mode
+    downloadTimeFactor: 1.2
   - type: Tag
     tags:
     - SiliconMob
@@ -257,15 +285,14 @@
 
 - type: entity
   abstract: true
-  parent: OrganBase
   id: OrganIPC
   suffix: IPC
   components:
   - type: Inorganic
   - type: Damageable
-    damageContainer: SiliconRadiation
     damageModifierSet: IPC
-    bleedingOverlay: null
+  - type: Injurable
+    damageContainer: SiliconRadiation
 
 - type: entity
   abstract: true
@@ -275,12 +302,12 @@
   - type: Sprite
     sprite: _EinsteinEngines/Mobs/Species/IPC/organs.rsi
   # TODO SHITMED: make it so you can only eat it with rock eater or something
-  - type: SolutionContainerManager
-    solutions:
-      food:
-        reagents:
-        - ReagentId: Oil
-          Quantity: 10
+  - type: Solution
+    id: food
+    solution:
+      reagents:
+      - ReagentId: Oil
+        Quantity: 10
 
 - type: entity
   abstract: true
@@ -296,15 +323,15 @@
     markingData:
       group: IPC
   - type: WoundableVisuals
+    bleedingOverlay: null
     damageGroupColors:
       Brute: "#DD8822"
-  - type: Woundable
-    boneEntity: null
+  - type: Boneless
 
 ## Parts
 
 - type: entity
-  parent: [ OrganBaseTorsoSexed, OrganBaseTorso, OrganIPCExternal ]
+  parent: [ OrganIPCExternal, OrganBaseTorsoSexed, OrganBaseTorso ]
   id: OrganIPCTorso
   components:
   - type: BodyPart
@@ -320,7 +347,7 @@
     - IPCPump
 
 - type: entity
-  parent: [ OrganBaseHeadSexed, OrganBaseHeadBald, OrganIPCExternal ]
+  parent: [ OrganIPCExternal, OrganBaseHeadSexed, OrganBaseHeadBald ]
   id: OrganIPCHead
   components:
   - type: BodyPart
@@ -329,44 +356,43 @@
     - Eyes
     - Tongue
     - Ears
-    - BrainChip # USB 6.0
 
 - type: entity
-  parent: [ OrganBaseArmLeft, OrganIPCExternal ]
+  parent: [ OrganIPCExternal, OrganBaseArmLeft ]
   id: OrganIPCArmLeft
 
 - type: entity
-  parent: [ OrganBaseArmRight, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseArmRight ]
   id: OrganIPCArmRight
 
 - type: entity
-  parent: [ OrganBaseHandLeft, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseHandLeft ]
   id: OrganIPCHandLeft
 
 - type: entity
-  parent: [ OrganBaseHandRight, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseHandRight ]
   id: OrganIPCHandRight
 
 - type: entity
-  parent: [ OrganBaseLegLeft, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseLegLeft ]
   id: OrganIPCLegLeft
 
 - type: entity
-  parent: [ OrganBaseLegRight, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseLegRight ]
   id: OrganIPCLegRight
 
 - type: entity
-  parent: [ OrganBaseFootLeft, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseFootLeft ]
   id: OrganIPCFootLeft
 
 - type: entity
-  parent: [ OrganBaseFootRight, OrganIPCExternal ]
+  parent: [ OrganIPCExternal,  OrganBaseFootRight ]
   id: OrganIPCFootRight
 
 ## Organs
 
 - type: entity
-  parent: [ OrganBaseEyes, OrganIPCInternal ]
+  parent: [ OrganIPCInternal,  OrganBaseEyes ]
   id: OrganIPCEyes
   name: robotic eyes
   description: "01001001 00100000 01110011 01100101 01100101 00100000 01111001 01101111 01110101 00100001"
@@ -376,18 +402,18 @@
       group: IPC
 
 - type: entity
-  parent: [ OrganBaseTongue, OrganIPCInternal ]
+  parent: [ OrganIPCInternal,  OrganBaseTongue ]
   id: OrganIPCTongue
   name: vocal modulator
   description: A vocal modulator, used to produce speech.
 
 - type: entity
-  parent: [ OrganBaseEars, OrganIPCInternal ]
+  parent: [ OrganIPCInternal,  OrganBaseEars ]
   id: OrganIPCEars
   name: sonic receptors
 
 - type: entity
-  parent: [ OrganBaseHeart, OrganIPCInternal ]
+  parent: [ OrganIPCInternal,  OrganBaseHeart ]
   id: OrganIPCPump
   name: micro pump
   description: A micro pump, used to circulate coolant.

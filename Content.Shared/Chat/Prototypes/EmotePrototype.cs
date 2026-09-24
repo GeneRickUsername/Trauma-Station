@@ -19,7 +19,7 @@ public sealed partial class EmotePrototype : IPrototype
     ///     Localization string for the emote name. Displayed in the radial UI.
     /// </summary>
     [DataField(required: true)]
-    public string Name = default!;
+    public LocId Name; // Trauma - use LocId
 
     /// <summary>
     ///     Determines if emote available to all by default
@@ -59,7 +59,7 @@ public sealed partial class EmotePrototype : IPrototype
     ///     Will be picked randomly from list.
     /// </summary>
     [DataField]
-    public List<string> ChatMessages = new();
+    public List<LocId> ChatMessages = new(); // Trauma - use LocId
 
     /// <summary>
     ///     Trigger words for emote. Case independent.
@@ -68,10 +68,6 @@ public sealed partial class EmotePrototype : IPrototype
     /// </summary>
     [DataField]
     public HashSet<string> ChatTriggers = new();
-
-    // goob edit - animations
-    [DataField]
-    public object? Event = null;
 }
 
 /// <summary>
@@ -85,6 +81,5 @@ public enum EmoteCategory : byte
     Invalid = 0,
     Vocal = 1 << 0,
     Hands = 1 << 1,
-    Farts = 1 << 2, // Goobstation - Fart Emotes
     General = byte.MaxValue
 }

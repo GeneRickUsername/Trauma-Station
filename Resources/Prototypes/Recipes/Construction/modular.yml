@@ -1,10 +1,8 @@
 - type: construction
+  parent: BaseWeapon
   id: ModularGrenadeRecipe
   graph: ModularGrenadeGraph
-  startNode: start
   targetNode: grenade
-  category: construction-category-weapons
-  objectType: Item
   # <Trauma>
   theory:
     ManufacturingKnowledge: 0
@@ -15,10 +13,11 @@
   # </Trauma>
 
 - type: construction
+  parent: ModularGrenadeRecipe # Trauma
   id: ModularMineRecipe
   graph: ModularMineGraph
-  startNode: start
   targetNode: mine
+<<<<<<< HEAD
   category: construction-category-weapons
   objectType: Item
   # <Trauma>
@@ -29,3 +28,5 @@
     ManufacturingKnowledge: 3
     MechanicsKnowledge: 3
   # </Trauma>
+=======
+>>>>>>> upstream

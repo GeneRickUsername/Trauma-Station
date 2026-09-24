@@ -1,7 +1,3 @@
-# SPDX-FileCopyrightText: 2024 starch <starchpersonal@gmail.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 blobadoodle <me@bloba.dev>
-#
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
 - type: job
@@ -13,38 +9,42 @@
   startingGear: HECUOperativeGear
   icon: "JobIconNanotrasen"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
   - NanotrasenRepresentative
   special:
-  - !type:AddComponentSpecial
-    components:
-    - type: KnowledgeGrant
-      skills:
-        MeleeKnowledge: 50
-        ShootingKnowledge: 50
-        StrengthKnowledge: 50
-        ToughnessKnowledge: 50
-        AthleticsKnowledge: 50
+  - !type:OrganChipsSpecial
+    chips:
+    - SkillChipERT
+  - !type:AddImplantSpecial
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
 - type: startingGear
   id: HECUOperativeGear
   equipment:
     jumpsuit: ClothingUniformHecu
-    back: ClothingBackpackMercFilledHECU
+    back: ClothingBackpackMerc
     mask: ClothingMaskGasExplorer
     eyes: ClothingEyesGlassesMedSec
     ears: ClothingHeadsetAltCentCom
     gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterVestWeb
+    outerClothing: ClothingOuterVestWebDurathread
     shoes: ClothingShoesBootsCombatFilled
     head: ClothingHeadHelmetMerc
     id: HecuPDA
     belt: ClothingBeltMercWebbing
-    pocket1: MagazinePistolSubMachineGun
-    pocket2: MagazinePistolSubMachineGun
-  inhand:
-  - WeaponSubMachineGunDrozd
+    pocket2: FlashlightSeclite
+  storage:
+    back:
+    - CrowbarRed
+    - BoxZiptie
+    - MedkitCombatFilled
+    - Flash
+    belt:
+    - WeaponPistolMk58
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol
+    - MagazinePistol

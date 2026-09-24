@@ -1,38 +1,32 @@
 // <Trauma>
-using Content.Goobstation.Shared.Communications;
-using Content.Goobstation.Shared.Loudspeaker.Events;
 using Content.Goobstation.Shared.Radio;
 using Content.Trauma.Common.Language;
 using Content.Trauma.Common.Language.Systems;
-using Content.Shared.Access.Systems;
 using Content.Shared.Chat.RadioIconsEvents;
-using Content.Shared.StatusIcon;
 using Content.Shared.Whitelist;
-using Content.Trauma.Common.Speech;
-using System.Linq;
 // </Trauma>
 using Content.Server.Administration.Logs;
+using Content.Server.Chat.Managers;
 using Content.Server.Chat.Systems;
+using Content.Server.Ghost;
 using Content.Server.Power.Components;
 using Content.Shared.Chat;
 using Content.Shared.Database;
 using Content.Shared.Radio;
 using Content.Shared.Radio.Components;
+using Content.Shared.Radio.EntitySystems;
 using Content.Shared.Speech;
 using Robust.Shared.Map;
 using Robust.Shared.Network;
 using Robust.Shared.Player;
-using Robust.Shared.Prototypes;
 using Robust.Shared.Random;
 using Robust.Shared.Replays;
 using Robust.Shared.Utility;
 
 namespace Content.Server.Radio.EntitySystems;
 
-/// <summary>
-///     This system handles intrinsic radios and the general process of converting radio messages into chat messages.
-/// </summary>
-public sealed partial class RadioSystem : EntitySystem
+/// <inheritdoc/>
+public sealed partial class RadioSystem : SharedRadioSystem
 {
     // <Trauma>
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
@@ -42,23 +36,20 @@ public sealed partial class RadioSystem : EntitySystem
     [Dependency] private INetManager _netMan = default!;
     [Dependency] private IReplayRecordingManager _replay = default!;
     [Dependency] private IAdminLogManager _adminLogger = default!;
-    [Dependency] private IPrototypeManager _prototype = default!;
     [Dependency] private IRobustRandom _random = default!;
     [Dependency] private ChatSystem _chat = default!;
+    [Dependency] private IChatManager _chatManager = default!;
+    [Dependency] private GhostSystem _ghost = default!;
+    [Dependency] private EntityQuery<TelecomExemptComponent> _exemptQuery = default!;
 
     // set used to prevent radio feedback loops.
     private readonly HashSet<string> _messages = new();
-
-    private EntityQuery<TelecomExemptComponent> _exemptQuery;
 
     public override void Initialize()
     {
         base.Initialize();
         SubscribeLocalEvent<IntrinsicRadioReceiverComponent, RadioReceiveEvent>(OnIntrinsicReceive);
         SubscribeLocalEvent<IntrinsicRadioTransmitterComponent, EntitySpokeEvent>(OnIntrinsicSpeak);
-        SubscribeLocalEvent<IntrinsicRadioReceiverComponent, RadioReceiveAttemptEvent>(OnIntrinsicReceiveAttempt); // Goobstation
-
-        _exemptQuery = GetEntityQuery<TelecomExemptComponent>();
     }
 
     private void OnIntrinsicSpeak(EntityUid uid, IntrinsicRadioTransmitterComponent component, EntitySpokeEvent args)
@@ -67,66 +58,41 @@ public sealed partial class RadioSystem : EntitySystem
             && component.Channels.Contains(args.Channel.ID)
             && _whitelist.IsWhitelistPassOrNull(args.Channel.SendWhitelist, uid)) // Goobstation - Whitelisted radio channels
         {
-            SendRadioMessage(uid, args.Message, args.Channel, uid, args.Language); // Einstein Engines - Language
+            SendRadioMessage(uid, args.Message, args.Channel, uid, language: args.Language); // Trauma - add language
             args.Channel = null; // prevent duplicate messages from other listeners.
         }
     }
 
     private void OnIntrinsicReceive(EntityUid uid, IntrinsicRadioReceiverComponent component, ref RadioReceiveEvent args)
     {
-        if (TryComp(uid, out ActorComponent? actor))
-        {
-            // Einstein Engines - Languages begin
-            var msg = args.OriginalChatMsg;
-
-            if (!_language.CanUnderstand(uid, args.Language.ID))
-                msg = args.LanguageObfuscatedChatMsg;
-
-            _netMan.ServerSendMessage(new MsgChatMessage { Message = msg }, actor.PlayerSession.Channel);
-            // Einstein Engines - Languages end
-        }
-    }
-
-    // Goobstation - Whitelisted radio channels
-    private void OnIntrinsicReceiveAttempt(EntityUid uid, IntrinsicRadioReceiverComponent component, ref RadioReceiveAttemptEvent args)
-    {
-        args.Cancelled = _whitelist.IsWhitelistFail(args.Channel.ReceiveWhitelist, uid);
-    }
-
-    /// <summary>
-    /// Send radio message to all active radio listeners
-    /// </summary>
-    public void SendRadioMessage(
-        EntityUid messageSource,
-        string message,
-        ProtoId<RadioChannelPrototype> channel,
-        EntityUid radioSource,
-        LanguagePrototype? language = null,
-        bool escapeMarkup = true)
-    {
-        SendRadioMessage(messageSource, message, _prototype.Index(channel), radioSource, escapeMarkup: escapeMarkup, language: language); // Einstein Engines - Language
-    }
-
-    /// <summary>
-    /// Send radio message to all active radio listeners
-    /// </summary>
-    /// <param name="messageSource">Entity that spoke the message</param>
-    /// <param name="radioSource">Entity that picked up the message and will send it, e.g. headset</param>
-    public void SendRadioMessage(
-        EntityUid messageSource,
-        string message,
-        RadioChannelPrototype channel,
-        EntityUid radioSource,
-        LanguagePrototype? language = null,
-        bool escapeMarkup = true)
-    {
-        // Einstein Engines - Language begin
-        if (language == null)
-            language = _language.GetLanguage(messageSource);
-
-        if (!language.SpeechOverride.AllowRadio)
+        if (!TryComp(uid, out ActorComponent? actor))
             return;
-        // Einstein Engines - Language end
+
+        // <Trauma> - replaced event's MsgChatMessage with the inner messages, add language obfuscation
+        var msg = args.OriginalChatMsg;
+        if (_ghost.CanGhostWarp(actor.PlayerSession, out _))
+        {
+            msg = new ChatMessage(msg)
+            {
+                WrappedMessage = _chatManager.PrependFollowButtonIfAppropriate(
+                    msg.WrappedMessage,
+                    args.MessageSource,
+                    actor.PlayerSession.Channel),
+            };
+        }
+
+        if (!_language.CanUnderstand(uid, args.Language.ID))
+            msg = args.LanguageObfuscatedChatMsg;
+
+        _netMan.ServerSendMessage(new MsgChatMessage { Message = msg }, actor.PlayerSession.Channel);
+        // <Trauma>
+    }
+
+    /// <inheritdoc/>
+    public override void SendRadioMessage(EntityUid messageSource, string message, RadioChannelPrototype channel, EntityUid radioSource, bool escapeMarkup = true,
+        LanguagePrototype? language = null) // Trauma)
+    {
+        language ??= _language.GetLanguage(messageSource); // Trauma
 
         // TODO if radios ever garble / modify messages, feedback-prevention needs to be handled better than this.
         if (!_messages.Add(message))
@@ -150,11 +116,12 @@ public sealed partial class RadioSystem : EntitySystem
         name = FormattedMessage.EscapeText(name);
 
         SpeechVerbPrototype speech;
-        if (evt.SpeechVerb != null && _prototype.Resolve(evt.SpeechVerb, out var evntProto))
+        if (evt.SpeechVerb != null && ProtoMan.Resolve(evt.SpeechVerb, out var evntProto))
             speech = evntProto;
         else
             speech = _chat.GetSpeechVerb(messageSource, message);
 
+        message = _language.ObfuscateSpeech(message, language, messageSource); // Trauma - makes low skill garble languages even for those that can understand it
         var content = escapeMarkup
             ? FormattedMessage.EscapeText(message)
             : message;
@@ -167,7 +134,7 @@ public sealed partial class RadioSystem : EntitySystem
         //     ("channel", $"\\[{channel.LocalizedName}\\]"),
         //     ("name", name),
         //     ("message", content));
-        var wrappedMessage = WrapRadioMessage(messageSource, channel, name, content, language, speech, jobIcon, jobName); // Einstein Engines - Language
+        var wrappedMessage = _chat.WrapMessage(null, null, channel, messageSource, name, content, speech, language, null, jobIcon, jobName); // Einstein Engines - Language
 
         // most radios are relayed to chat, so lets parse the chat message beforehand
         // var chat = new ChatMessage(
@@ -182,14 +149,14 @@ public sealed partial class RadioSystem : EntitySystem
         // Added GetNetEntity(messageSource), to source
         var msg = new ChatMessage(ChatChannel.Radio, content, wrappedMessage, GetNetEntity(messageSource), null);
 
-        // Einstein Engines - Language begin
-        var obfuscated = _language.ObfuscateSpeech(content, language, messageSource);
-        // Goobstation - Chat Pings
-        // Added GetNetEntity(messageSource), to source
-        var obfuscatedWrapped = WrapRadioMessage(messageSource, channel, name, obfuscated, language, speech, jobIcon, jobName);
+        // <Trauma> - language slop
+        var obfuscated = _language.ObfuscateSpeech(message, language);
+        if (escapeMarkup)
+            obfuscated = FormattedMessage.EscapeText(obfuscated);
+        var obfuscatedWrapped = _chat.WrapMessage(null, null, channel, messageSource, name, obfuscated, speech, language, null, jobIcon, jobName);
         var notUdsMsg = new ChatMessage(ChatChannel.Radio, obfuscated, obfuscatedWrapped, GetNetEntity(messageSource), null);
         var ev = new RadioReceiveEvent(messageSource, channel, msg, notUdsMsg, language, radioSource);
-        // Einstein Engines - Language end
+        // </Trauma>
 
         var sendAttemptEv = new RadioSendAttemptEvent(channel, radioSource);
         RaiseLocalEvent(ref sendAttemptEv);
@@ -239,77 +206,6 @@ public sealed partial class RadioSystem : EntitySystem
         _replay.RecordServerMessage(msg); // Einstein Engines - Language
         _messages.Remove(message);
     }
-
-    // Einstein Engines - Language begin
-    private string WrapRadioMessage(
-        EntityUid source,
-        RadioChannelPrototype channel,
-        string name,
-        string message,
-        LanguagePrototype language,
-        SpeechVerbPrototype speech,
-        ProtoId<JobIconPrototype>? jobIcon, // Goob edit
-        string? jobName = null) // Gaby Radio icons
-    {
-        // TODO: code duplication with ChatSystem.WrapMessage
-        var languageColor = channel.Color;
-
-        // Goobstation - Bolded Language Overrides begin
-        var wrapId = speech.Bold ? "chat-radio-message-wrap-bold" : "chat-radio-message-wrap";
-        if (speech.Bold && language.SpeechOverride.BoldFontId != null)
-            wrapId = "chat-radio-message-wrap-bolded-language";
-        // Goobstation end
-
-        if (language.SpeechOverride.Color is { } colorOverride)
-            languageColor = Color.InterpolateBetween(Color.White, colorOverride, colorOverride.A); // Changed first param to Color.White so it shows color correctly.
-
-        var languageDisplay = language.IsVisibleLanguage
-            ? Loc.GetString("chat-manager-language-prefix", ("language", language.ChatName))
-            : "";
-
-        // goob start - loudspeakers
-
-        int? loudSpeakFont = null;
-
-        var getLoudspeakerEv = new GetLoudspeakerEvent();
-        RaiseLocalEvent(source, ref getLoudspeakerEv);
-
-        if (getLoudspeakerEv.Loudspeakers != null)
-            foreach (var loudspeaker in getLoudspeakerEv.Loudspeakers)
-            {
-                var loudSpeakerEv = new GetLoudspeakerDataEvent();
-                RaiseLocalEvent(loudspeaker, ref loudSpeakerEv);
-
-                if (loudSpeakerEv.IsActive && loudSpeakerEv.AffectRadio)
-                {
-                    loudSpeakFont = loudSpeakerEv.FontSize;
-                    break;
-                }
-            }
-
-        var nameString = jobIcon is null // (unrelated to loudspeakers but still goob)
-            ? name
-            : Loc.GetString("chat-radio-message-name-with-icon", ("jobIcon", jobIcon), ("jobName", jobName ?? ""), ("name", name));
-        // goob end
-
-        // <Trauma> - allow source entity to replace font
-        var fontEv = new SpeechFontOverrideEvent(source, language.SpeechOverride.FontId ?? speech.FontId);
-        RaiseLocalEvent(source, ref fontEv);
-        // </Trauma>
-
-        return Loc.GetString(wrapId,
-            ("color", channel.Color),
-            ("languageColor", languageColor),
-            ("fontType", fontEv.Font), // Trauma - use Font from above
-            ("fontSize", loudSpeakFont ?? language.SpeechOverride.FontSize ?? speech.FontSize), // goob edit - "loudSpeakFont"
-            ("boldFontType", language.SpeechOverride.BoldFontId ?? language.SpeechOverride.FontId ?? speech.FontId), // Goob Edit - Custom Bold Fonts
-            ("verb", Loc.GetString(_random.Pick(speech.SpeechVerbStrings))),
-            ("channel", $"\\[{channel.LocalizedName}\\]"),
-            ("name", nameString), // goob
-            ("message", message),
-            ("language", languageDisplay));
-    }
-    // Einstein Engines - Language end
 
     /// <inheritdoc cref="TelecomServerComponent"/>
     private bool HasActiveServer(MapId mapId, string channelId)

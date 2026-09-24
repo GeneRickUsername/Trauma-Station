@@ -19,7 +19,6 @@ namespace Content.Goobstation.Shared.Silicon;
 
 public sealed partial class IntellicardExtrasSystem : EntitySystem
 {
-    [Dependency] private INetManager _net = default!;
     [Dependency] private ItemSlotsSystem _slots = default!;
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private NameModifierSystem _nameMod = default!;
@@ -31,14 +30,7 @@ public sealed partial class IntellicardExtrasSystem : EntitySystem
 
     private static readonly EntProtoId DefaultAi = "StationAiBrain";
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<IntellicardComponent, AfterInteractEvent>(OnHolderInteract);
-        SubscribeLocalEvent<IntellicardableMindComponent, IntellicardDoAfterEvent>(OnIntellicardDoAfter);
-    }
-
+    [SubscribeLocalEvent]
     private void OnHolderInteract(Entity<IntellicardComponent> ent, ref AfterInteractEvent args)
     {
         var user = args.User;
@@ -57,19 +49,19 @@ public sealed partial class IntellicardExtrasSystem : EntitySystem
         var cardBrain = _slots.GetItemOrNull(ent.Owner, "station_ai_mind_slot");
         if (TryComp<MindContainerComponent>(cardBrain, out var cardMind) && !cardMind.HasMind)
         {
-            _popup.PopupClient(Loc.GetString("intellicard-extras-contained-missing"), user, user, PopupType.MediumCaution);
+            _popup.PopupEntity(Loc.GetString("intellicard-extras-contained-missing"), user, user, PopupType.MediumCaution);
             PredictedQueueDel(cardBrain);
             args.Handled = true;
             return;
         }
 
-        var cardHasAi = _slots.CanEject(ent.Owner, user, cardAiHolder.Slot);
+        var cardHasAi = _slots.CanEject(ent.Owner, cardAiHolder.Slot, user);
         var brainHasAi = targetMind.HasMind;
 
         if (cardHasAi == brainHasAi)
         {
             var key = cardHasAi ? "occupied" : "empty";
-            _popup.PopupClient(Loc.GetString($"intellicard-extras-target-{key}"), user, user, PopupType.Medium);
+            _popup.PopupEntity(Loc.GetString($"intellicard-extras-target-{key}"), user, user, PopupType.Medium);
             args.Handled = true;
             return;
         }
@@ -94,6 +86,7 @@ public sealed partial class IntellicardExtrasSystem : EntitySystem
         args.Handled = true;
     }
 
+    [SubscribeLocalEvent]
     private void OnIntellicardDoAfter(Entity<IntellicardableMindComponent> ent, ref IntellicardDoAfterEvent args)
     {
         if (args.Cancelled || args.Handled || args.Used is not { } cardUid)
@@ -115,7 +108,7 @@ public sealed partial class IntellicardExtrasSystem : EntitySystem
         var user = args.User;
 
         // get mind status of both
-        var cardHasAi = _slots.CanEject(cardUid, user, cardAiHolder.Slot) && cardMindContainer?.HasMind == true;
+        var cardHasAi = _slots.CanEject(cardUid, cardAiHolder.Slot, user) && cardMindContainer?.HasMind == true;
         var targetHasAi = targetMindContainer.Mind is { };
 
         // Card -> Brain

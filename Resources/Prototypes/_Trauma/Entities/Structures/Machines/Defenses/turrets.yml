@@ -1,12 +1,17 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   abstract: true
-  parent: [ BaseWeaponBallisticTurret, BaseRevMajorContraband ]
+  parent: [ BaseWeaponTurretIndestructible, BaseRevMajorContraband ]
   id: BaseWeaponTurretRevolutionary
   suffix: Full
   components:
   - type: NpcFactionMember
     factions:
     - Revolutionary
+  - type: Damageable
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger
@@ -59,7 +64,7 @@
       path: /Audio/Effects/double_beep.ogg
   - type: CombatMode
     toggleMouseRotator: false
-  - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
@@ -129,6 +134,9 @@
     drawdepth: Mobs
     layers:
     - state: revturretpistol
+  - type: ContainerContainer
+    containers:
+      ballistic-ammo: !type:Container
 
 - type: entity
   parent: WeaponTurretRevolutionaryPistolFull

@@ -15,6 +15,11 @@
   - Salvage
   - External # goobstation
   special:
+  # <Trauma>
+  - !type:OrganChipsSpecial
+    chips:
+    - SkillChipEducation
+  # </Trauma>
   - !type:GiveItemOnHolidaySpecial
     holiday: BoxingDay
     prototype: BoxCardboard

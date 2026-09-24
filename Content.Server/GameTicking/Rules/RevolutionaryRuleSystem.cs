@@ -1,10 +1,10 @@
 // <Trauma>
 using Content.Goobstation.Shared.Revolutionary;
-using Content.Server.Antag.Components;
 using Content.Server.Chat.Systems;
 using Content.Server.Communications;
-using System.Linq;
+using Content.Shared.Mindshield.Components;
 // </Trauma>
+using System.Linq;
 using Content.Server.Administration.Logs;
 using Content.Server.Antag;
 using Content.Server.EUI;
@@ -23,20 +23,20 @@ using Content.Shared.GameTicking.Components;
 using Content.Shared.Humanoid;
 using Content.Shared.IdentityManagement;
 using Content.Shared.Mind.Components;
-using Content.Shared.Mindshield.Components;
 using Content.Shared.Mobs;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC.Prototypes;
 using Content.Shared.NPC.Systems;
+using Content.Shared.Revolutionary;
 using Content.Shared.Revolutionary.Components;
 using Content.Shared.Roles.Components;
 using Content.Shared.Stunnable;
-using Content.Shared.Zombies;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Timing;
 using Content.Shared.Cuffs.Components;
 using Robust.Shared.Player;
+using Content.Shared.Mindshield;
 
 namespace Content.Server.GameTicking.Rules;
 
@@ -46,6 +46,9 @@ namespace Content.Server.GameTicking.Rules;
 // Heavily edited by goobstation. If you want to upstream something think twice
 public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<RevolutionaryRuleComponent>
 {
+    // <Trauma>
+    [Dependency] private ChatSystem _chat = default!;
+    // </Trauma>
     [Dependency] private AntagSelectionSystem _antag = default!;
     [Dependency] private EmergencyShuttleSystem _emergencyShuttle = default!;
     [Dependency] private EuiManager _euiMan = default!;
@@ -57,9 +60,10 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
     [Dependency] private NpcFactionSystem _npcFaction = default!;
     [Dependency] private PopupSystem _popup = default!;
     [Dependency] private RoleSystem _role = default!;
+    [Dependency] private RoundEndSystem _roundEnd = default!;
     [Dependency] private SharedStunSystem _stun = default!;
     [Dependency] private StationSystem _stationSystem = default!;
-    [Dependency] private ChatSystem _chat = default!; // Goob
+    [Dependency] private MindShieldSystem _mindShield = default!;
 
     //Used in OnPostFlash, no reference to the rule component is available
     public readonly ProtoId<NpcFactionPrototype> RevolutionaryNpcFaction = "Revolutionary";
@@ -80,7 +84,7 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
     protected override void Started(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, GameRuleStartedEvent args)
     {
         base.Started(uid, component, gameRule, args);
-        component.CommandCheck = _timing.CurTime + component.TimerWait;
+        component.CommandCheck = _timing.CurTime + TimeSpan.FromMinutes(10); // Trauma - 10 mins instead of TimerWait
     }
 
     protected override void ActiveTick(EntityUid uid, RevolutionaryRuleComponent component, GameRuleComponent gameRule, float frameTime)
@@ -91,7 +95,7 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
         {
             component.CommandCheck = _timing.CurTime + component.TimerWait;
 
-            // goob edit
+            // <Trauma> - replaced immediately ending the round with all this
             if (CheckCommandLose())
             {
                 if (!component.HasRevAnnouncementPlayed)
@@ -102,22 +106,29 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
                         colorOverride: Color.Gold);
 
                     component.HasRevAnnouncementPlayed = true;
+
+                    GameTicker.StartGameRule(ErtSecurity);
+                    _roundEnd.RequestRoundEnd(TimeSpan.FromMinutes(10), cantRecall: true);
                 }
 
-                foreach (var ms in EntityQuery<MindShieldComponent, MobStateComponent>())
+                foreach (var ms in EntityQueryEnumerator<MindShieldStatusComponent, MobStateComponent>())
                 {
-                    var entity = ms.Item1.Owner;
+                    if (!ms.Comp1.IsMindshielded)
+                        continue;
 
                     // assign eotrs
-                    if (HasComp<RevolutionEnemyComponent>(entity))
+                    if (HasComp<RevolutionEnemyComponent>(ms))
                         continue;
-                    var revenemy = EnsureComp<RevolutionEnemyComponent>(entity);
-                    _antag.SendBriefing(entity, Loc.GetString("rev-eotr-gain"), Color.Red, revenemy.RevStartSound);
+
+                    var revenemy = EnsureComp<RevolutionEnemyComponent>(ms);
+                    _antag.SendBriefing(ms.Owner, Loc.GetString("rev-eotr-gain"), Color.Red, revenemy.RevStartSound);
                 }
             }
 
             if (CheckRevsLose() && !component.HasAnnouncementPlayed)
             {
+                _antagEvac.SpawnNewAntagIfBelowPercent(uid, TimeSpan.FromMinutes(10), false);
+
                 _chat.DispatchGlobalAnnouncement(
                     Loc.GetString("revolutionaries-lose-announcement"),
                     Loc.GetString("revolutionaries-sender-cc"),
@@ -125,6 +136,7 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
 
                 component.HasAnnouncementPlayed = true;
             }
+            // </Trauma>
         }
     }
 
@@ -142,7 +154,7 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
         var index = (commandLost ? 1 : 0) | (revsLost ? 2 : 0);
         args.AddLine(Loc.GetString(Outcomes[index]));
 
-        var sessionData = _antag.GetAntagIdentifiers(uid);
+        var sessionData = _antag.GetAntagIdentifiers(uid).ToList();
         args.AddLine(Loc.GetString("rev-headrev-count", ("initialCount", sessionData.Count)));
         foreach (var (mind, data, name) in sessionData)
         {
@@ -168,8 +180,7 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
 
     // Trauma - nuked conversion shitcode its not used
 
-    //~~TODO: Enemies of the revolution~~
-    // goob edit: too bad wizden goob did it first :trollface:
+    //TODO: Enemies of the revolution
     private void OnCommandMobStateChanged(EntityUid uid, CommandStaffComponent comp, MobStateChangedEvent ev)
     {
         if (ev.NewMobState == MobState.Dead || ev.NewMobState == MobState.Invalid)
@@ -183,11 +194,10 @@ public sealed partial class RevolutionaryRuleSystem : GameRuleSystem<Revolutiona
     {
         var commandList = new List<EntityUid>();
 
-        var heads = AllEntityQuery<CommandStaffComponent>();
-        while (heads.MoveNext(out var id, out var commandComp)) // GoobStation - commandComp
+        var heads = EntityQueryEnumerator<CommandStaffComponent>(); // Trauma - no reason to include paused cryo command members
+        while (heads.MoveNext(out var id, out var staff)) // Trauma - use the component
         {
-            // GoobStation - If mindshield was removed from head and he got converted - he won't count as command
-            if (commandComp.Enabled)
+            if (staff.Enabled) // Trauma
                 commandList.Add(id);
         }
 

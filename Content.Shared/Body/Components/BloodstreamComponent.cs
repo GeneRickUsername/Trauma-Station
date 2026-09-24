@@ -17,7 +17,7 @@ namespace Content.Shared.Body.Components;
 /// </summary>
 [RegisterComponent, NetworkedComponent,]
 [AutoGenerateComponentState(fieldDeltas: true), AutoGenerateComponentPause]
-//[Access(typeof(SharedBloodstreamSystem))] // Trauma
+//[Access(typeof(BloodstreamSystem))] // Trauma
 public sealed partial class BloodstreamComponent : Component
 {
     public const string DefaultBloodSolutionName = "bloodstream";
@@ -108,6 +108,12 @@ public sealed partial class BloodstreamComponent : Component
     public FixedPoint2 BleedPuddleThreshold = 1.0f;
 
     /// <summary>
+    /// Should we allow entities to regain their blood? This affects blood increase from reagents and topicals.
+    /// </summary>
+    [DataField, AutoNetworkedField]
+    public bool BloodIncreaseEnabled = true;
+
+    /// <summary>
     /// A modifier set prototype ID corresponding to how damage should be modified
     /// before taking it into account for bloodloss.
     /// </summary>
@@ -148,16 +154,16 @@ public sealed partial class BloodstreamComponent : Component
     /// Defines which reagents are considered as 'blood' and how much of it is normal.
     /// </summary>
     /// <remarks>
-    /// Slime-people might use slime as their blood or something like that.
+    /// Default is human blood at 5 liters (600u) of blood.
     /// </remarks>
     [DataField, AutoNetworkedField]
-    public Solution BloodReferenceSolution = new([new("Blood", 300)]);
+    public Solution BloodReferenceSolution = new([new("Blood", 600)]);
 
     /// <summary>
     /// Caches the blood data of an entity.
     /// This is modified by DNA on init so it's not savable.
     /// </summary>
-    [ViewVariables(VVAccess.ReadOnly)]
+    [ViewVariables(VVAccess.ReadOnly), AutoNetworkedField]
     public List<ReagentData>? BloodData;
 
     /// <summary>

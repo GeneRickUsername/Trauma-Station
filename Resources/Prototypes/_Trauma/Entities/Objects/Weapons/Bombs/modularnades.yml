@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   abstract: true
   parent: BaseItem
@@ -16,6 +18,7 @@
     - HandGrenade
   - type: PayloadCase
   - type: Damageable
+  - type: Injurable
     damageContainer: Inorganic
   - type: Destructible
     thresholds:
@@ -212,7 +215,7 @@
   description: Not the bees!!! (looks like someone modified this)
   components:
   - type: Sprite
-    sprite: _Goobstation/Objects/Weapons/Grenades/beenades.rsi
+    sprite: _Goobstation/Objects/Weapons/Grenades/beenade.rsi
   - type: Construction
     graph: BeeGrenadeGraph
 

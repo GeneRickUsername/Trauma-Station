@@ -26,15 +26,14 @@ public abstract partial class SharedAutodocSystem : EntitySystem
 {
     [Dependency] private EntityWhitelistSystem _whitelist = default!;
     [Dependency] protected IGameTiming Timing = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private ISharedAdminLogManager _adminLogger = default!;
     [Dependency] private MobStateSystem _mobState = default!;
     [Dependency] private BodyPartSystem _part = default!;
     [Dependency] private SharedHandsSystem _hands = default!;
     [Dependency] private LabelSystem _label = default!;
     [Dependency] private SharedStorageSystem _storage = default!;
-    [Dependency] private SharedSurgerySystem _surgery = default!;
     [Dependency] private SleepingSystem _sleeping = default!;
+    [Dependency] private SurgerySystem _surgery = default!;
 
     public override void Initialize()
     {
@@ -318,7 +317,7 @@ public abstract partial class SharedAutodocSystem : EntitySystem
                 throw new AutodocError($"step-invalid-{error}");
 
             var hands = Comp<HandsComponent>(ent);
-            _hands.SwapHands((ent.Owner, hands));
+            _hands.SwapHands((ent.Owner, hands), false, false);
             if (!_surgery.TryDoSurgeryStep(patient, part, ent, surgeryId, nextStep, out error))
                 throw new AutodocError($"step-invalid-{error}"); // no trying again just fail
         }
@@ -407,7 +406,7 @@ public abstract partial class SharedAutodocSystem : EntitySystem
         program.Steps.Insert(index, step);
         Dirty(ent);
 
-        _adminLogger.Add(LogType.InteractActivate, LogImpact.Low, $"{ToPrettyString(user):user} added step '{step.Title(_proto)}' to autodoc program '{program.Title}'");
+        _adminLogger.Add(LogType.InteractActivate, LogImpact.Low, $"{ToPrettyString(user):user} added step '{step.Title(ProtoMan)}' to autodoc program '{program.Title}'");
         return true;
     }
 

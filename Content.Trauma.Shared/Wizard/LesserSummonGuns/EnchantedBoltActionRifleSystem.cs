@@ -5,7 +5,8 @@ using Content.Shared.Examine;
 using Content.Shared.Hands.Components;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Throwing;
-using Content.Shared.Timing;
+using Content.Shared.Timing.Components;
+using Content.Shared.Timing.Systems;
 using Content.Shared.Weapons.Ranged.Systems;
 using Content.Shared.Wieldable;
 using Content.Shared.Wieldable.Components;
@@ -58,8 +59,7 @@ public sealed partial class EnchantedBoltActionRifleSystem : EntitySystem
         if (oldHand == null || _hands.GetHeldItem((user, hands), oldHand) != uid)
             return;
 
-        if (TryComp(uid, out WieldableComponent? wieldable))
-            _wieldable.TryUnwield(uid, wieldable, user, true);
+        _wieldable.TryUnwield(uid, user, force: true);
 
         if (!_hands.TryDrop((user, hands), oldHand, null, false, false))
             return;
@@ -119,8 +119,7 @@ public sealed partial class EnchantedBoltActionRifleSystem : EntitySystem
         newComp.Caster = comp.Caster;
         Dirty(gun, newComp);
 
-        if (TryComp(gun, out WieldableComponent? newWieldable))
-            _wieldable.TryWield(gun, newWieldable, user, false);
+        _wieldable.TryWield(gun, user);
     }
 
     private bool IsHandValid(Entity<HandsComponent> ent, string hand)

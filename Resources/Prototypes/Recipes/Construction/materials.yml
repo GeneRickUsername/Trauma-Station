@@ -1,8 +1,23 @@
+# region Base
 - type: construction
+  abstract: true
+  id: BaseMaterial
+  category: construction-category-materials
+  objectType: Item
+  # <Trauma>
+  theory:
+    FabricationKnowledge: 0
+  useQuality: false
+  # </Trauma>
+# endregion Base
+
+# region Materials
+- type: construction
+  parent: BaseMaterial
   id: MetalRod
   graph: MetalRod
-  startNode: start
   targetNode: MetalRod
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -10,12 +25,24 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  abstract: true # Trauma - no handcrafting durathread
+  parent: BaseMaterial
+  id: MaterialDurathread
+  graph: Durathread
+  targetNode: MaterialDurathread
+# endregion Materials
+
+# region Glass
+- type: construction
+  parent: BaseMaterial
   id: SheetRGlass
   graph: Glass
-  startNode: start
   targetNode: SheetRGlass
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -23,12 +50,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetClockworkGlass
-  graph: Glass
-  startNode: start
   targetNode: SheetClockworkGlass
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -36,12 +65,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetPGlass
-  graph: Glass
-  startNode: start
   targetNode: SheetPGlass
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -49,12 +80,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetRPGlass
-  graph: Glass
-  startNode: start
   targetNode: SheetRPGlass
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -62,12 +95,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetRPGlass0
-  graph: Glass
-  startNode: start
   targetNode: SheetRPGlass0
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -75,12 +110,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetRPGlass1
-  graph: Glass
-  startNode: start
   targetNode: SheetRPGlass1
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -98,12 +135,14 @@
 #  category: construction-category-materials
 #  objectType: Item
 # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetUGlass
-  graph: Glass
-  startNode: start
   targetNode: SheetUGlass
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -111,12 +150,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetRUGlass
-  graph: Glass
-  startNode: start
   targetNode: SheetRUGlass
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -124,12 +165,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetRUGlass0
-  graph: Glass
-  startNode: start
   targetNode: SheetRUGlass0
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -137,12 +180,14 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: SheetRGlass
   id: SheetRUGlass1
-  graph: Glass
-  startNode: start
   targetNode: SheetRUGlass1
+<<<<<<< HEAD
   category: construction-category-materials
   objectType: Item
   # <Trauma>
@@ -150,3 +195,6 @@
     ManufacturingKnowledge: 0
   useQuality: false
   # </Trauma>
+=======
+# endregion Glass
+>>>>>>> upstream

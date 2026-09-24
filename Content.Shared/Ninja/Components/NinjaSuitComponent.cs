@@ -8,7 +8,6 @@ namespace Content.Shared.Ninja.Components;
 
 /// <summary>
 /// Component for ninja suit abilities and power consumption.
-/// As an implementation detail, dashing with katana is a suit action which isn't ideal.
 /// </summary>
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 [Access(typeof(SharedNinjaSuitSystem))]
@@ -55,7 +54,7 @@ public sealed partial class NinjaSuitComponent : Component
     /// Battery charge used to create an EMP burst. Can do it 2 times on a small-capacity power cell.
     /// </summary>
     [DataField]
-    public float EmpCharge = 180f;
+    public float EmpCharge = 180;
 
     // TODO: EmpOnTrigger bruh
     /// <summary>

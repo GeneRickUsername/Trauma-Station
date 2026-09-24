@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## PARITY
 
 - type: scrollPrayer
@@ -55,7 +57,7 @@
       weight: 0.05
     - id: EggSpiderFertilized
       weight: 0.05
-    - id: XenoEgg
+    - id: XenomorphEgg
       weight: 0.1
 
 - type: scrollPrayer

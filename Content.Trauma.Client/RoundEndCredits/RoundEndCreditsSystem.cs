@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Client.LinkAccount;
 using Content.Shared.GameTicking;
 using Content.Shared.Random.Helpers;
 using Content.Trauma.Common.CCVar;
+using Content.Trauma.Common.LinkAccount;
 using Robust.Client.ResourceManagement;
 using Robust.Shared;
 using Robust.Shared.Configuration;
@@ -15,29 +15,27 @@ public sealed partial class RoundEndCreditsSystem : EntitySystem
 {
     [Dependency] private IUserInterfaceManager _ui = default!;
     [Dependency] private IClyde _clyde = default!;
+    [Dependency] private ILinkAccountManager _linkAccount = default!;
     [Dependency] private IResourceCache _cache = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
     [Dependency] private IRobustRandom _random = default!;
-    [Dependency] private LinkAccountManager _linkAccount = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
 
     private float _timer;
     private EndRoundCreditsControl? _creditsContainer;
     private BoxContainer? _exitContainer;
     private bool _showCredits = true;
-    private float _uiScale;
+    private float _uiScale = 1f;
     private bool Debug = false; // Set this to true if you want a bunch of dummy characters to spawn
 
     public override void Initialize()
     {
         base.Initialize();
-        SubscribeNetworkEvent<RoundEndMessageEvent>(OnRoundEnd);
-        SubscribeNetworkEvent<RoundRestartCleanupEvent>(OnRoundCleanup);
 
         Subs.CVar(_cfg, TraumaCVars.PlayMovieEndCredits, x => _showCredits = x, true);
         Subs.CVar(_cfg, CVars.DisplayUIScale, x => _uiScale = x, true);
     }
 
+    [SubscribeNetworkEvent]
     private void OnRoundCleanup(RoundRestartCleanupEvent ev)
     {
         if (!_showCredits)
@@ -46,18 +44,21 @@ public sealed partial class RoundEndCreditsSystem : EntitySystem
         CloseCredits();
     }
 
+    [SubscribeNetworkEvent]
     private void OnRoundEnd(RoundEndMessageEvent message)
     {
         if (!_showCredits)
             return;
 
         var shoutout = "John Nanotrasen";
-        if (_linkAccount.GetPatrons().Count != 0)
-            shoutout = _random.Pick(_linkAccount.GetPatrons()).Name;
+        var patrons = _linkAccount.GetPatrons();
+        if (patrons.Count != 0)
+            shoutout = _random.Pick(patrons).Name;
 
+        var scale = _uiScale == 0f ? _ui.DefaultUIScale : _uiScale;
         var credits = new EndRoundCreditsControl();
-        credits.SetSize = _clyde.MainWindow.Size / _uiScale;
-        credits.Populate(message, _cache, _proto, shoutout, Debug);
+        credits.SetSize = _clyde.MainWindow.Size / scale;
+        credits.Populate(message, _cache, ProtoMan, shoutout, Debug);
 
         var rand = new RobustRandom();
         rand.SetSeed(message.RoundId);

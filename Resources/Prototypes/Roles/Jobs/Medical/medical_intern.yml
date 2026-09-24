@@ -4,22 +4,35 @@
   description: job-description-intern
   playTimeTracker: JobMedicalIntern
   requirements:
-    - !type:OverallPlaytimeRequirement # Trauma
-      time: 1h
-    # - !type:DepartmentTimeRequirement # Trauma
-    #   department: Medical
-    #   time: 5h
-    #   inverted: true # stop playing intern if you're good at med!
+    - !type:DepartmentTimeRequirement
+      department: Medical
+      time: 5h
+      inverted: true # stop playing intern if you're good at med!
   startingGear: MedicalInternGear
   icon: "JobIconMedicalIntern"
   supervisors: job-supervisors-medicine
-  guides: # goobstation
-  - MedicalDoctor
-  - Cloning
-  - Medicine
   access:
   - Medical
   - Maintenance
+<<<<<<< HEAD
+=======
+  # <Trauma>
+  guides:
+  - MedicalDoctor
+  - Cloning
+  - Medicine
+  special:
+  - !type:OrganChipsSpecial
+    chips:
+    - SkillChipDoctor
+    - SkillChipEducation
+    - SkillChipSurgeon
+  - !type:AddComponentSpecial
+    components:
+    - type: SurgerySpeedModifier
+      speedModifier: 1.25
+  # </Trauma>
+>>>>>>> upstream
 
 - type: startingGear
   id: MedicalInternGear

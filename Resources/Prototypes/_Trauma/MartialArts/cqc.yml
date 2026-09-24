@@ -1,12 +1,23 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# Slam
+
 - type: combo
-  id: CQCSlamSimple
+  abstract: true
+  id: BaseCQCSlam
   attacks:
   - Grab
   - Harm
   userEffects:
+  - !type:PlaySoundEffect
+    sound: /Audio/Weapons/genhit2.ogg
   - !type:PopupMessage
     messages:
     - cqc-slam
+
+- type: combo
+  parent: BaseCQCSlam
+  id: CQCSlamSimple
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 15
@@ -17,20 +28,17 @@
   levelExceeded: 26
 
 - type: combo
+  parent: BaseCQCSlam
   id: CQCSlam
-  attacks:
-  - Grab
-  - Harm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit2.ogg
-  - !type:PopupMessage
-    messages:
-    - cqc-slam
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 25
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 12
@@ -40,13 +48,40 @@
     type: Update
   levelRequired: 26
 
+# Kick
+
 - type: combo
-  id: CQCKickSimple
+  abstract: true
+  id: BaseCQCKick
   attacks:
   - Harm
   - Harm
+  # cant kick without legs
+  userConditions:
+  - !type:HasOrgan
+    organCategory: LegLeft
+  - !type:HasOrgan
+    organCategory: LegRight
+  userEffects:
+  - !type:PlaySoundEffect
+    sound: /Audio/Weapons/genhit2.ogg
+  - !type:PopupMessage
+    messages:
+    - cqc-kick
   opponentEffects:
+  - !type:StopPull
+  - !type:GrabThrow
+
+- type: combo
+  parent: BaseCQCKick
+  id: CQCKickSimple
+  opponentEffects:
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 8
@@ -56,17 +91,10 @@
   levelExceeded: 26
 
 - type: combo
+  parent: BaseCQCKick
   id: CQCKick
-  attacks:
-  - Harm
-  - Harm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit2.ogg
-  - !type:PopupMessage
-    messages:
-    - cqc-kick
   opponentEffects:
+<<<<<<< HEAD
   - !type:TakeStaminaDamage
     amount: 25
   - !type:TargetedDamage
@@ -75,21 +103,35 @@
         Blunt: 12
   - !type:LegSweep
     time: 2
+=======
+  - !type:IfElse
+    condition: !type:StandingCondition
+      inverted: true
+    trueEffects: # kicking someone on the ground is much stronger
+    - !type:TakeStaminaDamage
+      amount: 45
+    - !type:HealthChange
+      targetPart: Head
+      damage:
+        types:
+          Blunt: 10
+    - !type:ModifyStatusEffect
+      effectProto: StatusEffectForcedSleeping
+      time: 8
+      conditions:
+      - !type:StaminaCritical
+    falseEffects:
+    - !type:TakeStaminaDamage
+      amount: 20
+>>>>>>> upstream
   levelRequired: 26
   levelExceeded: 60
 
 - type: combo
+  parent: BaseCQCKick
   id: CQCKickAdvanced
-  attacks:
-  - Harm
-  - Harm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit2.ogg
-  - !type:PopupMessage
-    messages:
-    - cqc-kick
   opponentEffects:
+<<<<<<< HEAD
   - !type:TakeStaminaDamage
     amount: 40
   - !type:TargetedDamage
@@ -98,10 +140,34 @@
         Blunt: 20
   - !type:LegSweep
     time: 4
+=======
+  - !type:IfElse
+    condition: !type:StandingCondition
+      inverted: true
+    trueEffects: # kicking someone on the ground is much stronger
+    - !type:TakeStaminaDamage
+      amount: 55
+    - !type:HealthChange
+      targetPart: Head
+      damage:
+        types:
+          Blunt: 20
+    - !type:ModifyStatusEffect
+      effectProto: StatusEffectForcedSleeping
+      time: 12
+      conditions:
+      - !type:StaminaCritical
+    falseEffects:
+    - !type:TakeStaminaDamage
+      amount: 25
+>>>>>>> upstream
   levelRequired: 60
 
+# Restrain
+
 - type: combo
-  id: CQCRestrainSimple
+  abstract: true
+  id: BaseCQCRestrain
   attacks:
   - Grab
   - Grab
@@ -109,6 +175,10 @@
   - !type:PopupMessage
     messages:
     - cqc-restrain
+
+- type: combo
+  parent: BaseCQCRestrain
+  id: CQCRestrainSimple
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 30
@@ -120,14 +190,8 @@
   levelExceeded: 26
 
 - type: combo
+  parent: BaseCQCRestrain
   id: CQCRestrain
-  attacks:
-  - Grab
-  - Grab
-  userEffects:
-  - !type:PopupMessage
-    messages:
-    - cqc-restrain
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 30
@@ -141,8 +205,11 @@
     type: Update
   levelRequired: 26
 
+# Pressure
+
 - type: combo
-  id: CQCPressureSimple
+  abstract: true
+  id: BaseCQCPressure
   attacks:
   - Disarm
   - Grab
@@ -150,6 +217,10 @@
   - !type:PopupMessage
     messages:
     - cqc-pressure
+
+- type: combo
+  parent: BaseCQCPressure
+  id: CQCPressureSimple
   opponentEffects:
   - !type:StealItem
     probability: 0.5
@@ -157,22 +228,19 @@
   levelExceeded: 26
 
 - type: combo
+  parent: BaseCQCPressure
   id: CQCPressure
-  attacks:
-  - Disarm
-  - Grab
-  userEffects:
-  - !type:PopupMessage
-    messages:
-    - cqc-pressure
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 60
   - !type:StealItem
   levelRequired: 26
 
+# Consecutive
+
 - type: combo
-  id: CQCConsecutiveSimple
+  abstract: true
+  id: BaseCQCConsecutive
   attacks:
   - Disarm
   - Disarm
@@ -183,10 +251,19 @@
   - !type:PopupMessage
     messages:
     - cqc-consecutive
+
+- type: combo
+  parent: BaseCQCConsecutive
+  id: CQCConsecutiveSimple
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 20
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 5
@@ -194,21 +271,17 @@
   levelExceeded: 26
 
 - type: combo
+  parent: BaseCQCConsecutive
   id: CQCConsecutive
-  attacks:
-  - Disarm
-  - Disarm
-  - Harm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit1.ogg
-  - !type:PopupMessage
-    messages:
-    - cqc-consecutive
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 40
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 10
@@ -216,22 +289,18 @@
   levelExceeded: 60
 
 - type: combo
+  parent: BaseCQCConsecutive
   id: CQCConsecutiveAdvanced
-  attacks:
-  - Disarm
-  - Disarm
-  - Harm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit1.ogg
-  - !type:PopupMessage
-    messages:
-    - cqc-consecutive
   opponentEffects:
   - !type:ModifyStatusEffect
     effectProto: StatusEffectForcedSleeping
     time: 7
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 30
@@ -240,3 +309,66 @@
     drop: true
     type: Update
   levelRequired: 60
+
+# Leg sweep
+
+- type: combo
+  abstract: true
+  id: BaseCQCLegSweep
+  attacks:
+  - Harm
+  userConditions:
+  - !type:StandingCondition
+    inverted: true # user must be downed
+  conditions:
+  - !type:StandingCondition
+    failMessage: martial-arts-fail-target-down
+  userEffects:
+  - !type:PlaySoundEffect
+    sound: /Audio/Weapons/genhit1.ogg
+  - !type:PopupMessage
+    messages:
+    - cqc-leg-sweep
+
+- type: combo
+  parent: BaseCQCLegSweep
+  id: CQCLegSweepSimple
+  opponentEffects:
+  - !type:LegSweep
+    time: 2
+  levelRequired: 10
+  levelExceeded: 35
+
+- type: combo
+  parent: BaseCQCLegSweep
+  id: CQCLegSweep
+  opponentEffects:
+  - !type:LegSweep
+    time: 5
+  levelRequired: 35
+
+# Neck snap
+
+- type: combo
+  abstract: true
+  id: BaseCQCHeadCombo
+  userConditions:
+  - !type:TargetingCondition
+    target: Head
+  conditions:
+  # no fail popups since its a single intent
+  - !type:HasOrgan
+    organCategory: Head
+  - !type:PulledByUser
+  - !type:StaminaCritical
+
+- type: combo
+  abstract: true # TODO: enable if finished
+  parent: BaseCQCHeadCombo
+  id: CQCNeckSnap
+  attacks:
+  - Harm
+  # TODO: break neck, damage head until dead
+  levelRequired: 60
+
+# TODO: choke out

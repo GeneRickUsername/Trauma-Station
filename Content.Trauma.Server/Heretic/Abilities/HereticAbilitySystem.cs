@@ -3,8 +3,6 @@
 using System.Linq;
 using Content.Server.Actions;
 using Content.Server.Atmos.EntitySystems;
-using Content.Server.Body.Systems;
-using Content.Server.Chat.Systems;
 using Content.Server.Cloning;
 using Content.Server.Flash;
 using Content.Server.Hands.Systems;
@@ -13,28 +11,26 @@ using Content.Server.Station.Systems;
 using Content.Server.Store.Systems;
 using Content.Shared.Actions;
 using Content.Shared.Body;
+using Content.Shared.Body.Systems;
 using Content.Shared.Damage.Systems;
 using Content.Shared.DoAfter;
-using Content.Shared.Inventory;
 using Content.Shared.Localizations;
 using Content.Shared.Mind.Components;
 using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.NPC.Systems;
 using Content.Shared.Popups;
-using Content.Shared.Store.Components;
 using Content.Shared.Stunnable;
 using Content.Shared.Weather;
 using Content.Trauma.Common.CollectiveMind;
+using Content.Trauma.Server.Heretic.Systems;
 using Content.Trauma.Server.Heretic.Systems.PathSpecific;
 using Content.Trauma.Shared.Heretic.Events;
 using Content.Trauma.Shared.Heretic.Systems.Abilities;
 using Content.Trauma.Shared.Wizard.SanguineStrike;
 using Robust.Server.Containers;
-using Robust.Server.GameStates;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
-using Robust.Shared.Map;
 
 namespace Content.Trauma.Server.Heretic.Abilities;
 
@@ -56,50 +52,21 @@ public sealed partial class HereticAbilitySystem : SharedHereticAbilitySystem
     [Dependency] private SharedStunSystem _stun = default!;
     [Dependency] private SharedUserInterfaceSystem _ui = default!;
     [Dependency] private StationSystem _station = default!;
-    [Dependency] private IMapManager _mapMan = default!;
     [Dependency] private BloodstreamSystem _blood = default!;
     [Dependency] private ActionsSystem _actions = default!;
     [Dependency] private NpcFactionSystem _npcFaction = default!;
-    [Dependency] private PvsOverrideSystem _pvs = default!;
     [Dependency] private CloningSystem _cloning = default!;
     [Dependency] private SharedWeatherSystem _weather = default!;
     [Dependency] private AtmosphereSystem _atmos = default!;
     [Dependency] private ActionContainerSystem _actionContainer = default!;
-    [Dependency] private InventorySystem _inventory = default!;
-    [Dependency] private ChatSystem _chat = default!;
     [Dependency] private SharedSanguineStrikeSystem _lifesteal = default!;
     [Dependency] private ContainerSystem _container = default!;
     [Dependency] private BladeArenaSystem _arena = default!;
+    [Dependency] private HereticSystem _heretic = default!;
 
     #endregion
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<EventHereticOpenStore>(OnStore);
-
-        SubscribeLocalEvent<EventHereticLivingHeart>(OnLivingHeart);
-        SubscribeLocalEvent<EventHereticLivingHeartActivate>(OnLivingHeartActivate);
-
-        SubscribeLocalEvent<EventHereticMansusLink>(OnMansusLink);
-        SubscribeLocalEvent<HereticMansusLinkDoAfter>(OnMansusLinkDoafter);
-    }
-
-    private void OnStore(EventHereticOpenStore args)
-    {
-        if (!TryUseAbility(args))
-            return;
-
-        if (!Heretic.TryGetHereticComponent(args.Performer, out _, out var ent))
-            return;
-
-        if (!TryComp<StoreComponent>(ent, out var store))
-            return;
-
-        _store.ToggleUi(args.Performer, ent, store);
-    }
-
+    [SubscribeLocalEvent]
     private void OnLivingHeart(EventHereticLivingHeart args)
     {
         if (!TryUseAbility(args))
@@ -110,6 +77,8 @@ public sealed partial class HereticAbilitySystem : SharedHereticAbilitySystem
 
         if (!TryComp<UserInterfaceComponent>(mind, out var uic))
             return;
+
+        _heretic.UpdateHereticTargets((mind, heretic));
 
         var uid = args.Performer;
 
@@ -122,6 +91,7 @@ public sealed partial class HereticAbilitySystem : SharedHereticAbilitySystem
         _ui.OpenUi((mind, uic), HereticLivingHeartKey.Key, uid);
     }
 
+    [SubscribeLocalEvent]
     private void OnLivingHeartActivate(EventHereticLivingHeartActivate args)
     {
         string loc;
@@ -158,7 +128,7 @@ public sealed partial class HereticAbilitySystem : SharedHereticAbilitySystem
             var isOnStation = targetStation != null && targetStation == ownStation;
 
             var ang = Angle.Zero;
-            if (_mapMan.TryFindGridAt(_transform.GetMapCoordinates(Transform(uid)), out var grid, out _))
+            if (_map.TryFindGridAt(_transform.GetMapCoordinates(Transform(uid)), out var grid, out _))
                 ang = Transform(grid).LocalRotation;
 
             var vector = targetMapCoords.Position - ourMapCoords.Position;
@@ -177,6 +147,7 @@ public sealed partial class HereticAbilitySystem : SharedHereticAbilitySystem
             AudioParams.Default.WithVolume(-3f));
     }
 
+    [SubscribeLocalEvent]
     private void OnMansusLink(EventHereticMansusLink args)
     {
         if (!TryUseAbility(args))
@@ -213,6 +184,7 @@ public sealed partial class HereticAbilitySystem : SharedHereticAbilitySystem
         DoAfter.TryStartDoAfter(dargs);
     }
 
+    [SubscribeLocalEvent]
     private void OnMansusLinkDoafter(HereticMansusLinkDoAfter args)
     {
         if (args.Cancelled || args.Target is not { } target)

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: combo
   id: BearJaws
   attacks:
@@ -10,7 +12,12 @@
     messages:
     - spacebear-bearjaws
   opponentEffects:
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Piercing: 5
@@ -29,7 +36,12 @@
     messages:
     - spacebear-pawslam
   opponentEffects:
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 10 # TODO: DOUBLE DAMAGE WHEN KNOCKED DOWN AND GIVE 2S SLOWDOWN
@@ -54,7 +66,12 @@
     - spacebear-smokey
   - !type:Extinguish # put it out
   opponentEffects:
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Heat: 10

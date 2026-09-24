@@ -19,15 +19,12 @@ public sealed partial class CosmicColossusSystem : SharedCosmicColossusSystem
     [Dependency] private ThrowingSystem _throw = default!;
     [Dependency] private CodeConditionSystem _codeCondition = default!;
 
-    public override void Initialize()
+    [SubscribeLocalEvent]
+    private void OnSpawn(Entity<CosmicColossusComponent> ent, ref ComponentStartup args) // I WANT THIS BIG GUY HURLED TOWARDS THE STATION
     {
-        base.Initialize();
-        SubscribeLocalEvent<CosmicColossusComponent, ComponentInit>(OnSpawn);
-    }
+        if (!ent.Comp.Timed)
+            return;
 
-    private void OnSpawn(Entity<CosmicColossusComponent> ent, ref ComponentInit args) // I WANT THIS BIG GUY HURLED TOWARDS THE STATION
-    {
-        if (!ent.Comp.Timed) return;
         ent.Comp.DeathTimer = _timing.CurTime + ent.Comp.DeathWait;
         if (_station.GetStationInMap(Transform(ent).MapID) is { } station && TryComp<StationDataComponent>(station, out var stationData))
         {
@@ -37,7 +34,7 @@ public sealed partial class CosmicColossusSystem : SharedCosmicColossusSystem
         _actions.AddAction(ent, ref ent.Comp.EffigyPlaceActionEntity, ent.Comp.EffigyPlaceAction, ent);
     }
 
-    protected override void OnColossusEffigy(Entity<CosmicColossusComponent> ent, ref EventCosmicColossusEffigy args)
+    protected override void OnColossusEffigy(Entity<CosmicColossusComponent> ent, ref CosmicColossusEffigyEvent args)
     {
         if (!VerifyPlacement(ent, out var pos))
             return;
@@ -46,6 +43,7 @@ public sealed partial class CosmicColossusSystem : SharedCosmicColossusSystem
         _codeCondition.SetCompleted(ent.Owner, ent.Comp.EffigyObjective); // Ts not predictable
         PredictedSpawnAtPosition(ent.Comp.EffigyPrototype, pos);
         ent.Comp.Timed = false;
+        Dirty(ent, ent.Comp); // Wow what an absolute idiot forgot to add this! Oh, wait, that was me.
     }
 
 }

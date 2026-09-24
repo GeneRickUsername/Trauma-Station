@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Submarine
   mapName: 'Submarine'
@@ -64,6 +66,7 @@
           Mime: [ 1, 1 ]
           Musician: [ 2, 2 ]
           Reporter: [ 1, 2 ]
+          DClass: [ -1, -1 ]
       - type: StationBlobConfig
         stageBegin: 40
         stageCritical: 450

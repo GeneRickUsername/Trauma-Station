@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Core
   mapName: 'Core'
@@ -65,3 +67,4 @@
             Chaplain: [ 1, 1 ]
             Librarian: [ 1, 1 ]
             Lawyer: [ 1, 1 ]
+            DClass: [ -1, -1 ]

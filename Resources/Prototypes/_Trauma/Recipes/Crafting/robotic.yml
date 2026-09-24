@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - type: construction
   id: ButtBot
   graph: ButtBot
@@ -29,6 +30,9 @@
     MechanicsKnowledge: 0
   practical:
     ElectronicsKnowledge: 1
+=======
+# SPDX-License-Identifier: AGPL-3.0-or-later
+>>>>>>> upstream
 
 - type: construction
   id: BoogieBot

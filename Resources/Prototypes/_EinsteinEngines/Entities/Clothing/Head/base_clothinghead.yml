@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   abstract: true
   parent: ClothingHeadBase
@@ -34,8 +36,7 @@
     highPressureMultiplier: 0.6
     lowPressureMultiplier: 1000
   - type: TemperatureProtection
-    heatingCoefficient: 0.2
-    coolingCoefficient: 0.2
+    coefficient: 0.2
   - type: IngestionBlocker
   - type: Tag
     tags:
@@ -60,7 +61,7 @@
     color: "#ffa1ff"
     radius: 4
     energy: 3
-    mask: /Textures/Effects/LightMasks/cone.png
+    lightMask: ConeSingle
     autoRot: true
     netsync: false
   - type: Appearance

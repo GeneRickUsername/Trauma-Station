@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: gameMap
   id: Barratry
   mapName: 'Barratry'
@@ -63,3 +65,4 @@
             Chaplain: [ 1, 1 ]
             Librarian: [ 1, 1 ]
             Lawyer: [ 2, 2 ]
+            DClass: [ -1, -1 ]

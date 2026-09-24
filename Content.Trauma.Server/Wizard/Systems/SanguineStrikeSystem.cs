@@ -1,39 +1,33 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Server.Body.Systems;
 using Content.Server.Fluids.EntitySystems;
-using Content.Server.Popups;
 using Content.Shared.Body.Components;
+using Content.Shared.Body.Systems;
 using Content.Shared.Chemistry.Components;
 using Content.Shared.Chemistry.Components.SolutionManager;
 using Content.Shared.Chemistry.EntitySystems;
 using Content.Shared.FixedPoint;
+using Content.Shared.Popups;
 using Content.Trauma.Common.Wizard.Projectile;
 using Content.Trauma.Shared.Wizard.SanguineStrike;
-using Robust.Server.Audio;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio.Systems;
 using Robust.Shared.Map;
 
 namespace Content.Trauma.Server.Wizard.Systems;
 
 public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
 {
-    [Dependency] private PopupSystem _popup = default!;
-    [Dependency] private PointLightSystem _light = default!;
-    [Dependency] private TransformSystem _transform = default!;
-    [Dependency] private AudioSystem _audio = default!;
+    [Dependency] private SharedPopupSystem _popup = default!;
+    [Dependency] private SharedPointLightSystem _light = default!;
+    [Dependency] private SharedTransformSystem _transform = default!;
+    [Dependency] private SharedAudioSystem _audio = default!;
     [Dependency] private BloodstreamSystem _bloodStream = default!;
     [Dependency] private SharedSolutionContainerSystem _solution = default!;
     [Dependency] private PuddleSystem _puddle = default!;
-    [Dependency] private IPrototypeManager _proto = default!;
-
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<SanguineStrikeComponent, ComponentInit>(OnInit);
-        SubscribeLocalEvent<SanguineStrikeComponent, ComponentRemove>(OnRemove);
-    }
+    [Dependency] private EntityQuery<BloodstreamComponent> _bloodQuery = default!;
+    [Dependency] private EntityQuery<SolutionManagerComponent> _solutionQuery = default!;
+    [Dependency] private EntityQuery<TrailComponent> _trailQuery = default!;
 
     public override void Update(float frameTime)
     {
@@ -49,6 +43,7 @@ public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
         }
     }
 
+    [SubscribeLocalEvent]
     private void OnRemove(Entity<SanguineStrikeComponent> ent, ref ComponentRemove args)
     {
         var (uid, comp) = ent;
@@ -64,6 +59,7 @@ public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
         RemComp<PointLightComponent>(uid);
     }
 
+    [SubscribeLocalEvent]
     private void OnInit(Entity<SanguineStrikeComponent> ent, ref ComponentInit args)
     {
         var (uid, comp) = ent;
@@ -86,13 +82,12 @@ public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
 
         var xform = Transform(user);
 
-        var trailQuery = GetEntityQuery<TrailComponent>();
         foreach (var target in targets)
         {
             var ent = Spawn(particle, xform.Coordinates);
             _transform.SetParent(ent, Transform(ent), user, xform);
 
-            if (!trailQuery.TryComp(ent, out var comp))
+            if (!_trailQuery.TryComp(ent, out var comp))
                 continue;
 
             comp.SpawnEntityPosition = target;
@@ -107,18 +102,15 @@ public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
     {
         base.BloodSteal(user, hitEntities, bloodStealAmount, bloodSpillCoordinates);
 
-        var bloodQuery = GetEntityQuery<BloodstreamComponent>();
-        var solutionQuery = GetEntityQuery<SolutionContainerManagerComponent>();
-
         // I love solutions :)
-        if (!bloodQuery.TryComp(user, out var userBlood) || !solutionQuery.TryComp(user, out var userSolution) ||
-            !_solution.ResolveSolution((user, userSolution), userBlood.BloodSolutionName, ref userBlood.BloodSolution))
+        if (!_bloodQuery.TryComp(user, out var userBlood) || !_solutionQuery.TryComp(user, out var solutions) ||
+            !_solution.ResolveSolution((user, solutions), userBlood.BloodSolutionName, ref userBlood.BloodSolution))
             return;
 
-        List<Entity<BloodstreamComponent, SolutionContainerManagerComponent>> bloodEntities = new();
+        List<Entity<BloodstreamComponent, SolutionManagerComponent>> bloodEntities = new();
         foreach (var hitEnt in hitEntities)
         {
-            if (bloodQuery.TryComp(hitEnt, out var hitBlood) && solutionQuery.TryComp(hitEnt, out var hitSolution))
+            if (_bloodQuery.TryComp(hitEnt, out var hitBlood) && _solutionQuery.TryComp(hitEnt, out var hitSolution))
                 bloodEntities.Add((hitEnt, hitBlood, hitSolution));
         }
 
@@ -139,7 +131,7 @@ public sealed partial class SanguineStrikeSystem : SharedSanguineStrikeSystem
             var bloodToRemove = FixedPoint2.Min(blood.BloodSolution.Value.Comp.Solution.Volume,
                 bloodSuckAmount);
             tempSol.MaxVolume += bloodToRemove;
-            tempSol.AddSolution(_solution.SplitSolution(blood.BloodSolution.Value, bloodToRemove), _proto);
+            tempSol.AddSolution(_solution.SplitSolution(blood.BloodSolution.Value, bloodToRemove), ProtoMan);
         }
 
         var restoredBlood = FixedPoint2.Min(tempSol.Volume, missingBlood);

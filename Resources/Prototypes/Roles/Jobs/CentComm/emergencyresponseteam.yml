@@ -1,5 +1,3 @@
-# Trauma note - the YML here has been massively shat up by goob.
-
 # Leader
 - type: job
   id: ERTLeader
@@ -10,67 +8,58 @@
   startingGear: ERTLeaderGearEVA
   icon: "JobIconERTLeader"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
-  # Goobstation
-  - NanotrasenRepresentative
-  special: # Goobstation
+  special:
   - !type:AddImplantSpecial
-    implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm ]
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
 - type: startingGear
   parent: ERTLeaderGearEVA
   id: ERTLeaderGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitERTLeader
-    back: ClothingBackpackERTLeader
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsJackFilled
     head: ClothingHeadHelmetERTLeader
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    eyes: ClothingEyesGlassesSecurity
-    gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
-    id: ERTLeaderPDA
-    ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltAssaultFilled # Goobstation
-    pocket1: TelescopicBatonAdvanced # Trauma # Trauma
+    outerClothing: ClothingOuterArmorBasic
     pocket2: FlashlightSeclite
-  storage:
-    back:
-    # - WeaponDisabler - Redundant. It spawns in secbelts now.
-    - MedkitCombatFilled # Goobstation - No reason not to.
-    - BoxZiptie
-    - CrowbarRed
-    - ERTSecurityUndeterminedWeapon
-    # - MagazineMagnum - No need
 
 - type: startingGear
   id: ERTLeaderGearEVA
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTLeader
     back: ClothingBackpackERTLeader
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
-    neck: ExecutiveIDCard # Goob - was Whistle
+    shoes: ClothingShoesBootsMagERT
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudMedSec
+    neck: Whistle
     gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTLeader
     id: ERTLeaderPDA
     ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltAssaultFilled # Goobstation
-    pocket1: TelescopicBatonAdvanced # Trauma # Trauma
-    pocket2: FlashlightSeclite
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket2: CombatKnife
+    suitstorage: WeaponDisablerSMG
   storage:
     back:
-    # - WeaponDisabler - Redundant. It spawns in secbelts now.
-    - MedkitCombatFilled # Goobstation - No reason not to.
-    - BoxZiptie
+    - Binoculars
+    - HoloprojectorField
+    - PhoneInstrument
+    - PinpointerNuclear
+    - PowerCellHigh
+    - PowerCellHigh
+    - MedkitCombatFilled # End of first line
+    - MedkitCombatFilled
+    - TelescopicShield
+    belt:
+    - Stunbaton
+    - Handcuffs
+    - Handcuffs
     - CrowbarRed
-    - ERTSecurityUndeterminedWeapon
-    #- MagazineMagnum # Goob
+    - WeaponPistolN1984
+    - MagazineMagnum
+    - EmergencyMedipen
 
 - type: startingGear
   parent: ERTLeaderGearEVA
@@ -85,11 +74,19 @@
     - PinpointerNuclear
     - MagazineRifle
     - MagazineRifle
-    - MagazineRifle # Trauma
-    - MagazineRifle # Trauma
+    - MagazineRifleIncendiary
+    - MagazineRifleUranium
     - MedkitCombatFilled # End of first line
     - GrenadeShrapnel
     - EmpGrenade
+    belt:
+    - Truncheon
+    - Handcuffs
+    - Handcuffs
+    - CrowbarRed
+    - WeaponPistolN1984
+    - MagazineMagnum
+    - EmergencyMedipen
 
 - type: chameleonOutfit
   id: ERTLeaderChameleonOutfit
@@ -109,17 +106,15 @@
   startingGear: ERTChaplainGear
   icon: "JobIconERTChaplain"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
-  # Goobstation
-  - NanotrasenRepresentative
   special:
   - !type:AddComponentSpecial
     components:
     - type: BibleUser #Lets them heal with bibles
+<<<<<<< HEAD
     - type: CurseImmune # Goobstation - Wraith
     - type: CanEnchant #GoobStation
     # <Trauma>
@@ -130,47 +125,27 @@
         MagicalLiteracyKnowledge: 50
         LiteracyKnowledge: 50
     # </Trauma>
+=======
+>>>>>>> upstream
   - !type:AddImplantSpecial
-     implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm ]
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
 - type: startingGear
   parent: ERTChaplainGearEVA
   id: ERTChaplainGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitERTChaplain
-    back: ClothingBackpackERTChaplain
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsJackFilled
     head: ClothingHeadHatFez
     neck: ClothingNeckStoleChaplain
-    gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
-    id: ERTChaplainPDA
-    ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltStorageWaistbag
-    pocket1: TelescopicBatonAdvanced # Trauma
-    pocket2: DrinkWaterBottleFull
-  storage:
-    back:
-    - BoxCandle
-    - BoxBodyBag
-    - DrinkWaterMelonJuiceJug
-    - Lantern
-    - Lantern
-    - ChaplainUndeterminedBible # Goobstation
-    - CrowbarRed
-    - FoodBakedBunHotX
-    - FoodBakedBunHotX
-    - FoodBakedBunHotX
-    - Nullrod # Goobstation
-    - Lighter
-    - ExecutiveIDCard # Goobstation - Executive Access!
+    outerClothing: ClothingOuterArmorBasic
+    pocket2: FlashlightSeclite
 
 - type: startingGear
   id: ERTChaplainGearEVA
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTChaplain
     back: ClothingBackpackERTChaplain
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsMagERT
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudMedical
     gloves: ClothingHandsGlovesCombat
@@ -182,19 +157,23 @@
   storage:
     back:
     - BoxCandle
-    - BoxBodyBag
-    - DrinkWaterMelonJuiceJug
+    - BodyBagFolded
+    - BodyBagFolded
+    - JugWater
+    - JugBlood # End of first row
+    - FoodBakedBunHotX
+    - FoodBakedBunHotX
+    - FoodBakedBunHotX
+    - FoodBakedBunHotX
+    belt:
+    - Bible
     - Lantern
     - Lantern
-    - ChaplainUndeterminedBible # Goobstation
+    - Lantern
     - CrowbarRed
-    - FoodBakedBunHotX
-    - FoodBakedBunHotX
-    - FoodBakedBunHotX
-    - FoodBakedBunHotX
-    - Lighter
-    - Nullrod # Goobstation
-    - ExecutiveIDCard # Goobstation - Executive Access!
+    - WeaponPistolMk58
+    - MagazinePistol
+    - FlippoEngravedLighter
 
 - type: chameleonOutfit
   id: ERTChaplainChameleonOutfit
@@ -216,15 +195,13 @@
   startingGear: ERTEngineerGearEVA
   icon: "JobIconERTEngineer"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
-  # Goobstation
-  - NanotrasenRepresentative
-  special: # Goobstation
+  special:
   - !type:AddImplantSpecial
+<<<<<<< HEAD
     implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm ]
   # <Trauma>
   - !type:AddComponentSpecial
@@ -239,43 +216,25 @@
           ElectronicsKnowledge: 50
           SurvivalKnowledge: 50
   # </Trauma>
+=======
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+>>>>>>> upstream
 
 - type: startingGear
   parent: ERTEngineerGearEVA
   id: ERTEngineerGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitERTEngineer
-    back: ClothingBackpackERTEngineer
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsJackFilled
     head: ClothingHeadHelmetERTEngineer
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    eyes: ClothingEyesGlassesMeson
-    gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
-    id: ERTEngineerPDA
-    ears: ClothingHeadsetAltCentCom
-    pocket1: TelescopicBatonAdvanced # Trauma
-    pocket2: GasAnalyzer
-  storage:
-    back:
-    - trayScanner
-    - RCD
-    - RCDAmmo
-    - RCDAmmo
-    - CableMVStack
-    - CableHVStack
-    - CableApcStack
-    - SheetPlasteel
-    - SheetSteel
-    - SheetGlass
+    outerClothing: ClothingOuterArmorBasic
+    pocket2: FlashlightSeclite
 
 - type: startingGear
   id: ERTEngineerGearEVA
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTEngineer
     back: ClothingBackpackERTEngineer
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
+    shoes: ClothingShoesBootsMagERT
     mask: ClothingMaskGasERT
     eyes: ClothingEyesHudDiagnostic
     gloves: ClothingHandsGlovesCombat
@@ -346,15 +305,13 @@
   startingGear: ERTSecurityGearEVA
   icon: "JobIconERTSecurity"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
-  # Goobstation
-  - NanotrasenRepresentative
-  special: # Goobstation
+  special:
   - !type:AddImplantSpecial
+<<<<<<< HEAD
     implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm]
   # <Trauma>
   - !type:AddComponentSpecial
@@ -367,53 +324,37 @@
           # ToughnessKnowledge 50
           AthleticsKnowledge: 50
   # </Trauma>
+=======
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+>>>>>>> upstream
 
 - type: startingGear
   parent: ERTSecurityGearEVA
   id: ERTSecurityGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitERTSecurity
-    back: ClothingBackpackERTSecurity
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsJackFilled
     head: ClothingHeadHelmetERTSecurity
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    eyes: ClothingEyesGlassesSecurity
-    gloves: ClothingHandsGlovesCombat
-    outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
-    id: ERTSecurityPDA
-    ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltAssaultFilled # Goobstation
-    pocket1: TelescopicBatonAdvanced # Trauma
+    outerClothing: ClothingOuterArmorBasic
     pocket2: FlashlightSeclite
-  storage:
-    back:
-    # - WeaponDisabler - Redundant. It spawns in secbelts now.
-    - MedkitCombatFilled # Goobstation - No reason not to.
-    - BoxZiptie
-    - CrowbarRed
-    - ERTSecurityUndeterminedWeapon
-   # - MagazinePistol
 
 - type: startingGear
   id: ERTSecurityGearEVA
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTSecurity
     back: ClothingBackpackERTSecurity
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsMagERT
     mask: ClothingMaskGasERT
-    neck: ExecutiveIDCard # Goob - was Whistle
-    eyes: ClothingEyesGlassesSecurity
+    eyes: ClothingEyesHudSecurity
     gloves: ClothingHandsGlovesCombat
+    neck: SecurityWhistle
     outerClothing: ClothingOuterHardsuitERTSecurity
     id: ERTSecurityPDA
     ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltAssaultFilled # Goobstation
-    pocket1: TelescopicBatonAdvanced # Trauma
-    pocket2: FlashlightSeclite
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket2: CombatKnife
+    suitstorage: WeaponDisablerSMG
   storage:
     back:
-    # - WeaponDisabler - Redundant. It spawns in secbelts now.
-    - MedkitCombatFilled # Goobstation - No reason not to.
     - BoxZiptie
     - Flash
     - GrenadeFlashBang
@@ -423,6 +364,14 @@
     - TelescopicShield
     - HoloprojectorSecurity
     - PowerCellHigh
+    belt:
+    - Stunbaton
+    - Handcuffs
+    - Handcuffs
+    - CrowbarRed
+    - WeaponPistolMk58
+    - MagazinePistol
+    - EmergencyMedipen
 
 - type: startingGear
   id: ERTSecurityGearArmedRifle
@@ -475,6 +424,14 @@
     - GrenadeFlash
     - GrenadeFlash
     - MagazinePistol
+    belt:
+    - Truncheon
+    - Handcuffs
+    - Handcuffs
+    - CrowbarRed
+    - WeaponPistolMk58
+    - MagazinePistol
+    - EmergencyMedipen
 
 - type: startingGear
   parent: ERTSecurityGearEVA
@@ -496,6 +453,14 @@
     - MagazinePistolSubMachineGunTopMounted
     - MagazinePistolSubMachineGunTopMounted
     - MagazinePistolSubMachineGunTopMounted
+    belt:
+    - Truncheon
+    - Handcuffs
+    - Handcuffs
+    - CrowbarRed
+    - WeaponPistolMk58
+    - MagazinePistol
+    - EmergencyMedipen
 
 - type: startingGear
   parent: ERTSecurityGearEVA
@@ -514,6 +479,14 @@
     - ExGrenade
     - CableDetStack
     - BoxDetonator
+    belt:
+    - Truncheon
+    - Handcuffs
+    - Handcuffs
+    - CrowbarRed
+    - WeaponPistolMk58
+    - MagazinePistol
+    - EmergencyMedipen
 
 - type: chameleonOutfit
   id: ERTSecurityChameleonOutfit
@@ -533,15 +506,13 @@
   startingGear: ERTMedicalGearEVA
   icon: "JobIconERTMedic"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
-  # Goobstation
-  - NanotrasenRepresentative
-  special: # Goobstation
+  special:
   - !type:AddImplantSpecial
+<<<<<<< HEAD
     implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm ]
   # <Trauma>
   - !type:AddComponentSpecial
@@ -553,63 +524,54 @@
           SurgeryKnowledge: 50
           FirstAidKnowledge: 50
   # </Trauma>
+=======
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+>>>>>>> upstream
 
 - type: startingGear
   parent: ERTMedicalGearEVA
   id: ERTMedicalGear
   equipment:
-    jumpsuit: ClothingUniformJumpsuitERTMedic
-    back: ClothingBackpackERTMedical
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsJackFilled
     head: ClothingHeadHelmetERTMedic
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    eyes: ClothingEyesGlassesMedSec # Goobstation
-    gloves: ClothingHandsGlovesNitrile
-    outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
-    id: ERTMedicPDA
-    ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltSecurityWebbingFilledMedical # Fancier
-    pocket1: Flare
-    pocket2: TelescopicBatonAdvanced # Trauma
-  storage:
-    back:
-    - CentCommHypo
-    - MedkitAdvancedFilled
-    - CrowbarRed
-    - ChemistryBottleOmnizine
-    - JugOxandrolone
-    - JugSalicylicAcid
-    - ParamedHypo
-    - CartridgeAtropine
-    - CartridgeAtropine
-    - MedicalBeamGunBattery
+    outerClothing: ClothingOuterArmorBasic
+    pocket2: FlashlightSeclite
 
 - type: startingGear
   id: ERTMedicalGearEVA
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTMedic
     back: ClothingBackpackERTMedical
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsMagERT
     mask: ClothingMaskGasERT
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    eyes: ClothingEyesGlassesMedSec # Goobstation
-    gloves: ClothingHandsGlovesNitrile
+    eyes: ClothingEyesHudMedical
+    gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTMedical
     id: ERTMedicPDA
     ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltSecurityWebbingFilledMedical # Fancier
-    pocket1: TelescopicBatonAdvanced # Trauma
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket2: CombatKnife
   storage:
     back:
-    - CentCommHypo
-    - MedkitAdvancedFilled
+    - Hypospray
+    - BeakerSmallBruiz
+    - BeakerSmallLace
+    - JugPunctTranex
+    - JugPyraDerma
+    - JugDexPlusSaline # End of first line
+    - JugTrico
+    - BeakerSmallArith
+    - BeakerSmallDiph
+    - BeakerSmallSigy
+    - ClothingEyesGlassesChemical
+    - ChemistryBottleOmnizine
+    belt:
+    - DefibrillatorCompact
+    - MedkitCombatFilled
     - CrowbarRed
-    - JugOxandrolone
-    - JugSalicylicAcid
-    - ParamedHypo
-    - CartridgeAtropine
-    - CartridgeAtropine
-    - MedicalBeamGunBattery
+    - WeaponPistolMk58
+    - MagazinePistol
+    - EmergencyMedipen
 
 - type: startingGear
   parent: ERTMedicalGearEVA
@@ -629,6 +591,15 @@
     - MedkitCombatFilled
     - ClothingEyesGlassesChemical
     - ChemistryBottleOmnizine
+    belt:
+    - Truncheon
+    - Zipties
+    - CrowbarRed
+    - MagazineRifle
+    - MagazineRifle
+    - MagazineRifleIncendiary
+    - MagazineRifleUranium # End of first line
+    - Zipties
 
 - type: chameleonOutfit
   id: ERTMedicalChameleonOutfit
@@ -648,15 +619,13 @@
   startingGear: ERTJanitorGearEVA
   icon: "JobIconERTJanitor"
   supervisors: job-supervisors-centcom
-  canBeAntag: false
   accessGroups:
   - AllAccess
   access:
   - CentralCommand
-  # Goobstation
-  - NanotrasenRepresentative
-  special: # Goobstation
+  special:
   - !type:AddImplantSpecial
+<<<<<<< HEAD
     implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm]
   # <Trauma>
   - !type:AddComponentSpecial
@@ -667,6 +636,9 @@
           # ShootingKnowledge: 50
           JanitorKnowledge: 50
   # </Trauma>
+=======
+    implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
+>>>>>>> upstream
 
 - type: startingGear
   parent: ERTJanitorGearEVA
@@ -674,44 +646,32 @@
   equipment:
     shoes: ClothingShoesGaloshes
     head: ClothingHeadHelmetERTJanitor
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    gloves: ClothingHandsGlovesColorPurple
-    outerClothing: ClothingOuterArmourDurathread # Durathread armor is cooler.
-    id: ERTJanitorPDA
-    ears: ClothingHeadsetAltCentCom
-    pocket1: TelescopicBatonAdvanced # Trauma
-  storage:
-    back:
-    - LightReplacer
-    - BoxLightMixed
-    - BoxLightMixed
-    - Soap
-    - CrowbarRed
-    - AdvMopItem
+    outerClothing: ClothingOuterArmorBasic
+    pocket2: FlashlightSeclite
 
 - type: startingGear
   id: ERTJanitorGearEVA
   equipment:
     jumpsuit: ClothingUniformJumpsuitERTJanitor
     back: ClothingBackpackERTJanitor
-    shoes: ClothingShoesBootsMagEmergencyResponseTeam # Goobstation
+    shoes: ClothingShoesBootsMagERT
     mask: ClothingMaskGasERT
-    neck: ExecutiveIDCard # Goobstation - Executive Access!
-    gloves: ClothingHandsGlovesColorPurple
+    eyes: ClothingEyesGlassesChemical
+    gloves: ClothingHandsGlovesCombat
     outerClothing: ClothingOuterHardsuitERTJanitor
     id: ERTJanitorPDA
     ears: ClothingHeadsetAltCentCom
-    belt: ClothingBeltMilitaryWebbingERT # Trauma - fit belt shit
-    pocket1: TelescopicBatonAdvanced # Trauma
+    belt: ClothingBeltMilitaryWebbingERT
+    pocket2: CombatKnife
+    suitstorage: WeaponLauncherHydra
   storage:
     back:
-    - TrashBag
     - SoapNT
     - Plunger
     - Screwdriver
-    - AdvMopItem # End of first line
+    - AdvMopItem
     - GrenadeCleanade
-    - GrenadeCleanade
+    - GrenadeCleanade # End of first line
     - GrenadeCleanade
     - GrenadeCleanade
     - GrenadeCleanade
@@ -719,12 +679,14 @@
     belt:
     - MegaSprayBottleSpaceCleaner
     - Holoprojector
-    - LightReplacer
+    - LightReplacerFilled
     - WireBrush
     - CrowbarRed
     - WeaponPistolMk58
     - MagazinePistol
     - EmergencyMedipen
+  inhand:
+    - TrashBag
 
 - type: chameleonOutfit
   id: ERTJanitorChameleonOutfit

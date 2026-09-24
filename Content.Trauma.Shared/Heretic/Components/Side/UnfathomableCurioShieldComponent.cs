@@ -16,11 +16,13 @@ public sealed partial class UnfathomableCurioShieldComponent : BaseSpriteOverlay
 
     [DataField] public override Color Color { get; set; } = Color.LimeGreen;
 
+    [DataField] public override bool Unshaded { get; set; } = false;
+
     [DataField, AutoNetworkedField]
     public override bool Active { get; set; }
 
     [DataField]
-    public TimeSpan ActivateDelay = TimeSpan.FromSeconds(30);
+    public TimeSpan ActivateDelay = TimeSpan.FromSeconds(20);
 
     [DataField(customTypeSerializer: typeof(TimeOffsetSerializer)), AutoPausedField, AutoNetworkedField]
     public TimeSpan ActivateTime;

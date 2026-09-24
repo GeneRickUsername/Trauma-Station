@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: BaseStructure
   id: CharcoalForgeUnlit
@@ -25,8 +27,9 @@
         layer:
         - TabletopMachineLayer
   - type: Damageable
-    damageContainer: StructuralInorganic
     damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
     - trigger: !type:DamageTrigger
@@ -72,7 +75,7 @@
     node: lit
   - type: ItemSlotHeater
     slot: ItemCabinet
-    temp: 50000
+    heatChange: 50000
     maxTemp: 4000
   - type: ContainerContainer
     containers:

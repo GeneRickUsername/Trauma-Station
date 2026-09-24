@@ -1,9 +1,35 @@
-#bureaucracy
+# region Base
 - type: construction
+  abstract: true
+  id: BaseStorageStructure
+  category: construction-category-storage
+  placementMode: SnapgridCenter
+  conditions:
+  - !type:TileNotBlocked
+  # <Trauma>
+  theory:
+    FurnitureKnowledge: 0
+  practical:
+    MetalworkingKnowledge: 1
+  # </Trauma>
+
+- type: construction
+  abstract: true
+  parent: BaseStorageStructure
+  id: BaseShelf
+  graph: Shelf
+  canBuildInImpassable: true
+  conditions:
+  - !type:WallmountCondition
+# endregion Base
+
+# region Bureaucracy
+- type: construction
+  parent: BaseStorageStructure
   id: FilingCabinet
   graph: FilingCabinet
-  startNode: start
   targetNode: filingCabinet
+<<<<<<< HEAD
   category: construction-category-storage
   objectType: Structure
   placementMode: SnapgridCenter
@@ -16,12 +42,14 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: FilingCabinet
   id: TallCabinet
-  graph: FilingCabinet
-  startNode: start
   targetNode: tallCabinet
+<<<<<<< HEAD
   category: construction-category-storage
   objectType: Structure
   placementMode: SnapgridCenter
@@ -34,12 +62,14 @@
   practical:
     ManufacturingKnowledge: 2
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: FilingCabinet
   id: ChestDrawer
-  graph: FilingCabinet
-  startNode: start
   targetNode: chestDrawer
+<<<<<<< HEAD
   category: construction-category-storage
   objectType: Structure
   placementMode: SnapgridCenter
@@ -52,38 +82,32 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+# endregion Bureaucracy
+>>>>>>> upstream
 
-# ItemCabinets
+# region Item Cabinets
 - type: construction
+  parent: BaseStorageStructure
   id: ShowCase
   graph: GlassBox
-  startNode: start
   targetNode: glassBox
-  category: construction-category-storage
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
   # <Trauma>
+<<<<<<< HEAD
   theory:
     ConstructionKnowledge: 0
+=======
+>>>>>>> upstream
   practical:
     SurvivalKnowledge: 1
   # </Trauma>
+# endregion Item Cabinets
 
-# Shelfs
-# Normals
+# region Shelves
 - type: construction
+  parent: BaseShelf
   id: ShelfWood
-  graph: Shelf
-  startNode: start
   targetNode: ShelfWood
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
   # <Trauma>
   theory: {} # it's 2 pieces of wood
   practical:
@@ -91,10 +115,10 @@
   # </Trauma>
 
 - type: construction
+  parent: BaseShelf
   id: ShelfMetal
-  graph: Shelf
-  startNode: start
   targetNode: ShelfMetal
+<<<<<<< HEAD
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
@@ -106,12 +130,14 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseShelf
   id: ShelfGlass
-  graph: Shelf
-  startNode: start
   targetNode: ShelfGlass
+<<<<<<< HEAD
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
@@ -123,30 +149,28 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
-# Reinforced
 - type: construction
+  parent: BaseShelf
   id: ShelfRWood
-  graph: Shelf
-  startNode: start
   targetNode: ShelfRWood
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
   # <Trauma>
+<<<<<<< HEAD
   theory:
     ConstructionKnowledge: 0
+=======
+>>>>>>> upstream
   practical:
     SurvivalKnowledge: 1
   # </Trauma>
 
 - type: construction
+  parent: BaseShelf
   id: ShelfRMetal
-  graph: Shelf
-  startNode: start
   targetNode: ShelfRMetal
+<<<<<<< HEAD
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
@@ -158,12 +182,14 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseShelf
   id: ShelfRGlass
-  graph: Shelf
-  startNode: start
   targetNode: ShelfRGlass
+<<<<<<< HEAD
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
@@ -175,30 +201,28 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
-# Departmental
 - type: construction
+  parent: BaseShelf
   id: ShelfBar
-  graph: Shelf
-  startNode: start
   targetNode: ShelfBar
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
   # <Trauma>
+<<<<<<< HEAD
   theory:
     ConstructionKnowledge: 0
+=======
+>>>>>>> upstream
   practical:
     SurvivalKnowledge: 1
   # </Trauma>
 
 - type: construction
+  parent: BaseShelf
   id: ShelfKitchen
-  graph: Shelf
-  startNode: start
   targetNode: ShelfKitchen
+<<<<<<< HEAD
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
@@ -210,12 +234,14 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseShelf
   id: ShelfChemistry
-  graph: Shelf
-  startNode: start
   targetNode: ShelfChemistry
+<<<<<<< HEAD
   objectType: Structure
   placementMode: SnapgridCenter
   canBuildInImpassable: true
@@ -227,3 +253,6 @@
   practical:
     ManufacturingKnowledge: 1
   # </Trauma>
+=======
+# endregion Shelves
+>>>>>>> upstream

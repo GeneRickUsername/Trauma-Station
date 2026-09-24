@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: BaseMedicalPatch
   id: MedicalPatchPrefilledBase
@@ -15,10 +17,9 @@
   - type: SolutionContainerVisuals
     maxFillLevels: 5
     fillBaseName: GenericPatchSmall-
-  - type: SolutionContainerManager
-    solutions:
-      drink:
-        maxVol: 30
+  - type: Solution
+    solution:
+      maxVol: 30
   - type: MedicalPatch
     singleUse: true
     transferAmount: 0.25
@@ -30,14 +31,12 @@
   suffix: Bicaridine
   components:
   - type: Label
-    currentLabel: Bicaridine 30u
-  - type: SolutionContainerManager
-    solutions:
-      drink:
-        maxVol: 30
-        reagents:
-          - ReagentId: Bicaridine
-            Quantity: 30
+    localizedLabel: reagent-name-bicaridine
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Bicaridine
+        Quantity: 30
 
 - type: entity
   parent: MedicalPatchPrefilledBase
@@ -46,11 +45,9 @@
   suffix: Dermaline
   components:
   - type: Label
-    currentLabel: Dermaline 30u
-  - type: SolutionContainerManager
-    solutions:
-      drink:
-        maxVol: 30
-        reagents:
-          - ReagentId: Dermaline
-            Quantity: 30
+    localizedLabel: reagent-name-dermaline
+  - type: Solution
+    solution:
+      reagents:
+      - ReagentId: Dermaline
+        Quantity: 30

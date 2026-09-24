@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: BaseMindRoleAntag
   id: MindRoleShadowling
@@ -7,6 +9,7 @@
     antagPrototype: Shadowling
     exclusiveAntag: true
     roleType: TeamAntagonist
+    subtype: roles-antag-shadowling-name
   - type: ShadowlingRole
 
 - type: entity
@@ -16,3 +19,4 @@
   components:
   - type: MindRole
     antagPrototype: Thrall
+    subtype: roles-antag-thrall-name

@@ -1,25 +1,12 @@
-# SPDX-FileCopyrightText: 2023 Emisse <99158783+Emisse@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 I.K <45953835+notquitehadouken@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 Nemanja <98561806+EmoGarbage404@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 TaralGit <76408146+TaralGit@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 and_a <and_a@DESKTOP-RJENGIR>
-# SPDX-FileCopyrightText: 2023 metalgearsloth <31366439+metalgearsloth@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2023 metalgearsloth <comedian_vs_clown@hotmail.com>
-# SPDX-FileCopyrightText: 2023 notquitehadouken <1isthisameme>
-# SPDX-FileCopyrightText: 2023 stopbreaking <126102320+stopbreaking@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2024 Mr. 27 <45323883+Dutch-VanDerLinde@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
-# SPDX-FileCopyrightText: 2025 Aviu00 <93730715+Aviu00@users.noreply.github.com>
-#
-# SPDX-License-Identifier: AGPL-3.0-or-later
-
 - type: entity
   name: ritual dagger
-  parent: [BaseItem, BaseMajorContraband, KnifeDurabilitySharpenOnly] # Trauma - Durability - Trauma - Contraband marker
+  parent: [BaseKnife, BaseMajorContraband, KnifeDurabilitySharpenOnly] # Trauma - changed item to knife, added Durability, Contraband
   id: RitualDagger
   description: A strange dagger used by sinister groups for rituals and sacrifices.
   components:
-  - type: Sharp
+  - type: Tool
+    qualities:
+    - Slicing
   - type: Sprite
     sprite: Objects/Weapons/Melee/cult_dagger.rsi
     state: icon
@@ -29,8 +16,6 @@
     damage:
       types:
         Slash: 12
-    soundHit: # Goobstation
-        path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     size: Normal
   - type: Clothing
@@ -38,17 +23,16 @@
     slots:
     - back
   - type: DisarmMalus
-  - type: Tag # Goobstation
-    tags:
-    - Knife
 
 - type: entity
   name: eldritch blade
-  parent: [BaseItem, BaseMajorContraband, KnifeDurabilitySharpenOnly] # Trauma - Durability - Trauma - Contraband marker
+  parent: [BaseItem, BaseMajorContraband, KnifeDurabilitySharpenOnly] # Trauma - Durability, Contraband
   id: EldritchBlade
   description: A sword humming with unholy energy.
   components:
-  - type: Sharp
+  - type: Tool
+    qualities:
+    - Slicing
   - type: Sprite
     sprite: Objects/Weapons/Melee/cult_blade.rsi
     state: icon
@@ -58,8 +42,6 @@
     damage:
       types:
         Slash: 16
-    soundHit: # Goobstation
-        path: /Audio/Weapons/bladeslice.ogg
   - type: Item
     size: Normal
   - type: Clothing
@@ -70,14 +52,17 @@
 
 - type: entity
   name: unholy halberd
-  parent: [BaseItem, BaseMajorContraband, KnifeDurabilitySharpenOnly] # Trauma - Durability - Trauma - Contraband marker
+  parent: [BaseItem, BaseMajorContraband, KnifeDurabilitySharpenOnly] # Trauma - Durability, Contraband
   id: UnholyHalberd
   description: A poleaxe that seems to be linked to its wielder.
   components:
+  - type: Tool
+    qualities:
+    - Slicing
+    - Sawing
   - type: Tag
     tags:
     - FireAxe
-  - type: Sharp
   - type: Sprite
     sprite: Objects/Weapons/Melee/cult_halberd.rsi
     state: icon
@@ -88,7 +73,6 @@
       types:
         Blunt: 10
         Slash: 10
-        Structural: 5
     soundHit:
       collection: MetalThud
   - type: Wieldable
@@ -97,9 +81,12 @@
       types:
         Blunt: 5
         Slash: 5
-        Structural: 10
   - type: Item
     size: Ginormous
+    shape:
+    - 0,0,2,1
+    - 1,2,1,5
+    storedRotation: -45
   - type: Clothing
     sprite: Objects/Weapons/Melee/cult_halberd.rsi
     quickEquip: false

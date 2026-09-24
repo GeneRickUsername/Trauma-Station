@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Tier 1
 
 # Tier 2
@@ -53,6 +55,7 @@
   - ClothingHandsGlovesSurgical
   - AutodocUpgradeKitBluespace
   - OmnimedTool
+  - BorgModuleAdvancedOmniSurgery
   technologyPrerequisites:
   - Autodoc
   position: -1,6

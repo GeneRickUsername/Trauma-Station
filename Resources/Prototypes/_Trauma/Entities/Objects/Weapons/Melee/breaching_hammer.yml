@@ -1,9 +1,13 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: [BaseItem, BaseSecurityContraband]
   id: SecBreachingHammer
   name: breaching hammer
   description: A large, heavy hammer with a long handle, used for breaking stones or other heavy material such as the skulls of violent criminals, also perfect for forcing your way through airlocks.
   components:
+  - type: WeaponClass
+    class: Bludgeon
   - type: Sprite
     sprite: _Trauma/Objects/Weapons/Melee/breaching_hammer.rsi
     state: icon
@@ -13,25 +17,31 @@
     heavyStaminaCost: 25
     damage:
       types:
-        Blunt: 10
-        Structural: 15
+        Blunt: 5
+        Structural: 25
     soundHit:
       path: /Audio/_Trauma/Weapons/Melee/breaching_hammer/club.ogg
   - type: Wieldable
+  - type: HeldSpeedModifier
+    walkModifier: 0.6
+    sprintModifier: 0.6
+  - type: ClothingSpeedModifier
+    walkModifier: 0.75
+    sprintModifier: 0.75
   - type: IncreaseDamageOnWield
     damage:
       types:
-        Blunt: 15
-        Structural: 25
+        Blunt: 5
+        Structural: 35
   - type: Item
-    size: Large
+    size: Ginormous
   - type: Tool
     qualities:
     - Prying
     useSound: /Audio/Items/crowbar.ogg
   - type: ToolTileCompatible
   - type: Prying
-    speedModifier: 0.8
+    speedModifier: 1.2
     pryPowered: true
     useSound: /Audio/Items/jaws_pry.ogg
   - type: UseDelay
@@ -41,3 +51,4 @@
     quickEquip: false
     slots:
     - Back
+    - suitStorage

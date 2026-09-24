@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent:
   - BaseMob
@@ -9,12 +11,15 @@
   id: BaseMobXenomorph
   abstract: true
   components:
+  - type: LanguageHivemind
+    language: XenoHivemind
   - type: Xenomorph
     weedHeal:
       types:
         Blunt: -1.33
         Slash: -1.33
         Piercing: -1.33
+        Ballistic: -1.33
         Heat: -1
         Cold: -1
         Shock: -1
@@ -74,10 +79,11 @@
       125: 0.9
       150: 0.8
   - type: Damageable
-    damageContainer: Biological
     damageModifierSet: Xenomorph
+  - type: Injurable
+    damageContainer: Biological
   - type: Stamina
-    baseCritThreshold: 500
+    baseCritThreshold: 200
   - type: Fixtures
     fixtures:
       fix1:
@@ -116,8 +122,7 @@
     proto: alien
   - type: AtmosExposed
   - type: Temperature
-    currentTemperature: 310.15
-    specificHeat: 42
+    temperature: 310.15
   - type: TemperatureDamage
     heatDamageThreshold: 600
     coldDamageThreshold: 100 # Trauma, was -150
@@ -139,20 +144,15 @@
     speechSounds: Xenomorph
     speechVerb: SmallMob
   - type: Vocal
-    sounds:
-      Male: Xenomorph
-      Female: Xenomorph
-      Unsexed: Xenomorph
+    emoteSounds: Xenomorph
   - type: LanguageSpeaker
     speaks:
     - Xeno
-#    - XenoHivemind # Goobstation - collective mind
     understands:
     - Xeno
-#    - XenoHivemind # Goobstation - collective mind
     - Hissing
     - Draconic
-  - type: CollectiveMind # Goobstation
+  - type: CollectiveMind
     defaultChannel: Xenomorphivemind
     channels:
     - Xenomorphivemind
@@ -160,25 +160,33 @@
   - type: Emoting
   - type: BodyEmotes
     soundsId: GeneralBodyEmotes
-  - type: Access # Goobstation - xeno doors
+  - type: Access
     enabled: true
     groups:
     - XenomorphAccess
-  - type: BloodSplatterer # Trauma
+  - type: BloodSplatterer
   - type: KnowledgeGrant
     skills:
       ThrowingKnowledge: 50
-      StrengthKnowledge: 50
-
 
 - type: entity
   parent: [BaseMobXenomorph, StripableInventoryBase]
   id: BaseMobXenomorphAdult
   abstract: true
   components:
-  - type: Prying #Switched from Tools component to this
-    speedModifier: 1.5
+  - type: MovementSpeedModifier
+    baseWeightlessAcceleration: 1.7
+    baseWeightlessFriction: 1
+    baseWeightlessModifier: 1
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepXenomorph
+      params:
+        volume: -6
+  - type: Prying
+    speedModifier: 5
     pryPowered: true
+    useSound: /Audio/Machines/airlock_creaking.ogg
   - type: ComplexInteraction
   - type: Hands
   - type: ShowHealthIcons
@@ -204,7 +212,9 @@
     - DoorBumpOpener
     - FootstepSound
   - type: XenomorphShoveTracker
-  - type: MovementAlwaysTouching # Trauma
+    shoveThreshold: 3
+    knockdownDuration: 7
+  - type: MovementAlwaysTouching
 
 - type: entity
   id: BaseMobXenomorphDungeon
@@ -237,8 +247,23 @@
   id: BaseXenoTailed
   components:
   - type: TailedEntity
-    amount: 17
+    amount: 11
     spacing: 0.170
     prototype: MobXenomorphTailSegmentBase
     tailOffset: 0, -0.13
     headFollowSegmentRotation: false
+
+- type: entity
+  abstract: true
+  id: BaseXenomorphGhostRole
+  components:
+  - type: GhostRole
+    allowMovement: true
+    allowSpeech: true
+    makeSentient: true
+    rules: ghost-role-information-rules-default-xeno
+    mindRoles:
+    - MindRoleXenomorph
+    raffle:
+      settings: default
+  - type: GhostTakeoverAvailable

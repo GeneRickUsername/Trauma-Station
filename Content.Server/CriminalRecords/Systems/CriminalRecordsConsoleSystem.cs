@@ -1,9 +1,6 @@
 using Content.Server.Popups;
 using Content.Server.Radio.EntitySystems;
 using Content.Server.Station.Systems;
-using Content.Server.StationRecords;
-using Content.Server.StationRecords.Systems;
-using Content.Shared.Access.Components;
 using Content.Shared.Access.Systems;
 using Content.Shared.CriminalRecords;
 using Content.Shared.CriminalRecords.Components;
@@ -13,11 +10,12 @@ using Content.Shared.StationRecords;
 using Robust.Server.GameObjects;
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.IdentityManagement;
-using Content.Shared.Security.Components;
 using System.Linq;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Database;
-using Content.Shared.Roles.Jobs;
+using Content.Shared.StationRecords.Components;
+using Content.Shared.StationRecords.Events;
+using Content.Shared.StationRecords.Systems;
 
 namespace Content.Server.CriminalRecords.Systems;
 
@@ -34,11 +32,12 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
     [Dependency] private StationRecordsSystem _records = default!;
     [Dependency] private StationSystem _station = default!;
     [Dependency] private UserInterfaceSystem _ui = default!;
+    [Dependency] private IdentitySystem _identity = default!;
 
     public override void Initialize()
     {
         SubscribeLocalEvent<CriminalRecordsConsoleComponent, RecordModifiedEvent>(UpdateUserInterface);
-        SubscribeLocalEvent<CriminalRecordsConsoleComponent, AfterGeneralRecordCreatedEvent>(UpdateUserInterface);
+        SubscribeLocalEvent<CriminalRecordsConsoleComponent, GeneralRecordCreatedEvent>(UpdateUserInterface);
 
         Subs.BuiEvents<CriminalRecordsConsoleComponent>(CriminalRecordsConsoleKey.Key, subs =>
         {
@@ -64,6 +63,7 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
         ent.Comp.ActiveKey = msg.SelectedKey;
         UpdateUserInterface(ent);
     }
+
     private void OnStatusFilterPressed(Entity<CriminalRecordsConsoleComponent> ent, ref CriminalRecordSetStatusFilter msg)
     {
         ent.Comp.FilterStatus = msg.FilterStatus;
@@ -80,21 +80,16 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
         }
     }
 
-    private void GetOfficer(EntityUid uid, out string officer)
-    {
-        var tryGetIdentityShortInfoEvent = new TryGetIdentityShortInfoEvent(null, uid);
-        RaiseLocalEvent(tryGetIdentityShortInfoEvent);
-        officer = tryGetIdentityShortInfoEvent.Title ?? Loc.GetString("criminal-records-console-unknown-officer");
-    }
-
     private void OnChangeStatus(Entity<CriminalRecordsConsoleComponent> ent, ref CriminalRecordChangeStatus msg)
     {
         // prevent malf client violating wanted/reason nullability
         if (msg.Status == SecurityStatus.Wanted != (msg.Reason != null) &&
             msg.Status == SecurityStatus.Suspected != (msg.Reason != null) &&
-            msg.Status == SecurityStatus.Demote != (msg.Reason != null) && // Trauma
-            msg.Status == SecurityStatus.Brutalize != (msg.Reason != null) && // Trauma
-            msg.Status == SecurityStatus.Search != (msg.Reason != null) && // Goob
+            // <Trauma>
+            msg.Status == SecurityStatus.Demote != (msg.Reason != null) &&
+            msg.Status == SecurityStatus.Brutalize != (msg.Reason != null) &&
+            msg.Status == SecurityStatus.Search != (msg.Reason != null) &&
+            // </Trauma>
             msg.Status == SecurityStatus.Hostile != (msg.Reason != null))
             return;
 
@@ -115,8 +110,8 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
 
         var oldStatus = record.Status;
 
-        var name = _records.RecordName(key.Value);
-        GetOfficer(mob.Value, out var officer);
+        var officer = _identity.GetIdentityShortInfo(mob.Value, ent)
+                      ?? Loc.GetString("criminal-records-console-unknown-officer");
 
         // when arresting someone add it to history automatically
         // fallback exists if the player was not set to wanted beforehand
@@ -128,18 +123,12 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
         }
 
         // will probably never fail given the checks above
-        name = _records.RecordName(key.Value);
-        officer = Loc.GetString("criminal-records-console-unknown-officer");
+        var name = _records.RecordName(key.Value);
         var jobName = "Unknown";
 
         _records.TryGetRecord<GeneralStationRecord>(key.Value, out var entry);
         if (entry != null)
             jobName = entry.JobTitle;
-
-        var tryGetIdentityShortInfoEvent = new TryGetIdentityShortInfoEvent(null, mob.Value);
-        RaiseLocalEvent(tryGetIdentityShortInfoEvent);
-        if (tryGetIdentityShortInfoEvent.Title != null)
-            officer = tryGetIdentityShortInfoEvent.Title;
 
         _criminalRecords.TryChangeStatus(key.Value, msg.Status, msg.Reason, officer);
 
@@ -216,7 +205,8 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
         if (line.Length < 1 || line.Length > ent.Comp.MaxStringLength)
             return;
 
-        GetOfficer(mob.Value, out var officer);
+        var officer = _identity.GetIdentityShortInfo(mob.Value, ent)
+                      ?? Loc.GetString("criminal-records-console-unknown-officer");
 
         if (!_criminalRecords.TryAddHistory(key.Value, line, officer))
             return;
@@ -287,6 +277,7 @@ public sealed partial class CriminalRecordsConsoleSystem : SharedCriminalRecords
     {
         key = null;
         mob = null;
+
         if (!_access.IsAllowed(user, ent))
         {
             _popup.PopupEntity(Loc.GetString("criminal-records-permission-denied"), ent, user);

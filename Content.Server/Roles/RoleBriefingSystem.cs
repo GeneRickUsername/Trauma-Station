@@ -2,7 +2,7 @@ using Content.Shared.Roles.Components;
 
 namespace Content.Server.Roles;
 
-public sealed class RoleBriefingSystem : EntitySystem
+public sealed partial class RoleBriefingSystem : EntitySystem
 {
     public override void Initialize()
     {
@@ -13,6 +13,6 @@ public sealed class RoleBriefingSystem : EntitySystem
 
     private void OnGetBriefing(EntityUid uid, RoleBriefingComponent comp, ref GetBriefingEvent args)
     {
-        args.Append(Loc.GetString(comp.Briefing));
+        args.Append(Loc.TryGetString(comp.Briefing, out var briefing) ? briefing : comp.Briefing); // Trauma - use TryGetString, some systems set this to a localized string
     }
 }

@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## Mob
 
 - type: entity
@@ -42,8 +44,8 @@
   - type: VisualOrganMarkings
     markingData:
       group: None
+  - type: Boneless # cant exactly get bone surgery as a dragon
   - type: Woundable
-    boneEntity: null # cant exactly get bone surgery as a dragon
     integrity: 500
     integrityCap: 500
     thresholds:
@@ -58,7 +60,7 @@
   parent: OrganDragon
   id: OrganDragonInternal
   components:
-  - type: InternalOrgan
+  - type: InternalChildOrgan
     intCap: 28 # TODO UPDATE
     integrity: 28
     integrityThresholds:
@@ -85,7 +87,6 @@
     layers:
     - state: tail-icon
   - type: Woundable
-    boneEntity: null
     integrity: 500
     integrityCap: 500
     thresholds:
@@ -104,9 +105,7 @@
   parent: [ OrganAnimalLungs, OrganDragonInternal ]
   id: OrganDragonLungs
   components:
-  - type: OrganComponents
-    onAdd:
-    - type: ActionGun
-      action: ActionDragonsBreath
-      gunProto: DragonsBreathGun
+  - type: OrganActions
+    actions:
+    - ActionDragonsBreath
     # intentionally no BreathingImmunity

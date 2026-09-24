@@ -41,7 +41,6 @@ public sealed partial class RespiratorSystem : EntitySystem
 {
     [Dependency] private IAdminLogManager _adminLogger = default!;
     [Dependency] private IGameTiming _gameTiming = default!;
-    [Dependency] private IPrototypeManager _protoMan = default!;
     [Dependency] private AlertsSystem _alertsSystem = default!;
     [Dependency] private AtmosphereSystem _atmosSys = default!;
     [Dependency] private BodySystem _body = default!;
@@ -259,7 +258,7 @@ public sealed partial class RespiratorSystem : EntitySystem
     /// <returns>Returns true only if the gas mixture is not toxic, and it wouldn't suffocate.</returns>
     public bool CanMetabolizeInhaledAir(Entity<RespiratorComponent?> ent, GasMixture gas)
     {
-        if (!Resolve(ent, ref ent.Comp))
+        if (!Resolve(ent, ref ent.Comp, false)) // Trauma - false for clankers to not fail tests
             return false;
 
         var ev = new CanMetabolizeGasEvent(gas);
@@ -314,7 +313,7 @@ public sealed partial class RespiratorSystem : EntitySystem
         float saturation = 0;
         foreach (var (id, quantity) in solution.Contents)
         {
-            var reagent = _protoMan.Index<ReagentPrototype>(id.Prototype);
+            var reagent = ProtoMan.Index<ReagentPrototype>(id.Prototype);
             if (reagent.Metabolisms == null)
                 continue;
 

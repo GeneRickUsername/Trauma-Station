@@ -1,6 +1,9 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Trauma.Common.Knowledge.Components;
+using Content.Trauma.Common.Knowledge.Prototypes;
+using Content.Trauma.Common.Language;
+using Content.Trauma.Common.MartialArts;
 
 namespace Content.Trauma.Common.Knowledge.Systems;
 
@@ -82,4 +85,9 @@ public abstract partial class CommonKnowledgeSystem : EntitySystem
     /// Gets the total point cost for every skill in a profile.
     /// </summary>
     public abstract int ProfileCost(KnowledgeProfile profile);
+
+    /// <summary>
+    /// Get the corresponding knowledge entity prototype for a given language.
+    /// </summary>
+    public abstract EntProtoId LanguageUnit(ProtoId<LanguagePrototype> lang);
 }

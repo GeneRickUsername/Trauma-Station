@@ -1,6 +1,9 @@
 // <Trauma>
 using Content.Trauma.Common.Prying;
 using Content.Shared.Timing;
+using Content.Shared.Timing.Components;
+using Content.Shared.Timing.Systems;
+using Content.Trauma.Common.Prying;
 // </Trauma>
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Administration.Logs;
@@ -105,7 +108,7 @@ public sealed partial class PryingSystem : EntitySystem
         if (!CanPry(target, user, out var message, comp))
         {
             if (!string.IsNullOrWhiteSpace(message))
-                _popup.PopupClient(Loc.GetString(message), target, user);
+                _popup.PopupEntity(Loc.GetString(message), target, user);
             // If we have reached this point we want the event that caused this
             // to be marked as handled.
             return true;
@@ -146,6 +149,15 @@ public sealed partial class PryingSystem : EntitySystem
 
     private bool CanPry(EntityUid target, EntityUid user, out string? message, PryingComponent? comp = null, PryUnpoweredComponent? unpoweredComp = null)
     {
+        // <Trauma>
+        var attemptEv = new PryAttemptEvent(target);
+        RaiseLocalEvent(user, ref attemptEv);
+        if (attemptEv.Cancelled)
+        {
+            message = null;
+            return false;
+        }
+        // </Trauma>
         BeforePryEvent canev;
 
         if (comp != null || Resolve(user, ref comp, false))
@@ -207,7 +219,7 @@ public sealed partial class PryingSystem : EntitySystem
         if (!CanPry(uid, args.User, out var message, comp))
         {
             if (!string.IsNullOrWhiteSpace(message))
-                _popup.PopupClient(Loc.GetString(message), uid, args.User);
+                _popup.PopupEntity(Loc.GetString(message), uid, args.User);
             return;
         }
 
@@ -216,6 +228,10 @@ public sealed partial class PryingSystem : EntitySystem
             _audioSystem.PlayPredicted(comp.UseSound, args.Used.Value, args.User);
         }
 
+        // <Trauma>
+        var userEv = new PriedSuccessEvent();
+        RaiseLocalEvent(args.User, ref userEv);
+        // </Trauma>
         var ev = new PriedEvent(args.User);
         RaiseLocalEvent(uid, ref ev);
 

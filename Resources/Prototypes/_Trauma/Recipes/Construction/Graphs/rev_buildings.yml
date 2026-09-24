@@ -1,6 +1,7 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: constructionGraph
   id: RevMachine
-  start: start
   graph:
   - node: start
     edges:
@@ -144,7 +145,7 @@
         amount: 10
       - tool: Anchoring
         doAfter: 1
-    - to: plasma foundry # CE exclusive
+    - to: phoron foundry # CE exclusive
       steps:
       - material: RevGunParts
       - tool: Screwing
@@ -171,6 +172,24 @@
         amount: 10
       - material: RevNut
         amount: 10
+      - tool: Anchoring
+        doAfter: 1
+    - to: hidden medifab
+      steps:
+      - tag: HudMedical # Bully medical for it
+        name: construction-graph-tag-medical-hud
+        icon:
+      - tool: Screwing
+        doAfter: 1
+      - material: Glass
+        amount: 5
+      - material: Cable
+        amount: 5
+        doAfter: 1
+      - material: RevBolt
+        amount: 7
+      - material: RevNut
+        amount: 7
       - tool: Anchoring
         doAfter: 1
   - node: gear
@@ -230,5 +249,7 @@
     entity: RevUniformPrinter
   - node: tech analyzer
     entity: RevTechAnalyzer
-  - node: plasma foundry
+  - node: phoron foundry
     entity: RevPlasmaFoundry
+  - node: hidden medifab
+    entity: RevMedFab

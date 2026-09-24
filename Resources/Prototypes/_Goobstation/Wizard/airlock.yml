@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 # Door electronics
 - type: entity
   parent: DoorElectronics
@@ -112,7 +114,6 @@
 # Construction
 - type: constructionGraph
   id: AirlockUranium
-  start: start
   graph:
   - node: start
     edges:

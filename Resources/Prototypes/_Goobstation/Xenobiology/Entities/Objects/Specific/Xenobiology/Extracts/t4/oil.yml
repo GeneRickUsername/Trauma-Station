@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   id: OilSlimeExtract
   parent: BaseSlimeExtract
@@ -16,17 +18,14 @@
       effects:
       - !type:NestedEffect
         proto: XenobioExtractReagent
-      - !type:RelaySolution
-        name: extract
-        effects:
-        - !type:AdjustReagent
-          reagent: SpaceLube
-          amount: 15
+      - !type:AdjustReagent
+        reagent: SpaceLube
+        amount: 15
     - reagents: [ Plasma ]
       methods: [ Touch, Injection ]
       effects:
       - !type:NestedEffect
-        proto: XenobioExtractEvil
+        proto: XenobioExtractEvilBase # the status effect will delete it
       - !type:Jitter
         time: 5
         frequency: 20
@@ -41,3 +40,4 @@
   - type: Tag
     tags:
     - XenobiologyOilExtract
+  # tastes like freedom

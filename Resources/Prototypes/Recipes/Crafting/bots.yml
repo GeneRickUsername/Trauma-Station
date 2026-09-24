@@ -1,6 +1,23 @@
+# region Base
 - type: construction
+  abstract: true
+  id: BaseRobot
+  targetNode: bot
+  category: construction-category-utilities
+  objectType: Item
+  # <Trauma>
+  theory:
+    BotsKnowledge: 0
+  practical:
+    ElectronicsKnowledge: 1
+  # </Trauma>
+# endregion Base
+
+- type: construction
+  parent: BaseRobot
   id: cleanbot
   graph: CleanBot
+<<<<<<< HEAD
   startNode: start
   targetNode: bot
   category: construction-category-utilities
@@ -11,10 +28,14 @@
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseRobot
   id: firebot
   graph: FireBot
+<<<<<<< HEAD
   startNode: start
   targetNode: bot
   category: construction-category-utilities
@@ -25,25 +46,31 @@
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseRobot
   id: honkbot
   graph: HonkBot
-  startNode: start
-  targetNode: bot
-  category: construction-category-utilities
-  objectType: Item
   # <Trauma>
   theory:
+<<<<<<< HEAD
     MechanicsKnowledge: 0
     ScienceKnowledge: 0
   practical:
     ElectronicsKnowledge: 1
+=======
+    BotsKnowledge: 0
+    BananiumKnowledge: 0
+>>>>>>> upstream
   # </Trauma>
 
 - type: construction
+  parent: BaseRobot
   id: jonkbot
   graph: JonkBot
+<<<<<<< HEAD
   startNode: start
   targetNode: bot
   category: construction-category-utilities
@@ -54,14 +81,13 @@
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseRobot
   id: medibot
   graph: MediBot
-  startNode: start
-  targetNode: bot
-  category: construction-category-utilities
-  objectType: Item
   # <Trauma>
   theory:
     MechanicsKnowledge: 0
@@ -71,8 +97,10 @@
   # </Trauma>
 
 - type: construction
+  parent: BaseRobot
   id: mimebot
   graph: MimeBot
+<<<<<<< HEAD
   startNode: start
   targetNode: bot
   category: construction-category-utilities
@@ -83,10 +111,14 @@
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseRobot
   id: supplybot
   graph: SupplyBot
+<<<<<<< HEAD
   startNode: start
   targetNode: bot
   category: construction-category-utilities
@@ -97,10 +129,14 @@
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream
 
 - type: construction
+  parent: BaseRobot
   id: hugbot
   graph: HugBot
+<<<<<<< HEAD
   startNode: start
   targetNode: bot
   category: construction-category-utilities
@@ -111,3 +147,5 @@
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
+=======
+>>>>>>> upstream

@@ -1,4 +1,5 @@
-# TODO: dont use a fucking lathe...
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 - type: entity
   parent: [ BaseMetallicSteel, BaseMachine ]
   id: AnvilComplete
@@ -30,11 +31,13 @@
     interfaces:
       enum.AnvilUiKey.Key:
         type: ForgingAnvilBUI
-  # TODO: automation signal port to create the last item
+  # TODO: automation signal port to create the last item, or make an auto anvil thing
   - type: Construction
     graph: Anvil
     node: anvil
   - type: PlaceableSurface
+  - type: Temperature
+    heatCapacity: 76950
 
 - type: entity
   categories: [ Debug, DoNotMap ]

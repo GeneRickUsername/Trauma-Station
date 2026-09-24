@@ -93,13 +93,6 @@ public sealed partial class MeleeWeaponComponent : Component
     [DataField, AutoNetworkedField]
     public float Range = 1.5f;
 
-    // goob edit - stunmeta
-    /// <summary>
-    ///     Applies stamina damage on each successful wideswing hit to the attacker.
-    /// </summary>
-    [DataField, AutoNetworkedField]
-    public float HeavyStaminaCost = 10f;
-
     /// <summary>
     /// Total width of the angle for wide attacks.
     /// </summary>
@@ -107,32 +100,10 @@ public sealed partial class MeleeWeaponComponent : Component
     public Angle Angle = Angle.FromDegrees(60);
 
     [DataField, AutoNetworkedField]
-    public EntProtoId Animation = "WeaponArcThrust"; // Goob Edit
-
-    [DataField, AutoNetworkedField]
-    public EntProtoId MissAnimation = "WeaponArcPunch"; // Goob Edit
-
-    [DataField, AutoNetworkedField]
-    public bool FlipAnimation = true; // Goob Edit
+    public EntProtoId Animation = "WeaponArcThrust";
 
     [DataField, AutoNetworkedField]
     public EntProtoId WideAnimation = "WeaponArcSlash";
-
-    // WD EDIT START
-
-    [DataField, AutoNetworkedField]
-    public EntProtoId DisarmAnimation = "WeaponArcDisarm";
-
-    [DataField, AutoNetworkedField]
-    public bool CanHeavyAttack = true;
-
-    /// <summary>
-    /// Rotation of the animation.
-    /// 0 degrees means the top faces the attacker.
-    /// </summary>
-    [DataField, AutoNetworkedField]
-    public Angle AnimationRotation = Angle.Zero;
-    // WD EDIT END
 
     /// <summary>
     /// Rotation of the animation.
@@ -144,7 +115,6 @@ public sealed partial class MeleeWeaponComponent : Component
     [DataField, AutoNetworkedField]
     public bool SwingLeft;
 
-
     // Sounds
 
     /// <summary>
@@ -154,7 +124,7 @@ public sealed partial class MeleeWeaponComponent : Component
     [DataField("soundSwing"), AutoNetworkedField]
     public SoundSpecifier SwingSound { get; set; } = new SoundPathSpecifier("/Audio/Weapons/punchmiss.ogg")
     {
-        Params = AudioParams.Default.WithVolume(-3f).WithVariation(0.025f),
+        Params = AudioParams.Default.AddVolume(-3f).WithVariation(0.025f),
     };
 
     // We do not predict the below sounds in case the client thinks but the server disagrees. If this were the case
@@ -180,29 +150,29 @@ public sealed partial class MeleeWeaponComponent : Component
     [DataField, AutoNetworkedField]
     public bool MustBeEquippedToUse = false;
 
-    // Shitmed Change Start
+    /// <summary>
+    /// The last entity hit that the weapon was unable to damage.
+    /// Used to track <see cref="UndamagedSwings"/>.
+    /// <remarks>Only dealt with clientside; therefore not networked.</remarks>
+    /// </summary>
+    [ViewVariables(VVAccess.ReadOnly)]
+    public EntityUid? LastUndamagedHitEntity;
 
     /// <summary>
-    ///     Shitmed Change: Part damage is multiplied by this amount for single-target attacks
+    /// The number of failed swings against an entity required to display a pop-up that the weapon isn't dealing any damage.
+    /// If set to 0, no pop-up will be displayed.
+    /// <remarks>Only dealt with clientside; therefore not networked.</remarks>
     /// </summary>
-    [DataField, AutoNetworkedField]
-    public float ClickPartDamageMultiplier = 1.00f;
+    [DataField]
+    public int UndamagedAlertThreshold = 5;
 
     /// <summary>
-    ///     Shitmed Change: Part damage is multiplied by this amount for heavy swings
+    /// Tracks the number of swings that dealt no damage to <see cref="LastUndamagedHitEntity"/>.
+    /// <seealso cref="UndamagedAlertThreshold"/>
+    /// <remarks>Only dealt with clientside; therefore not networked.</remarks>
     /// </summary>
-    [DataField, AutoNetworkedField]
-    public float HeavyPartDamageMultiplier = 1.00f;
-
-    // Shitmed Change End
-
-    // Goobstation
-    [DataField, AutoNetworkedField]
-    public bool CanWideSwing = true;
-
-    // Goobstation
-    [DataField, AutoNetworkedField]
-    public float HeavyAttackWoundMultiplier = 0.5f;
+    [ViewVariables(VVAccess.ReadOnly)]
+    public int UndamagedSwings = 0;
 }
 
 /// <summary>

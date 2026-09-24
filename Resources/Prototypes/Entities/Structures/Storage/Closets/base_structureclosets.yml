@@ -5,11 +5,6 @@
   description: A standard-issue Nanotrasen storage unit.
   abstract: true
   components:
-  # <Trauma>
-  - type: Penetratable
-    penetrateDamage: 5
-    damagePenalty: .5
-  # </Trauma>
   - type: Animateable
   - type: ResistLocker
   - type: Transform
@@ -50,7 +45,6 @@
         layer:
         - MachineLayer
   - type: EntityStorage
-    masksToRemove: 85 # Trauma - Opaque, MidImpassable, LowImpassable, BulletImpassable, locker cheese 1984
   - type: ContainerContainer
     containers:
       entity_storage: !type:Container
@@ -59,33 +53,6 @@
   - type: PlaceableSurface
     placeCentered: true
     isPlaceable: false
-  - type: Damageable
-    damageContainer: StructuralInorganic
-    damageModifierSet: StructuralMetallic
-  - type: Destructible
-    thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
-    - trigger:
-        !type:DamageTrigger
-        damage: 50
-      behaviors:
-      - !type:DoActsBehavior
-        acts: ["Destruction"]
-      - !type:PlaySoundBehavior
-        sound:
-          collection: MetalBreak
-          params:
-            volume: -6
-      - !type:SpawnEntitiesBehavior
-        spawn:
-          SheetSteel1:
-            min: 1
-            max: 1
   - type: GenericVisualizer
     visuals:
       enum.PaperLabelVisuals.HasLabel:
@@ -114,11 +81,6 @@
   id: ClosetSteelBase
   parent: ClosetBase
   components:
-  # <Trauma>
-  - type: PhysicalComposition
-    materialComposition:
-      Steel: 125
-  # </Trauma>
   - type: Construction
     graph: ClosetSteel
     node: done
@@ -126,6 +88,28 @@
     - entity_storage
   - type: Paintable
     group: Closet
+  - type: Damageable
+    damageModifierSet: StructuralMetallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 50
+      behaviors:
+      - !type:DoActsBehavior
+        acts: ["Destruction"]
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+          params:
+            volume: -6
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          SheetSteel1:
+            min: 1
+            max: 1
 
 #Wall Closet
 - type: entity
@@ -165,12 +149,6 @@
         ents: []
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 100
-      behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
     - trigger:
         !type:DamageTrigger
         damage: 50
@@ -284,16 +262,11 @@
     placeCentered: true
     isPlaceable: false
   - type: Damageable
-    damageContainer: StructuralInorganic
     damageModifierSet: Metallic
+  - type: Injurable
+    damageContainer: StructuralInorganic
   - type: Destructible
     thresholds:
-    - trigger:
-        !type:DamageTrigger
-        damage: 400
-      behaviors:
-        - !type:DoActsBehavior
-          acts: [ "Destruction" ]
     - trigger:
         !type:DamageTrigger
         damage: 200

@@ -92,7 +92,7 @@ public sealed partial class SkillComponent : Component
 
     /// <summary>
     /// Point cost at round start for one roll.
-    /// There are 6 of them total by default, removing will decrease the max mastery you can buy.
+    /// There are 100 of them total by default, removing will decrease the max mastery you can buy.
     /// If this is null, you can't opt in to this knowledge.
     /// </summary>
     [DataField(required: true)]

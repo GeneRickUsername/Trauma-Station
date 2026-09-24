@@ -7,7 +7,7 @@ using Robust.Shared.Random;
 
 namespace Content.Server.StationEvents.Events;
 
-public sealed class VentCrittersRule : StationEventSystem<VentCrittersRuleComponent>
+public sealed partial class VentCrittersRule : StationEventSystem<VentCrittersRuleComponent>
 {
     /*
      * DO NOT COPY PASTE THIS TO MAKE YOUR MOB EVENT.
@@ -18,7 +18,7 @@ public sealed class VentCrittersRule : StationEventSystem<VentCrittersRuleCompon
     {
         base.Started(uid, component, gameRule, args);
 
-        if (!TryGetRandomStation(out var station))
+        if (GetRandomStationGrids() is not { } stationGrids) // Trauma - get grids instead of comparing station
         {
             return;
         }
@@ -30,7 +30,7 @@ public sealed class VentCrittersRule : StationEventSystem<VentCrittersRuleCompon
             if (!transform.Anchored)
                 continue;
 
-            if (CompOrNull<StationMemberComponent>(transform.GridUid)?.Station == station)
+            if (transform.GridUid is { } grid && stationGrids.Contains(grid)) // Trauma - check stationGrids instead of StationMemberComponent
             {
                 validLocations.Add(transform.Coordinates);
                 foreach (var spawn in EntitySpawnCollection.GetSpawns(component.Entries, RobustRandom))

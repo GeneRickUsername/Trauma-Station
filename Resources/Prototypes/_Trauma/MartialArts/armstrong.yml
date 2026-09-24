@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 - type: combo
   id: ArmstrongBusterPunchesSimple
   attacks:
@@ -16,6 +17,9 @@
         Blunt: 5
   levelRequired: 0
   levelExceeded: 20
+=======
+# SPDX-License-Identifier: AGPL-3.0-or-later
+>>>>>>> upstream
 
 - type: combo
   id: ArmstrongBusterPunches
@@ -23,6 +27,7 @@
   - Harm
   - Harm
   - Grab
+<<<<<<< HEAD
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/boxingpunch2.ogg
@@ -42,12 +47,21 @@
   - Harm
   - Harm
   - Grab
+=======
+  conditions:
+  # cant punch with stubs
+  - !type:HasOrgan
+    organCategory: HandLeft
+  - !type:HasOrgan
+    organCategory: HandRight
+>>>>>>> upstream
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/boxingpunch2.ogg
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 18
+<<<<<<< HEAD
   - !type:TargetedDamage
     damage:
       types:
@@ -86,6 +100,13 @@
   - !type:StandingCondition
   levelRequired: 6 # TODO: make it require target to be standing, make it do knockback
   levelExceeded: 36
+=======
+  - !type:HealthChange
+    targetPart: Chest
+    damage:
+      types:
+        Blunt: 12
+>>>>>>> upstream
 
 - type: combo
   id: ArmstrongDropkick
@@ -94,6 +115,7 @@
   - Harm
   - Harm
   - Disarm
+<<<<<<< HEAD
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/genhit3.ogg
@@ -115,18 +137,14 @@
     damage:
       types:
         Blunt: 18
+=======
+  userConditions:
+  - !type:StandingCondition
+    failMessage: martial-arts-fail-prone
+>>>>>>> upstream
   conditions:
   - !type:StandingCondition
-  levelRequired: 36
-  levelExceeded: 54
-
-- type: combo
-  id: ArmstrongDropkickAdvanced
-  attacks:
-  - Grab
-  - Harm
-  - Harm
-  - Disarm
+    failMessage: martial-arts-fail-target-down
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/genhit3.ogg
@@ -138,6 +156,7 @@
     time: 6
   - !type:TakeStaminaDamage
     amount: 25
+<<<<<<< HEAD
   - !type:TargetedDamage
     damage:
       types:
@@ -169,6 +188,15 @@
         Blunt: 13
   levelRequired: 7
   levelExceeded: 14
+=======
+  - !type:HealthChange
+    targetPart: Chest
+    damage:
+      types:
+        Blunt: 15
+  - !type:StopPull
+  - !type:GrabThrow
+>>>>>>> upstream
 
 - type: combo
   id: ArmstrongMachineGunFist
@@ -177,6 +205,7 @@
   - Disarm
   - Harm
   - Disarm
+<<<<<<< HEAD
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/boxingpunch3.ogg
@@ -201,6 +230,14 @@
   - Disarm
   - Harm
   - Disarm
+=======
+  conditions:
+  # cant punch with stubs
+  - !type:HasOrgan
+    organCategory: HandLeft
+  - !type:HasOrgan
+    organCategory: HandRight
+>>>>>>> upstream
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/boxingpunch3.ogg
@@ -211,28 +248,15 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 17
+<<<<<<< HEAD
   - !type:TargetedDamage
+=======
+  - !type:HealthChange
+    targetPart: Chest
+>>>>>>> upstream
     damage:
       types:
         Blunt: 25
-  levelRequired: 51
-
-- type: combo
-  id: ArmstrongFireballSimple
-  attacks:
-  - Harm
-  - Disarm
-  - Disarm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Magic/fireball.ogg
-  opponentEffects:
-  - !type:HealthChange
-    damage:
-      types:
-        Heat: 15
-  levelRequired: 5
-  levelExceeded: 26
 
 - type: combo
   id: ArmstrongFireball
@@ -240,28 +264,20 @@
   - Harm
   - Disarm
   - Disarm
+  conditions:
+  # need at least 1 fist
+  - !type:AnyCondition
+    conditions:
+    - !type:HasOrgan
+      organCategory: HandLeft
+    - !type:HasOrgan
+      organCategory: HandRight
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Magic/fireball.ogg
   opponentEffects:
   - !type:HealthChange
-    damage:
-      types:
-        Heat: 17
-  levelRequired: 26
-  levelExceeded: 80
-
-- type: combo
-  id: ArmstrongFireballAdvanced
-  attacks:
-  - Harm
-  - Disarm
-  - Disarm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Magic/fireball.ogg
-  opponentEffects:
-  - !type:HealthChange
+    targetPart: Chest
     damage:
       types:
         Heat: 20
@@ -269,23 +285,6 @@
     multiplier: 4
     multiplierOnExisting: 0.2
   - !type:Ignite
-  levelRequired: 80
-
-- type: combo
-  id: ArmstrongHorseStanceSimple # TODO: make horse stance self targetted
-  attacks:
-  - Disarm
-  - Disarm
-  - Disarm
-  userEffects:
-  - !type:TakeStaminaDamage
-    amount: -10
-  - !type:HealthChange
-    damage:
-      types:
-        Blunt: 5
-  levelRequired: 8
-  levelExceeded: 32
 
 - type: combo
   id: ArmstrongHorseStance
@@ -293,43 +292,11 @@
   - Disarm
   - Disarm
   - Disarm
-  userEffects:
-  - !type:TakeStaminaDamage
-    amount: -15
-  levelRequired: 32
-  levelExceeded: 64
-
-- type: combo
-  id: ArmstrongHorseStanceAdvanced
-  attacks:
-  - Disarm
-  - Disarm
-  - Disarm
+  conditions:
+  - !type:IsUser
   userEffects:
   - !type:TakeStaminaDamage
     amount: -20
-  levelRequired: 64
-
-- type: combo
-  id: ArmstrongHeadbuttSimple
-  attacks:
-  - Harm
-  - Disarm
-  - Grab
-  userEffects: # TODO: make headbutt flash your screen or disorient you in one way or another
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit2.ogg
-  - !type:HealthChange
-    damage:
-      types:
-        Blunt: 7
-  opponentEffects:
-  - !type:HealthChange
-    damage:
-      types:
-        Blunt: 14
-  levelRequired: 15
-  levelExceeded: 30
 
 - type: combo
   id: ArmstrongHeadbutt
@@ -341,33 +308,13 @@
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/genhit2.ogg
   - !type:HealthChange
-    damage:
-      types:
-        Blunt: 6
-  opponentEffects:
-  - !type:HealthChange
-    damage:
-      types:
-        Blunt: 16
-  levelRequired: 30
-  levelExceeded: 60
-
-- type: combo
-  id: ArmstrongHeadbuttAdvanced
-  attacks:
-  - Harm
-  - Disarm
-  - Grab
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit2.ogg
-  - !type:HealthChange
+    targetPart: Head
     damage:
       types:
         Blunt: 4
   opponentEffects:
   - !type:HealthChange
+    targetPart: Head
     damage:
       types:
         Blunt: 18
-  levelRequired: 60

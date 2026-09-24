@@ -1,3 +1,5 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
 ## Mob
 
 - type: entity
@@ -22,6 +24,11 @@
       Brain: OrganHumanBrain
   - type: HumanoidProfile
     species: Shattered
+  - type: AnimatedEmotesBlacklist
+    blacklist:
+    - Cry
+    - Blush
+    - Tongue
 
 - type: entity
   save: false
@@ -34,6 +41,7 @@
   - MobCombat
   - MobAtmosStandard
   - MobFlammable
+  - MobNightVision
   id: MobShattered
   components:
   - type: FootprintOwner
@@ -41,6 +49,7 @@
   - type: FireVisuals
     alternateState: Standing
   - type: Damageable
+  - type: Injurable
     damageContainer: Biological
   - type: Tag
     tags:
@@ -64,6 +73,7 @@
         Blunt: -2
         Slash: -2
         Piercing: -2
+        Ballistic: -2
         Heat: -2
         Cold: -2
         Shock: -2
@@ -75,11 +85,9 @@
         Cellular: -2
         Holy: -2
   - type: Targeting
-  - type: PressureImmunity
-  - type: NightVision
-    color: "#177698"
-    activateSound: null
-    deactivateSound: null
+  - type: PermanentStatusEffects
+    statusEffects:
+    - StatusEffectPressureImmunity
   - type: ZombieImmune
   - type: MobThresholds
     thresholds:
@@ -134,13 +142,8 @@
     - Drunk
     - SlurredSpeech
     - RatvarianLanguage
-    - PressureImmunity
-    - Muted
-    - TemporaryBlindness
     - Pacified
     - StaminaModifier
-    - RadiationProtection
-    - Adrenaline
   - type: Identity
   - type: IdExaminable
   - type: Hands
@@ -180,10 +183,7 @@
     speechSounds: null
   - type: DamageForceSay
   - type: Vocal
-    sounds:
-      Male: MaleHuman
-      Female: FemaleHuman
-      Unsexed: MaleHuman
+    emoteSounds: MaleHuman
   - type: LanguageSpeaker
     speaks:
     - TauCetiBasic
@@ -205,8 +205,8 @@
     damagePenalty: 0.2
   - type: ExaminableCharacter
   - type: Stamina
-    baseCritThreshold: 200
-    animationThreshold: 100
+    baseCritThreshold: 300
+    animationThreshold: 150
   - type: FootstepModifier
     footstepSoundCollection:
       path: /Audio/Effects/glass_step.ogg
@@ -215,12 +215,14 @@
         volume: -8
   - type: Insulated
   - type: FlashImmunity
+    showInExamine: false
   - type: FlashSoundSuppression
     protectionRange: 0
   - type: CollectiveMind
     defaultChannel: MansusLink
     channels:
     - MansusLink
+  - type: NoSlip
 
 ## Base
 

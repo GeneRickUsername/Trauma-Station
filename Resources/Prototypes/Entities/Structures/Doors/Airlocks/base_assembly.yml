@@ -29,8 +29,9 @@
     anchored: true
     noRot: true
   - type: Damageable
+    damageModifierSet: Metallic # Trauma - Was StructuralMetallicStrong
+  - type: Injurable
     damageContainer: StructuralInorganic
-    damageModifierSet: StructuralMetallicStrong
   - type: RCDDeconstructable
     cost: 6
     delay: 8
@@ -57,6 +58,9 @@
           collection: MetalSlam
       - !type:DoActsBehavior
         acts: ["Destruction"]
+  - type: Tag
+    tags:
+    - AirlockAssembly
     # </Trauma>
   - type: Construction
     graph: Airlock
