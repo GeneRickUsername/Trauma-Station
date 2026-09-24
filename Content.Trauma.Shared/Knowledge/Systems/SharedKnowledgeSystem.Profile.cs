@@ -19,6 +19,9 @@ public abstract partial class SharedKnowledgeSystem
 
     public override void EnsureProfileValid([ForbidLiteral] ProtoId<KnowledgeProfilePrototype> parentId, ref KnowledgeProfile profile)
     {
+        if (!SkillsEnabled)
+            return;
+
         var parent = ProtoMan.Index(parentId);
 
         _invalid.Clear();
@@ -38,7 +41,7 @@ public abstract partial class SharedKnowledgeSystem
 
     public override void ApplyProfile(EntityUid target, [ForbidLiteral] ProtoId<KnowledgeProfilePrototype> parentId, KnowledgeProfile profile)
     {
-        if (GetContainer(target) is not { } ent)
+        if (!SkillsEnabled || GetContainer(target) is not { } ent)
             return;
 
         var parent = ProtoMan.Index(parentId);
@@ -51,6 +54,9 @@ public abstract partial class SharedKnowledgeSystem
     /// </summary>
     public void ApplyProfile(Entity<KnowledgeContainerComponent> ent, KnowledgeProfile profile)
     {
+        if (!SkillsEnabled)
+            return;
+
         foreach (var (id, rolls) in profile.SkillRolls)
         {
             if (RaiseSkillByRolls(ent, id, rolls, popup: false) == null)
@@ -76,7 +82,10 @@ public abstract partial class SharedKnowledgeSystem
     /// </summary>
     public void ApplyProfile(Entity<KnowledgeContainerComponent> ent, KnowledgeProfile profile, int points)
     {
-        foreach (var (id, rolls) in profile.SkillRolls)
+        if (!SkillsEnabled)
+            return;
+
+        foreach (var (id, mastery) in profile.SkillRolls)
         {
             if (SkillCost(id, rolls) is not { } cost || points < cost)
                 return; // were done here, outdated profile in DB

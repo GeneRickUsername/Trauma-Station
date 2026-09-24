@@ -19,7 +19,7 @@ using Content.Trauma.Shared.MartialArts.Components;
 
 namespace Content.Trauma.Client.Knowledge;
 
-public sealed class KnowledgeSystem : SharedKnowledgeSystem
+public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
 {
     private WeakReference<CharacterWindow>? _activeWindow;
     private bool _showPopups;
@@ -29,7 +29,6 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
     public override void Initialize()
     {
         base.Initialize();
-
 
         SubscribeLocalEvent<DamageAttributeComponent, GetAttributeModifierEvent>(OnCalculateDamage);
         SubscribeLocalEvent<StrengthFeatComponent, GetAttributeModifierEvent>(OnStrengthFeat);
@@ -45,7 +44,6 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
         SubscribeLocalEvent<KnowledgeHolderComponent, GetPerformedAttackTypesEvent>(OnGetAttackTypes);
         SubscribeLocalEvent<KnowledgeHolderComponent, UpdateExperienceEvent>(OnUpdateExperienceEvent);
         Subs.CVar(_cfg, TraumaCVars.SkillPopups, x => _showPopups = x, true);
-        SubscribeAllEvent<SkillPopupEvent>(OnSkillPopup);
 
         CharacterWindow.OnOpened += EnsureKnowledgeTab;
         LobbyUIController.OnProfileEditorCreated += AddProfileEditorTab;
@@ -54,6 +52,7 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
     public override void Shutdown()
     {
         base.Shutdown();
+
         CharacterWindow.OnOpened -= EnsureKnowledgeTab;
         LobbyUIController.OnProfileEditorCreated -= AddProfileEditorTab;
     }
@@ -147,6 +146,7 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Morale: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnGetAttackTypes(Entity<KnowledgeHolderComponent> ent, ref GetPerformedAttackTypesEvent args)
     {
         if (GetActiveMartialArt(ent) is not { } skill ||
@@ -158,6 +158,9 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
 
     private void EnsureKnowledgeTab(CharacterWindow window)
     {
+        if (!SkillsEnabled)
+            return;
+
         _activeWindow = new WeakReference<CharacterWindow>(window);
 
         SkillTab? skillTab = null;
@@ -203,6 +206,9 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
 
     private void AddProfileEditorTab(HumanoidProfileEditor editor)
     {
+        if (!SkillsEnabled)
+            return;
+
         // place it before markings tab
         var above = editor.MarkingsTab;
         var index = above.GetPositionInParent();
@@ -269,6 +275,7 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
             .ToList();
     }
 
+    [SubscribeLocalEvent]
     public void OnUpdateExperienceEvent(Entity<KnowledgeHolderComponent> ent, ref UpdateExperienceEvent args)
     {
         var localPlayer = _player.LocalEntity;
@@ -281,6 +288,7 @@ public sealed class KnowledgeSystem : SharedKnowledgeSystem
         EnsureKnowledgeTab(window);
     }
 
+    [EventSubscription]
     private void OnSkillPopup(SkillPopupEvent args)
     {
         if (!_showPopups)
