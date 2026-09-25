@@ -16,7 +16,7 @@
     price: 3000
   - type: UseRequiresSight
   - type: KnowledgeGrantOnUse
-    knowledge:
+    skills:
       MartialArtNinjutsu: 100 # literal ninja come on
     doAfter: 2
   - type: GuideHelp

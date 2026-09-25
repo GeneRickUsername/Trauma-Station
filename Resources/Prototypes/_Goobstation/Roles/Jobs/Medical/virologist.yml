@@ -22,8 +22,6 @@
   - Maintenance
   extendedAccess:
   - Chemistry
-<<<<<<< HEAD
-=======
   special:
   - !type:OrganChipsSpecial
     chips:
@@ -33,7 +31,6 @@
     components:
     - type: SurgerySpeedModifier
       speedModifier: 1.75
->>>>>>> upstream
 
 
 - type: startingGear

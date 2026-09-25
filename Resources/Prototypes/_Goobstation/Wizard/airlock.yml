@@ -96,7 +96,7 @@
   conditions:
     - !type:TileNotBlocked
   theory:
-    ConstructionKnowledge: 0
+    AirlocksKnowledge: 0
 
 - type: construction
   id: AirlockUraniumGlass
@@ -109,7 +109,7 @@
   conditions:
     - !type:TileNotBlocked
   theory:
-    ConstructionKnowledge: 0
+    AirlocksKnowledge: 0
 
 # Construction
 - type: constructionGraph

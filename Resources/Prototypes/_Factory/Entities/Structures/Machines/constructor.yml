@@ -51,4 +51,6 @@
       FurnitureKnowledge: 50
       InfrastructureKnowledge: 50
       ElectronicsKnowledge: 50
-      SurvivalKnowledge: 50
+      WallsKnowledge: 50
+      WindowsKnowledge: 50
+      SmokeablesKnowledge: 50

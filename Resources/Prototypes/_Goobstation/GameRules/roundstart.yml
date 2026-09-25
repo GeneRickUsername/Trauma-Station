@@ -43,47 +43,6 @@
     mapPath: /Maps/_Trauma/Nonstations/nukieplanet.yml
   - type: AntagSelection
     selectionTime: PrePlayerSpawn
-<<<<<<< HEAD
-    definitions:
-    - prefRoles: [ NukeopsCommander ]
-      fallbackRoles: [ Nukeops, NukeopsMedic ]
-      spawnerPrototype: SpawnPointNukeopsCommander
-      playerRatio: 15
-      startingGear: SyndicateCommanderGearFull
-      unequipOldGear: true
-      components:
-      - type: NukeOperative
-      - type: RandomMetadata
-        nameSegments:
-        - NamesSyndicateElite
-        nameFormat: name-format-nukie-commander
-      - type: NpcFactionMember
-        factions:
-        - Syndicate
-      mindRoles:
-      - MindRoleNukeopsCommander
-    - prefRoles: [ NukeopsMedic ]
-      fallbackRoles: [ Nukeops, NukeopsCommander ]
-      spawnerPrototype: SpawnPointNukeopsMedic
-      playerRatio: 15
-      startingGear: SyndicateOperativeMedicFull
-      unequipOldGear: true
-      components:
-      - type: NukeOperative
-      - type: RandomMetadata
-        nameSegments:
-        - NamesSyndicateElite
-        nameFormat: name-format-nukie-agent
-      - type: NpcFactionMember
-        factions:
-        - Syndicate
-      mindRoles:
-      - MindRoleNukeopsMedic
-    - prefRoles: [ Nukeops ]
-      fallbackRoles: [ NukeopsCommander, NukeopsMedic ]
-      spawnerPrototype: SpawnPointNukeopsOperative
-      max: 10
-=======
     antags:
     - !type:FixedAntagCount
       proto: NukeopsCommander
@@ -94,7 +53,6 @@
       range:
         min: 1
         max: 8
->>>>>>> upstream
       playerRatio: 20
 
 - type: entity
