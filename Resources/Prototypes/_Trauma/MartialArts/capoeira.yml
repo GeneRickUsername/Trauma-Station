@@ -21,15 +21,9 @@
     duration: 10
     scaling: false
   opponentEffects:
-<<<<<<< HEAD
-  - !type:ModifyParalysis
-    time: 1
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     useTargeting: false
     ignoreResistances: false
->>>>>>> upstream
     damage:
       flags: MartialArtCombo
       types:
@@ -65,13 +59,9 @@
     duration: 10
     scaling: false
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     useTargeting: false
     ignoreResistances: false
->>>>>>> upstream
     damage:
       flags: MartialArtCombo
       types:
@@ -104,13 +94,9 @@
     duration: 5
     scaling: false
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     useTargeting: false
     ignoreResistances: false
->>>>>>> upstream
     damage:
       flags: MartialArtCombo
       types:
@@ -151,13 +137,9 @@
     events:
     - !type:AnimationFlipEmoteEvent
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     useTargeting: false
     ignoreResistances: false
->>>>>>> upstream
     damage:
       flags: MartialArtCombo
       types:

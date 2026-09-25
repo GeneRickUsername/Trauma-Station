@@ -37,7 +37,7 @@
   - !type:ModifyStatusEffect
     effectProto: StatusEffectBlurryVision
     time: 5
-  - !type:TargetedDamage
+  - !type:HealthChange
     targetPart: Head
     damage:
       types:

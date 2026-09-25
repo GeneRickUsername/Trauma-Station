@@ -31,12 +31,8 @@
   opponentEffects:
   - !type:ModifyParalysis
     time: 9
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Slash: 10
@@ -52,12 +48,8 @@
   opponentEffects:
   - !type:ModifyParalysis
     time: 7
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Slash: 20

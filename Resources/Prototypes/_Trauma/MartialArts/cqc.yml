@@ -33,12 +33,8 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 25
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Blunt: 12
@@ -76,12 +72,8 @@
   parent: BaseCQCKick
   id: CQCKickSimple
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Blunt: 8
@@ -94,16 +86,6 @@
   parent: BaseCQCKick
   id: CQCKick
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TakeStaminaDamage
-    amount: 25
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 12
-  - !type:LegSweep
-    time: 2
-=======
   - !type:IfElse
     condition: !type:StandingCondition
       inverted: true
@@ -123,7 +105,6 @@
     falseEffects:
     - !type:TakeStaminaDamage
       amount: 20
->>>>>>> upstream
   levelRequired: 26
   levelExceeded: 60
 
@@ -131,16 +112,6 @@
   parent: BaseCQCKick
   id: CQCKickAdvanced
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TakeStaminaDamage
-    amount: 40
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 20
-  - !type:LegSweep
-    time: 4
-=======
   - !type:IfElse
     condition: !type:StandingCondition
       inverted: true
@@ -160,7 +131,6 @@
     falseEffects:
     - !type:TakeStaminaDamage
       amount: 25
->>>>>>> upstream
   levelRequired: 60
 
 # Restrain
@@ -258,12 +228,8 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 20
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Blunt: 5
@@ -276,12 +242,8 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 40
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Blunt: 10
@@ -295,12 +257,8 @@
   - !type:ModifyStatusEffect
     effectProto: StatusEffectForcedSleeping
     time: 7
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Blunt: 30

@@ -1,114 +1,28 @@
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
-<<<<<<< HEAD
-- type: combo
-  id: ArmstrongBusterPunchesSimple
-  attacks:
-  - Harm
-  - Harm
-  - Grab
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/boxingpunch2.ogg
-  opponentEffects:
-  - !type:TakeStaminaDamage
-    amount: 7
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 5
-  levelRequired: 0
-  levelExceeded: 20
-=======
-# SPDX-License-Identifier: AGPL-3.0-or-later
->>>>>>> upstream
-
 - type: combo
   id: ArmstrongBusterPunches
   attacks:
   - Harm
   - Harm
   - Grab
-<<<<<<< HEAD
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/boxingpunch2.ogg
-  opponentEffects:
-  - !type:TakeStaminaDamage
-    amount: 12
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 6
-  levelRequired: 20
-  levelExceeded: 40
-
-- type: combo
-  id: ArmstrongBusterPunchesAdvanced
-  attacks:
-  - Harm
-  - Harm
-  - Grab
-=======
   conditions:
   # cant punch with stubs
   - !type:HasOrgan
     organCategory: HandLeft
   - !type:HasOrgan
     organCategory: HandRight
->>>>>>> upstream
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/boxingpunch2.ogg
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 18
-<<<<<<< HEAD
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 12
-  levelRequired: 40
-
-- type: combo
-  id: ArmstrongDropkickSimple
-  attacks:
-  - Grab
-  - Harm
-  - Harm
-  - Disarm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit3.ogg
-  - !type:TakeStaminaDamage
-    amount: 7
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 6
-  - !type:ModifyKnockdown
-    time: 1.5
-    drop: false
-  opponentEffects:
-  - !type:ModifyParalysis
-    time: 2
-  - !type:TakeStaminaDamage
-    amount: 13
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 8
-  conditions:
-  - !type:StandingCondition
-  levelRequired: 6 # TODO: make it require target to be standing, make it do knockback
-  levelExceeded: 36
-=======
   - !type:HealthChange
     targetPart: Chest
     damage:
       types:
         Blunt: 12
->>>>>>> upstream
 
 - type: combo
   id: ArmstrongDropkick
@@ -117,33 +31,9 @@
   - Harm
   - Harm
   - Disarm
-<<<<<<< HEAD
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/genhit3.ogg
-  - !type:TakeStaminaDamage
-    amount: 7
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 5
-  - !type:ModifyKnockdown
-    time: 1
-    drop: false
-  opponentEffects:
-  - !type:ModifyParalysis
-    time: 4
-  - !type:TakeStaminaDamage
-    amount: 20
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 18
-=======
   userConditions:
   - !type:StandingCondition
     failMessage: martial-arts-fail-prone
->>>>>>> upstream
   conditions:
   - !type:StandingCondition
     failMessage: martial-arts-fail-target-down
@@ -158,39 +48,6 @@
     time: 6
   - !type:TakeStaminaDamage
     amount: 25
-<<<<<<< HEAD
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 20
-  conditions:
-  - !type:StandingCondition
-  levelRequired: 54
-
-- type: combo
-  id: ArmstrongMachineGunFistSimple
-  attacks:
-  - Harm
-  - Disarm
-  - Harm
-  - Disarm
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/boxingpunch3.ogg
-  - !type:ModifyStatusEffect
-    effectProto: StatusEffectAttackSpeed
-    type: Add
-    time: 2
-  opponentEffects:
-  - !type:TakeStaminaDamage
-    amount: 8
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 13
-  levelRequired: 7
-  levelExceeded: 14
-=======
   - !type:HealthChange
     targetPart: Chest
     damage:
@@ -198,7 +55,6 @@
         Blunt: 15
   - !type:StopPull
   - !type:GrabThrow
->>>>>>> upstream
 
 - type: combo
   id: ArmstrongMachineGunFist
@@ -207,39 +63,12 @@
   - Disarm
   - Harm
   - Disarm
-<<<<<<< HEAD
-  userEffects:
-  - !type:PlaySoundEffect
-    sound: /Audio/Weapons/boxingpunch3.ogg
-  - !type:ModifyStatusEffect
-    effectProto: StatusEffectAttackSpeed
-    type: Add
-    time: 3
-  opponentEffects:
-  - !type:TakeStaminaDamage
-    amount: 15
-  - !type:TargetedDamage
-    damage:
-      types:
-        Blunt: 17
-  levelRequired: 28
-  levelExceeded: 51
-
-- type: combo
-  id: ArmstrongMachineGunFistAdvanced
-  attacks:
-  - Harm
-  - Disarm
-  - Harm
-  - Disarm
-=======
   conditions:
   # cant punch with stubs
   - !type:HasOrgan
     organCategory: HandLeft
   - !type:HasOrgan
     organCategory: HandRight
->>>>>>> upstream
   userEffects:
   - !type:PlaySoundEffect
     sound: /Audio/Weapons/boxingpunch3.ogg
@@ -250,12 +79,8 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 17
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Blunt: 25

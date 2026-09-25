@@ -64,12 +64,7 @@
     messages:
     - cqc-slam
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-    scaling: false
-=======
   - !type:HealthChange
->>>>>>> upstream
     damage:
       types:
         Blunt: 5
@@ -89,12 +84,7 @@
     messages:
     - cqc-kick
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-    scaling: false
-=======
   - !type:HealthChange
->>>>>>> upstream
     damage:
       types:
         Blunt: 5

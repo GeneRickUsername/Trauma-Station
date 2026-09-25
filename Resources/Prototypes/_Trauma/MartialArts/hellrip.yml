@@ -14,14 +14,8 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 80
-<<<<<<< HEAD
-  - !type:ModifyParalysis
-    time: 6
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Slash: 10
@@ -52,13 +46,6 @@
   - !type:PlaySoundEffect
     sound: /Audio/Effects/demon_attack1.ogg
   opponentEffects:
-<<<<<<< HEAD
-  - !type:TargetedDamage
-    damage:
-      types:
-        Slash: 100
-  levelRequired: 10
-=======
   - !type:StopPull
   - !type:RelayOrgan
     category: Head
@@ -68,7 +55,6 @@
         types:
           Slash: 100
     - !type:DetachOrgan
->>>>>>> upstream
 
 - type: combo
   id: TearDown
@@ -84,12 +70,8 @@
   opponentEffects:
   - !type:TakeStaminaDamage
     amount: 50
-<<<<<<< HEAD
-  - !type:TargetedDamage
-=======
   - !type:HealthChange
     targetPart: Chest
->>>>>>> upstream
     damage:
       types:
         Slash: 60
