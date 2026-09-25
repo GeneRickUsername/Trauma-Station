@@ -11,6 +11,12 @@ namespace Content.Trauma.Common.Knowledge.Components;
 public sealed partial class TalentComponent : Component
 {
     /// <summary>
+    /// Experience cost to purchase this talent. Multiply by level to find upgrade cost.
+    /// </summary>
+    [DataField]
+    public int Cost;
+
+    /// <summary>
     /// Determines the strength of the talent. Most are one and done but some talents can be bought/developed multiple times.
     /// </summary>
     [DataField]
@@ -27,4 +33,10 @@ public sealed partial class TalentComponent : Component
     /// </summary>
     [DataField]
     public bool Repeat = false;
+
+    /// <summary>
+    /// Sprite to display in the character UI.
+    /// </summary>
+    [DataField]
+    public SpriteSpecifier? Sprite;
 }

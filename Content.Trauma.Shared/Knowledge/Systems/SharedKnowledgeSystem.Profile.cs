@@ -123,6 +123,26 @@ public abstract partial class SharedKnowledgeSystem
         {
             total += purchases;
         }
+        foreach (var (id, purchases) in profile.Talents)
+        {
+            if (!ProtoMan.Index(id).TryComp<TalentComponent>(out var talent, Factory))
+                continue;
+
+            total += purchases * talent.Cost;
+        }
+        foreach (var (id, purchases) in profile.Proficiencies)
+        {
+            if (!ProtoMan.Index(id).TryComp<ProficiencyComponent>(out var prof, Factory))
+                continue;
+            total += purchases * prof.Cost;
+        }
+        foreach (var (id, purchases) in profile.Specializations)
+        {
+            if (!ProtoMan.Index(id).TryComp<SpecializationComponent>(out var spec, Factory) || !ProtoMan.Index(id).TryComp<ProficiencyComponent>(out var prof, Factory))
+                continue;
+
+            total += purchases.TotalCost(prof.Cost);
+        }
         return total;
     }
 

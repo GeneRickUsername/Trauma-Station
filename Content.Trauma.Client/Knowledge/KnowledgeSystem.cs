@@ -275,6 +275,83 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
             .ToList();
     }
 
+    public List<TalentInfo>? GrabAllTalents(EntityUid target)
+    {
+        var knowledgeList = TryGetAllTalentUnits(target);
+        if (knowledgeList is not { } || knowledgeList.Count == 0)
+            return null;
+        return knowledgeList
+            .Select(ent => GetTalentInfo(ent))
+            .OrderBy(data => data.Name)
+            .ToList();
+    }
+
+    public List<ProficiencyInfo>? GrabAllProficiencies(EntityUid target)
+    {
+        var knowledgeList = TryGetAllProficiencyUnits(target);
+        if (knowledgeList is not { } || knowledgeList.Count == 0)
+            return null;
+        return knowledgeList
+            .Select(ent => GetProficiencyInfo(ent))
+            .OrderBy(data => data.Name)
+            .ToList();
+    }
+
+    public (ProtoId<SkillCategoryPrototype> Category, SkillInfo Info) GetSkillInfo(Entity<SkillComponent> ent)
+    {
+        var meta = MetaData(ent);
+        var name = meta.EntityName;
+        var desc = meta.EntityDescription;
+        var levelStr = Loc.GetString("knowledge-info-description", ("level", ent.Comp.NetLevel), ("mastery", GetMasteryString(ent)));
+        var knowledgeInfo = new SkillInfo(name, desc, ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost);
+        // TODO: make this an event raised on ent
+        if (_langQuery.TryComp(ent, out var languageKnowledge))
+        {
+            var locKey = (languageKnowledge.Speaks, languageKnowledge.Understands) switch
+            {
+                (true, true) => "knowledge-language-speaks-understands",
+                (true, false) => "knowledge-language-speaks",
+                _ => "knowledge-language-understands"
+            };
+
+            knowledgeInfo.Name = Loc.GetString(locKey, ("language", name));
+        }
+        else if (TryComp<MartialArtsSkillComponent>(ent, out var martialKnowledge))
+        {
+            knowledgeInfo.Name = Loc.GetString("knowledge-martial-arts-name", ("name", name));
+        }
+        else
+        {
+            knowledgeInfo.Name = name;
+        }
+        return (ent.Comp.Category, knowledgeInfo);
+    }
+
+    public (int Order, AttributeInfo Info) GetAttributeInfo(Entity<AttributeComponent> ent)
+    {
+        var info = new AttributeInfo();
+
+        info.Name = Name(ent);
+        info.Description = Description(ent);
+        info.Entity = GetNetEntity(ent);
+        return (ent.Comp.Order, info);
+    }
+
+    public TalentInfo GetTalentInfo(Entity<TalentComponent> ent)
+    {
+        return new TalentInfo(Name(ent), Description(ent), ent.Comp.Sprite, ent.Comp.Level, ent.Comp.Repeat);
+    }
+
+    public ProficiencyInfo GetProficiencyInfo(Entity<ProficiencyComponent> ent)
+    {
+        SpecializationAllocation? specialization = null;
+        if (TryComp<SpecializationComponent>(ent, out var specializationComp))
+            specialization = specializationComp.Specialization;
+
+        return new ProficiencyInfo(Name(ent), Description(ent), ent.Comp.Sprite, specialization);
+    }
+
+
     [SubscribeLocalEvent]
     public void OnUpdateExperienceEvent(Entity<KnowledgeHolderComponent> ent, ref UpdateExperienceEvent args)
     {

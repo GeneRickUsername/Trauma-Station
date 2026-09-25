@@ -9,12 +9,12 @@ using Robust.Client.UserInterface.XAML;
 namespace Content.Trauma.Client.Knowledge.UI;
 
 [GenerateTypedNameReferences]
-public sealed partial class TalentTabControl : BoxContainer
+public sealed partial class ProficiencyTabControl : BoxContainer
 {
     [Dependency] private IEntitySystemManager _system = default!;
     private readonly SpriteSystem _sprite;
 
-    public TalentTabControl(TalentInfo info)
+    public ProficiencyTabControl(ProficiencyInfo info)
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
@@ -22,9 +22,9 @@ public sealed partial class TalentTabControl : BoxContainer
         _sprite = _system.GetEntitySystem<SpriteSystem>();
 
         if (info.Sprite != null)
-            TalentIcon.Texture = _sprite.Frame0(info.Sprite);
+            Icon.Texture = _sprite.Frame0(info.Sprite);
 
-        TalentName.Text = info.Name;
-        TalentDescription.Text = info.Description;
+        ProficiencyName.Text = info.Name;
+        ProficiencyLevel.Text = Loc.GetString($"proficiency-level");
     }
 }

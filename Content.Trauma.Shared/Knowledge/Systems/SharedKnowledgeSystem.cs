@@ -52,6 +52,17 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// Every attribute prototype and its data.
     /// </summary>
     public Dictionary<EntProtoId, AttributeComponent> AllAttributes = new();
+
+    /// <summary>
+    /// Every talent prototype and its data.
+    /// </summary>
+    public Dictionary<EntProtoId, TalentComponent> AllTalents = new();
+
+    /// <summary>
+    /// Every proficiency prototype and its data.
+    /// </summary>
+    public Dictionary<EntProtoId, ProficiencyComponent> AllProficiencies = new();
+
     public static readonly string[] MasteryNames = [
         "Unskilled",
         "Novice",
@@ -242,17 +253,18 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     {
         LoadSkillPrototypes();
         LoadAttributePrototypes();
+        LoadTalentPrototypes();
+        LoadProficiencyPrototypes();
     }
 
 
     private void LoadSkillPrototypes()
     {
         AllSkills.Clear();
-        var name = Factory.GetComponentName<SkillComponent>();
         foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
         {
             // TODO: replace with TryComp after engine update
-            if (!proto.TryGetComponent<SkillComponent>(name, out var comp))
+            if (!proto.TryComp<SkillComponent>(out var comp, Factory))
                 continue;
 
             AllSkills[proto.ID] = comp;
@@ -262,14 +274,38 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     private void LoadAttributePrototypes()
     {
         AllAttributes.Clear();
-        var name = Factory.GetComponentName<AttributeComponent>();
         foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
         {
             // TODO: replace with TryComp after engine update
-            if (!proto.TryGetComponent<AttributeComponent>(name, out var comp))
+            if (!proto.TryComp<AttributeComponent>(out var comp, Factory))
                 continue;
 
             AllAttributes[proto.ID] = comp;
+        }
+    }
+
+    private void LoadTalentPrototypes()
+    {
+        AllTalents.Clear();
+        foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
+        {
+            // TODO: replace with TryComp after engine update
+            if (!proto.TryComp<TalentComponent>(out var comp, Factory))
+                continue;
+
+            AllTalents[proto.ID] = comp;
+        }
+    }
+
+    private void LoadProficiencyPrototypes()
+    {
+        AllProficiencies.Clear();
+        foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
+        {
+            if (!proto.TryComp<ProficiencyComponent>(out var comp, Factory))
+                continue;
+
+            AllProficiencies[proto.ID] = comp;
         }
     }
 
@@ -399,46 +435,6 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             SkillPopup(Loc.GetString("knowledge-level-up-popup", ("knowledge", Name(ent)), ("mastery", GetMasteryString(ent).ToLower())), target);
 
         return true;
-    }
-
-    public (ProtoId<SkillCategoryPrototype> Category, SkillInfo Info) GetSkillInfo(Entity<SkillComponent> ent)
-    {
-        var meta = MetaData(ent);
-        var name = meta.EntityName;
-        var desc = meta.EntityDescription;
-        var levelStr = Loc.GetString("knowledge-info-description", ("level", ent.Comp.NetLevel), ("mastery", GetMasteryString(ent)));
-        var knowledgeInfo = new SkillInfo(name, desc, ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost);
-        // TODO: make this an event raised on ent
-        if (_langQuery.TryComp(ent, out var languageKnowledge))
-        {
-            var locKey = (languageKnowledge.Speaks, languageKnowledge.Understands) switch
-            {
-                (true, true) => "knowledge-language-speaks-understands",
-                (true, false) => "knowledge-language-speaks",
-                _ => "knowledge-language-understands"
-            };
-
-            knowledgeInfo.Name = Loc.GetString(locKey, ("language", name));
-        }
-        else if (TryComp<MartialArtsSkillComponent>(ent, out var martialKnowledge))
-        {
-            knowledgeInfo.Name = Loc.GetString("knowledge-martial-arts-name", ("name", name));
-        }
-        else
-        {
-            knowledgeInfo.Name = name;
-        }
-        return (ent.Comp.Category, knowledgeInfo);
-    }
-
-    public (int Order, AttributeInfo Info) GetAttributeInfo(Entity<AttributeComponent> ent)
-    {
-        var info = new AttributeInfo();
-
-        info.Name = Name(ent);
-        info.Description = Description(ent);
-        info.Entity = GetNetEntity(ent);
-        return (ent.Comp.Order, info);
     }
 
     /// <summary>

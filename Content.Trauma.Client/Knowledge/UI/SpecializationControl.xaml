@@ -1,0 +1,12 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+<BoxContainer xmlns="https://spacestation14.io"
+        Orientation="Horizontal"
+        HorizontalExpand="False"
+        Margin="20 2 10 2"
+        MouseFilter="Pass">
+    <Label Name="SpecLabel" HorizontalExpand="True"/>
+    <Label Name="CostLabel" MinWidth="80" Align="Center"/>
+    <CheckBox Name="AcquireCheckBox" Text="{Loc 'knowledge-editor-buy'}"/>
+</BoxContainer>

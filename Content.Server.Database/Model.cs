@@ -474,6 +474,12 @@ namespace Content.Server.Database
         public string BarkVoice { get; set; } = null!;
         public Dictionary<string, int> SkillRolls { get; set; } = new();
         public Dictionary<string, int> AttributePurchases { get; set; } = new();
+        public Dictionary<string, int> Talents { get; set; } = new();
+        public Dictionary<string, int> Proficiencies { get; set; } = new();
+        public Dictionary<string, int> SpecializationSpeed { get; set; } = new();
+        public Dictionary<string, int> SpecializationAttack { get; set; } = new();
+        public Dictionary<string, int> SpecializationDefense { get; set; } = new();
+        public Dictionary<string, int> SpecializationDamage { get; set; } = new();
         // </Trauma>
         [Column(TypeName = "jsonb")] public JsonDocument? OrganMarkings { get; set; } = null!;
         [Column(TypeName = "jsonb")] public JsonDocument? Markings { get; set; } = null!;

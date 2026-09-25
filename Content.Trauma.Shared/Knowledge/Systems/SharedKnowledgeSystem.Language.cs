@@ -17,7 +17,7 @@ public abstract partial class SharedKnowledgeSystem
 {
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private SharedChatSystem _chat = default!;
-    [Dependency] private EntityQuery<LanguageKnowledgeComponent> _langQuery = default!;
+    [Dependency] protected EntityQuery<LanguageKnowledgeComponent> _langQuery = default!;
 
     private void InitializeLanguage()
     {

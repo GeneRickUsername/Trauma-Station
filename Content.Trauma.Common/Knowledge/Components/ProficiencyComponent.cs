@@ -9,16 +9,22 @@ namespace Content.Trauma.Common.Knowledge.Components;
 public sealed partial class ProficiencyComponent : Component
 {
     /// <summary>
-    /// Does proficiency apply to X with a certain component. Useful for things like items.
+    /// Cost of the proficiency.
     /// </summary>
     [DataField]
-    public ComponentRegistry? Registry;
+    public int Cost;
 
     /// <summary>
     /// Determines the maluses of using something one is not proficient in.
     /// </summary>
     [DataField]
     public ProficiencySkillLevel Type = ProficiencySkillLevel.Minimal;
+
+    /// <summary>
+    /// Sprite to display in the character UI.
+    /// </summary>
+    [DataField]
+    public SpriteSpecifier? Sprite;
 }
 
 /// <summary>

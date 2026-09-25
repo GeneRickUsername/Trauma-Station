@@ -8,3 +8,9 @@ public record struct SkillInfo(string Name, string Description, Color Color, Spr
 
 [Serializable, NetSerializable]
 public record struct AttributeInfo(string Name, string Description, NetEntity Entity);
+
+[Serializable, NetSerializable]
+public record struct TalentInfo(string Name, string Description, SpriteSpecifier? Sprite, int Rank, bool Repeat);
+
+[Serializable, NetSerializable]
+public record struct ProficiencyInfo(string Name, string Description, SpriteSpecifier? Sprite, SpecializationAllocation? Specialization);

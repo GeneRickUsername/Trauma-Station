@@ -15,4 +15,10 @@ SPDX-License-Identifier: AGPL-3.0-or-later
     <ScrollContainer VerticalExpand="True">
 	    <BoxContainer Name="EnabledSkills" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
     </ScrollContainer>
+    <ScrollContainer VerticalExpand="True">
+        <BoxContainer Name="EnabledTalents" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
+    </ScrollContainer>
+    <ScrollContainer VerticalExpand="True">
+        <BoxContainer Name="EnabledProficiencies" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
+    </ScrollContainer>
 </BoxContainer>
