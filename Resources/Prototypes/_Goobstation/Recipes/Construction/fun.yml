@@ -7,10 +7,10 @@
   category: construction-category-weapons
   objectType: Item
   theory:
-    ScienceKnowledge: 0
+    BananiumKnowledge: 0
   practical:
     WeaponsKnowledge: 2
-    ScienceKnowledge: 2
+    BananiumKnowledge: 2
 
 - type: construction
   id: boomerang
@@ -19,7 +19,7 @@
   category: construction-category-weapons
   objectType: Item
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
     WeaponsKnowledge: 2
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2

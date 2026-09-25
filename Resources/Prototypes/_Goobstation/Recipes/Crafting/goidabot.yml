@@ -7,6 +7,6 @@
   category: construction-category-utilities
   objectType: Item
   theory:
-    MechanicsKnowledge: 0
+    BotsKnowledge: 0
   practical:
     ElectronicsKnowledge: 1

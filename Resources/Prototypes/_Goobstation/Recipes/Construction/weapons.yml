@@ -7,7 +7,7 @@
   category: construction-category-weapons
   objectType: Item
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
     WeaponsKnowledge: 2
 
@@ -19,6 +19,6 @@
   category: construction-category-weapons
   objectType: Item
   theory:
-    ManufacturingKnowledge: 0 # its a fucking stick
+    FabricationKnowledge: 0 # its a fucking stick
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1

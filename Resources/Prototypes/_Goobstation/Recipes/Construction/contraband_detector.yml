@@ -10,7 +10,7 @@
   targetNode: detector
   theory:
     ElectronicsKnowledge: 0
-    ConstructionKnowledge: 0
+    InfrastructureKnowledge: 0
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
     ElectronicsKnowledge: 2

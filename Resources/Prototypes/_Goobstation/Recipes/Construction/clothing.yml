@@ -7,10 +7,10 @@
   category: construction-category-clothing
   objectType: Item
   theory:
-    ManufacturingKnowledge: 2
+    FabricationKnowledge: 2
   practical:
     ArmorKnowledge: 1
-    SurvivalKnowledge: 2
+    TailoringKnowledge: 2
 
 - type: construction
   id: makeshiftvoicechanger
@@ -19,11 +19,11 @@
   category: construction-category-clothing
   objectType: Item
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
     ElectronicsKnowledge: 2
   practical:
     ElectronicsKnowledge: 3
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
 
 - type: construction
   id: MedicalGlasses

@@ -11,9 +11,9 @@
   conditions:
     - !type:TileNotBlocked
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
 
 - type: construction
   id: CdRack
@@ -26,4 +26,4 @@
   conditions:
     - !type:TileNotBlocked
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0

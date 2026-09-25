@@ -9,9 +9,10 @@
   targetNode: stack
   objectType: Item
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
+    FabricationKnowledge: 1
   useQuality: false
 
 - type: construction
@@ -21,7 +22,8 @@
   targetNode: stack
   objectType: Item
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
+    FabricationKnowledge: 1
   useQuality: false

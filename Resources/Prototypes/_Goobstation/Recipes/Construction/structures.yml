@@ -8,9 +8,9 @@
   canRotate: true
   canBuildInImpassable: true
   theory:
-    ConstructionKnowledge: 0
+    WallsKnowledge: 0
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
 
 - type: construction
   parent: BaseStructure
@@ -30,68 +30,32 @@
   canRotate: true
   canBuildInImpassable: true
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 1 # good cading is hard
-  practical:
-    ManufacturingKnowledge: 4
-=======
     FabricationKnowledge: 0
     WallsKnowledge: 0
   practical:
     WallsKnowledge: 1 # good cading is hard
     MetalworkingKnowledge: 4
->>>>>>> upstream
 
 - type: construction
   parent: BarricadeSteel
   id: BarricadeSteelFolding
   targetNode: folding
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: true
-  canBuildInImpassable: true
-  theory:
-    ConstructionKnowledge: 2
-  practical:
-    ManufacturingKnowledge: 4
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BarricadeSteel
   id: BarricadePlasteel
   graph: BarricadePlasteel
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 2
-  practical:
-    ManufacturingKnowledge: 4
-=======
     FabricationKnowledge: 1
     WallsKnowledge: 0
   practical:
     WallsKnowledge: 2
     MetalworkingKnowledge: 4
->>>>>>> upstream
 
 - type: construction
   parent: BarricadePlasteel
   id: BarricadePlasteelFolding
   targetNode: folding
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: true
-  canBuildInImpassable: true
-  theory:
-    ConstructionKnowledge: 2
-  practical:
-    ManufacturingKnowledge: 4
-=======
->>>>>>> upstream
 
 # Airlocks
 
@@ -100,7 +64,7 @@
   id: AirlockSealed
   targetNode: sealedAirlock
   theory:
-    ConstructionKnowledge: 1
+    AirlocksKnowledge: 1
   practical:
     MechanicsKnowledge: 2
 
@@ -108,18 +72,6 @@
   parent: AirlockSealed
   id: AirlockSealedGlass
   targetNode: sealedGlassAirlock
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  theory:
-    ConstructionKnowledge: 1
-  practical:
-    MechanicsKnowledge: 2
-=======
 
 # Misc
 
@@ -129,4 +81,3 @@
   name: recipes-secret-door-reinforced-name
   graph: ReinforcedSecretDoor
   targetNode: ReinforcedSecretDoor
->>>>>>> upstream
