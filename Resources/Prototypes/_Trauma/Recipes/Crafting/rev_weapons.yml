@@ -17,33 +17,11 @@
   parent: BaseRevGun
   id: RevLiberator
   targetNode: liberator
-<<<<<<< HEAD
-  category: construction-category-antagonist
-  objectType: Item
-  theory:
-    RevolutionaryKnowledge: 2
-    WeaponsKnowledge: 0 # revs dont get automatic weapons knowledge :)
-  practical:
-    GunsmithKnowledge: 2
-    WeaponsKnowledge: 2
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseRevGun
   id: RevResistance
   targetNode: resistance
-<<<<<<< HEAD
-  category: construction-category-antagonist
-  objectType: Item
-  theory:
-    RevolutionaryKnowledge: 2
-    WeaponsKnowledge: 0
-  practical:
-    GunsmithKnowledge: 2
-    WeaponsKnowledge: 2
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseRevGun
@@ -54,40 +32,18 @@
     GunsmithingKnowledge: 1
     WeaponsKnowledge: 1
   practical:
-    GunsmithKnowledge: 4
+    GunsmithingKnowledge: 4
     WeaponsKnowledge: 3
 
 - type: construction
   parent: RevRPG2
   id: RevFlamethrower
   targetNode: Flamethrower
-<<<<<<< HEAD
-  category: construction-category-antagonist
-  objectType: Item
-  theory:
-    RevolutionaryKnowledge: 2
-    WeaponsKnowledge: 1
-  practical:
-    GunsmithKnowledge: 4
-    WeaponsKnowledge: 3
-=======
->>>>>>> upstream
 
 - type: construction
   parent: RevRPG2
   id: Devastator
   targetNode: Devastator
-<<<<<<< HEAD
-  category: construction-category-antagonist
-  objectType: Item
-  theory:
-    RevolutionaryKnowledge: 2
-    WeaponsKnowledge: 2
-  practical:
-    GunsmithKnowledge: 2
-    WeaponsKnowledge: 2
-=======
->>>>>>> upstream
 
 - type: construction
   parent: RevRPG2

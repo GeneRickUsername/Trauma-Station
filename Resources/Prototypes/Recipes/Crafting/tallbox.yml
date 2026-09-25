@@ -19,73 +19,25 @@
   parent: BaseCloset
   id: ClosetSteel
   graph: ClosetSteel
-<<<<<<< HEAD
-  startNode: start
-  targetNode: done
-  category: construction-category-storage
-  objectType: Structure
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-    MechanicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseCloset
   id: ClosetSteelSecure
   graph: ClosetSteelSecure
-<<<<<<< HEAD
-  startNode: start
-  targetNode: done
-  category: construction-category-storage
-  objectType: Structure
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ElectronicsKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-    MechanicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseCloset
   id: ClosetFreezer
   name: construction-recipe-closet-freezer
   graph: ClosetFreezer
-<<<<<<< HEAD
-  startNode: start
-  targetNode: done
-  category: construction-category-storage
-  objectType: Structure
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-    MechanicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseCloset
   id: GunSafe
   graph: GunSafe
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
     MechanicsKnowledge: 2
   # </Trauma>
 
@@ -97,16 +49,5 @@
   canRotate: true
   canBuildInImpassable: true
   conditions:
-<<<<<<< HEAD
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-    MechanicsKnowledge: 1
-  # </Trauma>
-=======
   - !type:WallmountCondition
 # endregion Closets
->>>>>>> upstream

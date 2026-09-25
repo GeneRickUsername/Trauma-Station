@@ -3,31 +3,12 @@
   abstract: true
   id: BaseCrate
   category: construction-category-storage
-<<<<<<< HEAD
-  objectType: Structure
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: CrateGenericSteel
-  graph: CrateGenericSteel
-  startNode: start
-  targetNode: crategenericsteel
-  category: construction-category-storage
-  objectType: Structure
-=======
   canRotate: false
->>>>>>> upstream
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
   useQuality: false
   # </Trauma>
 
@@ -67,14 +48,8 @@
   targetNode: cratesecure
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
     ElectronicsKnowledge: 0
-<<<<<<< HEAD
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-=======
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -83,34 +58,12 @@
   name: construction-recipe-crate-freezer
   graph: CrateFreezer
   targetNode: done
-<<<<<<< HEAD
-  category: construction-category-storage
-  objectType: Structure
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseCrate
   id: CratePlastic
   graph: CratePlastic
   targetNode: crateplastic
-<<<<<<< HEAD
-  category: construction-category-storage
-  objectType: Structure
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseCrate
@@ -119,15 +72,8 @@
   graph: BaseBigBox
   targetNode: basebigbox
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-=======
   theory: {} # cardboard
   practical: {}
->>>>>>> upstream
   useQuality: false
   # </Trauma>
 
@@ -137,55 +83,9 @@
   name: construction-recipe-box-cardboard
   graph: BoxCardboard
   targetNode: boxcardboard
-<<<<<<< HEAD
-  category: construction-category-storage
-  objectType: Item
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: BoxCardboardSmall
-  name: construction-recipe-box-cardboard-small
-  graph: BoxCardboardSmall
-  startNode: start
-  targetNode: boxcardboardsmall
-  category: construction-category-storage
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ToteBase
-  name: construction-recipe-box-tote
-  graph: ToteBase
-  startNode: start
-  targetNode: totebase
-  category: construction-category-storage
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: FoodBoxPizza
-  graph: FoodBoxPizza
-  startNode: start
-  targetNode: foodboxpizza
-  category: construction-category-storage
-  objectType: Item
-=======
->>>>>>> upstream
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   useQuality: false
   # </Trauma>
 
@@ -195,13 +95,8 @@
   graph: CrateCoffin
   targetNode: cratecoffin
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ManufacturingKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   useQuality: false
   # </Trauma>
 # endregion Crates

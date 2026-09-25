@@ -18,287 +18,79 @@
   parent: BaseLight
   id: CyanLight
   graph: CyanLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: BlueLight
   graph: BlueLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: YellowLight
   graph: YellowLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: PinkLight
   graph: PinkLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: OrangeLight
   graph: OrangeLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: BlackLight
   graph: BlackLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: RedLight
   graph: RedLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: GreenLight
   graph: GreenLight
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: CyanLightBulb
   graph: CyanLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: BlueLightBulb
   graph: BlueLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: YellowLightBulb
   graph: YellowLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: PinkLightBulb
   graph: PinkLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: OrangeLightBulb
   graph: OrangeLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: BlackLightBulb
   graph: BlackLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: RedLightBulb
   graph: RedLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseLight
   id: GreenLightBulb
   graph: GreenLightBulb
-<<<<<<< HEAD
-  startNode: start
-  targetNode: icon
-  category: construction-category-utilities
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    ElectronicsKnowledge: 1
-  # </Trauma>
-=======
 # endregion Lights
->>>>>>> upstream

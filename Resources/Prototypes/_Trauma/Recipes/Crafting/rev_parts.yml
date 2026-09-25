@@ -9,7 +9,8 @@
   graph: RevParts
   objectType: Item
   practical:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
+    MetalworkingKnowledge: 1
   useQuality: false
 
 - type: construction

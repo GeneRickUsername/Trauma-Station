@@ -5,10 +5,10 @@
   targetNode: grenade
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
     ElectronicsKnowledge: 0
   practical:
-    ManufacturingKnowledge: 3
+    MetalworkingKnowledge: 3
     MechanicsKnowledge: 3
   # </Trauma>
 
@@ -17,16 +17,3 @@
   id: ModularMineRecipe
   graph: ModularMineGraph
   targetNode: mine
-<<<<<<< HEAD
-  category: construction-category-weapons
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-    ElectronicsKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 3
-    MechanicsKnowledge: 3
-  # </Trauma>
-=======
->>>>>>> upstream

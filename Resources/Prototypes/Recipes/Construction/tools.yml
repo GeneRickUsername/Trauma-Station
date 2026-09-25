@@ -6,12 +6,7 @@
   objectType: Item
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ManufacturingKnowledge: 0
-  useQuality: false
-=======
     FabricationKnowledge: 0
->>>>>>> upstream
   # </Trauma>
 # endregion Base
 
@@ -63,13 +58,8 @@
   graph: MakeshiftMortarAndPestle
   targetNode: mortarAndPestle
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ManufacturingKnowledge: 0 # banging 2 rocks together
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -78,13 +68,8 @@
   graph: MakeshiftJuicer
   targetNode: juicer
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ManufacturingKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -94,7 +79,7 @@
   targetNode: makeshiftCentrifuge
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
     ElectronicsKnowledge: 0
     # TODO: some kind of knowledge that you know about separating liquids by centrifugal forces
   # </Trauma>

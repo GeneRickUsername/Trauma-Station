@@ -3,42 +3,6 @@
   id: PlushieGhostRevenant
   graph: PlushieGhostRevenant
   targetNode: plushie
-<<<<<<< HEAD
-  category: construction-category-misc
-  objectType: Item
-  # <Trauma>
-  theory:
-    MechanicsKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: ClothingOuterSuitIan
-  graph: ClothingOuterSuitIan
-  startNode: start
-  targetNode: suit
-  category: construction-category-misc
-  objectType: Item
-  # <Trauma>
-  theory:
-    MechanicsKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: MoproachShoes
-  graph: MoproachShoes
-  startNode: start
-  targetNode: shoes
-  category: construction-category-misc
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-    MechanicsKnowledge: 0
-=======
   # <Trauma>
   theory:
     FabricationKnowledge: 0
@@ -60,7 +24,6 @@
   # <Trauma>
   theory:
     FabricationKnowledge: 0
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
   # </Trauma>

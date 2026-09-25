@@ -64,15 +64,10 @@
   targetNode: girder
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0 # if you know walls exist you can build a girder
-    ManufacturingKnowledge: 0
-=======
     WallsKnowledge: 0
     FabricationKnowledge: 0
->>>>>>> upstream
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
   useQuality: false
   # </Trauma>
 
@@ -80,277 +75,63 @@
   parent: Girder
   id: ReinforcedGirder
   targetNode: reinforcedGirder
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0 # you can make it via girder anyways
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: ClockworkGirder
   graph: ClockworkGirder
   targetNode: clockGirder
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-    # TODO: clockwork knowledge if anyone makes that
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: Wall
   targetNode: wall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: ReinforcedWall
   targetNode: reinforcedWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: ClockworkGirder
   id: WallClock
   targetNode: clockworkWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: WoodWall
   graph: Barricade
   targetNode: woodWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 1
-  practical:
-    ConstructionKnowledge: 1 # it's just hammering wood together
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: UraniumWall
   targetNode: uraniumWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: SilverWall
   targetNode: silverWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: PlasticWall
   targetNode: plasticWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: PlasmaWall
   targetNode: plasmaWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: GoldWall
   targetNode: goldWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
   id: ShuttleWall
   targetNode: shuttleWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  useQuality: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
@@ -358,20 +139,6 @@
   name: construction-recipe-diagonal-shuttle-wall
   targetNode: diagonalshuttleWall
   canRotate: true
-<<<<<<< HEAD
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    ManufacturingKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
@@ -379,35 +146,14 @@
   targetNode: bananiumWall
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-    ScienceKnowledge: 0
-  useQuality: false
-=======
     WallsKnowledge: 0
     BananiumKnowledge: 0
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
   parent: Girder
   id: MeatWall
   targetNode: meatWall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  useQuality: false
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Girder
@@ -419,12 +165,7 @@
     failIfSpace: false
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-  useQuality: false
-=======
     WallsKnowledge: 0
->>>>>>> upstream
   # </Trauma>
 # endregion Walls
 
@@ -434,599 +175,15 @@
   id: Grille
   graph: Grille
   targetNode: grille
-<<<<<<< HEAD
-  category: construction-category-structures
-  conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ClockGrille
-  graph: ClockGrille
-  startNode: start
-  targetNode: clockGrille
-  category: construction-category-structures
-  conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: GrilleDiagonal
-  graph: GrilleDiagonal
-  startNode: start
-  targetNode: grilleDiagonal
-  category: construction-category-structures
-  conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ClockworkGrilleDiagonal
-  graph: GrilleDiagonal
-  startNode: start
-  targetNode: clockworkGrilleDiagonal
-  category: construction-category-structures
-  conditions:
-    - !type:TileNotBlocked
-      failIfSpace: false
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: Window
-  graph: Window
-  startNode: start
-  targetNode: window
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: WindowDiagonal
-  name: construction-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: windowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ReinforcedWindow
-  graph: Window
-  startNode: start
-  targetNode: reinforcedWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ReinforcedWindowDiagonal
-  name: construction-recipe-reinforced-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: reinforcedWindowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: TintedWindow
-  graph: Window
-  startNode: start
-  targetNode: tintedWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ClockworkWindow
-  graph: Window
-  startNode: start
-  targetNode: clockworkWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ClockworkWindowDiagonal
-  name: construction-recipe-clockwork-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: clockworkWindowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: PlasmaWindow
-  graph: Window
-  startNode: start
-  targetNode: plasmaWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ReinforcedPlasmaWindow
-  graph: Window
-  startNode: start
-  targetNode: reinforcedPlasmaWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ShuttleWindow
-  graph: Window
-  startNode: start
-  targetNode: shuttleWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: PlasmaWindowDiagonal
-  name: construction-recipe-plasma-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: plasmaWindowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ReinforcedPlasmaWindowDiagonal
-  name: construction-recipe-reinforced-plasma-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: reinforcedPlasmaWindowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: WindowDirectional
-  graph: WindowDirectional
-  startNode: start
-  targetNode: windowDirectional
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: WindowReinforcedDirectional
-  graph: WindowDirectional
-  startNode: start
-  targetNode: windowReinforcedDirectional
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: WindowClockworkDirectional
-  graph: WindowDirectional
-  startNode: start
-  targetNode: windowClockworkDirectional
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: PlasmaWindowDirectional
-  graph: WindowDirectional
-  startNode: start
-  targetNode: plasmaWindowDirectional
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: PlasmaReinforcedWindowDirectional
-  graph: WindowDirectional
-  startNode: start
-  targetNode: plasmaReinforcedWindowDirectional
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: UraniumWindow
-  graph: Window
-  startNode: start
-  targetNode: uraniumWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ReinforcedUraniumWindow
-  graph: Window
-  startNode: start
-  targetNode: reinforcedUraniumWindow
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: UraniumWindowDiagonal
-  name: construction-recipe-uranium-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: uraniumWindowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: ReinforcedUraniumWindowDiagonal
-  name: construction-recipe-reinforced-uranium-window-diagonal
-  graph: WindowDiagonal
-  startNode: start
-  targetNode: reinforcedUraniumWindowDiagonal
-  category: construction-category-structures
-  canBuildInImpassable: true
-  conditions:
-    - !type:EmptyOrWindowValidInTile
-    - !type:NoWindowsInTile
-  objectType: Structure
-  placementMode: SnapgridCenter
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: Firelock
-  graph: Firelock
-  startNode: start
-  targetNode: Firelock
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: FirelockGlass
-  graph: Firelock
-  startNode: start
-  targetNode: FirelockGlass
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canRotate: false
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: FirelockEdge
-  name: construction-recipe-firelock-edge
-  graph: Firelock
-  startNode: start
-  targetNode: FirelockEdge
-  category: construction-category-structures
-  placementMode: SnapgridCenter
-  objectType: Structure
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: Turnstile
-  graph: Turnstile
-  startNode: start
-  targetNode: turnstile
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-=======
->>>>>>> upstream
   conditions:
   - !type:TileNotBlocked
     failIfSpace: false
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 3
-=======
     WallsKnowledge: 0
   practical:
     MetalworkingKnowledge: 1
   useQuality: false
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -1195,55 +352,16 @@
   parent: BaseShutters
   id: Shutters
   targetNode: Shutters
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShutters
   id: ShuttersWindow
   targetNode: ShuttersWindow
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShutters
   id: ShuttersRadiation
   targetNode: ShuttersRadiation
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShutters
@@ -1251,13 +369,8 @@
   graph: BlastDoor
   targetNode: blastdoor
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    ManufacturingKnowledge: 3
+    MetalworkingKnowledge: 3
   # </Trauma>
 # endregion Shutters
 
@@ -1276,7 +389,7 @@
   #  - Lattice
   #  - Plating
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   useQuality: false
   # </Trauma>
 
@@ -1293,7 +406,7 @@
     - Plating
   # <Trauma>
   theory:
-    ScienceKnowledge: 0
+    BananiumKnowledge: 0
   useQuality: false
   # </Trauma>
 # endregion Floors
@@ -1306,9 +419,9 @@
   targetNode: barricadefull
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -1319,9 +432,9 @@
   targetNode: barricadefull
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 # endregion Barricades
 
@@ -1333,9 +446,9 @@
   targetNode: railing
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0 # it's just rods
+    FurnitureKnowledge: 0 # it's just rods
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -1343,64 +456,19 @@
   id: RailingCorner
   name: construction-recipe-railing-corner
   targetNode: railingCorner
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0 # it's just rods
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Railing
   id: RailingCornerSmall
   name: construction-recipe-railing-corner-small
   targetNode: railingCornerSmall
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0 # it's just rods
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Railing
   id: RailingRound
   name: construction-recipe-railing-round
   targetNode: railingRound
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0 # it's just rods
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
 # endregion Railings
->>>>>>> upstream
 
 # region Fencing
 # Metal
@@ -1411,9 +479,9 @@
   targetNode: straight
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    WallsKnowledge: 0
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -1421,63 +489,18 @@
   id: FenceMetalCorner
   name: construction-recipe-fence-metal-corner
   targetNode: corner
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceMetal
   id: FenceMetalEnd
   name: construction-recipe-fence-metal-end
   targetNode: end
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceMetal
   id: FenceMetalGate
   graph: FenceMetal
   targetNode: gate
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 # Wood
 - type: construction
@@ -1487,9 +510,9 @@
   targetNode: straight
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    WallsKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -1497,189 +520,54 @@
   id: FenceWoodEnd
   name: construction-recipe-fence-wood-end
   targetNode: end
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodCorner
   name: construction-recipe-fence-wood-corner
   targetNode: corner
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodTJunction
   name: construction-recipe-fence-wood-t-junction
   targetNode: tjunction
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodGate
   targetNode: gate
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodSmall
   graph: FenceWood
   targetNode: straight_small
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodEndSmall
   name: construction-recipe-fence-wood-end-small
   targetNode: end_small
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodCornerSmall
   name: construction-recipe-fence-wood-corner-small
   targetNode: corner_small
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodTJunctionSmall
   name: construction-recipe-fence-wood-t-junction-small
   targetNode: tjunction_small
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FenceWood
   id: FenceWoodGateSmall
   name: construction-recipe-fence-wood-gate-small
   targetNode: gate_small
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
 # endregion Fencing
->>>>>>> upstream
 
 # region Airlocks
 - type: construction
@@ -1689,7 +577,7 @@
   targetNode: airlock
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    AirlocksKnowledge: 0
   practical:
     MechanicsKnowledge: 2
   # </Trauma>
@@ -1698,21 +586,6 @@
   parent: Airlock
   id: AirlockGlass
   targetNode: glassAirlock
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    MechanicsKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseStructureFullTile
@@ -1722,7 +595,7 @@
   targetNode: airlock
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    AirlocksKnowledge: 0
   practical:
     MechanicsKnowledge: 2
   # </Trauma>
@@ -1732,21 +605,6 @@
   id: PinionAirlockGlass
   name: construction-recipe-pinion-airlock-glass
   targetNode: glassAirlock
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    MechanicsKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseStructureFullTileDirectional
@@ -1755,7 +613,7 @@
   targetNode: airlock
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    AirlocksKnowledge: 0
   practical:
     MechanicsKnowledge: 2
   # </Trauma>
@@ -1767,7 +625,7 @@
   targetNode: airlockGlass
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    AirlocksKnowledge: 0
   practical:
     MechanicsKnowledge: 2
   # </Trauma>
@@ -1781,7 +639,8 @@
   targetNode: windoor
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    WindowsKnowledge: 0
+    AirlocksKnowledge: 0
   practical:
     MechanicsKnowledge: 2
   # </Trauma>
@@ -1790,42 +649,12 @@
   parent: Windoor
   id: SecureWindoor
   targetNode: windoorSecure
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    MechanicsKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Windoor
   id: ClockworkWindoor
   targetNode: windoorClockwork
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    MechanicsKnowledge: 2
-  # </Trauma>
-=======
 # endregion Windoors
->>>>>>> upstream
 
 # region Lighting
 - type: construction
@@ -1872,9 +701,9 @@
   targetNode: metalDoor
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    DoorsKnowledge: 0
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -1883,70 +712,25 @@
   targetNode: woodDoor
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    DoorsKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 
 - type: construction
   parent: MetalDoor
   id: PlasmaDoor
   targetNode: plasmaDoor
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: MetalDoor
   id: GoldDoor
   targetNode: goldDoor
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: MetalDoor
   id: SilverDoor
   targetNode: silverDoor
-<<<<<<< HEAD
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: MetalDoor
@@ -1954,12 +738,8 @@
   targetNode: paperDoor
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-=======
     DoorsKnowledge: 0
   practical: {}
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -1973,12 +753,8 @@
   targetNode: bananiumDoor
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-=======
     DoorsKnowledge: 0
     BananiumKnowledge: 0
->>>>>>> upstream
   # </Trauma>
 # endregion Material Doors
 
@@ -1989,39 +765,13 @@
   name: construction-recipe-plastic-flaps-clear
   graph: PlasticFlapsGraph
   targetNode: plasticFlaps
-<<<<<<< HEAD
-  category: construction-category-structures
-  placementMode: SnapgridCenter
-  objectType: Structure
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: PlasticFlapsClear
   id: PlasticFlapsOpaque
   name: construction-recipe-plastic-flaps-opaque
   targetNode: opaqueFlaps
-<<<<<<< HEAD
-  category: construction-category-structures
-  placementMode: SnapgridCenter
-  objectType: Structure
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  # </Trauma>
-=======
 # endregion Plastic Flaps
->>>>>>> upstream
 
 # region Decoration
 - type: construction
@@ -2030,13 +780,8 @@
   graph: CarpStatue
   targetNode: statue
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ManufacturingKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 4
+    CarvingKnowledge: 4
   # </Trauma>
 
 - type: construction
@@ -2052,47 +797,11 @@
     - !type:TileNotBlocked
   # <Trauma>
   theory:
-    ScienceKnowledge: 0
+    BananiumKnowledge: 0
   practical:
-    SurvivalKnowledge: 4
+    CarvingKnowledge: 4
   # </Trauma>
 
-<<<<<<< HEAD
-- type: construction
-  id: BananiumDoor
-  graph: DoorGraph
-  startNode: start
-  targetNode: bananiumDoor
-  category: construction-category-structures
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ScienceKnowledge: 0
-    ConstructionKnowledge: 0
-  # </Trauma>
-
-##- type: construction
-##  name: bananium altar
-##  id: BananiumAltar
-##  graph: BananiumAltarGraph
-##  startNode: start
-##  targetNode: bananiumAltar
-##  category: construction-category-structures
-##  description: An altar to worship the honkmother with.
-##  icon:
-##   sprite: Structures/Furniture/Altars/Cults/bananium.rsi
-##    state: full
-##  objectType: Structure
-##  placementMode: SnapgridCenter
-##  canRotate: false
-##  canBuildInImpassable: false
-##  conditions:
-##    - !type:TileNotBlocked
-=======
 # <Trauma>
 #- type: construction
 #  parent: BaseStructureFullTile
@@ -2101,7 +810,6 @@
 #  targetNode: bananiumAltar
 # </Trauma>
 # endregion Decoration
->>>>>>> upstream
 
 # region Miscallaneous
 - type: construction
@@ -2114,7 +822,8 @@
   placementMode: SnapgridCenter
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    WallsKnowledge: 0
+    DoorsKnowledge: 0
     ElectronicsKnowledge: 0
   useQuality: false
   # </Trauma>
@@ -2126,9 +835,6 @@
   targetNode: turnstile
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-=======
     DoorsKnowledge: 0
   practical:
     DoorsKnowledge: 1
@@ -2142,7 +848,6 @@
   targetNode: entity
   # <Trauma>
   theory:
->>>>>>> upstream
     ElectronicsKnowledge: 0
   useQuality: false
   # </Trauma>
@@ -2153,11 +858,6 @@
   graph: Soil
   targetNode: fungalSoil
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ManufacturingKnowledge: 0
-=======
->>>>>>> upstream
   useQuality: false
   # </Trauma>
 
@@ -2180,7 +880,7 @@
   targetNode: bonfire
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   # </Trauma>
 
 - type: construction
@@ -2190,8 +890,8 @@
   targetNode: bonfireStake
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 # endregion Miscallaneous

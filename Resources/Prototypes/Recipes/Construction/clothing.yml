@@ -18,36 +18,12 @@
   id: ClownHardsuit
   graph: ClownHardsuit
   targetNode: clownHardsuit
-<<<<<<< HEAD
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-    MechanicsKnowledge: 0 # billions must honk
-  practical:
-    MechanicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseClothing
   id: MimeHardsuit
   graph: MimeHardsuit
   targetNode: mimeHardsuit
-<<<<<<< HEAD
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-    MechanicsKnowledge: 0 # billions must ...
-  practical:
-    MechanicsKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseClothing
@@ -56,9 +32,9 @@
   targetNode: armor
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
     ArmorKnowledge: 2
   # </Trauma>
 
@@ -69,9 +45,9 @@
   targetNode: helmet
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
     ArmorKnowledge: 2
   # </Trauma>
 
@@ -84,7 +60,7 @@
   qualityPrototype: ShitCraft
   theory: {} # it's cardboard
   practical:
-    SurvivalKnowledge: 0
+    TailoringKnowledge: 0
     ArmorKnowledge: 0
   # </Trauma>
 
@@ -97,7 +73,7 @@
   qualityPrototype: ShitCraft
   theory: {} # it's cardboard
   practical:
-    SurvivalKnowledge: 0
+    TailoringKnowledge: 0
     ArmorKnowledge: 0
   # </Trauma>
 
@@ -108,9 +84,9 @@
   targetNode: mask
   # <Trauma>
   theory:
-    ScienceKnowledge: 0
+    BananiumKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -120,9 +96,9 @@
   targetNode: jumpsuit
   # <Trauma>
   theory:
-    ScienceKnowledge: 0
+    BananiumKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -132,9 +108,9 @@
   targetNode: shoes
   # <Trauma>
   theory:
-    ScienceKnowledge: 0
+    BananiumKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -144,7 +120,7 @@
   targetNode: medsecHud
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
     ElectronicsKnowledge: 1
   # </Trauma>
 
@@ -153,32 +129,12 @@
   id: ClothingShoeSlippersDuck
   graph: ClothingShoeSlippersDuck
   targetNode: shoes
-<<<<<<< HEAD
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    SurvivalKnowledge: 0
-    MechanicsKnowledge: 0
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseClothing
   id: ClothingShoeSlippersLizard
   graph: ClothingShoeSlippersLizard
   targetNode: shoes
-<<<<<<< HEAD
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    SurvivalKnowledge: 0
-    MechanicsKnowledge: 0
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseClothing
@@ -187,7 +143,7 @@
   targetNode: glassesSec
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
     ElectronicsKnowledge: 1
   # </Trauma>
 
@@ -198,10 +154,10 @@
   targetNode: Quiver
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1 # medieval chuds figured it out come on
+    FabricationKnowledge: 1 # medieval chuds figured it out come on
   practical:
-    ManufacturingKnowledge: 2
-    SurvivalKnowledge: 2
+    FabricationKnowledge: 2
+    TailoringKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -211,9 +167,9 @@
   targetNode: helmet
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
     ElectronicsKnowledge: 1
   # </Trauma>
 # endregion Clothing

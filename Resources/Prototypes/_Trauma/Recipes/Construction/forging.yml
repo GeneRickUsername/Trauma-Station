@@ -11,7 +11,7 @@
   conditions:
   - !type:TileNotBlocked
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   useQuality: false
 
 - type: construction
@@ -19,7 +19,7 @@
   id: CharcoalOven
   graph: CharcoalOven
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
 
 - type: construction
   parent: BaseForgingStructure
@@ -33,7 +33,7 @@
   graph: CharcoalForge
   targetNode: unlit
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
 
 # TODO: this should just be a heat exchange system for any reagent so you can have water/oil(maybe fire)/napalm (definitely fire) with their own heat capacities
 - type: construction
@@ -41,4 +41,4 @@
   id: QuenchingBarrel
   graph: QuenchingBarrel
   practical:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2

@@ -5,7 +5,7 @@
   targetNode: potatobattery
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
     ElectronicsKnowledge: 1
   # </Trauma>
@@ -17,7 +17,7 @@
   targetNode: potatoai
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
     ElectronicsKnowledge: 2
   # </Trauma>
@@ -29,7 +29,7 @@
   targetNode: potatoaichip
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
     ElectronicsKnowledge: 3
   # </Trauma>

@@ -13,9 +13,6 @@
   theory:
     SpiderCraftKnowledge: 0
   practical:
-<<<<<<< HEAD
-    SurvivalKnowledge: 2
-=======
     TailoringKnowledge: 2
   # </Trauma>
 # endregion Base
@@ -29,7 +26,6 @@
   conditions:
   - !type:TileNotBlocked
   # <Trauma>
->>>>>>> upstream
   useQuality: false
   # </Trauma>
 
@@ -38,55 +34,22 @@
   id: TableWeb
   targetNode: table
   conditions:
-<<<<<<< HEAD
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-=======
   - !type:TileNotBlocked
->>>>>>> upstream
 
 - type: construction
   parent: BaseWebStructure
   id: WebBed
   targetNode: bed
   conditions:
-<<<<<<< HEAD
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-=======
   - !type:TileNotBlocked
->>>>>>> upstream
 
 - type: construction
   parent: BaseWebStructure
   id: ChairWeb
   targetNode: chair
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-=======
   canRotate: true
   conditions:
   - !type:TileNotBlocked
->>>>>>> upstream
 
 - type: construction
   parent: BaseWebStructure
@@ -98,7 +61,7 @@
   theory:
     SpiderCraftKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    TailoringKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -107,15 +70,5 @@
   targetNode: door
   category: construction-category-structures
   conditions:
-<<<<<<< HEAD
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-=======
   - !type:TileNotBlocked
 # endregion Web
->>>>>>> upstream

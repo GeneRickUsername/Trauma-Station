@@ -6,11 +6,6 @@
   graph: SheetPaper
   targetNode: paper sheet
   theory: {} # it's folding paper bro
-<<<<<<< HEAD
-  practical:
-    ManufacturingKnowledge: 0 # its folding paper bro
-=======
->>>>>>> upstream
   useQuality: false
 
 - type: construction
@@ -84,11 +79,7 @@
   category: construction-category-tools
   objectType: Item
   theory:
-<<<<<<< HEAD
-    ManufacturingKnowledge: 1
-=======
     FabricationKnowledge: 1
->>>>>>> upstream
   useQuality: false
 
 - type: construction

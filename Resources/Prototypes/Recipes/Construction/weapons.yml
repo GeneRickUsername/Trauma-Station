@@ -14,9 +14,9 @@
   targetNode: icon
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    SurvivalKnowledge: 2
+    TailoringKnowledge: 2
     WeaponsKnowledge: 1
   # </Trauma>
 
@@ -26,9 +26,9 @@
   graph: BladedFlatcapBrown
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    SurvivalKnowledge: 2
+    TailoringKnowledge: 2
     WeaponsKnowledge: 1
   # </Trauma>
 
@@ -55,11 +55,7 @@
   graph: PlasmaShiv
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ManufacturingKnowledge: 1 # need to be careful with plasma
-=======
     FabricationKnowledge: 1 # need to be careful with phoron
->>>>>>> upstream
     WeaponsKnowledge: 0
   practical:
     WeaponsKnowledge: 1
@@ -71,7 +67,7 @@
   graph: UraniumShiv
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1 # need to be careful with uranium
+    FabricationKnowledge: 1 # need to be careful with uranium
     WeaponsKnowledge: 0
   practical:
     WeaponsKnowledge: 1
@@ -85,7 +81,7 @@
   # <Trauma>
   qualityPrototype: ShitCraft
   theory:
-    ManufacturingKnowledge: 0 # caveman gaming
+    FabricationKnowledge: 0 # caveman gaming
   practical:
     WeaponsKnowledge: 5 # Very difficult to make something good out of shit
   # </Trauma>
@@ -94,20 +90,6 @@
   parent: Spear
   id: SpearReinforced
   graph: SpearReinforced
-<<<<<<< HEAD
-  startNode: start
-  targetNode: spear
-  category: construction-category-weapons
-  objectType: Item
-  # <Trauma>
-  qualityPrototype: ShitCraft
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    WeaponsKnowledge: 5 # Very difficult to make something good out of shit
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: Spear
@@ -115,13 +97,7 @@
   graph: SpearPlasma
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ManufacturingKnowledge: 1
-  practical:
-    WeaponsKnowledge: 5 # Very difficult to make something good out of shit
-=======
     FabricationKnowledge: 1
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -138,15 +114,9 @@
   id: SpearSharkMinnow
   graph: SpearSharkMinnow
   # <Trauma>
-<<<<<<< HEAD
-  qualityPrototype: ShitCraft
-  theory:
-    ManufacturingKnowledge: 1
-=======
->>>>>>> upstream
   practical:
     WeaponsKnowledge: 4
-    SurvivalKnowledge: 4
+    CarvingKnowledge: 4
   # </Trauma>
 
 - type: construction
@@ -169,7 +139,7 @@
   targetNode: bola
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
     WeaponsKnowledge: 2
   # </Trauma>
@@ -181,9 +151,9 @@
   targetNode: woodenBuckler
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
     ArmorKnowledge: 1
   # </Trauma>
 
@@ -195,7 +165,7 @@
   # <Trauma>
   qualityPrototype: ShitCraft
   theory:
-    ManufacturingKnowledge: 0 # it's cardboard
+    FabricationKnowledge: 0 # it's cardboard
   practical:
     ArmorKnowledge: 1
   # </Trauma>
@@ -207,10 +177,10 @@
   targetNode: makeshiftShield
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
     ArmorKnowledge: 1
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
   # </Trauma>
 
 
@@ -222,9 +192,9 @@
   # <Trauma>
   qualityPrototype: ShitBullets
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    GunsmithKnowledge: 2
+    GunsmithingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -235,10 +205,10 @@
   # <Trauma>
   qualityPrototype: ShitBullets
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    GunsmithKnowledge: 2
-    SurvivalKnowledge: 3
+    GunsmithingKnowledge: 2
+    CarvingKnowledge: 3
   # </Trauma>
 
 - type: construction
@@ -249,9 +219,9 @@
   # <Trauma>
   qualityPrototype: ShitBullets
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    GunsmithKnowledge: 2
+    GunsmithingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -262,9 +232,9 @@
   # <Trauma>
   qualityPrototype: ShitBullets
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    GunsmithKnowledge: 2
+    GunsmithingKnowledge: 2
   # </Trauma>
 
 - type: construction
@@ -275,11 +245,7 @@
   # <Trauma>
   qualityPrototype: Cardboard
   theory:
-<<<<<<< HEAD
-    ManufacturingKnowledge: 0 # it's card board but like origami
-=======
     FabricationKnowledge: 0 # it's cardboard but like origami
->>>>>>> upstream
   practical:
     WeaponsKnowledge: 1
   # </Trauma>
@@ -292,37 +258,12 @@
   # <Trauma>
   theory:
     WeaponsKnowledge: 1
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
     WeaponsKnowledge: 1
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>
 
-<<<<<<< HEAD
-- type: construction
-  id: SpearBone
-  graph: SpearBone
-  startNode: start
-  targetNode: spear
-  category: construction-category-weapons
-  objectType: Item
-  # <Trauma>
-  qualityPrototype: ShitCraft
-  theory:
-    WeaponsKnowledge: 0
-  practical:
-    WeaponsKnowledge: 4
-    SurvivalKnowledge: 4
-  # </Trauma>
-
-# - type: construction # Trauma
-#   id: ClothingHandsKnuckleDustersBrass
-#   graph: ClothingHandsKnuckleDustersBrass
-#   startNode: start
-#   targetNode: icon
-#   category: construction-category-weapons
-#   objectType: Item
-=======
 # <Trauma>
 #- type: construction
 #  parent: BaseWeapon
@@ -330,7 +271,6 @@
 #  graph: ClothingHandsKnuckleDustersBrass
 #  targetNode: icon
 # </Trauma>
->>>>>>> upstream
 
 - type: construction
   parent: BaseWeapon
@@ -340,7 +280,7 @@
   # <Trauma>
   qualityPrototype: ShitCraft
   theory:
-    ManufacturingKnowledge: 0 # it's cardboard
+    FabricationKnowledge: 0 # it's cardboard
   practical:
     WeaponsKnowledge: 1
   # </Trauma>

@@ -10,7 +10,7 @@
   work: 200 # its a fucking halberd
   cost: 3
   skills:
-    ManufacturingKnowledge: 2
+    MetalworkingKnowledge: 2
     WeaponsKnowledge: 3
 
 - type: forgedItem
@@ -23,5 +23,5 @@
   work: 150
   cost: 2
   skills:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
     WeaponsKnowledge: 2

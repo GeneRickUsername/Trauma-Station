@@ -50,174 +50,49 @@
   parent: BaseChair
   id: Chair
   targetNode: chair
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0 # most basic chair
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: Stool
   targetNode: stool
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: StoolBar
   targetNode: stoolBar
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: ChairBrass
   targetNode: chairBrass
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: ChairOfficeLight
   targetNode: chairOffice
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: ChairOfficeDark
   targetNode: chairOfficeDark
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: ChairComfy
   targetNode: chairComfy
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: chairPilotSeat
   targetNode: chairPilotSeat
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: ChairWood
   targetNode: chairWood
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0 # fucking wood chair
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -225,15 +100,8 @@
   id: ChairMeat
   targetNode: chairMeat
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ConstructionKnowledge: 2 # meat....
-=======
   practical:
     CookingKnowledge: 2 # meat....
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -243,13 +111,8 @@
   startNode: start
   targetNode: chairRitual
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -258,7 +121,7 @@
   targetNode: chairFolding
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
     MechanicsKnowledge: 1
   # </Trauma>
@@ -267,33 +130,14 @@
   parent: BaseChair
   id: ChairSteelBench
   targetNode: chairSteelBench
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseChair
   id: StoolCard
   targetNode: stoolCard
   theory:
-<<<<<<< HEAD
-    ConstructionKnowledge: 0
-=======
     FurnitureKnowledge: 0
   practical: null
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -301,13 +145,8 @@
   id: ChairWoodBench
   targetNode: chairWoodBench
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -316,13 +155,8 @@
   name: construction-recipe-red-comf-bench
   targetNode: redComfBench
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -330,180 +164,53 @@
   id: BlueComfBench
   name: construction-recipe-blue-comf-bench
   targetNode: blueComfBench
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-=======
 # endregion Chairs
->>>>>>> upstream
 
 # region Tables
 - type: construction
   parent: BaseTable
   id: Table
   targetNode: Table
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TableReinforced
   targetNode: TableReinforced
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TableGlass
   targetNode: TableGlass
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TableCard
   graph: Table
   targetNode: TableCard
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-  - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TableReinforcedGlass
   targetNode: TableReinforcedGlass
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TablePlasmaGlass
   targetNode: TablePlasmaGlass
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TableBrass
   targetNode: TableBrass
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseTable
   id: TableWood
   targetNode: TableWood
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-=======
   practical:
     FurnitureKnowledge: 1
     CarvingKnowledge: 1
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -511,16 +218,9 @@
   id: TableCarpet
   targetNode: TableCarpet
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-=======
   practical:
     FurnitureKnowledge: 1
     TailoringKnowledge: 1
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -528,42 +228,12 @@
   id: TableFancyBlack
   name: construction-recipe-table-fancy-black
   targetNode: TableFancyBlack
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: TableCarpet # Trauma
   id: TableFancyBlue
   name: construction-recipe-table-fancy-blue
   targetNode: TableFancyBlue
-<<<<<<< HEAD
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: TableCarpet # Trauma
@@ -725,511 +395,21 @@
   - !type:TileNotBlocked
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    TailoringKnowledge: 2
   # </Trauma>
 
 - type: construction
-<<<<<<< HEAD
-  id: TableFancyCyan
-  name: construction-recipe-table-fancy-cyan
-  graph: Table
-  startNode: start
-  targetNode: TableFancyCyan
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableFancyGreen
-  name: construction-recipe-table-fancy-green
-  graph: Table
-  startNode: start
-  targetNode: TableFancyGreen
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableFancyOrange
-  name: construction-recipe-table-fancy-orange
-  graph: Table
-  startNode: start
-  targetNode: TableFancyOrange
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableFancyPurple
-  name: construction-recipe-table-fancy-purple
-  graph: Table
-  startNode: start
-  targetNode: TableFancyPurple
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ConstructionKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableFancyPink
-  name: construction-recipe-table-fancy-pink
-  graph: Table
-  startNode: start
-  targetNode: TableFancyPink
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ConstructionKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableFancyRed
-  name: construction-recipe-table-fancy-red
-  graph: Table
-  startNode: start
-  targetNode: TableFancyRed
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ConstructionKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableFancyWhite
-  name: construction-recipe-table-fancy-white
-  graph: Table
-  startNode: start
-  targetNode: TableFancyWhite
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ConstructionKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: TableCounterMetal
-  graph: Table
-  startNode: start
-  targetNode: CounterMetal
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: TableCounterWood
-  graph: Table
-  startNode: start
-  targetNode: CounterWood
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-#bathroom
-- type: construction
-  id: ToiletEmpty
-  graph: Toilet
-  startNode: start
-  targetNode: toilet
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    MechanicsKnowledge: 1
-  # </Trauma>
-
-#bedroom
-- type: construction
-  id: Bed
-  graph: bed
-  startNode: start
-  targetNode: bed
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: MedicalBed
-  graph: bed
-  startNode: start
-  targetNode: medicalbed
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-    FirstAidKnowledge: 0 # :)
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: DogBed
-  graph: bed
-  startNode: start
-  targetNode: dogbed
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: Dresser
-  graph: Dresser
-  startNode: start
-  targetNode: dresser
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-#racks
-- type: construction
-  id: Rack
-  graph: Rack
-  startNode: start
-  targetNode: Rack
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-
-#misc
-- type: construction
-  id: MeatSpike
-  graph: MeatSpike
-  startNode: start
-  targetNode: MeatSpike
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    CookingKnowledge: 0
-    ManufacturingKnowledge: 0
-    ConstructionKnowledge: 0
-  # </Trauma>
-
-- type: construction
-  id: Curtains
-  name: construction-recipe-curtains-cloth
-  graph: Curtains
-  startNode: start
-  targetNode: Curtains
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsBlack
-  name: construction-recipe-curtains-black
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsBlack
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsBlue
-  name: construction-recipe-curtains-blue
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsBlue
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsSkyBlue
-  name: construction-recipe-curtains-sky-blue
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsSkyBlue
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsCyan
-  name: construction-recipe-curtains-cyan
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsCyan
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsGreen
-  name: construction-recipe-curtains-green
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsGreen
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsOrange
-  name: construction-recipe-curtains-orange
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsOrange
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsPink
-  name: construction-recipe-curtains-pink
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsPink
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsPurple
-  name: construction-recipe-curtains-purple
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsPurple
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsRed
-  name: construction-recipe-curtains-red
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsRed
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-  id: CurtainsWhite
-  name: construction-recipe-curtains-white
-  graph: Curtains
-  startNode: start
-  targetNode: CurtainsWhite
-  category: construction-category-furniture
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-=======
   parent: BaseTable # close enough
->>>>>>> upstream
   id: Bookshelf
   graph: Bookshelf
   targetNode: bookshelf
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -1255,9 +435,9 @@
   - !type:WallmountCondition
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -1280,7 +460,7 @@
   - !type:TileNotBlocked
   # <Trauma>
   theory:
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2
   # </Trauma>

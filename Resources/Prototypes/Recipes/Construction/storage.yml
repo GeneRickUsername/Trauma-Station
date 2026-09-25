@@ -29,62 +29,17 @@
   id: FilingCabinet
   graph: FilingCabinet
   targetNode: filingCabinet
-<<<<<<< HEAD
-  category: construction-category-storage
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FilingCabinet
   id: TallCabinet
   targetNode: tallCabinet
-<<<<<<< HEAD
-  category: construction-category-storage
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 2
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: FilingCabinet
   id: ChestDrawer
   targetNode: chestDrawer
-<<<<<<< HEAD
-  category: construction-category-storage
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: false
-  conditions:
-    - !type:TileNotBlocked
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
 # endregion Bureaucracy
->>>>>>> upstream
 
 # region Item Cabinets
 - type: construction
@@ -93,13 +48,8 @@
   graph: GlassBox
   targetNode: glassBox
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 # endregion Item Cabinets
 
@@ -111,148 +61,54 @@
   # <Trauma>
   theory: {} # it's 2 pieces of wood
   practical:
-    SurvivalKnowledge: 1 # nailing it to the wall or smth
+    CarvingKnowledge: 1 # nailing it to the wall or smth
   # </Trauma>
 
 - type: construction
   parent: BaseShelf
   id: ShelfMetal
   targetNode: ShelfMetal
-<<<<<<< HEAD
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShelf
   id: ShelfGlass
   targetNode: ShelfGlass
-<<<<<<< HEAD
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShelf
   id: ShelfRWood
   targetNode: ShelfRWood
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
   parent: BaseShelf
   id: ShelfRMetal
   targetNode: ShelfRMetal
-<<<<<<< HEAD
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShelf
   id: ShelfRGlass
   targetNode: ShelfRGlass
-<<<<<<< HEAD
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShelf
   id: ShelfBar
   targetNode: ShelfBar
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    ConstructionKnowledge: 0
-=======
->>>>>>> upstream
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
   parent: BaseShelf
   id: ShelfKitchen
   targetNode: ShelfKitchen
-<<<<<<< HEAD
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
->>>>>>> upstream
 
 - type: construction
   parent: BaseShelf
   id: ShelfChemistry
   targetNode: ShelfChemistry
-<<<<<<< HEAD
-  objectType: Structure
-  placementMode: SnapgridCenter
-  canBuildInImpassable: true
-  conditions:
-    - !type:WallmountCondition
-  # <Trauma>
-  theory:
-    ConstructionKnowledge: 0
-  practical:
-    ManufacturingKnowledge: 1
-  # </Trauma>
-=======
 # endregion Shelves
->>>>>>> upstream

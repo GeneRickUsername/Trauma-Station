@@ -8,7 +8,7 @@
   objectType: Item
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   useQuality: false # annoying for construction, masterwork tiles as weapons is sad but not worth the hassle
   # </Trauma>
 # endregion Base

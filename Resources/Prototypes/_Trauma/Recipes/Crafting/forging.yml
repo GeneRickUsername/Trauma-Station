@@ -7,7 +7,7 @@
   category: construction-category-forging
   objectType: Item
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
 
 - type: construction
   parent: BaseForgingItem
@@ -15,7 +15,7 @@
   graph: Handle
   targetNode: short handle
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   useQuality: false
 
 - type: construction
@@ -33,16 +33,16 @@
   id: ClothingHandsGlovesForge
   graph: ClothingHandsGlovesForge
   practical:
-    SurvivalKnowledge: 3
+    TailoringKnowledge: 3
 
 - type: construction
   parent: BaseForgingItem
   id: AnvilBottom
   graph: AnvilBottom
   theory:
-    ManufacturingKnowledge: 2
+    FabricationKnowledge: 2
   practical:
-    ManufacturingKnowledge: 1
+    MetalworkingKnowledge: 1
   useQuality: false
 
 - type: construction
@@ -56,9 +56,9 @@
   graph: SteelScraps
   targetNode: scraps
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
-    ManufacturingKnowledge: 0
+    MetalworkingKnowledge: 0
   useQuality: false
 
 - type: construction
@@ -86,5 +86,5 @@
   id: WetBrick
   graph: WetBrick
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   useQuality: false

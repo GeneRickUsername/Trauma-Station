@@ -24,66 +24,7 @@
   category: construction-category-tiles
   # <Trauma>
   practical:
-<<<<<<< HEAD
-    SurvivalKnowledge: 2
-  # </Trauma>
-
-- type: construction
-  id: ClothingOuterWinterWeb
-  graph: WebObjects
-  startNode: start
-  targetNode: coat
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 4
-  # </Trauma>
-
-- type: construction
-  id: ClothingUniformJumpsuitWeb
-  graph: WebObjects
-  startNode: start
-  targetNode: jumpsuit
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 4
-  # </Trauma>
-
-- type: construction
-  id: ClothingUniformJumpskirtWeb
-  graph: WebObjects
-  startNode: start
-  targetNode: jumpskirt
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 4
-  # </Trauma>
-
-- type: construction
-  id: SilkWovenCloth
-  name: construction-recipe-silk-woven-cloth
-  graph: WebObjects
-  startNode: start
-  targetNode: cloth
-  category: construction-category-materials
-  objectType: Item
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-=======
     TailoringKnowledge: 2
->>>>>>> upstream
   useQuality: false
   # </Trauma>
 
@@ -109,15 +50,8 @@
   targetNode: cloth
   category: construction-category-materials
   # <Trauma>
-<<<<<<< HEAD
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 4
-=======
   practical: null
   useQuality: false
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -130,15 +64,4 @@
   parent: BaseWebObject
   id: ClothingShoesBootsWinterWeb
   targetNode: boots
-<<<<<<< HEAD
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    SpiderCraftKnowledge: 0
-  practical:
-    SurvivalKnowledge: 4
-  # </Trauma>
-=======
 # endregion Web Objects
->>>>>>> upstream

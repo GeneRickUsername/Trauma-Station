@@ -12,6 +12,6 @@
   - !type:TileNotBlocked
   theory:
     WeaponsKnowledge: 0
-    ConstructionKnowledge: 0
+    FurnitureKnowledge: 0
   practical:
-    SurvivalKnowledge: 2
+    CarvingKnowledge: 2

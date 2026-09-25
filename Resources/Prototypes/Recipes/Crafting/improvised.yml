@@ -18,42 +18,11 @@
     WeaponsKnowledge: 0
   practical:
     WeaponsKnowledge: 4
-    SurvivalKnowledge: 4
+    CarvingKnowledge: 4
   # </Trauma>
 
 - type: construction
-<<<<<<< HEAD
-  id: ghost_sheet
-  graph: GhostSheet
-  startNode: start
-  targetNode: ghost_sheet
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: makeshifthandcuffs
-  graph: makeshifthandcuffs
-  startNode: start
-  targetNode: cuffscable
-  category: construction-category-tools
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0 # tying a knot or something
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-=======
   parent: BaseWeapon
->>>>>>> upstream
   id: makeshiftstunprod
   graph: makeshiftstunprod
   targetNode: msstunprod
@@ -61,113 +30,36 @@
   qualityPrototype: ShitCraft
   theory:
     WeaponsKnowledge: 1
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
     ElectronicsKnowledge: 4
   # </Trauma>
 
 - type: construction
-<<<<<<< HEAD
-  id: muzzle
-  graph: Muzzle
-  startNode: start
-  targetNode: muzzle
-  category: construction-category-tools
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-=======
   parent: BaseWeapon
->>>>>>> upstream
   id: pneumaticcannon
   graph: PneumaticCannon
   targetNode: cannon
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 3
+    FabricationKnowledge: 3
     WeaponsKnowledge: 1
   practical:
-    GunsmithKnowledge: 2
+    GunsmithingKnowledge: 2
     MechanicsKnowledge: 3
   # </Trauma>
 
 - type: construction
-<<<<<<< HEAD
-  id: gauze
-  graph: Gauze
-  startNode: start
-  targetNode: gauze
-  category: construction-category-tools
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0 # its not rocket science
-    FirstAidKnowledge: 0
-  practical:
-    SurvivalKnowledge: 2
-    FirstAidKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: blindfold
-  graph: Blindfold
-  startNode: start
-  targetNode: blindfold
-  category: construction-category-tools
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0 # its a tied piece of cloth
-  practical:
-    SurvivalKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: flowerwreath
-  graph: flowerwreath
-  startNode: start
-  targetNode: flowerwreath
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory: {}
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: rag
-  graph: Rag
-  startNode: start
-  targetNode: rag
-  category: construction-category-tools
-  objectType: Item
-  # <Trauma>
-  theory: {} # its just a bunch of cloth literally no crafting involved
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-=======
   parent: BaseWeapon
->>>>>>> upstream
   id: improvisedshotgun
   graph: ImprovisedShotgunGraph
   targetNode: shotgun
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 3
-    GunsmithKnowledge: 2
+    FabricationKnowledge: 3
+    GunsmithingKnowledge: 2
   practical:
-    GunsmithKnowledge: 4
+    GunsmithingKnowledge: 4
     WeaponsKnowledge: 3
   # </Trauma>
 
@@ -179,10 +71,10 @@
   # <Trauma>
   qualityPrototype: ShitBullets
   theory:
-    ManufacturingKnowledge: 3
-    GunsmithKnowledge: 1
+    FabricationKnowledge: 3
+    GunsmithingKnowledge: 1
   practical:
-    GunsmithKnowledge: 2
+    GunsmithingKnowledge: 2
     WeaponsKnowledge: 2
   # </Trauma>
 
@@ -193,9 +85,9 @@
   targetNode: riflestock
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
   practical:
-    SurvivalKnowledge: 1
+    CarvingKnowledge: 1
   # </Trauma>
 
 - type: construction
@@ -205,52 +97,20 @@
   targetNode: firebomb
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
     MechanicsKnowledge: 2
     WeaponsKnowledge: 2
   # </Trauma>
 
 - type: construction
-<<<<<<< HEAD
-  id: CottonWovenCloth
-  graph: CottonObjects
-  startNode: start
-  targetNode: cottoncloth
-  category: construction-category-misc
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: strawHat
-  graph: StrawHat
-  startNode: start
-  targetNode: strawhat
-  category: construction-category-clothing
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  practical:
-    SurvivalKnowledge: 1
-  # </Trauma>
-
-- type: construction
-=======
   parent: BaseWeapon
->>>>>>> upstream
   id: pipebomb
   graph: PipeBomb
   targetNode: pipebomb
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
     MechanicsKnowledge: 3
     WeaponsKnowledge: 3
@@ -281,41 +141,9 @@
   targetNode: strawhat
   # <Trauma>
   theory:
-<<<<<<< HEAD
-    ManufacturingKnowledge: 0 # its a piece of wood bro
-  practical:
-    SurvivalKnowledge: 3
-  # </Trauma>
-
-- type: construction
-  id: PetCarrier
-  graph: PetCarrier
-  startNode: start
-  targetNode: petCarrier
-  category: construction-category-misc
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  useQuality: false
-  # </Trauma>
-
-- type: construction
-  id: RepairMothershipPinpointer
-  graph: RepairMothershipPinpointer
-  startNode: start
-  targetNode: repairedPinpointer
-  category: construction-category-misc
-  objectType: Item
-  # <Trauma>
-  theory:
-    ManufacturingKnowledge: 0
-  useQuality: false
-=======
     FabricationKnowledge: 0
   practical:
     TailoringKnowledge: 1
->>>>>>> upstream
   # </Trauma>
 
 - type: construction
@@ -325,7 +153,7 @@
   targetNode: hardsuitGoliath
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
     ArmorKnowledge: 1
   useQuality: false # just taping goliath hide to a hardsuit, and it doesnt work for the helmet lol
   # </Trauma>
@@ -337,11 +165,11 @@
   targetNode: scraparmorfinished
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
     ArmorKnowledge: 1
   practical:
     ArmorKnowledge: 4
-    ManufacturingKnowledge: 4
+    MetalworkingKnowledge: 4
   # </Trauma>
 
 - type: construction
@@ -351,11 +179,11 @@
   targetNode: scraphelmet
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 1
+    FabricationKnowledge: 1
     ArmorKnowledge: 1
   practical:
     ArmorKnowledge: 4
-    ManufacturingKnowledge: 4
+    MetalworkingKnowledge: 4
   # </Trauma>
 
 - type: construction
@@ -365,9 +193,9 @@
   targetNode: bagPet
   # <Trauma>
   theory:
-    ManufacturingKnowledge: 0
+    FabricationKnowledge: 0
   practical:
-    SurvivalKnowledge: 1
+    TailoringKnowledge: 1
   useQuality: false
   # </Trauma>
 # endregion Clothing
