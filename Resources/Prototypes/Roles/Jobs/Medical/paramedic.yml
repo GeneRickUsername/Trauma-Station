@@ -23,14 +23,6 @@
   - MedicalDoctor
   - Medical
   - Medicine
-<<<<<<< HEAD
-  access:
-  - Medical
-  - Maintenance
-  - External # goobstation
-  extendedAccess:
-  - Chemistry
-=======
   special:
   - !type:OrganChipsSpecial
     chips:
@@ -43,7 +35,6 @@
       reviveChance: 0.6 # better at chest compressions
       inhaleChance: 0.9 # very good at mouth to mouth res.
   # </Trauma>
->>>>>>> upstream
 
 - type: startingGear
   id: ParamedicGear

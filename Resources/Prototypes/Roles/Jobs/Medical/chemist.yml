@@ -14,8 +14,6 @@
   - Medical
   - Chemistry
   - Maintenance
-<<<<<<< HEAD
-=======
   # <Trauma>
   guides:
   - Chemist
@@ -30,7 +28,6 @@
     - type: SurgerySpeedModifier
       speedModifier: 1.25
   # </Trauma>
->>>>>>> upstream
 
 - type: startingGear
   id: ChemistGear

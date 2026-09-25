@@ -114,19 +114,6 @@
   - !type:AddComponentSpecial
     components:
     - type: BibleUser #Lets them heal with bibles
-<<<<<<< HEAD
-    - type: CurseImmune # Goobstation - Wraith
-    - type: CanEnchant #GoobStation
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 50
-        # ShootingKnowledge: 50
-        MagicalLiteracyKnowledge: 50
-        LiteracyKnowledge: 50
-    # </Trauma>
-=======
->>>>>>> upstream
   - !type:AddImplantSpecial
     implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
 
@@ -201,24 +188,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-<<<<<<< HEAD
-    implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm ]
-  # <Trauma>
-  - !type:AddComponentSpecial
-    components:
-      - type: KnowledgeGrant
-        skills:
-          ManufacturingKnowledge: 50
-          # MeleeKnowledge 50
-          # ShootingKnowledge: 50
-          ConstructionKnowledge: 50
-          MechanicsKnowledge: 50
-          ElectronicsKnowledge: 50
-          SurvivalKnowledge: 50
-  # </Trauma>
-=======
     implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
->>>>>>> upstream
 
 - type: startingGear
   parent: ERTEngineerGearEVA
@@ -311,22 +281,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-<<<<<<< HEAD
-    implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm]
-  # <Trauma>
-  - !type:AddComponentSpecial
-    components:
-      - type: KnowledgeGrant
-        skills:
-          # MeleeKnowledge 50
-          # ShootingKnowledge: 50
-          # StrengthKnowledge 50
-          # ToughnessKnowledge 50
-          AthleticsKnowledge: 50
-  # </Trauma>
-=======
     implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
->>>>>>> upstream
 
 - type: startingGear
   parent: ERTSecurityGearEVA
@@ -512,21 +467,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-<<<<<<< HEAD
-    implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm ]
-  # <Trauma>
-  - !type:AddComponentSpecial
-    components:
-      - type: KnowledgeGrant
-        skills:
-          # MeleeKnowledge 50
-          # ShootingKnowledge: 50
-          SurgeryKnowledge: 50
-          FirstAidKnowledge: 50
-  # </Trauma>
-=======
     implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
->>>>>>> upstream
 
 - type: startingGear
   parent: ERTMedicalGearEVA
@@ -625,20 +566,7 @@
   - CentralCommand
   special:
   - !type:AddImplantSpecial
-<<<<<<< HEAD
-    implants: [ MindShieldImplant, FreedomImplant, BluespaceLifelineImplant, RadioImplantCentcomm, NutrimentPumpImplant, StypticStimulatorImplant, DeathRattleImplantCentcomm]
-  # <Trauma>
-  - !type:AddComponentSpecial
-    components:
-      - type: KnowledgeGrant
-        skills:
-          # MeleeKnowledge 50
-          # ShootingKnowledge: 50
-          JanitorKnowledge: 50
-  # </Trauma>
-=======
     implants: [ MindShieldImplant, DeathRattleImplantCentcomm ]
->>>>>>> upstream
 
 - type: startingGear
   parent: ERTJanitorGearEVA

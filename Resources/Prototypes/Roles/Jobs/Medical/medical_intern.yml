@@ -14,8 +14,6 @@
   access:
   - Medical
   - Maintenance
-<<<<<<< HEAD
-=======
   # <Trauma>
   guides:
   - MedicalDoctor
@@ -32,7 +30,6 @@
     - type: SurgerySpeedModifier
       speedModifier: 1.25
   # </Trauma>
->>>>>>> upstream
 
 - type: startingGear
   id: MedicalInternGear

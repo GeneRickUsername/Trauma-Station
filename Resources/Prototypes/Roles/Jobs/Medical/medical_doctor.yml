@@ -20,8 +20,6 @@
   extendedAccess:
   - Chemistry
   special:
-<<<<<<< HEAD
-=======
   # <Trauma>
   - !type:OrganChipsSpecial
     chips:
@@ -36,7 +34,6 @@
       reviveChance: 0.45 # a bit better at chest compressions
       inhaleChance: 0.75 # decent at mouth to mouth res.
   # </Trauma>
->>>>>>> upstream
   - !type:GiveItemOnHolidaySpecial
     holiday: DoctorDay
     prototype: WehMedipen
