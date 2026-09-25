@@ -80,7 +80,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         Components =
         [
             "LanguageKnowledge",
-            "MartialArtsKnowledge"
+            "MartialArtsSkill"
         ]
     };
 
@@ -99,11 +99,8 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         InitializeLanguage();
         InitializeOnWear();
 
-        // People are gonna hate this lmao.
-        // Subs.CVar(_cfg, TraumaCVars.SkillsEnabled, x => SkillsEnabled = x, true);
-        // Subs.CVar(_cfg, TraumaCVars.SkillGain, x => _skillGain = x, true);
-        SkillsEnabled = true;
-        _skillGain = true;
+        Subs.CVar(_cfg, TraumaCVars.SkillsEnabled, x => SkillsEnabled = x, true);
+        Subs.CVar(_cfg, TraumaCVars.SkillGain, x => _skillGain = x, true);
 
         LoadPrototypes();
     }
@@ -356,7 +353,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         if (GetSkill(ent, id) is not { } unit)
         {
             // Can't add it with experience if you can't comprehend complexity.
-            if (ProtoMan.Index(id).TryGetComponent<SkillComponent>(out var knowledge, Factory) && knowledge?.Complex == true)
+            if (ProtoMan.Index(id).TryComp<SkillComponent>(out var knowledge, Factory) && knowledge?.Complex == true)
                 return;
 
             // if you don't have it, you have a small change to learn it when gaining some xp
@@ -910,11 +907,12 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     public override int GetMastery(int level)
         => level switch
         {
-            >= 100 => 5, // 5th mastery doesn't exist, but we can use this to say max level
-            >= 88 => 4,
-            >= 75 => 3,
-            >= 50 => 2,
-            >= 25 => 1,
+            >= 100 => 6, // 5th mastery doesn't exist, but we can use this to say max level
+            >= 88 => 5,
+            >= 76 => 4,
+            >= 51 => 3,
+            >= 26 => 2,
+            >= 1 => 1,
             _ => 0,
         };
 
@@ -942,11 +940,12 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     public override int GetInverseMastery(int mastery)
         => mastery switch
         {
-            >= 5 => 100, // 5th mastery doesn't exist, but we can use this to say max level
-            >= 4 => 88,
-            >= 3 => 75,
-            >= 2 => 50,
-            >= 1 => 25,
+            >= 6 => 100, // 5th mastery doesn't exist, but we can use this to say max level
+            >= 5 => 88,
+            >= 4 => 76,
+            >= 3 => 51,
+            >= 2 => 26,
+            >= 1 => 1,
             _ => 0,
         };
 
