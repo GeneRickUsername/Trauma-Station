@@ -32,13 +32,9 @@
   name: Close Quarters Cooking
   description: Just like CQC, but only usable in the kitchen, freezer and cafeteria.
   components:
-<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/martialarts.yml
-  - type: MartialArtsSkill
-=======
   - type: Sprite
     sprite: Clothing/Head/Hats/chefhat.rsi
   - type: MartialArtsKnowledge
->>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/martialarts.yml
     giveExperience: false # only gain XP from cooking, do your job
   - type: ExperienceOnCooking
     scale: 5 # cook 200 meals to master it
@@ -103,21 +99,6 @@
   - type: ForceStandStamina
     multiplier: 0
   - type: FastSpeed
-<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/martialarts.yml
-    # 1x to 1.5x move speed scaling with level
-    moveCurve: !type:LinearSkillCurve
-      curveOffset: 1
-      skillScale: 0.5
-    # 1x to 3x damage*momentum scaling with level
-    damageScaleCurve: !type:LinearSkillCurve
-      skillScale: 2
-      curveOffset: 1
-  - type: MeleeSpeedSkill
-    # 1x to 3x melee attack speed scaling with level
-    curve: !type:LinearSkillCurve
-      skillScale: 2
-      curveOffset: 1
-=======
   - type: MartialArtModifiers
   - type: ComboAttackModifier
     modifiers:
@@ -139,7 +120,6 @@
       duration: 3
     - !type:RefundAttackCooldown
       fraction: 0.75
->>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/martialarts.yml
 
 - type: entity
   parent: BaseMartialArtsKnowledge

@@ -11,26 +11,10 @@
 
 - type: entity
   abstract: true
-<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
-  components:
-  - type: Skill
-    category: Physical
-    cost: 2
-    color: "#16e720"
-
-- type: entity
-=======
   parent: BaseKnowledge
->>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
   id: BaseWarKnowledge
   components:
-<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
   - type: Skill
-    category: War
-    cost: 3
-=======
-  - type: Knowledge
->>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
     color: "#f71818"
     experienceCost: 15
 
@@ -64,12 +48,10 @@
 
 - type: entity
   parent: BaseKnowledge
-<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
-=======
   id: BaseRecipesKnowledge
   abstract: true
   components:
-  - type: Knowledge
+  - type: Skill
     category: Recipes
     color: "#f39b29"
     experienceCost: 20
@@ -78,7 +60,6 @@
 - type: entity
   abstract: true
   parent: BaseKnowledge
->>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
   id: BaseLanguageKnowledge
   name: Language
   description: The ability to speak and understand a language.
@@ -134,11 +115,6 @@
   id: Language
   name: knowledge-category-Languages
 
-<<<<<<< HEAD:Resources/Prototypes/_Trauma/Entities/Knowledge/Skills/categories.yml
-- type: skillCategory
-  id: War
-  name: knowledge-category-Combat
-=======
 - type: knowledgeCategory
   id: MeleeCombat
   name: knowledge-category-MeleeCombat
@@ -146,7 +122,6 @@
 - type: knowledgeCategory
   id: RangedCombat
   name: knowledge-category-RangedCombat
->>>>>>> upstream:Resources/Prototypes/_Trauma/Entities/Knowledge/categories.yml
 
 - type: skillCategory
   id: Medical

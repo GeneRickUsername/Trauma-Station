@@ -7,7 +7,7 @@
   parent: BaseWarKnowledge
   id: BaseKnowledgeWeaponsMelee
   components:
-  - type: Knowledge
+  - type: Skill
     category: MeleeCombat
     costs: [0, 2, 6]
 
@@ -59,7 +59,7 @@
   name: Shield Training
   description: Allows you to parry and block damage better with shields.
   components:
-  - type: Knowledge
+  - type: Skill
     unremoveable: true
   - type: BlockFractionKnowledge
     # If block ratio is 0.5:
@@ -77,7 +77,7 @@
   name: Energy Weapon Training
   description: Modern energy weapons are highly dangerous and unintuitive, it takes lots of training to use them correctly.
   components:
-  - type: Knowledge
+  - type: Skill
     costs: null # Eswords
 
 # Ranged Combat
@@ -87,7 +87,7 @@
   parent: BaseWarKnowledge
   id: BaseKnowledgeWeaponsRanged
   components:
-  - type: Knowledge
+  - type: Skill
     category: RangedCombat
     costs: [0, 2, 6]
 
@@ -97,7 +97,7 @@
   name: Marksmanship
   description: How good your aim is with most guns. Training with the relevant weapon is much better, but a good eye puts you ahead of the rest.
   components:
-  - type: Knowledge
+  - type: Skill
     unremoveable: true
   - type: AimSpeedKnowledge
     # [-5%, +12%] neutral at lvl 28
@@ -135,7 +135,7 @@
   name: Sniper Training
   description: "How well you can snipe using a scoped rifle at long range."
   components:
-  - type: Knowledge
+  - type: Skill
     costs: null # my sparkledog med intern actually used to be Quiet
 
 - type: entity
@@ -144,7 +144,7 @@
   name: Heavy Weapons Training
   description: I am heavy weapons guy... and this, is my heavy weapon.
   components:
-  - type: Knowledge
+  - type: Skill
     costs: null # my sparkledog med intern actually used to be an isis rocketeer
 
 - type: entity
@@ -165,7 +165,7 @@
   name: Throwing
   description: Makes you throw items faster and with more precision.
   components:
-  - type: Knowledge
+  - type: Skill
     unremoveable: true
     experienceCost: 5
   - type: ThrowInsertKnowledge # being better at throwing lets you slam dunk easier
