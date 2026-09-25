@@ -49,6 +49,8 @@ public sealed partial class CombatSystem : EntitySystem
     {
         if (TryDodge(ent, args.ProjUid))
             args.Cancelled = true;
+
+        _knowledge.RelayMartialArt(ent, ref args);
     }
 
     [SubscribeLocalEvent]

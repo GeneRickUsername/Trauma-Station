@@ -5,6 +5,7 @@ using Content.Shared.Damage.Prototypes;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Common.Knowledge.Components;
+using Content.Trauma.Shared.Knowledge.Systems;
 
 namespace Content.Trauma.Shared.Knowledge.Attribute.Attribute.Systems;
 
@@ -13,6 +14,8 @@ namespace Content.Trauma.Shared.Knowledge.Attribute.Attribute.Systems;
 /// </summary>
 public sealed partial class MeleeAttributeSystem : EntitySystem
 {
+    [Dependency] private SharedKnowledgeSystem _knowledge = default!;
+
     private static readonly HashSet<ProtoId<DamageTypePrototype>> DamageTypes = new()
     {
         "Blunt",
@@ -21,13 +24,7 @@ public sealed partial class MeleeAttributeSystem : EntitySystem
         "Structural"
     };
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<KnowledgeHolderComponent, GetUserMeleeDamageEvent>(OnDamageGet);
-    }
-
+    [SubscribeLocalEvent]
     private void OnDamageGet(Entity<KnowledgeHolderComponent> ent, ref GetUserMeleeDamageEvent args)
     {
         var selfEv = new GetDamageModifierEvent();
@@ -44,5 +41,7 @@ public sealed partial class MeleeAttributeSystem : EntitySystem
             damage.FlatReductions.Add(key, -selfEv.Mod); // Negative for more damage.
         }
         args.Modifiers.Add(damage);
+
+        _knowledge.RelayActiveEvent(ent, ref selfEv);
     }
 }

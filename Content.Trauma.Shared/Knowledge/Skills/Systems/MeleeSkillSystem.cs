@@ -10,13 +10,6 @@ public sealed partial class MeleeKnowledgeSystem : EntitySystem
 {
     [Dependency] private SharedKnowledgeSystem _knowledge = default!;
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<KnowledgeHolderComponent, GetUserMeleeDamageEvent>(_knowledge.RelayActiveEvent);
-    }
-
     [SubscribeLocalEvent]
     private void OnGetMeleeAttackRate(Entity<MeleeSpeedSkillComponent> ent, ref GetMeleeAttackRateEvent args)
     {

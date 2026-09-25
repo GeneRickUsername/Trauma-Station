@@ -68,6 +68,22 @@ namespace Content.Server.Database
         public DbSet<Poll> Polls { get; set; } = default!;
         public DbSet<PollOption> PollOptions { get; set; } = default!;
         public DbSet<PollVote> PollVotes { get; set; } = default!;
+
+        private static void ConfigureJsonDictionary( Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Profile> entity, System.Linq.Expressions.Expression<Func<Profile, Dictionary<string, int>>> propertyExpression)
+        {
+            entity.Property(propertyExpression)
+                .HasConversion(
+                    v => JsonSerializer.Serialize(v, (JsonSerializerOptions?) null),
+                    s => string.IsNullOrEmpty(s)
+                        ? new Dictionary<string, int>()
+                        : JsonSerializer.Deserialize<Dictionary<string, int>>(s, (JsonSerializerOptions?) null) ?? new Dictionary<string, int>()
+                )
+                .Metadata.SetValueComparer(new ValueComparer<Dictionary<string, int>>(
+                    (a, b) => a != null && b != null && a.Count == b.Count && !a.Except(b).Any(),
+                    dict => dict.Aggregate(0, (acc, pair) => HashCode.Combine(acc, pair.Key.GetHashCode(), pair.Value.GetHashCode())),
+                    dict => new Dictionary<string, int>(dict)
+                ));
+        }
         // </Trauma>
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -78,30 +94,14 @@ namespace Content.Server.Database
 
             // <Trauma> - store skills in json because i hate this shit. had to store profile for 3 things to use it
             var profile = modelBuilder.Entity<Profile>();
-            profile.Property(p => p.SkillRolls)
-                .HasConversion(
-                    v => JsonSerializer.Serialize(v),
-                    s => string.IsNullOrEmpty(s)
-                        ? new()
-                        : JsonSerializer.Deserialize<Dictionary<string, int>>(s) ?? new()
-                )
-                .Metadata.SetValueComparer(new ValueComparer<Dictionary<string, int>>(
-                    (a, b) => a != null && b != null && a.Count == b.Count && !a.Except(b).Any(),
-                    dict => dict.GetHashCode(),
-                    dict => new Dictionary<string, int>(dict)
-                ));
-            profile.Property(p => p.AttributePurchases)
-                .HasConversion(
-                    v => JsonSerializer.Serialize(v),
-                    s => string.IsNullOrEmpty(s)
-                        ? new()
-                        : JsonSerializer.Deserialize<Dictionary<string, int>>(s) ?? new()
-                )
-                .Metadata.SetValueComparer(new ValueComparer<Dictionary<string, int>>(
-                    (a, b) => a != null && b != null && a.Count == b.Count && !a.Except(b).Any(),
-                    dict => dict.GetHashCode(),
-                    dict => new Dictionary<string, int>(dict)
-                ));
+            ConfigureJsonDictionary(profile, p => p.SkillRolls);
+            ConfigureJsonDictionary(profile, p => p.AttributePurchases);
+            ConfigureJsonDictionary(profile, p => p.Talents);
+            ConfigureJsonDictionary(profile, p => p.Proficiencies);
+            ConfigureJsonDictionary(profile, p => p.SpecializationSpeed);
+            ConfigureJsonDictionary(profile, p => p.SpecializationAttack);
+            ConfigureJsonDictionary(profile, p => p.SpecializationDefense);
+            ConfigureJsonDictionary(profile, p => p.SpecializationDamage);
             profile.HasIndex(p => new { p.Slot, PrefsId = p.PreferenceId })
                 .IsUnique();
             // </Trauma>

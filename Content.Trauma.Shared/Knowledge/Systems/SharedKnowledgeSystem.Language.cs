@@ -27,9 +27,6 @@ public abstract partial class SharedKnowledgeSystem
             after: [ typeof(InitialBodySystem) ]); // great engine
         SubscribeLocalEvent<LanguageSpeakerComponent, MapInitEvent>(OnSpeakerMapInit,
             after: [ typeof(InitialBodySystem) ]);
-
-        // Experience methods
-        SubscribeLocalEvent<KnowledgeHolderComponent, EntitySpokeEvent>(OnLanguageSpoke);
     }
 
     private void OnLanguageInit(Entity<LanguageKnowledgeComponent> ent, ref MapInitEvent args)

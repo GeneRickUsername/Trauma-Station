@@ -20,11 +20,6 @@
     components:
     - type: Condemned # Nanotrasen owns your soul pal.
       soulOwnedNotDevil: true
-    - type: SurgerySpeedModifier
-      speedModifier: 2
-    - type: CPRTraining
-      reviveChance: 0.9 # excellent training and experience
-      inhaleChance: 1 # great kisser too
 
 - type: startingGear
   id: CMOGear

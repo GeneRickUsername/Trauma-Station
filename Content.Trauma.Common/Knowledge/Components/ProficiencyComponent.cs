@@ -18,7 +18,7 @@ public sealed partial class ProficiencyComponent : Component
     /// Determines the maluses of using something one is not proficient in.
     /// </summary>
     [DataField]
-    public ProficiencySkillLevel Type = ProficiencySkillLevel.Minimal;
+    public ProficiencySkillLevel ProficiencyType = ProficiencySkillLevel.Minimal;
 
     /// <summary>
     /// Sprite to display in the character UI.

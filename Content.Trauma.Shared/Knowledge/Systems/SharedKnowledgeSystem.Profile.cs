@@ -100,6 +100,9 @@ public abstract partial class SharedKnowledgeSystem
         }
         foreach (var (id, purchases) in profile.Attributes)
         {
+            if (points < purchases)
+                return; // were done here, outdated profile in DB
+
             if (EnsureKnowledge<AttributeComponent>(ent, id, 10, false) is not { } unit)
             {
                 Log.Error($"Failed to give {ToPrettyString(ent.Comp.Holder)} attribute {id}!");

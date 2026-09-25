@@ -34,7 +34,7 @@
   components:
   - type: Sprite
     sprite: Clothing/Head/Hats/chefhat.rsi
-  - type: MartialArtsKnowledge
+  - type: MartialArtsSkill
     giveExperience: false # only gain XP from cooking, do your job
   - type: ExperienceOnCooking
     scale: 5 # cook 200 meals to master it

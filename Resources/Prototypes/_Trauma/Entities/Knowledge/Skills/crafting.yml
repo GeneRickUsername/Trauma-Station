@@ -6,7 +6,7 @@
   name: Fabrication
   description: Higher tiers of fabrication allow you to craft and construct more advanced recipes from memory.
   components:
-  - type: Knowledge
+  - type: Skill
     experienceCost: 15
     costs: 1
 

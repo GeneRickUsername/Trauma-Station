@@ -168,5 +168,5 @@
   - type: Skill
     unremoveable: true
     experienceCost: 5
-  - type: ThrowInsertKnowledge # being better at throwing lets you slam dunk easier
+  - type: ThrowInsertSkill # being better at throwing lets you slam dunk easier
     curve: !type:QuadraticSkillCurve
