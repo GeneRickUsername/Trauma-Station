@@ -28,18 +28,7 @@ public sealed partial class TalentRelaySystem : EntitySystem
         "Caustic",
     };
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<DodgeComponent, GetDodgeSavingThrowEvent>(OnCalculateDodge);
-        SubscribeLocalEvent<DamageTalentComponent, GetDamageModifierEvent>(OnCalculateDamage);
-        SubscribeLocalEvent<DamageTalentComponent, GetSpeedModifierEvent>(OnCalculateSpeed);
-        SubscribeLocalEvent<DamageTalentComponent, BeforeDamageChangedEvent>(OnCalculateHeal);
-        SubscribeLocalEvent<ToughHideComponent, BeforeDamageChangedEvent>(OnCalculateResistToughHide);
-        SubscribeLocalEvent<PoisonResistantComponent, BeforeDamageChangedEvent>(OnCalculateResistPoison);
-    }
-
+    [SubscribeLocalEvent]
     private void OnCalculateDodge(Entity<DodgeComponent> ent, ref GetDodgeSavingThrowEvent args)
     {
         if (!TryComp<TalentComponent>(ent, out var talent))
@@ -48,6 +37,24 @@ public sealed partial class TalentRelaySystem : EntitySystem
         args.Mod += talent.Level;
     }
 
+    [SubscribeLocalEvent]
+    private void OnCalculateDefense(Entity<DefenseTalentComponent> ent, ref GetDefenseModifierEvent args)
+    {
+        if (!TryComp<TalentComponent>(ent, out var talent))
+            return;
+
+        args.Mod += talent.Level;
+    }
+
+    [SubscribeLocalEvent]
+    private void OnCalculateAttack(Entity<AttackTalentComponent> ent, ref GetAttackModifierEvent args)
+    {
+        if (!TryComp<TalentComponent>(ent, out var talent))
+            return;
+        args.Mod += talent.Level;
+    }
+
+    [SubscribeLocalEvent]
     private void OnCalculateDamage(Entity<DamageTalentComponent> ent, ref GetDamageModifierEvent args)
     {
         if (!TryComp<TalentComponent>(ent, out var talent))
@@ -56,7 +63,8 @@ public sealed partial class TalentRelaySystem : EntitySystem
         args.Mod += talent.Level;
     }
 
-    private void OnCalculateSpeed(Entity<DamageTalentComponent> ent, ref GetSpeedModifierEvent args)
+    [SubscribeLocalEvent]
+    private void OnCalculateSpeed(Entity<SpeedTalentComponent> ent, ref GetSpeedModifierEvent args)
     {
         if (!TryComp<TalentComponent>(ent, out var talent))
             return;
@@ -64,7 +72,8 @@ public sealed partial class TalentRelaySystem : EntitySystem
         args.Mod += talent.Level;
     }
 
-    private void OnCalculateHeal(Entity<DamageTalentComponent> ent, ref BeforeDamageChangedEvent args)
+    [SubscribeLocalEvent]
+    private void OnCalculateHeal(Entity<FastHealerComponent> ent, ref BeforeDamageChangedEvent args)
     {
         if (!TryComp<TalentComponent>(ent, out var talent))
             return;
@@ -73,6 +82,7 @@ public sealed partial class TalentRelaySystem : EntitySystem
         args.Damage.ExclusiveAdd(heal);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateResistToughHide(Entity<ToughHideComponent> ent, ref BeforeDamageChangedEvent args)
     {
         if (!TryComp<TalentComponent>(ent, out var talent))
@@ -89,6 +99,7 @@ public sealed partial class TalentRelaySystem : EntitySystem
         args.Damage.ExclusiveAdd(damageReduction);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateResistPoison(Entity<PoisonResistantComponent> ent, ref BeforeDamageChangedEvent args)
     {
         if (!TryComp<TalentComponent>(ent, out var talent))

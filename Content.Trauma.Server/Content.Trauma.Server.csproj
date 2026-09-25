@@ -18,7 +18,10 @@
 		<ProjectReference Include="../Content.Trauma.Shared/Content.Trauma.Shared.csproj" />
 		<ProjectReference Include="../Content.Goobstation.Server/Content.Goobstation.Server.csproj" />
 		<ProjectReference Include="../Content.Server/Content.Server.csproj" />
-	</ItemGroup>
+        <ProjectReference Include="../Content.Factory.Server/Content.Factory.Server.csproj" />
+        <ProjectReference Include="../Content.Lavaland.Server/Content.Lavaland.Server.csproj" />
+        <ProjectReference Include="../Content.Medical.Server/Content.Medical.Server.csproj" />
+    </ItemGroup>
 
 	<Import Project="../RobustToolbox/Imports/Server.props" />
 	<Import Project="../RobustToolbox/Imports/Shared.props" />

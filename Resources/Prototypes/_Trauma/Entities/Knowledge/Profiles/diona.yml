@@ -28,8 +28,6 @@
     # Medical Skill
     FirstAidKnowledge: 3
     ChemistryKnowledge: 3
-    # Physical Skill
-    ThrowingKnowledge: 1 # Mass matters for throwing but lean into it a bit.
     # Combat Skill
     ThrowingKnowledge: 1 # Mass matters for throwing but lean into it a bit.
     # Crafting Quality

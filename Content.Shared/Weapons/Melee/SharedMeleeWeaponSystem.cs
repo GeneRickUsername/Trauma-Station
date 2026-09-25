@@ -642,7 +642,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             return;
         }
         target = beforeEvent.Target;
-        damage = beforeEvent.Damage;
+        damage = beforeEvent.Damage ?? damage;
         // </Trauma>
 
         // Sawmill.Debug($"Melee damage is {damage.Total} out of {component.Damage.Total}");
@@ -806,7 +806,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             if (beforeEvent.Cancelled)
                 continue;
             var target = beforeEvent.Target;
-            damage = beforeEvent.Damage;
+            damage = beforeEvent.Damage ?? damage;
             // </Trauma>
 
             targets.Add(target);
@@ -814,7 +814,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
         // Sawmill.Debug($"Melee damage is {damage.Total} out of {component.Damage.Total}");
 
-        // Raise event before doing damage so we can cancel damage if the event is handled
+        // Raise event before doing damage so we can cancel damage if th ?e event is handled
         var hitEvent = new MeleeHitEvent(targets, user, meleeUid, damage, direction, GetCoordinates(ev.Coordinates)); // Goob edit
         RaiseLocalEvent(meleeUid, hitEvent, true); // Goob station - broadcast
 
