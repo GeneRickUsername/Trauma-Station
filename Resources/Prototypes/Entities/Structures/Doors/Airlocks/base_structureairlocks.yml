@@ -10,10 +10,6 @@
     mode: SnapgridCenter
   components:
   # <Trauma>
-<<<<<<< HEAD
-  - type: StrengthFeatOpposed
-    mod: 20
-=======
   - type: Penetratable
     penetrateDamage: 75
     damagePenalty: 0.2
@@ -21,7 +17,6 @@
   - type: TwistedConstructionTarget
     replacementProto: CultDoor
     doAfterDelay: 10
->>>>>>> upstream
   # </Trauma>
   - type: Anchorable
     flags:

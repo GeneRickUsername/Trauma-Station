@@ -4,10 +4,6 @@
   id: Handcuffs
   parent: [BaseItem, BaseSecurityCommandContraband]
   components:
-  # <Trauma>
-  - type: StrengthFeatOpposed
-    mod: 15
-  # </Trauma>
   # Goobstation edit start
   - type: EmitSoundOnPickup
     sound:
@@ -52,10 +48,6 @@
   id: Cablecuffs
   parent: Handcuffs
   components:
-  # <Trauma>
-  - type: StrengthFeatOpposed
-    mod: 10
-  # </Trauma>
   - type: Handcuff
     breakoutTime: 3
     cuffedRSI: Objects/Misc/cablecuffs.rsi
@@ -95,10 +87,6 @@
   id: Zipties
   parent: Handcuffs
   components:
-  # <Trauma>
-  - type: StrengthFeatOpposed
-    mod: 5
-  # </Trauma>
   - type: Item
     size: Tiny
     storedRotation: 0

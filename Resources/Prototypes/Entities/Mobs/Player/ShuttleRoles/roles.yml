@@ -308,7 +308,7 @@
     # <Trauma>
     - type: KnowledgeGrant
       skills:
-        # MeleeKnowledge 26
+        MeleeKnowledge: 26
     # </Trauma>
 
 - type: entity
@@ -578,18 +578,6 @@
       state: banner_syndicate
     - type: RandomHumanoidSpawner
       settings: SyndieSoldierTeamLeader
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 50
-        # ShootingKnowledge: 50
-        # StrengthKnowledge 50
-        # ToughnessKnowledge 50
-        MartialArtCQC: 50
-    # </Trauma>
-=======
->>>>>>> upstream
 
 - type: entity
   id: RandomHumanoidSyndieSoldier
@@ -600,18 +588,6 @@
       state: banner_syndicate
     - type: RandomHumanoidSpawner
       settings: SyndieSoldier
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 26
-        # ShootingKnowledge: 26
-        # StrengthKnowledge 26
-        # ToughnessKnowledge 26
-        MartialArtCQC: 26
-    # </Trauma>
-=======
->>>>>>> upstream
 
 - type: entity
   id: RandomHumanoidSyndieVisitor
@@ -622,17 +598,6 @@
       state: banner_syndicate
     - type: RandomHumanoidSpawner
       settings: SyndieVisitor
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 15
-        # ShootingKnowledge: 15
-        # StrengthKnowledge 15
-        # ToughnessKnowledge 15
-    # </Trauma>
-=======
->>>>>>> upstream
 
 - type: entity
   id: RandomHumanoidPirateScooner
@@ -644,17 +609,6 @@
       state: banner-red
     - type: RandomHumanoidSpawner
       settings: PirateScooner
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 40
-        # ShootingKnowledge: 30
-        # StrengthKnowledge 30
-        # ToughnessKnowledge 30
-    # </Trauma>
-=======
->>>>>>> upstream
 
 - type: entity
   id: RandomHumanoidPirateCaptainScooner
@@ -666,17 +620,6 @@
       state: banner-red
     - type: RandomHumanoidSpawner
       settings: PirateCaptainScooner
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 30
-        # ShootingKnowledge: 20
-        # StrengthKnowledge 20
-        # ToughnessKnowledge 20
-    # </Trauma>
-=======
->>>>>>> upstream
 
 ### Other
 
@@ -689,17 +632,6 @@
       state: banner-yellow
     - type: RandomHumanoidSpawner
       settings: VisitorBlackmarketeer
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 20
-        # ShootingKnowledge: 20
-        # StrengthKnowledge 20
-        # ToughnessKnowledge 20
-    # </Trauma>
-=======
->>>>>>> upstream
 
 - type: entity
   id: RandomHumanoidCossack
@@ -710,14 +642,3 @@
       state: banner-yellow
     - type: RandomHumanoidSpawner
       settings: Cossack
-<<<<<<< HEAD
-    # <Trauma>
-    - type: KnowledgeGrant
-      skills:
-        # MeleeKnowledge 20
-        # ShootingKnowledge: 20
-        # StrengthKnowledge 20
-        # ToughnessKnowledge 20
-    # </Trauma>
-=======
->>>>>>> upstream

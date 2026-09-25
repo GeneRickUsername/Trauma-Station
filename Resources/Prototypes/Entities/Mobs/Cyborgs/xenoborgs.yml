@@ -69,19 +69,18 @@
   # <Trauma>
   - type: ModifyKnowledgeGrant
     skills:
-<<<<<<< HEAD
-      ManufacturingKnowledge: 60
-      ConstructionKnowledge: 60
-=======
       FabricationKnowledge: 60
       DoorsKnowledge: 60
       AirlocksKnowledge: 60
       FurnitureKnowledge: 60
       InfrastructureKnowledge: 60
->>>>>>> upstream
       ElectronicsKnowledge: 60
-      GunsmithKnowledge: 60
+      WallsKnowledge: 60
+      WindowsKnowledge: 60
+      MetalworkingKnowledge: 60
+      GunsmithingKnowledge: 60
       MechanicsKnowledge: 60
+      BotsKnowledge: 60
   # </Trauma>
 
 - type: entity
@@ -179,17 +178,14 @@
   # <Trauma>
   - type: ModifyKnowledgeGrant
     skills:
-<<<<<<< HEAD
-      ManufacturingKnowledge: 20
-      ConstructionKnowledge: 20
-=======
       FabricationKnowledge: 20
       DoorsKnowledge: 20
       AirlocksKnowledge: 20
       FurnitureKnowledge: 20
       InfrastructureKnowledge: 20
->>>>>>> upstream
       ElectronicsKnowledge: 20
+      WallsKnowledge: 20
+      WindowsKnowledge: 20
       ShootingKnowledge: 51
       WeaponsKnowledge: 51
   # </Trauma>
@@ -251,16 +247,14 @@
   # <Trauma>
   - type: ModifyKnowledgeGrant
     skills:
-<<<<<<< HEAD
-      ConstructionKnowledge: 20
-=======
       FabricationKnowledge: 20
       DoorsKnowledge: 20
       AirlocksKnowledge: 20
       FurnitureKnowledge: 20
       InfrastructureKnowledge: 20
->>>>>>> upstream
       ElectronicsKnowledge: 20
+      WallsKnowledge: 20
+      WindowsKnowledge: 20
       MeleeKnowledge: 51
       WeaponsKnowledge: 51
   # </Trauma>
@@ -321,17 +315,14 @@
   # <Trauma>
   - type: ModifyKnowledgeGrant
     skills:
-<<<<<<< HEAD
-      ManufacturingKnowledge: 20
-      ConstructionKnowledge: 20
-=======
       FabricationKnowledge: 20
       DoorsKnowledge: 20
       AirlocksKnowledge: 20
       FurnitureKnowledge: 20
       InfrastructureKnowledge: 20
->>>>>>> upstream
       ElectronicsKnowledge: 20
+      WallsKnowledge: 20
+      WindowsKnowledge: 20
       ShootingKnowledge: 51
       WeaponsKnowledge: 51
   # </Trauma>
