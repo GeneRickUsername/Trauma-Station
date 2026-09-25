@@ -20,12 +20,9 @@
     AirlocksKnowledge: 1
     FurnitureKnowledge: 1
     InfrastructureKnowledge: 1
-    ElectronicsKnowledge: 1
     WallsKnowledge: 1
     WindowsKnowledge: 1
     SmokeablesKnowledge: 4
-    # Intelectual Skills
-    MagicalLiteracyKnowledge: 1 # Preemptive magical knowledge for when it matters. Magic tree ent lore larp or smth.
     # Language Skills
     LanguageRootSpeak: 9
     # Medical Skill
@@ -33,8 +30,6 @@
     ChemistryKnowledge: 3
     # Physical Skill
     ThrowingKnowledge: 1 # Mass matters for throwing but lean into it a bit.
-    FirstAidKnowledge: 1
-    ChemistryKnowledge: 1
     # Combat Skill
     ThrowingKnowledge: 1 # Mass matters for throwing but lean into it a bit.
     # Crafting Quality

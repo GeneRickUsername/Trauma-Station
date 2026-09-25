@@ -115,11 +115,11 @@
   id: Language
   name: knowledge-category-Languages
 
-- type: knowledgeCategory
+- type: skillCategory
   id: MeleeCombat
   name: knowledge-category-MeleeCombat
 
-- type: knowledgeCategory
+- type: skillCategory
   id: RangedCombat
   name: knowledge-category-RangedCombat
 

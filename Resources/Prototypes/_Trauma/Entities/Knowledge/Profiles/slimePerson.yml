@@ -19,7 +19,6 @@
     AirlocksKnowledge: 1
     FurnitureKnowledge: 1
     InfrastructureKnowledge: 1
-    ElectronicsKnowledge: 1
     WallsKnowledge: 1
     WindowsKnowledge: 1
     # Language Skills
@@ -28,9 +27,7 @@
     ChemistryKnowledge: 3 # Currently non-functional but they are made of fluids.
     # Physical Skill
     AthleticsKnowledge: 3
-    ChemistryKnowledge: 2 # Currently non-functional but they are made of fluids.
     # Crafting Quality
-    CookingKnowledge: 0
     ManufacturingKnowledge: 3
     ConstructionKnowledge: 3
     MechanicsKnowledge: 3
