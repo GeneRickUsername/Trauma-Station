@@ -52,7 +52,7 @@ public sealed partial class CombatSystem : EntitySystem
     private static readonly EntProtoId DodgeTalent = "DodgeTalent";
 
     [SubscribeLocalEvent]
-    private void ResolveAttack(Entity<MobStateComponent> ent, ref BeforeHarmfulActionEvent args)
+    private void OnBeforeHarmfulAction(Entity<MobStateComponent> ent, ref BeforeHarmfulActionEvent args)
     {
         if (args.Type == HarmfulActionType.Harm)
         {
@@ -103,15 +103,23 @@ public sealed partial class CombatSystem : EntitySystem
     {
         _knowledge.RelayActiveEvent(ent, ref args);
 
+        args.Rate = 1 / GetWeaponSpeed(ent.Owner, args.Weapon, args.Rate);
+    }
+
+    /// <summary>
+    /// Returns in seconds.
+    /// </summary>
+    private float GetWeaponSpeed(EntityUid owner, EntityUid weapon, float rate, bool isOpponentUnarmed = false)
+    {
         var evSpeedMod = new GetSpeedModifierEvent();
-        RaiseLocalEvent(ent.Owner, ref evSpeedMod);
+        RaiseLocalEvent(owner, ref evSpeedMod);
         var minSpeed = 3;
-        if (TryComp<ItemComponent>(args.Weapon, out var itemComp))
+        if (TryComp<ItemComponent>(weapon, out var itemComp))
             minSpeed = GetMinimumSpeedSize(itemComp.Size);
 
-        var speed = 0.1f / args.Rate;
-        speed = 1 / MathF.Max(speed - evSpeedMod.Mod, minSpeed); // You can't be faster than the weapon sizes, it's a minimum weapon speed.
-        args.Rate = speed;
+        var speed = 0.1f / rate;
+        speed = MathF.Max((speed - evSpeedMod.Mod) * (isOpponentUnarmed ? 0.5f : 1.0f), minSpeed); // You can't be faster than the weapon sizes, it's a minimum weapon speed.
+        return speed;
     }
 
     /// <summary>
