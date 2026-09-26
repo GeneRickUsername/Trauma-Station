@@ -74,6 +74,7 @@
         Blunt: 12
         Slash: 12
         Piercing: 12
+        Ballistic: 8
         Heat: 10
   - type: ExplosionResistance
     damageCoefficient: 0.7 # Trauma - was 0.8, no head coverage but it's still shitty

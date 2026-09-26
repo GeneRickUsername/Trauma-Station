@@ -76,6 +76,7 @@
         Blunt: 11
         Slash: 11
         Piercing: 11
+        Ballistic: 7
         Heat: 5
     # </Trauma>
   - type: HideLayerClothing
