@@ -285,7 +285,7 @@
         Slash: 2
     altDisarm: false
     canWideSwing: true
-    attackRate: 5
+    attackRate: 0.5
     autoAttack: true
   - type: Destructible
     thresholds:
@@ -952,7 +952,7 @@
         Piercing: 10
     altDisarm: false
     canWideSwing: true
-    attackRate: 4
+    attackRate: 0.25
   - type: Destructible
     thresholds:
     - trigger:
@@ -1314,7 +1314,7 @@
     animation: WeaponArcBite
     altDisarm: true
     canWideSwing: false
-    attackRate: 2
+    attackRate: 0.4
   - type: Destructible
     thresholds:
     - trigger:

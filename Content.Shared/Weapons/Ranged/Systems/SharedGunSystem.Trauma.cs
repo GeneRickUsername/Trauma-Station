@@ -7,6 +7,8 @@ using Content.Shared.Power;
 using Content.Shared.Projectiles;
 using Content.Shared.Random.Helpers;
 using Content.Shared.Weapons.Ranged.Components;
+using Content.Trauma.Common.Knowledge.Components;
+using Content.Trauma.Common.Knowledge.Systems;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Random;

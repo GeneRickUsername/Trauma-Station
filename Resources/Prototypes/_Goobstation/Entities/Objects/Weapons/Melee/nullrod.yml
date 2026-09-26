@@ -34,7 +34,7 @@
   # no class, easy for any chap to use
   - type: MeleeWeapon
     heavyStaminaCost: 2.5
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 10
@@ -73,7 +73,7 @@
   - type: MeleeWeapon
     animationRotation: -45
     wideAnimationRotation: -135
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Slash: 12
@@ -189,7 +189,7 @@
     state: icon
   - type: MeleeWeapon
     canWideSwing: false
-    attackRate: 0.7
+    attackRate: 0.06
     damage:
       types:
         Heat: 10
@@ -245,7 +245,7 @@
   - type: MeleeWeapon
     animationRotation: -45
     wideAnimationRotation: -135
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 7
@@ -290,7 +290,7 @@
     sprite: _ShitChap/Objects/Weapons/Nullrod/monkstaff.rsi
     state: icon
   - type: MeleeWeapon
-    attackRate: 3
+    attackRate: 0.33
     damage:
       types:
         Holy: 4
@@ -408,7 +408,7 @@
         Radiation: 20
     UntrainedUseString: nullrod-honkmother-untrained-usage-popup
   - type: MeleeWeapon
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Holy: 10
@@ -489,7 +489,7 @@
       changeSound: *drill_sound
   - type: MeleeWeapon
     canWideSwing: false
-    attackRate: 0.9
+    attackRate: 0.08
     damage:
       types:
         Holy: 10
@@ -551,7 +551,7 @@
     angle: 0
     animationRotation: 90
     wideAnimationRotation: 90
-    attackRate: 4
+    attackRate: 0.25
     damage:
       types:
         Blunt: 2
@@ -706,7 +706,7 @@
     - back
   - type: MeleeWeapon
     range: 2.2
-    attackRate: 0.8
+    attackRate: 0.07
     animationRotation: -135
     wideAnimationRotation: -135
     damage:

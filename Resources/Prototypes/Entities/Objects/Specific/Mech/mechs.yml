@@ -104,7 +104,7 @@
   - type: MeleeWeapon
     canWideSwing: false # Trauma - disabled until it doesnt look shit
     hidden: true
-    attackRate: 0.75
+    attackRate: 0.065
     damage:
       types:
         Blunt: 25 #thwack
@@ -297,7 +297,7 @@
       - Hamster
   - type: MeleeWeapon
     hidden: true
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Blunt: 10 #thwack
@@ -360,7 +360,7 @@
       - VimPilot
   - type: MeleeWeapon
     hidden: true
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Blunt: 10 #thwack

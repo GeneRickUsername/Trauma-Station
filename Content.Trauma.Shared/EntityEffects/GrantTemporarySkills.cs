@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Shared.EntityEffects;
+using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Shared.Knowledge.Systems;
 
 namespace Content.Trauma.Shared.EntityEffects;
@@ -25,7 +26,7 @@ public sealed partial class
 
         foreach (var (id, level) in args.Effect.Skills)
         {
-            if (_knowledge.EnsureKnowledge(brain, id) is { } unit)
+            if (_knowledge.EnsureKnowledge<SkillComponent>(brain, id) is { } unit)
             {
                 unit.Comp.TemporaryLevel += level;
                 Dirty(unit);

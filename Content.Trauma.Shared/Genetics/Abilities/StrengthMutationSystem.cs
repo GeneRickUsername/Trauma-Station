@@ -4,15 +4,9 @@ using Content.Shared.Weapons.Melee.Events;
 
 namespace Content.Trauma.Shared.Genetics.Abilities;
 
-public sealed class StrengthMutationSystem : EntitySystem
+public sealed partial class StrengthMutationSystem : EntitySystem
 {
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<StrengthMutationComponent, GetUserMeleeDamageEvent>(OnGetMeleeDamage);
-    }
-
+    [SubscribeLocalEvent]
     private void OnGetMeleeDamage(Entity<StrengthMutationComponent> ent, ref GetUserMeleeDamageEvent args)
     {
         args.Damage *= ent.Comp.MeleeModifier;

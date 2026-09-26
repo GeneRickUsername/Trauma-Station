@@ -5,6 +5,7 @@ using Content.Shared.EntityEffects;
 using Content.Shared.Projectiles;
 using Content.Shared.Stunnable;
 using Content.Trauma.Common.MartialArts;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 using Content.Trauma.Shared.Knowledge.Systems;
 using Content.Trauma.Shared.MartialArts.Components;
 using Robust.Shared.Physics.Components;

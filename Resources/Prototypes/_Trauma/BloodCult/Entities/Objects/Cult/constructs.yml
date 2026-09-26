@@ -132,7 +132,7 @@
     hidden: true
     angle: 30
     animation: WeaponArcSmash
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Structural: 90
@@ -167,7 +167,7 @@
     hidden: true
     angle: 30
     animation: WeaponArcPunch
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 5
@@ -205,7 +205,7 @@
     hidden: true
     angle: 30
     animation: WeaponArcSmash
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Structural: 40
@@ -243,7 +243,7 @@
     hidden: true
     angle: 30
     animation: WeaponArcSmash
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Structural: 40
@@ -265,7 +265,7 @@
     hidden: true
     angle: 30
     animation: WeaponArcSmash
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 10

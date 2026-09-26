@@ -23,7 +23,7 @@
   - type: Prying
   - type: MeleeWeapon
     range: 2 # Enough range so if you're skilled enough you can avoid being hit by a slow enemy
-    attackRate: 1
+    attackRate: 0.09
     animationRotation: -135
     wideAnimationRotation: -135
     soundHit:
@@ -181,7 +181,7 @@
   #      Slash: -3.33
   #      Piercing: -3.33
   - type: MeleeWeapon
-    attackRate: 1.1
+    attackRate: 0.093
     range: 2.5
     animation: WeaponArcThrust
     angle: 0
@@ -207,7 +207,7 @@
     sprite: _Lavaland/Objects/Weapons/Crushers/crusher_hammer.rsi
     state: icon
   - type: MeleeWeapon # Slower attack speed but higher damage makes it more risky and rewarding to use
-    attackRate: 0.6
+    attackRate: 0.05
     damage:
       types:
         Blunt: 6
@@ -242,7 +242,7 @@
     sprite: _Lavaland/Objects/Weapons/Crushers/crusher_halberd.rsi
   # Basically a crusher but better
   - type: MeleeWeapon
-    attackRate: 0.8
+    attackRate: 0.07
     range: 2.2
     damage:
       types:

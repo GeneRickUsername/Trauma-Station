@@ -1,0 +1,12 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<BoxContainer
+    xmlns="https://spacestation14.io"
+    Orientation="Horizontal"
+    SeparationOverride="8">
+    <TextureRect Name="Icon" Margin="0, 4, 0, 0" MinSize="24 24"/>
+    <RichTextLabel Name="ProficiencyName" SetWidth="220" HorizontalAlignment="Left" />
+    <RichTextLabel Name="ProficiencyLevel" SetWidth="150" HorizontalAlignment="Left" StyleClasses="LabelSubText" />
+</BoxContainer>

@@ -16,7 +16,6 @@
   - type: BodyStatus
   - type: Carriable
   - type: FootprintOwner
-  - type: CPRTraining # IPCs can try CPR i guess?? it won't work
   - type: StunVisuals
   - type: HasJobIcons
   - type: LanguageSpeaker # all mobs should speak TauCeti unless otherwise specified, to prevent universal.
@@ -141,7 +140,7 @@
       collection: Punch
     angle: 30
     animation: WeaponArcFist
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 5

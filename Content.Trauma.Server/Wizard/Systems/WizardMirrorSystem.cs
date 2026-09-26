@@ -66,7 +66,7 @@ public sealed partial class WizardMirrorSystem : SharedWizardMirrorSystem
                 Inventory = PolymorphInventoryChange.Transfer,
                 RevertOnCrit = false,
                 RevertOnDeath = false,
-                ComponentsToTransfer = new()
+                ComponentsToTransfer = new() // TODO: Fix this slop
                 {
                     new("LanguageKnowledge"),
                     new("LanguageSpeaker"),

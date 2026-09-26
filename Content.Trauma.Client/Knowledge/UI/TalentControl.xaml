@@ -1,0 +1,14 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<BoxContainer xmlns="https://spacestation14.io"
+              Orientation="Horizontal"
+              HorizontalExpand="True"
+              Margin="10 2"
+              MouseFilter="Pass">
+    <Label Name="TalentLabel" HorizontalExpand="True" VerticalAlignment="Center"/>
+    <Button Name="DecreaseButton" Text=" - "/>
+    <Label Name="RankLabel" MinWidth="180" Align="Center" VerticalAlignment="Center"/>
+    <Button Name="IncreaseButton" Text=" + "/>
+</BoxContainer>

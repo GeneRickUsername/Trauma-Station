@@ -20,7 +20,7 @@
     wideAnimationRotation: -90
     soundHit:
       path: "/Audio/Items/drill_hit.ogg"
-    attackRate: 3.5
+    attackRate: 0.28
     damage:
       types:
         Blunt: 0.5
@@ -47,7 +47,7 @@
     wideAnimationRotation: -90
     soundHit:
       path: "/Audio/Items/drill_hit.ogg"
-    attackRate: 4
+    attackRate: 0.25
     damage:
       types:
         Blunt: 0.5

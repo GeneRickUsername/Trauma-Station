@@ -22,7 +22,7 @@
     damage:
       types:
         Blunt: 7
-    attackRate: 1.5
+    attackRate: 0.11
     bluntStaminaDamageFactor: 2.0
     soundHit:
       path: /Audio/_Goobstation/Weapons/Baton/woodhit.ogg

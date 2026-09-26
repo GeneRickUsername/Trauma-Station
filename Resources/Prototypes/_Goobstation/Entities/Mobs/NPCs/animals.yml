@@ -165,7 +165,7 @@
   parent: MobAngryBee
   components:
   - type: MeleeWeapon
-    attackRate: 2
+    attackRate: 0.4
     damage:
       types:
         Piercing: 1
@@ -874,7 +874,7 @@
       collection: FootstepClown
   - type: CombatMode
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 0.5

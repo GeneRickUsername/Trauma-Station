@@ -232,7 +232,7 @@
     shape:
     - 0,0,0,6
   - type: MeleeWeapon
-    attackRate: 0.8
+    attackRate: 0.07
     range: 1.6
     damage:
       types:
@@ -273,7 +273,7 @@
     shape:
     - 0,0,1,2
   - type: MeleeWeapon
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 20
@@ -403,7 +403,7 @@
     shape:
     - 0,0,0,2
   - type: MeleeWeapon
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 10

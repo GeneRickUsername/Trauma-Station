@@ -1,0 +1,58 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<BoxContainer xmlns="https://spacestation14.io"
+              Orientation="Vertical"
+              HorizontalExpand="True"
+              Margin="0 4">
+
+    <!-- Base Weapon Proficiency Row -->
+    <BoxContainer Name="ProficiencyRow" Orientation="Horizontal" HorizontalExpand="True" Margin="10 2">
+        <Label Name="WeaponClassLabel" HorizontalExpand="True" VerticalAlignment="Center"/>
+        <Button Name="DecreaseButton" Text=" - "/>
+        <Label Name="LevelLabel" MinWidth="180" Align="Center" VerticalAlignment="Center"/>
+        <Button Name="IncreaseButton" Text=" + "/>
+    </BoxContainer>
+
+    <!-- Child Specializations Container (4-category Allocation) -->
+    <BoxContainer Name="SpecializationsContainer"
+                  Orientation="Vertical"
+                  HorizontalExpand="True"
+                  Margin="20 2 0 2"
+                  Visible="False">
+
+        <!-- Speed Allocation -->
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 1">
+            <Label Text="  Speed" HorizontalExpand="True" VerticalAlignment="Center" Modulate="DarkGray"/>
+            <Button Name="SpeedDecreaseButton" Text=" - "/>
+            <Label Name="SpeedLabel" MinWidth="160" Align="Center" VerticalAlignment="Center"/>
+            <Button Name="SpeedIncreaseButton" Text=" + "/>
+        </BoxContainer>
+
+        <!-- Attack Allocation -->
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 1">
+            <Label Text="  Attack" HorizontalExpand="True" VerticalAlignment="Center" Modulate="DarkGray"/>
+            <Button Name="AttackDecreaseButton" Text=" - "/>
+            <Label Name="AttackLabel" MinWidth="160" Align="Center" VerticalAlignment="Center"/>
+            <Button Name="AttackIncreaseButton" Text=" + "/>
+        </BoxContainer>
+
+        <!-- Defense Allocation -->
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 1">
+            <Label Text="  Defense" HorizontalExpand="True" VerticalAlignment="Center" Modulate="DarkGray"/>
+            <Button Name="DefenseDecreaseButton" Text=" - "/>
+            <Label Name="DefenseLabel" MinWidth="160" Align="Center" VerticalAlignment="Center"/>
+            <Button Name="DefenseIncreaseButton" Text=" + "/>
+        </BoxContainer>
+
+        <!-- Damage Allocation -->
+        <BoxContainer Orientation="Horizontal" HorizontalExpand="True" Margin="0 1">
+            <Label Text="  Damage" HorizontalExpand="True" VerticalAlignment="Center" Modulate="DarkGray"/>
+            <Button Name="DamageDecreaseButton" Text=" - "/>
+            <Label Name="DamageLabel" MinWidth="160" Align="Center" VerticalAlignment="Center"/>
+            <Button Name="DamageIncreaseButton" Text=" + "/>
+        </BoxContainer>
+
+    </BoxContainer>
+</BoxContainer>

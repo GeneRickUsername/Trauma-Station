@@ -2,42 +2,31 @@
 
 - type: knowledgeProfile
   id: IPC
-  pointsLimit: 3
-  mastery:
+  pointsLimit: 100
+  attributes:
+    StrengthAttribute: 0
+    IntelligenceAttribute: 0
+    WisdomAttribute: 0
+    DexterityAttribute: 0
+    ConstitutionAttribute: 0
+    LooksAttribute: 0
+    CharismaAttribute: 0
+  skillRolls:
+    # Intelectual Skills
+    LiteracyKnowledge: 12
     # Crafting Recipe Skills
-    CookingKnowledge: 0
     DoorsKnowledge: 1
     AirlocksKnowledge: 1
-    BananiumKnowledge: 0
-    BotsKnowledge: 2 # I AM
+    BotsKnowledge: 6 # I AM
     FurnitureKnowledge: 1
     InfrastructureKnowledge: 1
-    ElectronicsKnowledge: 2
     WallsKnowledge: 1
     WindowsKnowledge: 1
-    SmokeablesKnowledge: 0
-    # Intelectual Skills
-    LiteracyKnowledge: 0
-    MagicalLiteracyKnowledge: 0
     # Language Skills
-    LanguageSolCommon: 3
-    # Medical Skill
-    SurgeryKnowledge: 0
-    FirstAidKnowledge: 0
-    ChemistryKnowledge: 0
-    # Combat Skill
-    ThrowingKnowledge: 0
-    MeleeKnowledge: 0
-    ShootingKnowledge: 0
-    KnowledgeWeaponsShield: 0
+    LanguageSolCommon: 9
     # Crafting Quality
-    FabricationKnowledge: 0
-    WeaponsKnowledge: 0
-    ArmorKnowledge: 0
-    MetalworkingKnowledge: 0
-    CarvingKnowledge: 0
-    GunsmithingKnowledge: 0
-    MechanicsKnowledge: 0
-    TailoringKnowledge: 0
-    # Misc Skill
-    JanitorKnowledge: 0
+    ManufacturingKnowledge: 3
+    ConstructionKnowledge: 3
+    MechanicsKnowledge: 9 # I AM
+    ScienceKnowledge: 6
+    ElectronicsKnowledge: 6

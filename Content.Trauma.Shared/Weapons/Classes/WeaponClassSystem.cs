@@ -66,5 +66,10 @@ public sealed partial class WeaponClassSystem : EntitySystem
         => GetSkillLevel(ProtoMan.Index(ent.Comp.Class), user);
 
     public int GetSkillLevel(WeaponClassPrototype proto, EntityUid user)
-        => _knowledge.GetKnowledgeLevel(user, proto.Knowledge);
+    {
+        if (_knowledge.GetContainer(user) is not { } brain)
+            return 0;
+
+        return _knowledge.GetSkill(brain, proto.Knowledge) is { } skill ? _knowledge.GetLevel(skill.Owner) : 0;
+    }
 }

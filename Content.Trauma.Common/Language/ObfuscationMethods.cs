@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using System.Text;
+using System.Threading.Channels;
 using Content.Trauma.Common.Language.Systems;
 
 namespace Content.Trauma.Common.Language;

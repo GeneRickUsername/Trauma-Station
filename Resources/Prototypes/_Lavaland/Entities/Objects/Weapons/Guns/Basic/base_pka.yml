@@ -132,7 +132,7 @@
       Silver: 25
   - type: MeleeWeapon
     wideAnimationRotation: 270
-    attackRate: 1
+    attackRate: 0.09
     angle: 0
     range: 1.1
     damage:

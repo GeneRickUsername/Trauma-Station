@@ -1,5 +1,6 @@
 // <Trauma>
 using Content.Trauma.Common.Heretic;
+using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Common.MartialArts;
 using Content.Trauma.Common.Weapons;
 using Content.Goobstation.Common.Weapons;
@@ -633,13 +634,15 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
         }
 
         // <Trauma>
-        var beforeEvent = new BeforeHarmfulActionEvent(user, target.Value, HarmfulActionType.Harm, meleeUid, ev.CanParry);
+        var beforeEvent = new BeforeHarmfulActionEvent(user, target.Value, HarmfulActionType.Harm, damage, meleeUid, ev.CanParry);
         RaiseLocalEvent(target.Value, ref beforeEvent);
         if (beforeEvent.Cancelled)
         {
             DoLungeAnimation(user, weapon, component.Angle, TransformSystem.ToMapCoordinates(target.Value.ToCoordinates()), rangeEv.Range, component.Animation, component.AnimationRotation, component.FlipAnimation, source);
             return;
         }
+        target = beforeEvent.Target;
+        damage = beforeEvent.Damage ?? damage;
         // </Trauma>
 
         // Sawmill.Debug($"Melee damage is {damage.Total} out of {component.Damage.Total}");
@@ -798,18 +801,20 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                 continue;
 
             // <Trauma>
-            var beforeEvent = new BeforeHarmfulActionEvent(user, entity, HarmfulActionType.Harm, meleeUid);
+            var beforeEvent = new BeforeHarmfulActionEvent(user, entity, HarmfulActionType.Harm, damage, meleeUid);
             RaiseLocalEvent(entity, ref beforeEvent);
             if (beforeEvent.Cancelled)
                 continue;
+            var target = beforeEvent.Target;
+            damage = beforeEvent.Damage ?? damage;
             // </Trauma>
 
-            targets.Add(entity);
+            targets.Add(target);
         }
 
         // Sawmill.Debug($"Melee damage is {damage.Total} out of {component.Damage.Total}");
 
-        // Raise event before doing damage so we can cancel damage if the event is handled
+        // Raise event before doing damage so we can cancel damage if th ?e event is handled
         var hitEvent = new MeleeHitEvent(targets, user, meleeUid, damage, direction, GetCoordinates(ev.Coordinates)); // Goob edit
         RaiseLocalEvent(meleeUid, hitEvent, true); // Goob station - broadcast
 
@@ -844,6 +849,16 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                 targets.RemoveAt(i);
                 continue;
             }
+
+            // <Trauma>
+            var attackAttemptEv = new ActiveMeleeResolveEvent(entity, meleeUid, damage);
+            RaiseLocalEvent(user, ref attackAttemptEv);
+            targets[i] = attackAttemptEv.Defender;
+            entity = attackAttemptEv.Defender;
+            if (attackAttemptEv.Cancelled)
+                continue;
+            var adjustedDamage = attackAttemptEv.Damage;
+            // </Trauma>
 
             var attackedEvent = new AttackedEvent(meleeUid, user, GetCoordinates(ev.Coordinates));
             RaiseLocalEvent(entity, attackedEvent);

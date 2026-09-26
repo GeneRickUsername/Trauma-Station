@@ -2,42 +2,37 @@
 
 - type: knowledgeProfile
   id: Diona
-  pointsLimit: 3
-  mastery:
+  pointsLimit: 80
+  attributes:
+    StrengthAttribute: 0
+    IntelligenceAttribute: 0
+    WisdomAttribute: 15 # The trees are wise
+    DexterityAttribute: -30 # Slow as the trees themselves
+    ConstitutionAttribute: 20 # That's bark, man
+    LooksAttribute: -30 # They're literal plants
+    CharismaAttribute: 0
+  skillRolls:
+    # Intelectual Skills
+    LiteracyKnowledge: 12
+    MagicalLiteracyKnowledge: 3 # Preemptive magical knowledge for when it matters. Magic tree ent lore larp or smth.
     # Crafting Recipe Skills
-    CookingKnowledge: 0
     DoorsKnowledge: 1
     AirlocksKnowledge: 1
-    BananiumKnowledge: 0
-    BotsKnowledge: 0
     FurnitureKnowledge: 1
     InfrastructureKnowledge: 1
-    ElectronicsKnowledge: 1
     WallsKnowledge: 1
     WindowsKnowledge: 1
     SmokeablesKnowledge: 4
-    # Intelectual Skills
-    LiteracyKnowledge: 0
-    MagicalLiteracyKnowledge: 1 # Preemptive magical knowledge for when it matters. Magic tree ent lore larp or smth.
     # Language Skills
-    LanguageRootSpeak: 3
+    LanguageRootSpeak: 9
     # Medical Skill
-    SurgeryKnowledge: 0
-    FirstAidKnowledge: 1
-    ChemistryKnowledge: 1
+    FirstAidKnowledge: 3
+    ChemistryKnowledge: 3
     # Combat Skill
     ThrowingKnowledge: 1 # Mass matters for throwing but lean into it a bit.
-    MeleeKnowledge: 0
-    ShootingKnowledge: 0
-    KnowledgeWeaponsShield: 0
     # Crafting Quality
-    FabricationKnowledge: 0
-    WeaponsKnowledge: 0
-    ArmorKnowledge: 0
-    MetalworkingKnowledge: 0
-    CarvingKnowledge: 0
-    GunsmithingKnowledge: 0
-    MechanicsKnowledge: 0
-    TailoringKnowledge: 0
-    # Misc Skill
-    JanitorKnowledge: 0
+    ManufacturingKnowledge: 3
+    ConstructionKnowledge: 3
+    MechanicsKnowledge: 3
+    ElectronicsKnowledge: 3
+    SurvivalKnowledge: 12

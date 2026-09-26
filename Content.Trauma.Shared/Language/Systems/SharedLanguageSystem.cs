@@ -46,7 +46,7 @@ public abstract partial class SharedLanguageSystem : CommonLanguageSystem
         var ratio = 1.0f;
         if (_knowledge.GetContainer(messageSource) is { } brain)
         {
-            if (_knowledge.GetKnowledge(brain, _knowledge.LanguageUnit(language)) is { } skill)
+            if (_knowledge.GetSkill(brain, _knowledge.LanguageUnit(language)) is { } skill)
             {
                 if (_knowledge.GetMastery(skill.Comp) > 1)
                     ratio = 0.0f;
@@ -120,7 +120,7 @@ public abstract partial class SharedLanguageSystem : CommonLanguageSystem
         // Kind of important that knowledge holders don't understand everything so they use the obfuscation logic.
         var canUnderstand = true;
         if (_knowledge.GetContainer(ent.Owner) is { } brain)
-            canUnderstand = _knowledge.GetKnowledge(brain, _knowledge.LanguageUnit(language)) is { } unit && _knowledge.GetMastery(unit.Comp) >= 2;
+            canUnderstand = _knowledge.GetSkill(brain, _knowledge.LanguageUnit(language)) is { } unit && _knowledge.GetMastery(unit.Comp) >= 2;
 
         return Resolve(ent, ref ent.Comp, logMissing: false) && ent.Comp.Understands.Contains(language) && canUnderstand;
     }

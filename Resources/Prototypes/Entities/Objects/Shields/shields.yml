@@ -183,7 +183,7 @@
       walkModifier: 0.9
       sprintModifier: 0.9
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Blunt: 10
@@ -280,7 +280,7 @@
       tags:
       - Trash
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Blunt: 1
@@ -342,7 +342,7 @@
       walkModifier: 0.9
       sprintModifier: 0.9
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
     # </Trauma>
     - type: Tag #goobstation
       tags:
@@ -436,7 +436,7 @@
       walkModifier: 0.9
       sprintModifier: 0.9
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Blunt: 10
@@ -466,7 +466,7 @@
       reflects:
         - Energy
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Slash: 10
@@ -520,7 +520,7 @@
       walkModifier: 0.9
       sprintModifier: 0.9
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Heat: 10
@@ -640,7 +640,7 @@
   components:
     # <Trauma>
     - type: MeleeWeapon
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Blunt: 10

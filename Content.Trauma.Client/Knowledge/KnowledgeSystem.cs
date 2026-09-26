@@ -11,6 +11,9 @@ using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Knowledge.Prototypes;
 using Content.Trauma.Common.MartialArts;
+using Content.Trauma.Shared.Knowledge.Attribute.Attribute;
+using Content.Trauma.Shared.Knowledge.Attribute.Attribute.Components;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 using Content.Trauma.Shared.Knowledge.Systems;
 using Content.Trauma.Shared.MartialArts.Components;
 
@@ -27,6 +30,17 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
     {
         base.Initialize();
 
+        SubscribeLocalEvent<DamageAttributeComponent, GetAttributeModifierEvent>(OnCalculateDamage);
+        SubscribeLocalEvent<StrengthFeatComponent, GetAttributeModifierEvent>(OnStrengthFeat);
+        SubscribeLocalEvent<AgilityFeatComponent, GetAttributeModifierEvent>(OnCalculateAgility);
+        SubscribeLocalEvent<DodgeAttributeComponent, GetAttributeModifierEvent>(OnCalculateDodge);
+        SubscribeLocalEvent<PhysicalAttributeComponent, GetAttributeModifierEvent>(OnCalculatePhysical);
+        SubscribeLocalEvent<MentalAttributeComponent, GetAttributeModifierEvent>(OnCalculateMental);
+        SubscribeLocalEvent<LiftAttributeComponent, GetAttributeModifierEvent>(OnLift);
+        SubscribeLocalEvent<CarryAttributeComponent, GetAttributeModifierEvent>(OnCarry);
+        SubscribeLocalEvent<DragAttributeComponent, GetAttributeModifierEvent>(OnDrag);
+        SubscribeLocalEvent<MoraleAttributeComponent, GetAttributeModifierEvent>(OnCalculateMorale);
+
         Subs.CVar(_cfg, TraumaCVars.SkillPopups, x => _showPopups = x, true);
 
         CharacterWindow.OnOpened += EnsureKnowledgeTab;
@@ -39,6 +53,95 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
 
         CharacterWindow.OnOpened -= EnsureKnowledgeTab;
         LobbyUIController.OnProfileEditorCreated -= AddProfileEditorTab;
+    }
+
+    private void OnCalculateAttack(Entity<SpeedAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Speed: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnCalculateDamage(Entity<DamageAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Damage: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnStrengthFeat(Entity<StrengthFeatComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Strength Feat: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+
+    private void OnCalculateAgility(Entity<AgilityFeatComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Agility Feat: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnCalculateDodge(Entity<DodgeAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Dodge: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnCalculatePhysical(Entity<PhysicalAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Physical: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnCalculateMental(Entity<MentalAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Mental: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnLift(Entity<LiftAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Lift: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnCarry(Entity<CarryAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Carry: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnDrag(Entity<DragAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Drag: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    private void OnCalculateMorale(Entity<MoraleAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Morale: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
     [SubscribeLocalEvent]
@@ -58,26 +161,45 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
 
         _activeWindow = new WeakReference<CharacterWindow>(window);
 
-        KnowledgeTab? knowledgeTab = null;
+        SkillTab? skillTab = null;
         foreach (var child in window.Tabs.Children)
         {
-            if (child is KnowledgeTab)
+            if (child is SkillTab)
             {
-                knowledgeTab = (KnowledgeTab) child;
+                skillTab = (SkillTab) child;
+                break;
+            }
+        }
+
+        AttributeTab? attributeTab = null;
+        foreach (var child in window.Tabs.Children)
+        {
+            if (child is AttributeTab)
+            {
+                attributeTab = (AttributeTab) child;
                 break;
             }
         }
 
         TabContainer.SetTabTitle(window.CharacterTab, Loc.GetString("trauma-character-title"));
 
-        if (knowledgeTab == null)
+        if (skillTab == null)
         {
-            knowledgeTab = new KnowledgeTab();
-            window.Tabs.AddChild(knowledgeTab);
+            skillTab = new SkillTab();
+            window.Tabs.AddChild(skillTab);
         }
 
-        if (_player.LocalEntity is {} player)
-            knowledgeTab.UpdateKnowledgeTab(player);
+        if (attributeTab == null)
+        {
+            attributeTab = new AttributeTab();
+            window.Tabs.AddChild(attributeTab);
+        }
+
+        if (_player.LocalEntity is { } player)
+        {
+            skillTab.UpdateSkillTab(player);
+            attributeTab.UpdateAttributeTab(player, EntityManager);
+        }
     }
 
     private void AddProfileEditorTab(HumanoidProfileEditor editor)
@@ -111,7 +233,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
     /// </summary>
     public List<(EntityUid, EntProtoId, string)> GetMartialArtsForClientDoohickey(EntityUid target)
     {
-        if (GetKnowledgeWith<MartialArtsKnowledgeComponent>(target) is not {} arts)
+        if (GetSkillWith<MartialArtsSkillComponent>(target) is not { } arts)
             return [];
 
         var list = new List<(EntityUid, EntProtoId, string)>();
@@ -123,19 +245,110 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         return list;
     }
 
-    public List<(ProtoId<KnowledgeCategoryPrototype> Category, KnowledgeInfo Info)>? GrabAllKnowledge(EntityUid target)
+    public List<(ProtoId<SkillCategoryPrototype> Category, SkillInfo Info)>? GrabAllSkills(EntityUid target)
     {
-        var knowledgeList = TryGetAllKnowledgeUnits(target);
+        var knowledgeList = TryGetAllSkillUnits(target);
 
         if (knowledgeList is not { } || knowledgeList.Count == 0)
             return null;
 
         return knowledgeList
-            .Select(ent => GetKnowledgeInfo(ent))
+            .Select(ent => GetSkillInfo(ent))
             .OrderBy(data => data.Category)
             .ThenBy(data => data.Info.Name)
             .ToList();
     }
+
+    public List<(int Order, AttributeInfo Info)>? GrabAllAttributes(EntityUid target)
+    {
+        var knowledgeList = TryGetAllAttributeUnits(target);
+
+        if (knowledgeList is not { } || knowledgeList.Count == 0)
+            return null;
+
+        return knowledgeList
+            .Select(ent => GetAttributeInfo(ent))
+            .OrderBy(data => data.Order)
+            .ThenBy(data => data.Info.Name)
+            .ToList();
+    }
+
+    public List<TalentInfo>? GrabAllTalents(EntityUid target)
+    {
+        var knowledgeList = TryGetAllTalentUnits(target);
+        if (knowledgeList is not { } || knowledgeList.Count == 0)
+            return null;
+        return knowledgeList
+            .Select(ent => GetTalentInfo(ent))
+            .OrderBy(data => data.Name)
+            .ToList();
+    }
+
+    public List<ProficiencyInfo>? GrabAllProficiencies(EntityUid target)
+    {
+        var knowledgeList = TryGetAllProficiencyUnits(target);
+        if (knowledgeList is not { } || knowledgeList.Count == 0)
+            return null;
+        return knowledgeList
+            .Select(ent => GetProficiencyInfo(ent))
+            .OrderBy(data => data.Name)
+            .ToList();
+    }
+
+    public (ProtoId<SkillCategoryPrototype> Category, SkillInfo Info) GetSkillInfo(Entity<SkillComponent> ent)
+    {
+        var meta = MetaData(ent);
+        var name = meta.EntityName;
+        var desc = meta.EntityDescription;
+        var levelStr = Loc.GetString("knowledge-info-description", ("level", ent.Comp.NetLevel), ("mastery", GetMasteryString(ent)));
+        var knowledgeInfo = new SkillInfo(name, desc, ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost, levelStr);
+        // TODO: make this an event raised on ent
+        if (_langQuery.TryComp(ent, out var languageKnowledge))
+        {
+            var locKey = (languageKnowledge.Speaks, languageKnowledge.Understands) switch
+            {
+                (true, true) => "knowledge-language-speaks-understands",
+                (true, false) => "knowledge-language-speaks",
+                _ => "knowledge-language-understands"
+            };
+
+            knowledgeInfo.Name = Loc.GetString(locKey, ("language", name));
+        }
+        else if (TryComp<MartialArtsSkillComponent>(ent, out var martialKnowledge))
+        {
+            knowledgeInfo.Name = Loc.GetString("knowledge-martial-arts-name", ("name", name));
+        }
+        else
+        {
+            knowledgeInfo.Name = name;
+        }
+        return (ent.Comp.Category, knowledgeInfo);
+    }
+
+    public (int Order, AttributeInfo Info) GetAttributeInfo(Entity<AttributeComponent> ent)
+    {
+        var info = new AttributeInfo();
+
+        info.Name = Name(ent);
+        info.Description = Description(ent);
+        info.Entity = GetNetEntity(ent);
+        return (ent.Comp.Order, info);
+    }
+
+    public TalentInfo GetTalentInfo(Entity<TalentComponent> ent)
+    {
+        return new TalentInfo(Name(ent), Description(ent), ent.Comp.Sprite, ent.Comp.Level, ent.Comp.Repeat);
+    }
+
+    public ProficiencyInfo GetProficiencyInfo(Entity<ProficiencyComponent> ent)
+    {
+        SpecializationAllocation? specialization = null;
+        if (TryComp<SpecializationComponent>(ent, out var specializationComp))
+            specialization = specializationComp.Specialization;
+
+        return new ProficiencyInfo(Name(ent), Description(ent), ent.Comp.Sprite, specialization);
+    }
+
 
     [SubscribeLocalEvent]
     public void OnUpdateExperienceEvent(Entity<KnowledgeHolderComponent> ent, ref UpdateExperienceEvent args)
@@ -165,7 +378,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
             _popup.PopupEntity(args.Popup, player, player, PopupType.Small);
     }
 
-    public EntProtoId? GetEntProtoId(Entity<MartialArtsKnowledgeComponent>? martialArt)
+    public EntProtoId? GetEntProtoId(Entity<MartialArtsSkillComponent>? martialArt)
     {
         if (martialArt is not { } martialArtTrue)
             return null;

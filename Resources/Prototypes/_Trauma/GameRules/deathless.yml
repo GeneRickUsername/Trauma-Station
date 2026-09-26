@@ -1,0 +1,21 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: DeathlessStationEventScheduler
+  parent: BaseGameRule
+  components:
+  - type: BasicStationEventScheduler
+    scheduledGameRules: !type:NestedSelector
+      tableId: RespawnDeadRuleTable
+# <Trauma> - These values should make midrounds less chaotic overall
+    minimumTimeUntilFirstEvent: 300 #5 min
+    minMaxEventTiming:
+      min: 300 # 5 min
+      max: 300 # 5 min
+#</Trauma>
+
+- type: entityTable
+  id: RespawnDeadRuleTable
+  table: !type:AllSelector
+    children:
+    - id: RespawnDeadRule

@@ -1254,6 +1254,11 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("integer")
                         .HasColumnName("age");
 
+                    b.Property<string>("AttributePurchases")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("attribute_purchases");
+
                     b.Property<string>("BarkVoice")
                         .IsRequired()
                         .HasColumnType("text")
@@ -1299,11 +1304,6 @@ namespace Content.Server.Database.Migrations.Postgres
                         .HasColumnType("text")
                         .HasColumnName("hair_name");
 
-                    b.Property<string>("KnowledgeMastery")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("knowledge_mastery");
-
                     b.Property<JsonDocument>("Markings")
                         .HasColumnType("jsonb")
                         .HasColumnName("markings");
@@ -1324,6 +1324,11 @@ namespace Content.Server.Database.Migrations.Postgres
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("sex");
+
+                    b.Property<string>("SkillRolls")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("skill_rolls");
 
                     b.Property<string>("SkinColor")
                         .IsRequired()

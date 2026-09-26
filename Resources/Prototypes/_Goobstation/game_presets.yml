@@ -18,6 +18,7 @@
   - SpaceTrafficControlEventScheduler
   - SubGamemodesRule
   - Changeling
+  - DeathlessStationEventScheduler
 
 # no subgamemodes for the mixed presets
 
@@ -38,6 +39,7 @@
   - SpaceTrafficControlEventScheduler
   - CalmLing
   - CalmTraitor
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: NukeTraitor
@@ -57,6 +59,7 @@
   - SpaceTrafficControlEventScheduler
   - Calmops
   - CalmTraitor
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: NukeLing
@@ -75,6 +78,7 @@
   - SpaceTrafficControlEventScheduler
   - Calmops
   - CalmLing
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: RevTraitor
@@ -94,6 +98,7 @@
   - SpaceTrafficControlEventScheduler
   - CalmRevs
   - CalmTraitor
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: RevLing
@@ -112,6 +117,7 @@
   - SpaceTrafficControlEventScheduler
   - CalmRevs
   - CalmLing
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Blob
@@ -129,6 +135,7 @@
   - SpaceTrafficControlEventScheduler
   - SubGamemodesRule
   - BlobGameMode
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Honkops
@@ -146,6 +153,7 @@
   - SpaceTrafficControlEventScheduler
   - SubGamemodesRule
   - Honkops
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Xenomorphs
@@ -164,3 +172,4 @@
   - SpaceTrafficControlEventScheduler
   - SubGamemodesRule
   - XenomorphsInfestationRoundstart
+  - DeathlessStationEventScheduler

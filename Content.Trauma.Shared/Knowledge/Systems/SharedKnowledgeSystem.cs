@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Goobstation.Common.Cloning;
-using Content.Trauma.Shared.Language.Systems;
 using Content.Shared.Body;
 using Content.Shared.Mind.Components;
 using Content.Shared.Polymorph;
@@ -13,7 +12,9 @@ using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Knowledge.Prototypes;
 using Content.Trauma.Common.Knowledge.Systems;
 using Content.Trauma.Common.Silicons.Borgs;
-using Content.Trauma.Shared.MartialArts.Components;
+using Content.Trauma.Shared.Knowledge.Attribute.Attribute;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
+using Content.Trauma.Shared.Language.Systems;
 using Content.Trauma.Shared.Mobs;
 using Robust.Shared.Configuration;
 using Robust.Shared.Containers;
@@ -35,21 +36,42 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     [Dependency] private SharedContainerSystem _container = default!;
     [Dependency] private SharedLanguageSystem _language = default!;
     [Dependency] private EntityQuery<AwakeMobComponent> _awakeQuery = default!;
-    [Dependency] private EntityQuery<KnowledgeComponent> _query = default!;
+    [Dependency] private EntityQuery<SkillComponent> _skillQuery = default!;
+    [Dependency] private EntityQuery<AttributeComponent> _attributeQuery = default!;
+    [Dependency] private EntityQuery<ProficiencyComponent> _proficiencyQuery = default!;
+    [Dependency] private EntityQuery<TalentComponent> _talentQuery = default!;
     [Dependency] private EntityQuery<KnowledgeContainerComponent> _containerQuery = default!;
     [Dependency] private EntityQuery<KnowledgeHolderComponent> _holderQuery = default!;
 
     /// <summary>
-    /// Every knowledge prototype and its data.
+    /// Every skill prototype and its data.
     /// </summary>
-    public Dictionary<EntProtoId, KnowledgeComponent> AllKnowledges = new();
+    public Dictionary<EntProtoId, SkillComponent> AllSkills = new();
+
+    /// <summary>
+    /// Every attribute prototype and its data.
+    /// </summary>
+    public Dictionary<EntProtoId, AttributeComponent> AllAttributes = new();
+
+    /// <summary>
+    /// Every talent prototype and its data.
+    /// </summary>
+    public Dictionary<EntProtoId, TalentComponent> AllTalents = new();
+
+    /// <summary>
+    /// Every proficiency prototype and its data.
+    /// </summary>
+    public Dictionary<EntProtoId, ProficiencyComponent> AllProficiencies = new();
+
     public static readonly string[] MasteryNames = [
         "Unskilled",
+        "Novice",
         "Average",
         "Advanced",
         "Expert",
         "Master"
     ];
+
     /// <summary>
     /// When knowledge is disabled only these skills can be added.
     /// </summary>
@@ -58,7 +80,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         Components =
         [
             "LanguageKnowledge",
-            "MartialArtsKnowledge"
+            "MartialArtsSkill"
         ]
     };
 
@@ -80,9 +102,10 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         Subs.CVar(_cfg, TraumaCVars.SkillsEnabled, x => SkillsEnabled = x, true);
         Subs.CVar(_cfg, TraumaCVars.SkillGain, x => _skillGain = x, true);
 
-        LoadSkillPrototypes();
+        LoadPrototypes();
     }
 
+    /// <inheritdoc/>
     public override void Update(float frameTime)
     {
         base.Update(frameTime);
@@ -93,22 +116,22 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         _nextUpdate = _timing.CurTime + _updateDelay;
 
         // client only predicts rolling for itself
-        if (_player.LocalEntity is {} player)
+        if (_player.LocalEntity is { } player)
         {
-            UpdateHolder(player);
+            UpdateSkills(player);
             return;
         }
 
         var query = EntityQueryEnumerator<KnowledgeHolderComponent>();
         while (query.MoveNext(out var ent, out _))
         {
-            UpdateHolder(ent);
+            UpdateSkills(ent);
         }
     }
 
-    private void UpdateHolder(EntityUid ent)
+    private void UpdateSkills(EntityUid ent)
     {
-        if (TryGetAllKnowledgeUnits(ent) is not { } knowledgeUnits)
+        if (TryGetAllSkillUnits(ent) is not { } knowledgeUnits)
             return;
 
         foreach (var knowledgeUnit in knowledgeUnits)
@@ -220,20 +243,66 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     private void OnPrototypesReloaded(PrototypesReloadedEventArgs args)
     {
         if (args.WasModified<EntityPrototype>())
-            LoadSkillPrototypes();
+            LoadPrototypes();
     }
+
+    private void LoadPrototypes()
+    {
+        LoadSkillPrototypes();
+        LoadAttributePrototypes();
+        LoadTalentPrototypes();
+        LoadProficiencyPrototypes();
+    }
+
 
     private void LoadSkillPrototypes()
     {
-        AllKnowledges.Clear();
-        var name = Factory.GetComponentName<KnowledgeComponent>();
+        AllSkills.Clear();
         foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
         {
             // TODO: replace with TryComp after engine update
-            if (!proto.TryGetComponent<KnowledgeComponent>(name, out var comp))
+            if (!proto.TryComp<SkillComponent>(out var comp, Factory))
                 continue;
 
-            AllKnowledges[proto.ID] = comp;
+            AllSkills[proto.ID] = comp;
+        }
+    }
+
+    private void LoadAttributePrototypes()
+    {
+        AllAttributes.Clear();
+        foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
+        {
+            // TODO: replace with TryComp after engine update
+            if (!proto.TryComp<AttributeComponent>(out var comp, Factory))
+                continue;
+
+            AllAttributes[proto.ID] = comp;
+        }
+    }
+
+    private void LoadTalentPrototypes()
+    {
+        AllTalents.Clear();
+        foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
+        {
+            // TODO: replace with TryComp after engine update
+            if (!proto.TryComp<TalentComponent>(out var comp, Factory))
+                continue;
+
+            AllTalents[proto.ID] = comp;
+        }
+    }
+
+    private void LoadProficiencyPrototypes()
+    {
+        AllProficiencies.Clear();
+        foreach (var proto in ProtoMan.EnumeratePrototypes<EntityPrototype>())
+        {
+            if (!proto.TryComp<ProficiencyComponent>(out var comp, Factory))
+                continue;
+
+            AllProficiencies[proto.ID] = comp;
         }
     }
 
@@ -251,10 +320,10 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
 
         foreach (var knowledgeEnt in found)
         {
-            _container.Insert(knowledgeEnt.Owner, container);
+            _container.Insert(knowledgeEnt, container);
             var protoId = Prototype(knowledgeEnt)?.ID;
             if (protoId is { } id)
-                mobContainer.Comp.KnowledgeDict[id] = knowledgeEnt.Owner;
+                mobContainer.Comp.KnowledgeDict[id] = knowledgeEnt;
         }
         ClearKnowledge(ent, false);
     }
@@ -273,20 +342,23 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             RaiseLocalEvent(ev);
     }
 
+    /// <summary>
+    /// Run on a knowledge brain and id to add exp.
+    /// </summary>
     public void AddExperience(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int xp, int levelCap = 100, bool popup = true)
     {
         if (!_skillGain)
             return;
 
-        if (GetKnowledge(ent, id) is not { } unit)
+        if (GetSkill(ent, id) is not { } unit)
         {
             // Can't add it with experience if you can't comprehend complexity.
-            if (ProtoMan.Index(id).TryGetComponent<KnowledgeComponent>(out var knowledge, Factory) && knowledge?.Complex == true)
+            if (ProtoMan.Index(id).TryComp<SkillComponent>(out var knowledge, Factory) && knowledge?.Complex == true)
                 return;
 
             // if you don't have it, you have a small change to learn it when gaining some xp
             if (SharedRandomExtensions.PredictedProb(_timing, _learnChance, GetNetEntity(ent)))
-                EnsureKnowledge(ent, id, 0, popup);
+                EnsureKnowledge<SkillComponent>(ent, id, 0, popup);
             return;
         }
 
@@ -299,26 +371,41 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         }
     }
 
-    public void AddExperience(Entity<KnowledgeComponent?> ent, EntityUid target, int added, int limit = 100)
+    /// <summary>
+    /// Run on a knowledge unit and target to add exp.
+    /// </summary>
+    public void AddExperience(EntityUid ent, EntityUid target, int added, int limit = 100)
     {
-        if (!_skillGain || !_query.Resolve(ent, ref ent.Comp))
+        if (!_skillGain)
             return;
 
-        var now = _timing.CurTime;
-        if (now < ent.Comp.TimeToNextExperience || ent.Comp.LearnedLevel >= Math.Min(limit, 100))
-            return;
+        if (_skillQuery.TryComp(ent, out var skillComp))
+        {
+            var now = _timing.CurTime;
+            if (now < skillComp.TimeToNextExperience || skillComp.LearnedLevel >= Math.Min(limit, 100))
+                return;
 
-        ent.Comp.TimeToNextExperience = now + ent.Comp.TimeBetweenExperience;
-        ent.Comp.Experience += added + ent.Comp.BonusExperience;
-        Dirty(ent);
+            skillComp.TimeToNextExperience = now + skillComp.TimeBetweenExperience;
+            skillComp.Experience += added + skillComp.BonusExperience;
+            Dirty(ent, skillComp);
 
-        RollForLevelUp((ent, ent.Comp), target);
+            RollForLevelUp((ent, skillComp), target);
+        }
+
+        if (_attributeQuery.TryComp(ent, out var attributeComp))
+        {
+            attributeComp.Inherent = AttributeSystem.AdjustAttribute(attributeComp.Attribute, added);
+            Dirty(ent, attributeComp);
+        }
+
+        var updateEv = new UpdateExperienceEvent();
+        RaiseLocalEvent(target, ref updateEv);
     }
 
     /// <summary>
     /// Rolls Levelup. True on roll. False on not.
     /// </summary>
-    public bool RollForLevelUp(Entity<KnowledgeComponent> ent, EntityUid target)
+    public bool RollForLevelUp(Entity<SkillComponent> ent, EntityUid target)
     {
         // If we don't have enough experience or level is max, return.
         if (ent.Comp.Experience < ent.Comp.ExperienceCost || ent.Comp.LearnedLevel >= 100)
@@ -347,34 +434,40 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         return true;
     }
 
-    public (ProtoId<KnowledgeCategoryPrototype> Category, KnowledgeInfo Info) GetKnowledgeInfo(Entity<KnowledgeComponent> ent)
+    public Entity<T>? TryGetKnowledge<T>(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id) where T : IComponent
     {
-        var meta = MetaData(ent);
-        var name = meta.EntityName;
-        var desc = meta.EntityDescription;
-        var levelStr = Loc.GetString("knowledge-info-description", ("level", ent.Comp.NetLevel), ("mastery", GetMasteryString(ent)));
-        var knowledgeInfo = new KnowledgeInfo(name, desc, levelStr, ent.Comp.Color, ent.Comp.Sprite, ent.Comp.LearnedLevel, ent.Comp.NetLevel, ent.Comp.Experience, ent.Comp.ExperienceCost);
-        // TODO: make this an event raised on ent
-        if (_langQuery.TryComp(ent, out var languageKnowledge))
-        {
-            var locKey = (languageKnowledge.Speaks, languageKnowledge.Understands) switch
-            {
-                (true, true) => "knowledge-language-speaks-understands",
-                (true, false) => "knowledge-language-speaks",
-                _ => "knowledge-language-understands"
-            };
+        // Resolves the EntityUid -> Entity<T> translation securely
+        if (TryGetKnowledge(ent, id) is { } unit && TryComp<T>(unit, out var requestedComp))
+            return new Entity<T>(unit, requestedComp);
 
-            knowledgeInfo.Name = Loc.GetString(locKey, ("language", name));
-        }
-        else if (TryComp<MartialArtsKnowledgeComponent>(ent, out var martialKnowledge))
+        return null;
+    }
+
+    public EntityUid? TryGetKnowledge(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
+    {
+        if (!SkillsEnabled && _whitelist.IsWhitelistFail(DisabledSkillWhitelist, id))
+            return null; // no crafting etc skills when disabled
+
+        EntityUid? unit = null;
+
+        if (GetSkill(ent, id) is { } existing)
         {
-            knowledgeInfo.Name = Loc.GetString("knowledge-martial-arts-name", ("name", name));
+            unit = existing.Owner;
         }
-        else
+        else if (GetAttribute(ent, id) is { } attribute)
         {
-            knowledgeInfo.Name = name;
+            unit = attribute.Owner;
         }
-        return (ent.Comp.Category, knowledgeInfo);
+        else if (GetProficiency(ent, id) is { } proficiency)
+        {
+            unit = proficiency.Owner;
+        }
+        else if (GetTalent(ent, id) is { } talent)
+        {
+            unit = talent.Owner;
+        }
+
+        return unit;
     }
 
     /// <summary>
@@ -385,62 +478,131 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// <returns>
     /// Null if spawning it fails.
     /// </returns>
-    public Entity<KnowledgeComponent>? EnsureKnowledge(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int level = 0, bool popup = true)
+    ///
+    public Entity<T>? EnsureKnowledge<T>(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int level = 0, bool popup = true) where T : IComponent
+    {
+        // Resolves the EntityUid -> Entity<T> translation securely
+        if (EnsureKnowledge(ent, id, level, popup) is { } unit && TryComp<T>(unit, out var requestedComp))
+            return new Entity<T>(unit, requestedComp);
+
+        return null;
+    }
+
+    public EntityUid? EnsureKnowledge(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int level = 0, bool popup = true)
     {
         if (!SkillsEnabled && _whitelist.IsWhitelistFail(DisabledSkillWhitelist, id))
             return null; // no crafting etc skills when disabled
 
-        if (GetKnowledge(ent, id) is { } existing)
+        EntityUid unit;
+
+        if (GetSkill(ent, id) is { } existing)
         {
             if (existing.Comp.LearnedLevel < level)
             {
                 existing.Comp.LearnedLevel = level;
                 Dirty(existing, existing.Comp);
             }
-            return existing;
+            unit = existing.Owner;
         }
-
-        PredictedTrySpawnInContainer(id, ent.Owner, KnowledgeContainerComponent.ContainerId, out var spawned);
-        if (spawned is not { } unit)
+        else if (GetAttribute(ent, id) is { } attribute)
         {
-            Log.Error($"Failed to spawn knowledge {id} for {ToPrettyString(ent)}!");
-            return null;
+            if (attribute.Comp.Inherent < level)
+            {
+                attribute.Comp.Inherent = level;
+                Dirty(attribute, attribute.Comp);
+            }
+            unit = attribute.Owner;
         }
-
-        var comp = _query.Comp(unit);
-        comp.LearnedLevel = level;
-        Dirty(unit, comp);
-
-        ent.Comp.KnowledgeDict[id] = unit;
-        DirtyField(ent, ent.Comp, nameof(KnowledgeContainerComponent.KnowledgeDict));
-
-        if (ent.Comp.Holder is not { } holder)
-            return (unit, comp); // added knowledge to a loose brain...
-
-        var ev = new KnowledgeAddedEvent(ent, holder);
-        RaiseLocalEvent(unit, ref ev);
-
-        if (popup)
+        else if (GetProficiency(ent, id) is { } proficiency)
         {
-            var msg = Loc.GetString("knowledge-unit-learned-popup", ("knowledge", Name(unit)));
-            SkillPopup(msg, holder);
+            unit = proficiency.Owner;
         }
-        return (unit, comp);
+        else if (GetTalent(ent, id) is { } talent)
+        {
+            if (talent.Comp.Strength < level)
+            {
+                talent.Comp.Strength = level;
+                Dirty(talent, talent.Comp);
+            }
+            unit = talent.Owner;
+        }
+        else
+        {
+            PredictedTrySpawnInContainer(id, ent.Owner, KnowledgeContainerComponent.ContainerId, out var spawned);
+            if (spawned is not { } spawnedUnit)
+            {
+                Log.Error($"Failed to spawn knowledge {id} for {ToPrettyString(ent)}!");
+                return null;
+            }
+            unit = spawnedUnit;
+
+            if (_skillQuery.TryComp(unit, out var comp))
+            {
+                comp.LearnedLevel = level;
+                Dirty(unit, comp);
+            }
+            else if (_attributeQuery.TryComp(unit, out var attributeComp))
+            {
+                attributeComp.Inherent = level;
+                Dirty(unit, attributeComp);
+            }
+            else if (_proficiencyQuery.TryComp(unit, out var proficiencyComp))
+            {
+                // Intentionally empty
+            }
+            else if (_talentQuery.TryComp(unit, out var talentComp))
+            {
+                talentComp.Strength = level;
+                Dirty(unit, talentComp);
+            }
+
+            ent.Comp.KnowledgeDict[id] = unit;
+            DirtyField(ent, ent.Comp, nameof(KnowledgeContainerComponent.KnowledgeDict));
+        }
+
+        if (ent.Comp.Holder is { } holder)
+        {
+            var ev = new KnowledgeAddedEvent(ent, holder);
+            RaiseLocalEvent(unit, ref ev);
+
+            if (popup)
+            {
+                var msg = Loc.GetString("knowledge-unit-learned-popup", ("knowledge", Name(unit)));
+                SkillPopup(msg, holder);
+            }
+        }
+
+        return unit;
     }
+
 
     /// <summary>
     /// Raises a skill's mastery level by some number.
     /// Adds the skill if it's missing.
     /// </summary>
-    public Entity<KnowledgeComponent>? RaiseMastery(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int mastery, bool popup = true)
+    public Entity<SkillComponent>? RaiseMastery(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int mastery, bool popup = true)
     {
-        if (EnsureKnowledge(ent, id, popup: popup) is not { } unit)
+        if (EnsureKnowledge<SkillComponent>(ent, id, popup: popup) is not { } unit)
             return null;
 
         mastery += GetMastery(unit.Comp.LearnedLevel);
         var level = GetInverseMastery(mastery);
         unit.Comp.LearnedLevel = Math.Min(level, 100);
         Dirty(unit);
+        return unit;
+    }
+
+    /// <summary>
+    /// Raises a skill's mastery by rolls.
+    /// Adds skill if missing.
+    /// </summary>
+    public Entity<SkillComponent>? RaiseSkillByRolls(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int rolls, bool popup = true)
+    {
+        if (EnsureKnowledge<SkillComponent>(ent, id, popup: popup) is not { } unit)
+            return null;
+
+        AddExperience(ent, id, unit.Comp.ExperienceCost * rolls);
+        RollForLevelUp(unit, ent);
         return unit;
     }
 
@@ -471,7 +633,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             GetContainer(target) is not { } ent ||
             ent.Comp.Holder is not { } holder ||
             ent.Comp.Container is not { } container ||
-            GetKnowledge(ent, id) is not { } unit ||
+            GetSkill(ent, id) is not { } unit ||
             unit.Comp.Unremoveable && !force ||
             !_container.Remove(unit.Owner, container, reparent: false, force: force))
             return null;
@@ -489,46 +651,158 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     }
 
     /// <summary>
-    /// Gets a knowledge unit based on its entity prototype ID.
+    /// Gets a skill unit based on its entity prototype ID.
     /// </summary>
     /// <returns>
-    /// Null if the target is not a knowledge container, or if knowledge unit wasn't found.
+    /// Null if the target is not a knowledge container, or if a skill unit wasn't found.
     /// </returns>
-    public override Entity<KnowledgeComponent>? GetKnowledge(EntityUid target, [ForbidLiteral] EntProtoId id)
+    public override Entity<SkillComponent>? GetSkill(EntityUid target, [ForbidLiteral] EntProtoId id)
         => GetContainer(target) is { } ent
-            ? GetKnowledge(ent, id)
+            ? GetSkill(ent, id)
             : null;
 
-    /// <summary>
-    /// Get the net level of knowledge an entity has for an ID, defaulting to 0 if missing.
-    /// </summary>
-    public int GetKnowledgeLevel(EntityUid target, [ForbidLiteral] EntProtoId id)
-        => GetContainer(target) is { } ent
-            ? GetKnowledge(ent, id)?.Comp.NetLevel ?? 0
-            : 0;
-
-    public Entity<KnowledgeComponent>? GetKnowledge(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
-        => ent.Comp.KnowledgeDict.TryGetValue(id, out var unit) && _query.TryComp(unit, out var comp)
+    public Entity<SkillComponent>? GetSkill(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
+        => ent.Comp.KnowledgeDict.TryGetValue(id, out var unit) && _skillQuery.TryComp(unit, out var comp)
             ? (unit, comp)
             : null;
 
     /// <summary>
-    /// Returns all knowledge units inside the container component.
+    /// Gets an attribute unit based on its entity prototype ID.
     /// </summary>
-    public List<Entity<KnowledgeComponent>>? TryGetAllKnowledgeUnits(EntityUid target)
+    /// <returns>
+    /// Null if the target is not a knowledge container, or if an attribute unit wasn't found.
+    /// </returns>
+    public override Entity<AttributeComponent>? GetAttribute(EntityUid target, [ForbidLiteral] EntProtoId id)
+        => GetContainer(target) is { } ent
+            ? GetAttribute(ent, id)
+            : null;
+
+    public Entity<AttributeComponent>? GetAttribute(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
+        => ent.Comp.KnowledgeDict.TryGetValue(id, out var unit) && _attributeQuery.TryComp(unit, out var comp)
+            ? (unit, comp)
+            : null;
+
+    /// <summary>
+    /// Gets a proficiency unit based on its entity prototype ID.
+    /// </summary>
+    /// <returns>
+    /// Null if the target is not a knowledge container, or if an attribute unit wasn't found.
+    /// </returns>
+    public override Entity<ProficiencyComponent>? GetProficiency(EntityUid target, [ForbidLiteral] EntProtoId id)
+        => GetContainer(target) is { } ent
+            ? GetProficiency(ent, id)
+            : null;
+
+    public Entity<ProficiencyComponent>? GetProficiency(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
+        => ent.Comp.KnowledgeDict.TryGetValue(id, out var unit) && _proficiencyQuery.TryComp(unit, out var comp)
+            ? (unit, comp)
+            : null;
+
+    /// <summary>
+    /// Gets a proficiency unit based on its entity prototype ID.
+    /// </summary>
+    /// <returns>
+    /// Null if the target is not a knowledge container, or if an attribute unit wasn't found.
+    /// </returns>
+    public override Entity<TalentComponent>? GetTalent(EntityUid target, [ForbidLiteral] EntProtoId id)
+        => GetContainer(target) is { } ent
+            ? GetTalent(ent, id)
+            : null;
+
+    public Entity<TalentComponent>? GetTalent(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
+        => ent.Comp.KnowledgeDict.TryGetValue(id, out var unit) && _talentQuery.TryComp(unit, out var comp)
+            ? (unit, comp)
+            : null;
+
+    /// <summary>
+    /// Returns all skill units inside the container component.
+    /// </summary>
+    public List<Entity<SkillComponent>>? TryGetAllSkillUnits(EntityUid target)
     {
         if (GetContainer(target) is not { } ent)
             return null;
 
-        var found = new List<Entity<KnowledgeComponent>>();
+        var found = new List<Entity<SkillComponent>>();
         foreach (var unit in ent.Comp.KnowledgeDict.Values)
         {
-            if (_query.TryComp(unit, out var comp))
+            if (_skillQuery.TryComp(unit, out var comp))
                 found.Add((unit, comp));
         }
 
         return found;
     }
+
+    /// <summary>
+    /// Returns all skill units inside the container component.
+    /// </summary>
+    public List<Entity<AttributeComponent>>? TryGetAllAttributeUnits(EntityUid target)
+    {
+        if (GetContainer(target) is not { } ent)
+            return null;
+
+        var found = new List<Entity<AttributeComponent>>();
+        foreach (var unit in ent.Comp.KnowledgeDict.Values)
+        {
+            if (_attributeQuery.TryComp(unit, out var comp))
+                found.Add((unit, comp));
+        }
+
+        return found;
+    }
+
+    /// <summary>
+    /// Returns all proficiency units inside the container component.
+    /// </summary>
+    public List<Entity<ProficiencyComponent>>? TryGetAllProficiencyUnits(EntityUid target)
+    {
+        if (GetContainer(target) is not { } ent)
+            return null;
+
+        var found = new List<Entity<ProficiencyComponent>>();
+        foreach (var unit in ent.Comp.KnowledgeDict.Values)
+        {
+            if (_proficiencyQuery.TryComp(unit, out var comp))
+                found.Add((unit, comp));
+        }
+
+        return found;
+    }
+
+    /// <summary>
+    /// Returns all talent units inside the container component.
+    /// </summary>
+    public List<Entity<TalentComponent>>? TryGetAllTalentUnits(EntityUid target)
+    {
+        if (GetContainer(target) is not { } ent)
+            return null;
+
+        var found = new List<Entity<TalentComponent>>();
+        foreach (var unit in ent.Comp.KnowledgeDict.Values)
+        {
+            if (_talentQuery.TryComp(unit, out var comp))
+                found.Add((unit, comp));
+        }
+
+        return found;
+    }
+
+    /// <summary>
+    /// Returns all Knowledge units inside the container component.
+    /// </summary>
+    public List<EntityUid>? TryGetAllKnowledgeUnits(EntityUid target)
+    {
+        if (GetContainer(target) is not { } ent)
+            return null;
+
+        var found = new List<EntityUid>();
+        foreach (var unit in ent.Comp.KnowledgeDict.Values)
+        {
+            found.Add(unit);
+        }
+
+        return found;
+    }
+
 
     /// <summary>
     /// Returns the first knowledge entity of the target that has a given component.
@@ -551,16 +825,16 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// <summary>
     /// Returns all knowledge entities that have a required component.
     /// </summary>
-    public List<Entity<T, KnowledgeComponent>>? GetKnowledgeWith<T>(EntityUid target) where T : IComponent
+    public List<Entity<T, SkillComponent>>? GetSkillWith<T>(EntityUid target) where T : IComponent
     {
         if (GetContainer(target)?.Comp.Container is not { } container)
             return null;
 
-        var knowledgeEnts = new List<Entity<T, KnowledgeComponent>>();
+        var knowledgeEnts = new List<Entity<T, SkillComponent>>();
         var query = GetEntityQuery<T>();
         foreach (var knowledge in container.ContainedEntities)
         {
-            if (!_query.TryComp(knowledge, out var knowledgeComp))
+            if (!_skillQuery.TryComp(knowledge, out var knowledgeComp))
                 continue;
 
             if (query.TryComp(knowledge, out var comp))
@@ -635,7 +909,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// </summary>
     public void RelayActiveEvent<T>(Entity<KnowledgeHolderComponent> ent, ref T args) where T : notnull
     {
-        if (!_awakeQuery.HasComp(ent) || GetContainer(ent) is not {} brain || brain.Comp.Container is not {} container)
+        if (!_awakeQuery.HasComp(ent) || GetContainer(ent) is not { } brain || brain.Comp.Container is not { } container)
             return;
 
         foreach (var unit in container.ContainedEntities)
@@ -650,14 +924,14 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
 
     public void RelayMartialArt<T>(Entity<KnowledgeHolderComponent> ent, ref T args) where T : notnull
     {
-        if (_awakeQuery.HasComp(ent) && GetActiveMartialArt(ent) is {} skill)
+        if (_awakeQuery.HasComp(ent) && GetActiveMartialArt(ent) is { } skill)
             RaiseLocalEvent(skill, ref args);
     }
 
     public override Dictionary<EntProtoId, int> GetSkillMasteries(EntityUid target)
     {
         var skills = new Dictionary<EntProtoId, int>();
-        if (GetContainer(target) is not {} brain)
+        if (GetContainer(target) is not { } brain)
             return skills;
 
         foreach (var (id, unit) in brain.Comp.KnowledgeDict)
@@ -667,7 +941,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         return skills;
     }
 
-    public string GetMasteryString(Entity<KnowledgeComponent> ent)
+    public string GetMasteryString(Entity<SkillComponent> ent)
         => GetMasteryString(GetMastery(ent.Comp.NetLevel));
 
     public override string GetMasteryString(int mastery)
@@ -676,11 +950,12 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     public override int GetMastery(int level)
         => level switch
         {
-            >= 100 => 5, // 5th mastery doesn't exist, but we can use this to say max level
-            >= 88 => 4,
-            >= 75 => 3,
-            >= 50 => 2,
-            >= 25 => 1,
+            >= 100 => 6, // 5th mastery doesn't exist, but we can use this to say max level
+            >= 88 => 5,
+            >= 76 => 4,
+            >= 51 => 3,
+            >= 26 => 2,
+            >= 1 => 1,
             _ => 0,
         };
 
@@ -692,22 +967,32 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// Applies temporary levels from e.g. equipment.
     /// </summary>
     public int GetLevel(EntityUid uid)
-        => _query.TryComp(uid, out var comp)
-            ? Math.Clamp(comp.NetLevel, 0, 100)
-            : 0;
+    {
+        if (_skillQuery.TryComp(uid, out var skill))
+            return skill.NetLevel;
+
+        if (_attributeQuery.TryComp(uid, out var attribute))
+            return attribute.Attribute.Int();
+
+        if (_talentQuery.TryComp(uid, out var talent))
+            return talent.Level;
+
+        return 0;
+    }
 
     public override int GetInverseMastery(int mastery)
         => mastery switch
         {
-            >= 5 => 100, // 5th mastery doesn't exist, but we can use this to say max level
-            >= 4 => 88,
-            >= 3 => 75,
-            >= 2 => 50,
-            >= 1 => 25,
+            >= 6 => 100, // 5th mastery doesn't exist, but we can use this to say max level
+            >= 5 => 88,
+            >= 4 => 76,
+            >= 3 => 51,
+            >= 2 => 26,
+            >= 1 => 1,
             _ => 0,
         };
 
-    private int DiceDictionary(Entity<KnowledgeComponent> ent, int shift = 0)
+    private int DiceDictionary(Entity<SkillComponent> ent, int shift = 0)
     {
         return (GetMastery(ent.Comp) + shift) switch
         {
@@ -719,7 +1004,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         };
     }
 
-    public override float SharpCurve(Entity<KnowledgeComponent> knowledge, int offset = 0, float inverseScale = 100.0f)
+    public override float SharpCurve(Entity<SkillComponent> knowledge, int offset = 0, float inverseScale = 100.0f)
         => SharpCurve(knowledge.Comp.NetLevel, offset, inverseScale);
 
     public float SharpCurve(int level, int offset = 0, float inverseScale = 100f)
@@ -730,7 +1015,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         return linear * linear;
     }
 
-    public (int, bool) RollPenetrating(Entity<KnowledgeComponent> ent)
+    public (int, bool) RollPenetrating(Entity<SkillComponent> ent)
     {
         var rand = SharedRandomExtensions.PredictedRandom(_timing, GetNetEntity(ent.Owner));
         var sides = DiceDictionary(ent);

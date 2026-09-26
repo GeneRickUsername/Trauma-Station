@@ -53,6 +53,13 @@
   - type: KnowledgeGrantOnUse
     singleUse: false # crew books are for sharing
     instant: false
+  - type: ActivatableUI
+    key: enum.GymUiKey.Key
+    inHandsOnly: true
+  - type: UserInterface
+    interfaces:
+      enum.GymUiKey.Key:
+        type: GymBoundUserInterface
   - type: Tag
     tags:
     - Book
@@ -181,10 +188,10 @@
     layers:
     - state: fabrication
   - type: KnowledgeGrantOnUse
-    skills:
-      FabricationKnowledge: 10
+    knowledge:
+      ManufacturingKnowledge: 10
     experience:
-      FabricationKnowledge: 3
+      ManufacturingKnowledge: 3
     doAfter: 2
 
 - type: entity
@@ -201,7 +208,7 @@
     skills:
       FabricationKnowledge: 25
     experience:
-      FabricationKnowledge: 4
+      ManufacturingKnowledge: 4
     doAfter: 2
 
 # Carving
@@ -217,10 +224,10 @@
     layers:
     - state: fabrication
   - type: KnowledgeGrantOnUse
-    skills:
-      CarvingKnowledge: 10
+    knowledge:
+      SurvivalKnowledge: 10
     experience:
-      CarvingKnowledge: 3
+      SurvivalKnowledge: 3
     doAfter: 2
 
 - type: entity
@@ -237,7 +244,7 @@
     skills:
       CarvingKnowledge: 25
     experience:
-      CarvingKnowledge: 4
+      SurvivalKnowledge: 4
     doAfter: 2
 
 # Blueprints
@@ -252,7 +259,7 @@
     skills:
       DoorsKnowledge: 25
     experience:
-      DoorsKnowledge: 5
+      ConstructionKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -268,7 +275,7 @@
     skills:
       AirlocksKnowledge: 25
     experience:
-      AirlocksKnowledge: 5
+      ConstructionKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -284,7 +291,7 @@
     skills:
       BananiumKnowledge: 25
     experience:
-      BananiumKnowledge: 5
+      ScienceKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -300,7 +307,7 @@
     skills:
       BotsKnowledge: 25
     experience:
-      BotsKnowledge: 5
+      MechanicsKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -316,7 +323,7 @@
     skills:
       FurnitureKnowledge: 25
     experience:
-      FurnitureKnowledge: 5
+      ConstructionKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -332,7 +339,7 @@
     skills:
       InfrastructureKnowledge: 25
     experience:
-      InfrastructureKnowledge: 5
+      ConstructionKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -364,7 +371,7 @@
     skills:
       WallsKnowledge: 25
     experience:
-      WallsKnowledge: 5
+      ConstructionKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -380,7 +387,7 @@
     skills:
       WindowsKnowledge: 25
     experience:
-      WindowsKnowledge: 5
+      ConstructionKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:
@@ -396,7 +403,7 @@
     skills:
       SmokeablesKnowledge: 25
     experience:
-      SmokeablesKnowledge: 5
+      SurvivalKnowledge: 5
     doAfter: 2
   - type: Sprite
     layers:

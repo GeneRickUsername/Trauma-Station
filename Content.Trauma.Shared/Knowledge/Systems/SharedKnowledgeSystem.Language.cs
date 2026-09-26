@@ -6,6 +6,7 @@ using Content.Trauma.Common.Chat;
 using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Language;
 using Content.Trauma.Common.Language.Components;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 using Content.Trauma.Shared.Language.Components;
 using Content.Trauma.Shared.Language.Events;
 using Content.Trauma.Shared.Language.Systems;
@@ -16,10 +17,12 @@ public abstract partial class SharedKnowledgeSystem
 {
     [Dependency] private MetaDataSystem _meta = default!;
     [Dependency] private SharedChatSystem _chat = default!;
-    [Dependency] private EntityQuery<LanguageKnowledgeComponent> _langQuery = default!;
+    [Dependency] protected EntityQuery<LanguageKnowledgeComponent> _langQuery = default!;
 
     private void InitializeLanguage()
     {
+        // _curseDamage.DamageDict[Blunt] = 10;
+
         SubscribeLocalEvent<LanguageKnowledgeComponent, MapInitEvent>(OnLanguageInit,
             after: [ typeof(InitialBodySystem) ]); // great engine
         SubscribeLocalEvent<LanguageSpeakerComponent, MapInitEvent>(OnSpeakerMapInit,
@@ -74,7 +77,7 @@ public abstract partial class SharedKnowledgeSystem
             return;
 
         var ev = new DetermineEntityLanguagesEvent();
-        if (GetKnowledgeWith<LanguageKnowledgeComponent>(brain) is { } known)
+        if (GetSkillWith<LanguageKnowledgeComponent>(brain) is { } known)
         {
             foreach (var language in known)
             {
@@ -113,7 +116,7 @@ public abstract partial class SharedKnowledgeSystem
     private void SpeakerToKnowledge(Entity<LanguageSpeakerComponent> ent)
     {
         if (GetContainer(ent.Owner) is not { } brain ||
-            GetKnowledgeWith<LanguageKnowledgeComponent>(brain) is not { } known)
+            GetSkillWith<LanguageKnowledgeComponent>(brain) is not { } known)
             return;
 
         foreach (var language in known)
@@ -137,8 +140,12 @@ public abstract partial class SharedKnowledgeSystem
 
         args.Handled = true;
 
-        // We add the intrinsically known languages first so other systems can manipulate them easily
-        EnsureKnowledge(brain, LanguageUnit(args.Language), 100);
+        // We add the intrinsically known languages at an average level so other systems can manipulate them easily
+        var lang = args.Language;
+        var level = 26;
+        if (GetSkill(brain, LanguageUnit(lang)) is { } existing)
+            level += existing.Comp.LearnedLevel;
+        EnsureKnowledge<SkillComponent>(brain, LanguageUnit(args.Language), level);
 
         UpdateEntityLanguages(ent);
     }
@@ -148,7 +155,7 @@ public abstract partial class SharedKnowledgeSystem
     {
         var id = LanguageUnit(args.Language);
         if (GetContainer(ent.Owner) is not { } brain ||
-            GetKnowledge(brain, id) is not { } unit)
+            GetSkill(brain, id) is not { } unit)
             return;
 
         args.Handled = true;
@@ -198,11 +205,11 @@ public abstract partial class SharedKnowledgeSystem
 
         foreach (var (lang, speaks) in allLanguages)
         {
-            if (GetKnowledge(brain, LanguageUnit(lang)) is { } existing)
+            if (GetSkill(brain, LanguageUnit(lang)) is { } existing)
                 continue;
 
             // Add if you don't know shit.
-            if (EnsureKnowledge(brain, LanguageUnit(lang), 100) is not { } unit)
+            if (EnsureKnowledge<SkillComponent>(brain, LanguageUnit(lang), 100) is not { } unit)
             {
                 Log.Error($"Failed to add language knowledge {lang} to {ToPrettyString(ent)}!");
                 continue;
@@ -218,6 +225,28 @@ public abstract partial class SharedKnowledgeSystem
     }
 
     [SubscribeLocalEvent]
+    private void OnLanguageSpoke(Entity<KnowledgeHolderComponent> ent, ref EntitySpokeEvent args)
+    {
+        if (GetContainer(ent.Owner) is not { } brain)
+            return;
+
+        var id = LanguageUnit(args.Language);
+        if (GetSkill(brain, id) is not { } unit)
+        {
+            Log.Warning($"{ToPrettyString(ent)} spoke in language {args.Language} while not having knowledge of it!?");
+            return;
+        }
+
+        var comp = _langQuery.Comp(unit);
+
+        var now = _timing.CurTime;
+
+        AddExperience(unit.AsNullable(), ent, Math.Min(args.Message.Length / 10, 8)); // The more you speak, the more you learn. Doesn't award anything for small sentences. Already does auto xp shit.
+
+        Dirty(unit, comp);
+    }
+
+    [SubscribeLocalEvent]
     private void OnLanguageHeard(Entity<KnowledgeHolderComponent> ent, ref ChatMessageOverrideInVoiceRangeEvent args)
     {
         if (args.Source == ent.Owner)
@@ -228,7 +257,7 @@ public abstract partial class SharedKnowledgeSystem
         var languageId = LanguageUnit(args.Language);
 
         // Try obfuscate speech if can't listen well.
-        if (GetKnowledge(brain, LanguageUnit(args.Language)) is { } unit && GetMastery(unit.Owner) >= 2)
+        if (GetSkill(brain, LanguageUnit(args.Language)) is { } unit && GetMastery(unit.Owner) >= 2)
             return;
 
         // Use Obfuscate logic through language system.

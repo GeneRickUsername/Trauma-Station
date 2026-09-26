@@ -1,28 +1,28 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using Content.Trauma.Shared.Wizard.Projectiles;
-using Content.Shared.Random.Helpers;
-using Robust.Shared.Timing;
 using System.Diagnostics.CodeAnalysis;
 using Content.Shared.Administration.Logs;
 using Content.Shared.Alert;
 using Content.Shared.Database;
+using Content.Shared.Examine;
 using Content.Shared.Hands;
 using Content.Shared.Item.ItemToggle;
+using Content.Shared.Localizations;
 using Content.Shared.Popups;
 using Content.Shared.Projectiles;
+using Content.Shared.Random.Helpers;
 using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
-using Content.Shared.Examine;
-using Content.Shared.Localizations;
 using Content.Shared.Weapons.Reflect;
 using Content.Trauma.Common.Weapons;
 using Content.Trauma.Shared.Knowledge.Systems;
+using Content.Trauma.Shared.Weapons.Classes;
+using Content.Trauma.Shared.Wizard.Projectiles;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Physics.Components;
 using Robust.Shared.Physics.Systems;
-using Content.Trauma.Shared.Weapons.Classes;
+using Robust.Shared.Timing;
 
 namespace Content.Trauma.Shared.Parry;
 
@@ -241,7 +241,7 @@ public sealed partial class ParrySystem : EntitySystem
 
     private int GetSkillLevel(EntityUid user, EntProtoId skillProto)
         => _knowledge.GetContainer(user) is { } brain
-           && _knowledge.GetKnowledge(brain, skillProto) is { } skill
+           && _knowledge.GetSkill(brain, skillProto) is { } skill
             ? skill.Comp.NetLevel
             : 0;
 

@@ -20,7 +20,7 @@
     heavyStaminaCost: 15
     wideAnimationRotation: 135
     swingLeft: true
-    attackRate: 0.75
+    attackRate: 0.065
     damage:
       types:
         Blunt: 10

@@ -345,7 +345,7 @@
     soundHit:
       path: /Audio/Weapons/bladeslice.ogg
     angle: 0
-    attackRate: 1
+    attackRate: 0.09
     range: 0.5
     animation: WeaponArcSlash
     damage:

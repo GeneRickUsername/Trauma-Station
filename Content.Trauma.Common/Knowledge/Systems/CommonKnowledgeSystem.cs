@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
-using System.Diagnostics.CodeAnalysis;
 using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Knowledge.Prototypes;
 using Content.Trauma.Common.Language;
@@ -11,12 +10,28 @@ namespace Content.Trauma.Common.Knowledge.Systems;
 public abstract partial class CommonKnowledgeSystem : EntitySystem
 {
     /// <summary>
-    /// Gets a knowledge unit based on its entity prototype ID.
+    /// Gets a skill unit based on its entity prototype ID.
     /// </summary>
-    public abstract Entity<KnowledgeComponent>? GetKnowledge(EntityUid target, [ForbidLiteral] EntProtoId knowledgeUnit);
+    public abstract Entity<SkillComponent>? GetSkill(EntityUid target, [ForbidLiteral] EntProtoId knowledgeUnit);
+
 
     /// <summary>
-    /// Clears Knowledge from the target entity.
+    /// Gets an attribute unit based on its entity prototype ID.
+    /// </summary>
+    public abstract Entity<AttributeComponent>? GetAttribute(EntityUid target, [ForbidLiteral] EntProtoId knowledgeUnit);
+
+    /// <summary>
+    /// Gets a proficiency unit based on its entity prototype ID.
+    /// </summary>
+    public abstract Entity<ProficiencyComponent>? GetProficiency(EntityUid target, [ForbidLiteral] EntProtoId knowledgeUnit);
+
+    /// <summary>
+    /// Gets a talent unit based on its entity prototype ID.
+    /// </summary>
+    public abstract Entity<TalentComponent>? GetTalent(EntityUid target, [ForbidLiteral] EntProtoId knowledgeUnit);
+
+    /// <summary>
+    /// Clears a knowledge from the target entity.
     /// </summary>
     public abstract void ClearKnowledge(EntityUid target, bool deleteAll);
 
@@ -26,11 +41,11 @@ public abstract partial class CommonKnowledgeSystem : EntitySystem
     public abstract Dictionary<EntProtoId, int> GetSkillMasteries(EntityUid target);
 
     /// <summary>
-    /// Gets the mastery level for a knowledge level.
+    /// Gets the mastery level for a skill level.
     /// </summary>
     public abstract int GetMastery(int level);
 
-    public int GetMastery(KnowledgeComponent comp)
+    public int GetMastery(SkillComponent comp)
         => GetMastery(comp.NetLevel);
 
     /// <summary>
@@ -40,19 +55,19 @@ public abstract partial class CommonKnowledgeSystem : EntitySystem
     public abstract string GetMasteryString(int level);
 
     /// <summary>
-    /// Gets the mastery level of a knowledge unit's entity.
+    /// Gets the mastery level of a skill unit's entity.
     /// </summary>
     public abstract int GetMastery(EntityUid uid);
 
     /// <summary>
-    ///Gets the mastery level from a category.
+    ///Gets the mastery level from a skill category.
     /// </summary>
     public abstract int GetInverseMastery(int number);
 
     /// <summary>
     /// Curve scale that determines some functionality. Goes from 0 to 1.
     /// </summary>
-    public abstract float SharpCurve(Entity<KnowledgeComponent> knowledge, int offset = 0, float inverseScale = 100.0f);
+    public abstract float SharpCurve(Entity<SkillComponent> knowledge, int offset = 0, float inverseScale = 100.0f);
 
     /// <summary>
     /// Sanitize a profile, removing any invalid skills.

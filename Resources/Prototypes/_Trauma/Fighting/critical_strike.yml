@@ -1,0 +1,68 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: criticalStrike
+  id: StandardMelee
+  entries:
+    # Blunt Criticals (Stuns, Knocks Down)
+    Blunt:
+      - minThreshold: 10
+        effects:
+          - !type:StatusEffect
+            key: KnockedDown
+            time: 2
+
+      - minThreshold: 20
+        effects:
+          - !type:StatusEffect
+            key: KnockedDown
+            time: 4
+          - !type:StatusEffect
+            key: Stun
+            time: 2
+
+      - minThreshold: 35
+        effects:
+          - !type:StatusEffect
+            key: KnockedDown
+            time: 6
+          - !type:StatusEffect
+            key: Stun
+            time: 4
+
+    # Slash Criticals (Bleeding / Extra Damage)
+    Slash:
+      - minThreshold: 10
+        effects:
+          - !type:HealthChange
+            damage:
+              types:
+                Slash: 5
+
+      - minThreshold: 25
+        effects:
+          - !type:HealthChange
+            damage:
+              types:
+                Slash: 15
+          - !type:StatusEffect
+            key: KnockedDown
+            time: 2
+
+    # Piercing Criticals (Armor Penetration / Heavy Damage)
+    Piercing:
+      - minThreshold: 15
+        effects:
+          - !type:HealthChange
+            damage:
+              types:
+                Piercing: 10
+
+      - minThreshold: 30
+        effects:
+          - !type:HealthChange
+            damage:
+              types:
+                Piercing: 25
+          - !type:StatusEffect
+            key: Stun
+            time: 3

@@ -50,7 +50,7 @@
     damage:
       types:
         Piercing: 2
-    attackRate: 2 #open and close that shit on their arm like hell! because you sure aren't doing any damage with this
+    attackRate: 0.4 #open and close that shit on their arm like hell! because you sure aren't doing any damage with this
     soundHit:
       path: "/Audio/Items/wirecutter.ogg"
   - type: Tool
@@ -141,7 +141,7 @@
   - type: MeleeWeapon
     animationRotation: -90 # Trauma
     wideAnimationRotation: -90
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Piercing: 6
@@ -204,7 +204,7 @@
   - type: MeleeWeapon
     animationRotation: 225 # Trauma
     wideAnimationRotation: 135
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 4.5
@@ -430,7 +430,7 @@
     range: 1.4
     # </Trauma>
     wideAnimationRotation: -90
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Piercing: 10
