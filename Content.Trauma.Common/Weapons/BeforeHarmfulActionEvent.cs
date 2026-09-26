@@ -22,6 +22,7 @@ public record struct BeforeHarmfulActionEvent(
 public enum HarmfulActionType : byte
 {
     Harm,
+    Heavy,
     Disarm,
     Grab,
 }

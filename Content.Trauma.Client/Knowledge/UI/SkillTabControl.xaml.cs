@@ -29,7 +29,7 @@ public sealed partial class SkillTabControl : BoxContainer
         if (conditions.Sprite != null)
             TextRect.Texture = _sprite.Frame0(conditions.Sprite);
 
-        SkillText.Text = conditions.Name + " | " + conditions.NetLevel;
+        SkillText.Text = conditions.Name + " | " + conditions.Mastery;
         SkillText.Modulate = conditions.Color;
 
         MasteryText.Text = conditions.Description;

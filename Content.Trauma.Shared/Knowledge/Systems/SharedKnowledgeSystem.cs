@@ -434,6 +434,42 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
         return true;
     }
 
+    public Entity<T>? TryGetKnowledge<T>(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id) where T : IComponent
+    {
+        // Resolves the EntityUid -> Entity<T> translation securely
+        if (TryGetKnowledge(ent, id) is { } unit && TryComp<T>(unit, out var requestedComp))
+            return new Entity<T>(unit, requestedComp);
+
+        return null;
+    }
+
+    public EntityUid? TryGetKnowledge(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id)
+    {
+        if (!SkillsEnabled && _whitelist.IsWhitelistFail(DisabledSkillWhitelist, id))
+            return null; // no crafting etc skills when disabled
+
+        EntityUid? unit = null;
+
+        if (GetSkill(ent, id) is { } existing)
+        {
+            unit = existing.Owner;
+        }
+        else if (GetAttribute(ent, id) is { } attribute)
+        {
+            unit = attribute.Owner;
+        }
+        else if (GetProficiency(ent, id) is { } proficiency)
+        {
+            unit = proficiency.Owner;
+        }
+        else if (GetTalent(ent, id) is { } talent)
+        {
+            unit = talent.Owner;
+        }
+
+        return unit;
+    }
+
     /// <summary>
     /// Increase a knowledge unit's level for a target entity.
     /// This sets the level to max(current, new), NOT adding.
@@ -442,7 +478,17 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
     /// <returns>
     /// Null if spawning it fails.
     /// </returns>
+    ///
     public Entity<T>? EnsureKnowledge<T>(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int level = 0, bool popup = true) where T : IComponent
+    {
+        // Resolves the EntityUid -> Entity<T> translation securely
+        if (EnsureKnowledge(ent, id, level, popup) is { } unit && TryComp<T>(unit, out var requestedComp))
+            return new Entity<T>(unit, requestedComp);
+
+        return null;
+    }
+
+    public EntityUid? EnsureKnowledge(Entity<KnowledgeContainerComponent> ent, [ForbidLiteral] EntProtoId id, int level = 0, bool popup = true)
     {
         if (!SkillsEnabled && _whitelist.IsWhitelistFail(DisabledSkillWhitelist, id))
             return null; // no crafting etc skills when disabled
@@ -526,12 +572,9 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
             }
         }
 
-        // Resolves the EntityUid -> Entity<T> translation securely
-        if (TryComp<T>(unit, out var requestedComp))
-            return new Entity<T>(unit, requestedComp);
-
-        return null;
+        return unit;
     }
+
 
     /// <summary>
     /// Raises a skill's mastery level by some number.
@@ -573,7 +616,7 @@ public abstract partial class SharedKnowledgeSystem : CommonKnowledgeSystem
 
         foreach (var (id, level) in knowledgeList)
         {
-            EnsureKnowledge<SkillComponent>(ent, id, level, popup);
+            EnsureKnowledge(ent, id, level, popup);
         }
 
         var updateEv = new UpdateExperienceEvent();

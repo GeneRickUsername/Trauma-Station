@@ -26,6 +26,24 @@
     - Book
   - type: Item
     size: Small
+  - type: Fixtures
+    fixtures:
+      fix1:
+        shape: !type:PhysShapeCircle
+          radius: 0.2
+        density: 15
+        mask:
+        - ItemMask
+        restitution: 0.3
+        friction: 0.2
+  - type: EmbeddableProjectile
+    sound: /Audio/Weapons/star_hit.ogg
+  - type: LandAtCursor
+  - type: DamageOtherOnHit
+    damage:
+      types:
+        Slash: 8
+        Piercing: 10
 
 - type: entity
   parent: GymItem

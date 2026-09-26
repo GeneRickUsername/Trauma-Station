@@ -27,9 +27,6 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<KnowledgeGrantComponent, MapInitEvent>(OnKnowledgeGrantInit, after: [typeof(SharedKnowledgeSystem), typeof(InitialBodySystem)]);
-
-        SubscribeLocalEvent<KnowledgeGrantOnUseComponent, UseInHandEvent>(OnUseInHand);
-        SubscribeLocalEvent<KnowledgeGrantOnUseComponent, GymRepPerformedMessage>(OnUiMessage);
     }
 
     private void OnKnowledgeGrantInit(Entity<KnowledgeGrantComponent> ent, ref MapInitEvent args)
@@ -38,6 +35,7 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         RemComp(ent.Owner, ent.Comp);
     }
 
+    [SubscribeLocalEvent]
     private void OnUseInHand(Entity<KnowledgeGrantOnUseComponent> ent, ref UseInHandEvent args)
     {
         if (args.Handled)
@@ -52,13 +50,13 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
             // no checking if you already had it, don't waste a cqc book if you already know it chud
             foreach (var (id, level) in ent.Comp.Knowledge)
             {
-                _knowledge.EnsureKnowledge<SkillComponent>(brain, id, level);
+                _knowledge.EnsureKnowledge(brain, id, level);
             }
             if (ent.Comp.GrantEverything)
             {
                 foreach (var id in _knowledge.AllSkills.Keys)
                 {
-                    _knowledge.EnsureKnowledge<SkillComponent>(brain, id, 100);
+                    _knowledge.EnsureKnowledge(brain, id, 100);
                 }
             }
             if (ent.Comp.SingleUse)
@@ -77,12 +75,14 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         OnActivate(ent, args.User, activeGymWindow);
     }
 
-    protected abstract void OnActivate(Entity<KnowledgeGrantOnUseComponent> ent, EntityUid user, BoundUserInterface window);
-
-    private void OnUiMessage(Entity<KnowledgeGrantOnUseComponent> ent, ref GymRepPerformedMessage args)
+    [SubscribeLocalEvent]
+    private void OnUiMessage(Entity<KnowledgeGrantOnUseComponent> ent, ref GymRepTryMessage args)
     {
         HandleRep(ent, args.Actor, args.TimingAccuracy);
     }
+
+
+    protected abstract void OnActivate(Entity<KnowledgeGrantOnUseComponent> ent, EntityUid user, BoundUserInterface window);
 
     protected void HandleRep(Entity<KnowledgeGrantOnUseComponent> ent, EntityUid actor, float timingAccuracy)
     {
@@ -99,7 +99,7 @@ public abstract partial class SharedKnowledgeGrantSystem : EntitySystem
         bool hasLearned = false;
         foreach (var (id, xp) in ent.Comp.Experience)
         {
-            if (_knowledge.EnsureKnowledge<SkillComponent>(brain, id) is not { } skill)
+            if (_knowledge.EnsureKnowledge(brain, id, 0, false) is not { } skill)
                 continue;
 
             if (!(!ent.Comp.Knowledge.TryGetValue(id, out var skillCap) || (_knowledge.GetLevel(skill) < skillCap || skillCap < 0)))

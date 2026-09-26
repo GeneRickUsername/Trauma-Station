@@ -19,17 +19,10 @@ public sealed partial class CriticalStrikeSystem : EntitySystem
     private static readonly ProtoId<CriticalStrikePrototype> StandardMelee = "StandardMelee";
     private static readonly ProtoId<FumblePrototype> StandardFumble = "StandardFumble";
 
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<KnowledgeHolderComponent, CriticalHitEvent>(OnCriticalHit);
-        SubscribeLocalEvent<KnowledgeHolderComponent, OnFumbleEvent>(OnFumble);
-    }
-
+    [SubscribeLocalEvent]
     private void OnCriticalHit(Entity<KnowledgeHolderComponent> ent, ref CriticalHitEvent args)
     {
-        var table = _proto.Index(StandardMelee);
+        var table = _proto.Index<CriticalStrikePrototype>(StandardMelee);
 
         foreach (var damage in args.Damage.DamageDict)
         {
@@ -45,6 +38,7 @@ public sealed partial class CriticalStrikeSystem : EntitySystem
         }
     }
 
+    [SubscribeLocalEvent]
     private void OnFumble(Entity<KnowledgeHolderComponent> ent, ref OnFumbleEvent args)
     {
         var table = _proto.Index<FumblePrototype>(StandardFumble);

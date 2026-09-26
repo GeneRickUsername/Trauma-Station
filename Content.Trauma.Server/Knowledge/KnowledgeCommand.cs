@@ -19,7 +19,7 @@ public sealed class KnowledgeCommand : ToolshedCommand
         _knowledge ??= GetSys<SharedKnowledgeSystem>();
 
         if (_knowledge.GetContainer(input) is { } brain)
-            _knowledge.AddExperience(brain, proto, level);
+            _knowledge.EnsureKnowledge(brain, proto, level);
         return input;
     }
 
