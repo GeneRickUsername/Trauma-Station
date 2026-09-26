@@ -124,7 +124,7 @@
     canWideSwing: false
     range: 2.2
     animationRotation: -135
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Piercing: 10
@@ -170,7 +170,7 @@
   - type: MeleeWeapon
     animationRotation: 225
     wideAnimationRotation: -135
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Slash: 18
@@ -195,7 +195,7 @@
         - type: MeleeWeapon
           animationRotation: 225
           wideAnimationRotation: -135
-          attackRate: 0.8
+          attackRate: 0.07
           damage:
             types:
               Slash: 18

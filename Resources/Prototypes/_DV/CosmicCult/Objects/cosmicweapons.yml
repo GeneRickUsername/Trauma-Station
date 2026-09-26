@@ -16,7 +16,7 @@
   - type: MeleeWeapon
     angle: 90
     animation: WeaponArcCosmic
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Slash: 8
@@ -79,7 +79,7 @@
     range: 1.8 # Default is 1.5
     angle: 0
     animation: WeaponArcCosmic
-    attackRate: 0.6
+    attackRate: 0.05
     damage:
       types:
         Piercing: 12
@@ -206,7 +206,7 @@
   - type: MeleeWeapon
     wideAnimationRotation: -135
     animation: WeaponArcCosmic
-    attackRate: 1
+    attackRate: 0.09
     heavyStaminaCost: 0 # This thing is challenging enough to use already, and you can't lightswing anyway
     damage:
       types:

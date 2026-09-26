@@ -122,7 +122,7 @@
     state: butch
   - type: MeleeWeapon
     wideAnimationRotation: -115
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 13
@@ -176,7 +176,7 @@
     state: icon
   - type: MeleeWeapon
     wideAnimationRotation: -135
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 12
@@ -239,7 +239,7 @@
     state: icon
   - type: MeleeWeapon
     animationRotation: -45 # WWDP
-    attackRate: 1.0
+    attackRate: 0.09
     damage:
       types:
         Slash: 15
@@ -261,7 +261,7 @@
     sprite: Objects/Weapons/Melee/bioknife.rsi
     state: icon
   - type: MeleeWeapon
-    attackRate: 1.0
+    attackRate: 0.09
     damage:
       types:
         Slash: 10
@@ -294,7 +294,7 @@
     node: icon
   - type: MeleeWeapon
     wideAnimationRotation: 90
-    attackRate: 1.2
+    attackRate: 0.095
     damage:
       types:
         Slash: 5
@@ -347,7 +347,7 @@
     sprite: Objects/Weapons/Melee/shiv.rsi
     state: icon
   - type: MeleeWeapon
-    attackRate: 2 # Trauma - was 1.5
+    attackRate: 0.4 # Trauma - was 1.5
     damage:
       types:
         Slash: 7 # Trauma - was 5.5
@@ -373,7 +373,7 @@
     graph: ReinforcedShiv
     node: icon
   - type: MeleeWeapon
-    attackRate: 2 # Trauma - was 1.5
+    attackRate: 0.4 # Trauma - was 1.5
     damage:
       types:
         Slash: 7 # Trauma - was 8
@@ -399,7 +399,7 @@
     graph: PlasmaShiv
     node: icon
   - type: MeleeWeapon
-    attackRate: 2 # Trauma - was 1.5
+    attackRate: 0.4 # Trauma - was 1.5
     damage:
       types:
         Slash: 7 # Trauma - was 10
@@ -425,7 +425,7 @@
     graph: UraniumShiv
     node: icon
   - type: MeleeWeapon
-    attackRate: 2 # Trauma - Was 1.5
+    attackRate: 0.4 # Trauma - Was 1.5
     damage:
       types:
         Slash: 3 # Trauma - was 7
@@ -451,7 +451,7 @@
     state: icon
   - type: MeleeWeapon
     wideAnimationRotation: -135
-    attackRate: 2
+    attackRate: 0.4
     damage:
       types:
         Slash: 5
@@ -526,7 +526,7 @@
         Slash: 4
   - type: MeleeWeapon
     wideAnimationRotation: -135
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 1

@@ -140,7 +140,7 @@
   - type: MeleeWeapon
     altDisarm: false
     animation: WeaponArcCosmic
-    attackRate: 2.0
+    attackRate: 0.4
     damage:
       types:
         Slash: 10

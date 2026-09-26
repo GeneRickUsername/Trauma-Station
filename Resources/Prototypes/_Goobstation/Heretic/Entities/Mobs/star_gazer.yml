@@ -28,7 +28,7 @@
     altDisarm: false
     angle: 0
     animation: WeaponArcHereticCosmic
-    attackRate: 1
+    attackRate: 0.09
     canWideSwing: false
     damage:
       types:

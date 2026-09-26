@@ -541,7 +541,7 @@
         Quantity: 200
   - type: CombatMode
   - type: MeleeWeapon
-    attackRate: 2
+    attackRate: 0.4
     soundHit:
       path: /Audio/Weapons/Xeno/alien_claw_flesh3.ogg
     angle: 0

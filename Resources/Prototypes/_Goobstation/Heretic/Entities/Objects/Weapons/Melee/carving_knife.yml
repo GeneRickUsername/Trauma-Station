@@ -16,7 +16,7 @@
     storedRotation: -45
   - type: MeleeWeapon
     wideAnimationRotation: -135
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 10

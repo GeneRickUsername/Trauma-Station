@@ -196,7 +196,7 @@
     - 0,0,5,4
     storedOffset: 0,7
   - type: MeleeWeapon
-    attackRate: 0.75
+    attackRate: 0.065
     damage:
       types:
         Blunt: 20 # Trauma - Was 30

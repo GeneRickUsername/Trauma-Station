@@ -21,7 +21,7 @@
     price: 5000
   - type: MeleeWeapon
     wideAnimationRotation: 90
-    attackRate: 0.75
+    attackRate: 0.065
     damage:
       types:
         Blunt: 15

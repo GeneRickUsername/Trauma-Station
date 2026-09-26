@@ -56,7 +56,7 @@
         volume: -2
   - type: MeleeWeapon
     animationRotation: -135
-    attackRate: 0.7
+    attackRate: 0.06
     soundHit:
       path: "/Audio/Weapons/smash.ogg"
       params:

@@ -130,7 +130,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 26
@@ -201,7 +201,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 25
@@ -261,7 +261,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 40
@@ -329,7 +329,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 40
@@ -402,7 +402,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 60
@@ -478,7 +478,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 30
@@ -551,7 +551,7 @@
       - HumanoidProfile
   - type: MeleeWeapon
     hidden: true
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 50

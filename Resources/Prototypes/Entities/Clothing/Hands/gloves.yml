@@ -12,7 +12,7 @@
     # This needs to be moved to boxinggloves
     #knockdownSound: /Audio/Weapons/boxingbell.ogg
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 0.4
@@ -484,7 +484,7 @@
     sprite: Clothing/Hands/Gloves/northstar.rsi
   - type: MeleeWeapon
     autoAttack: true
-    attackRate: 5 # Trauma - was 4
+    attackRate: 1 # Trauma - was 4
     damage:
       types:
        Blunt: 8
@@ -564,7 +564,7 @@
 #   - type: Fiber
 #     fiberColor: fibers-silver
 #   - type: MeleeWeapon
-#     attackRate: 1.5
+#     attackRate: 0.11
 #     damage:
 #       types:
 #         Blunt: 12 #Damaged focus unlike Rigged or Northstars which are stun and speed focus
@@ -610,7 +610,7 @@
 #   - type: Fiber
 #     fiberColor: fibers-gold
 #   - type: MeleeWeapon
-#     attackRate: 1.5
+#     attackRate: 0.11
 #     damage:
 #       types:
 #         Blunt: 14
@@ -637,7 +637,7 @@
 #   - type: Clothing
 #     sprite: Clothing/Hands/Gloves/KnuckleDusters/syndicateknuckleduster.rsi
 #   - type: MeleeWeapon
-#     attackRate: 1.5
+#     attackRate: 0.11
 #     damage:
 #       types:
 #         Blunt: 8
@@ -702,7 +702,7 @@
       types:
         Blunt: 0
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 8
@@ -745,7 +745,7 @@
 #   - type: Fiber
 #     fiberColor: fibers-gold
 #   - type: MeleeWeapon
-#     attackRate: 2
+#     attackRate: 0.4
 #     damage:
 #       types:
 #         Blunt: 35
