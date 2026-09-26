@@ -1,19 +1,25 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using System.Linq;
 using Content.Goobstation.Common.CCVar;
 using Content.Goobstation.Common.Weapons;
 using Content.Shared.Coordinates;
 using Content.Shared.Damage;
 using Content.Shared.Interaction.Components;
+using Content.Shared.Interaction.Events;
 using Content.Shared.Item;
 using Content.Shared.Tag;
 using Content.Shared.Throwing;
 using Content.Shared.Weapons.Melee.Events;
 using Content.Shared.Whitelist;
+using Content.Trauma.Common.Knowledge;
+using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Knowledge.Systems;
+using Content.Trauma.Common.Weapons;
 using Robust.Shared.Configuration;
 using Robust.Shared.Map;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Timing;
 using Robust.Shared.Utility;
 
 namespace Content.Shared.Weapons.Melee;
@@ -23,6 +29,7 @@ namespace Content.Shared.Weapons.Melee;
 /// </summary>
 public abstract partial class SharedMeleeWeaponSystem
 {
+    [Dependency] private IGameTiming _timing = default!;
     [Dependency] private IConfigurationManager _cfg = default!;
     [Dependency] private TagSystem _tag = default!;
     [Dependency] private ThrowingSystem _throwing = default!;
@@ -111,4 +118,119 @@ public abstract partial class SharedMeleeWeaponSystem
         source = ev.User;
         return ev.Handled;
     }
+
+    /// <summary>
+    /// Queues a player's attack if it is queueable.
+    /// </summary>
+    public void QueuePlayerAttack(
+    EntityUid user,
+    List<EntityUid> targets,
+    EntityUid weaponUid,
+    MeleeWeaponComponent weapon,
+    HarmfulActionType type,
+    AttackEvent? rawEvent)
+    {
+        if (!TryComp<KnowledgeHolderComponent>(user, out var queue))
+        {
+            ExecuteQueuedAttack(user, targets, weaponUid, weapon, type, rawEvent);
+            return;
+        }
+
+        if (queue.NextAttackType == type && queue.Weapon == weaponUid && queue.QueuedTargets.SequenceEqual(targets))
+            return; // Misclick, no reason to do anything.
+
+        if (queue.NextAttackType != type || queue.Weapon != weaponUid)
+        {
+            queue.NextAttackType = type;
+            queue.QueuedTargets = targets;
+            queue.Weapon = weaponUid;
+            queue.ScheduledExecutionTime += TimeSpan.FromSeconds(1); // You think about it, you lose.
+            Dirty(user, queue);
+            return;
+        }
+
+        var curTime = _timing.CurTime;
+
+        // Penalty when changing targets/actions
+        if (curTime < queue.ScheduledExecutionTime)
+        {
+            queue.NextAttackType = type;
+            queue.QueuedTargets = targets;
+            queue.Weapon = weaponUid;
+            queue.ScheduledExecutionTime += TimeSpan.FromSeconds(1); // Add 1 second penalty
+
+            Dirty(user, queue);
+            return;
+        }
+
+        ExecuteQueuedAttack(user, targets, weaponUid, weapon, type, rawEvent);
+
+        var evSpeedMod = new GetSpeedModifierEvent();
+        RaiseLocalEvent(user, ref evSpeedMod);
+        var minSpeed = 3;
+        if (TryComp<ItemComponent>(weaponUid, out var itemComp))
+            minSpeed = GetMinimumSpeedSize(itemComp.Size);
+
+        var speed = 1 / weapon.AttackRate;
+        speed = MathF.Max(speed - evSpeedMod.Mod, minSpeed);
+
+        queue.NextAttackType = type;
+        queue.QueuedTargets = targets;
+        queue.Weapon = weaponUid;
+        queue.ScheduledExecutionTime = _timing.CurTime + TimeSpan.FromSeconds(speed);
+
+        Dirty(user, queue);
+    }
+
+    /// <summary>
+    /// Executes queued attack.
+    /// </summary>
+    public void ExecuteQueuedAttack(
+    EntityUid user,
+    List<EntityUid> targets,
+    EntityUid weaponUid,
+    MeleeWeaponComponent weapon,
+    HarmfulActionType attackType,
+    AttackEvent? rawEvent = null)
+    {
+        if (targets.Count == 0)
+            return;
+
+        var primaryTarget = targets[0];
+        if (!Exists(primaryTarget))
+            return;
+
+        switch (attackType)
+        {
+            case HarmfulActionType.Harm:
+                AttemptLightAttack(user, weaponUid, weapon, primaryTarget);
+                break;
+
+            case HarmfulActionType.Heavy:
+                // Convert list back to NetEntity list and reconstruct HeavyAttackEvent
+                var netTargets = GetNetEntityList(targets);
+                var netWeapon = GetNetEntity(weaponUid);
+                var coordinates = GetNetCoordinates(Transform(user).Coordinates);
+
+                if (rawEvent is HeavyAttackEvent heavyAttack)
+                    AttemptAttack(user, weaponUid, weapon, heavyAttack, null);
+                break;
+
+            case HarmfulActionType.Disarm:
+                AttemptDisarmAttack(user, weaponUid, weapon, primaryTarget);
+                break;
+        }
+    }
+
+
+    /// <summary>
+    /// Gets minimum weapon speed based on weapon size
+    /// </summary>
+    private static int GetMinimumSpeedSize(ProtoId<ItemSizePrototype> size) => size.Id switch
+    {
+        "Large" => 4,
+        "Normal" => 3,
+        "Small" => 2,
+        _ => 2
+    };
 }

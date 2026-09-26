@@ -229,8 +229,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
 
     private void OnLightAttack(LightAttackEvent msg, EntitySessionEventArgs args)
     {
-        if (args.SenderSession.AttachedEntity is not {} user
-            || TerminatingOrDeleted(user)) // Goob change
+        if (args.SenderSession.AttachedEntity is not { } user || TerminatingOrDeleted(user))
             return;
 
         if (!TryGetWeapon(user, out var weaponUid, out var weapon) ||
@@ -239,25 +238,39 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             return;
         }
 
-        AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
+        // <Trauma>
+        var targetList = new List<EntityUid>();
+        if (msg.Target is { } netTarget && TryGetEntity(netTarget, out var targetUid) && Exists(targetUid))
+            targetList.Add(targetUid.Value);
+        // </Trauma>
+
+        QueuePlayerAttack(user, targetList, weaponUid, weapon, HarmfulActionType.Harm, msg);
     }
 
     private void OnHeavyAttack(HeavyAttackEvent msg, EntitySessionEventArgs args)
     {
-        // <Goob> - rewrote weapon finding logic
-        var weapon = GetEntity(msg.Weapon);
-        if (args.SenderSession.AttachedEntity is not {} user
+        // <Trauma> - Skills 2
+        var weaponEntity = GetEntity(msg.Weapon);
+        if (args.SenderSession.AttachedEntity is not { } user
             || TerminatingOrDeleted(user)
-            || TerminatingOrDeleted(weapon)) // Goobstation Change
+            || TerminatingOrDeleted(weaponEntity))
             return;
 
         if (!TryGetWeapon(user, out var weaponUid, out var weaponComp)
-            || weaponUid != weapon
-            || !weaponComp.CanWideSwing) // Goobstation Change
+            || weaponUid != weaponEntity
+            || !weaponComp.CanWideSwing)
             return;
 
-        AttemptAttack(user, weaponUid, weaponComp, msg, args.SenderSession);
-        // </Goob>
+        // Convert NetEntity to EntityUid
+        var targetUids = new List<EntityUid>();
+        foreach (var netEnt in msg.Entities)
+        {
+            if (TryGetEntity(netEnt, out var uid) && Exists(uid))
+                targetUids.Add(uid.Value);
+        }
+
+        QueuePlayerAttack(user, targetUids, weaponUid, weaponComp, HarmfulActionType.Heavy, msg);
+        // </Trauma>
     }
 
     private void OnDisarmAttack(DisarmAttackEvent msg, EntitySessionEventArgs args)
@@ -266,8 +279,16 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
             || TerminatingOrDeleted(user)) // Goob
             return;
 
-        if (TryGetWeapon(user, out var weaponUid, out var weapon))
-            AttemptAttack(user, weaponUid, weapon, msg, args.SenderSession);
+        // <Trauma> - Skills 2
+        if (!TryGetWeapon(user, out var weaponUid, out var weapon))
+            return;
+
+        var targetList = new List<EntityUid>();
+        if (msg.Target is { } netTarget && TryGetEntity(netTarget, out var targetUid) && Exists(targetUid))
+            targetList.Add(targetUid.Value);
+
+        QueuePlayerAttack(user, targetList, weaponUid, weapon, HarmfulActionType.Disarm, msg);
+        // </Trauma>
     }
 
     /// <summary>
@@ -801,7 +822,7 @@ public abstract partial class SharedMeleeWeaponSystem : EntitySystem
                 continue;
 
             // <Trauma>
-            var beforeEvent = new BeforeHarmfulActionEvent(user, entity, HarmfulActionType.Harm, damage, meleeUid);
+            var beforeEvent = new BeforeHarmfulActionEvent(user, entity, HarmfulActionType.Heavy, damage, meleeUid);
             RaiseLocalEvent(entity, ref beforeEvent);
             if (beforeEvent.Cancelled)
                 continue;
