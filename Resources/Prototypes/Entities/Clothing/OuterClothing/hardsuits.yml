@@ -750,7 +750,6 @@
         Ballistic: 10
         Heat: 30
         Radiation: 100
-        Ballistic: 2
       # </Trauma>
   - type: Item
     size: Huge

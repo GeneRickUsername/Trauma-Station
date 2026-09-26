@@ -65,7 +65,10 @@ public abstract partial class SharedArmorSystem : EntitySystem
         if (mult <= 0f)
             return;
 
-        // apply penetration to base modifiers
+        // --- Degradation Check ---
+        ApplyArmorDegradation(uid, component, args.Args.Damage);
+
+        // Apply penetration to base modifiers
         var modifierSet = DamageSpecifier.PenetrateArmor(component.Modifiers, args.Args.Damage.ArmorPenetration);
         if (mult >= 1f)
         {

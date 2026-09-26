@@ -21,6 +21,8 @@
     channels:
     - Binary
   - type: IntellicardableMind
+  - type: MoneyStorage
+    currency: Shekels
   # </Trauma>
   - type: ActionGrant
     actions:
