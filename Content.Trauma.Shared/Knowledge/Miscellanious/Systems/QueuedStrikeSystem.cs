@@ -3,6 +3,8 @@
 using Content.Shared.CombatMode;
 using Content.Shared.Hands.EntitySystems;
 using Content.Shared.Weapons.Melee;
+using Content.Trauma.Common.Knowledge.Components;
+using Content.Trauma.Common.Weapons;
 using Content.Trauma.Shared.Knowledge.Miscellanious.Components;
 using Robust.Shared.Timing;
 
