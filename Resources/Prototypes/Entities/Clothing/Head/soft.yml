@@ -277,11 +277,11 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Heat: 0.8
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 3
 
 - type: entity
   parent: [ClothingHeadHeadHatBaseFlipped, ClothingHeadHatSecsoft]

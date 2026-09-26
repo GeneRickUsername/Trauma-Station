@@ -126,9 +126,9 @@
     - Tail
     - Wings
     modifiers:
-      coefficients:
-        Radiation: 0.1
-        Caustic: 0.5
+      flatReductions:
+        Radiation: 40
+        Caustic: 30
   - type: GroupExamine
   - type: StealTarget
     stealGroup: ClothingOuterHardsuitVoidParamed

@@ -70,11 +70,11 @@
     unequipDelay: 5 #Its insane more armor/hardsuits don't have equip times tbh?
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: .9
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Heat: 10
   - type: ExplosionResistance
     damageCoefficient: 0.7 # Trauma - was 0.8, no head coverage but it's still shitty
   - type: ClothingSpeedModifier

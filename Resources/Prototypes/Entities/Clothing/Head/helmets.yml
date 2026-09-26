@@ -39,15 +39,13 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.5 # Trauma, was 0.7
-        Slash: 0.5 # Trauma, was 0.7
-        Piercing: 0.5 # Trauma, was 0.7
-        Ballistic: 0.1 # Trauma
-        Heat: 0.5 # Trauma, was 0.7
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3.5
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 12
+        Heat: 6
       # </Trauma>
   - type: Tag
     tags:
@@ -114,15 +112,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.35
-        Slash: 0.35
-        Piercing: 0.35
-        Ballistic: 0.35 # Trauma
-        Heat: 0.35
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3.5
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 14
       # </Trauma>
         # Radiation: 0.75 # Trauma
         # Caustic: 0.75 # Trauma
@@ -167,10 +163,10 @@
   - type: IngestionBlocker
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.1 # Trauma, was 0.35
-        Slash: 0.1 # Trauma, was 0.35
-        Piercing: 0.1 # Trauma, was 0.8
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
   #- type: HideLayerClothing  #Goobstation
   #  layers:
   #    Hair: HEAD
@@ -196,11 +192,11 @@
     damageCoefficient: 0.1 # Trauma - bombsuits protect 90% of damage with part coverage
   - type: Armor
     modifiers:
-      coefficients:
-        Heat: 0.8
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
+      flatReductions:
+        Heat: 38
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
   - type: HideLayerClothing
     layers:
       Hair: HEAD
@@ -236,12 +232,12 @@
   - type: IngestionBlocker
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.45
-        Ballistic: 0.45 # Trauma
+      flatReductions:
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Heat: 10
+        Ballistic: 10
   #- type: HideLayerClothing  #Goobstation
   #  layers:
   #    Hair: HEAD
@@ -268,11 +264,11 @@
       Snout: HEAD
   - type: Armor # Goobstation
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.8
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Heat: 7
   - type: FaceHuggerBlocker # Goobstation
 
 #Knight Helmet
@@ -328,12 +324,12 @@
   - type: IdentityBlocker
   - type: Armor # Goobstation
     modifiers:
-      coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.45
-        Ballistic: 0.45 # Trauma
+      flatReductions:
+        Blunt: 9
+        Slash: 9
+        Piercing: 9
+        Heat: 9
+        Ballistic: 9
   - type: FaceHuggerBlocker # Goobstation
   #- type: HideLayerClothing  #Goobstation
   #  layers:
@@ -378,10 +374,10 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Slash: 0.95
-        Heat: 0.85
-        Cold: 0.85
+      flatReductions:
+        Slash: 3
+        Heat: 6
+        Cold: 6
 
 #Atmos Fire Helmet
 - type: entity
@@ -404,10 +400,10 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Slash: 0.9
-        Heat: 0.8
-        Cold: 0.8
+      flatReductions:
+        Slash: 4
+        Heat: 7
+        Cold: 7
   - type: EyeProtection
   # </Trauma>
   - type: Sprite
@@ -446,13 +442,13 @@
       BoneDamage: 0.4
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5 # Trauma
-        Heat: 0.5
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 11
+        Slash: 11
+        Piercing: 11
+        Ballistic: 11
+        Heat: 11
+        Caustic: 11
   - type: FaceHuggerBlocker # Goobstation
   #- type: HideLayerClothing  #Goobstation
   #  layers:
@@ -556,16 +552,14 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.35
-        Slash: 0.35
-        Piercing: 0.35
-        Ballistic: 0.35 # Trauma
-        Heat: 0.35
-        Caustic: 0.35
-    # <Trauma> - This is done so shotguns are worse against armor
+    # <Trauma>
       flatReductions:
-        Ballistic: 3.5
+        Blunt: 16
+        Slash: 16
+        Piercing: 16
+        Ballistic: 16
+        Heat: 16
+        Caustic: 16
     # </Trauma>
   - type: FaceHuggerBlocker # Trauma
  # - type: HideLayerClothing  #Goobstation
@@ -720,8 +714,8 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.95
+      flatReductions:
+        Blunt: 5
   - type: StaminaResistance
     damageCoefficient: 0.95
   - type: Construction

@@ -28,13 +28,13 @@
     coverage:
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5
-        Heat: 0.5
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 14
+        Caustic: 14
     traumaDeductions:
       Dismemberment: 0.5
       OrganDamage: 0.5

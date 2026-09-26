@@ -6,15 +6,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5
-        Heat: 0.5
-        Caustic: 0.8
       flatReductions:
-        Ballistic: 2
+        Blunt: 11
+        Slash: 11
+        Piercing: 11
+        Ballistic: 11
+        Heat: 11
+        Caustic: 4
     traumaDeductions:
       Dismemberment: 0.2
       OrganDamage: 0.2
@@ -71,15 +69,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7
-        Heat: 0.7
-        Caustic: 0.7
       flatReductions:
-        Ballistic: 2
+        Blunt: 11
+        Slash: 11
+        Piercing: 11
+        Ballistic: 11
+        Heat: 11
+        Caustic: 11
   - type: ExplosionResistance
     damageCoefficient: 0.50
 
@@ -126,15 +122,13 @@
       - Foot
       - Tail
       modifiers:
-        coefficients:
-          Blunt: 0.4
-          Slash: 0.4
-          Piercing: 0.4
-          Ballistic: 0.4
-          Heat: 0.4
-          Caustic: 0.4
         flatReductions:
-          Ballistic: 3
+          Blunt: 11
+          Slash: 11
+          Piercing: 11
+          Ballistic: 11
+          Heat: 11
+          Caustic: 11
       traumaDeductions:
         Dismemberment: 0.4
         OrganDamage: 0.4
@@ -154,15 +148,13 @@
       - Foot
       - Tail
       modifiers:
-        coefficients:
-          Blunt: 0.7
-          Slash: 0.7
-          Piercing: 0.7
-          Ballistic: 0.7
-          Heat: 0.7
-          Caustic: 0.7
         flatReductions:
-          Ballistic: 2
+          Blunt: 11
+          Slash: 11
+          Piercing: 11
+          Ballistic: 11
+          Heat: 11
+          Caustic: 11
       traumaDeductions:
         Dismemberment: 0.2
         OrganDamage: 0.2
@@ -180,15 +172,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.5
-        Heat: 0.6
-        Caustic: 0.6
       flatReductions:
-        Ballistic: 2
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Ballistic: 8
+        Heat: 12
+        Caustic: 12
     traumaDeductions:
       Dismemberment: 0.3
       OrganDamage: 0.3
@@ -227,15 +217,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.5
-        Heat: 0.4
-        Caustic: 0.8
       flatReductions:
-        Ballistic: 2
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 15
+        Heat: 20
+        Caustic: 7
   - type: ExplosionResistance
     damageCoefficient: 0
 
@@ -269,15 +257,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3
-        Ballistic: 0.6
-        Heat: 0.7
-        Caustic: 0
       flatReductions:
-        Ballistic: 2
+        Blunt: 15
+        Slash: 15
+        Piercing: 15
+        Ballistic: 5
+        Heat: 3
+        Caustic: 1000
 
 - type: entity
   parent: [ ArmorHereticFlesh, ClothingOuterArmorHeretic ]
@@ -321,15 +307,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5
-        Heat: 0.5
-        Caustic: 0.5
       flatReductions:
-        Ballistic: 2
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Ballistic: 8
+        Heat: 8
+        Caustic: 8
     traumaDeductions:
       Dismemberment: 0.5
       OrganDamage: 0.5
@@ -368,15 +352,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.6
-        Heat: 0.5
-        Caustic: 0.8
       flatReductions:
-        Ballistic: 2
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Ballistic: 9
+        Heat: 10
+        Caustic: 4
 
 - type: entity
   parent: [ ArmorHereticCosmos, ClothingOuterArmorHeretic ]
@@ -418,15 +400,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6
-        Heat: 0.6
-        Caustic: 0.6
       flatReductions:
-        Ballistic: 2
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Ballistic: 7
+        Heat: 7
+        Caustic: 7
     traumaDeductions:
       Dismemberment: 0.3
       OrganDamage: 0.3
@@ -466,13 +446,13 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7
-        Heat: 0.7
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 6
+        Heat: 6
+        Caustic: 6
     traumaDeductions:
       Dismemberment: 0.3
       OrganDamage: 0.3

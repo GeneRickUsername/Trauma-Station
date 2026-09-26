@@ -9,12 +9,12 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Ballistic: 0.65
-        Heat: 0.65
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Ballistic: 8
+        Heat: 8
     showArmorOnExamine: true
   - type: StaminaResistance
     damageCoefficient: 0.5

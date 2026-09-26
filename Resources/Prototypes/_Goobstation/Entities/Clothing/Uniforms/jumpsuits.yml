@@ -19,9 +19,9 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.85
-        Heat: 0.85
+      flatReductions:
+        Blunt: 5
+        Heat: 5
 
 - type: entity
   parent: ClothingUniformBase
@@ -48,9 +48,9 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Heat: 0.90
+      flatReductions:
+        Blunt: 4
+        Heat: 4
 
 - type: entity
   parent: ClothingUniformBase
@@ -164,12 +164,12 @@
   - type: CrematoriumImmune
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75
-        Ballistic: 0.7
-        Heat: 0.75
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Ballistic: 7
+        Heat: 5
 
 - type: entity
   parent: ClothingUniformBase

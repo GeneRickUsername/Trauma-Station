@@ -24,15 +24,13 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.65 # Trauma, was 0.7
-        Slash: 0.65 # Trauma, was 0.7
-        Piercing: 0.65 # Trauma, was 0.7
-        Ballistic: 0.65 # Trauma
-        Heat: 0.80
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 2
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Ballistic: 12
+        Heat: 7
       # </Trauma>
   - type: ExplosionResistance
     damageCoefficient: 0.75 # Trauma, was 0.9
@@ -85,15 +83,13 @@
       BoneDamage: 0.1
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8 # Trauma, was 0.3
-        Ballistic: 0.3
-        Heat: 0.8
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Ballistic: 8
+        Heat: 4
       # </Trauma>
   - type: ExplosionResistance
     damageCoefficient: 0.65 # Trauma - was 0.8
@@ -115,11 +111,11 @@
     - Torso
     # Does not give dismemberment deduction because of reflection. yeah do with it somehow
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.3
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Heat: 8
   - type: Reflect
     reflectProb: 0.8 # Trauma - was 1
     reflects:
@@ -159,12 +155,12 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6 # Trauma, was 0.4
-        Ballistic: 0.3 # Trauma
-        Heat: 0.5
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Ballistic: 15
+        Heat: 10
   - type: ExplosionResistance
     damageCoefficient: 0.3 # Trauma - was 0.65
   - type: GroupExamine
@@ -219,15 +215,13 @@
     coverage: # Shitmed
     - Torso
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7 # Trauma, was 0.3
-        Ballistic: 0.3 # Trauma
-        Heat: 0.8
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Ballistic: 12
+        Heat: 4
       # </Trauma>
 
 #Elite web vest
@@ -258,13 +252,13 @@
     coverage: # Shitmed
     - Torso
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7 # Trauma, was 0.8
-        Ballistic: 0.8 # Trauma
-        Heat: 0.3
-        Caustic: 0.3
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Ballistic: 6
+        Heat: 12
+        Caustic: 12
   - type: ExplosionResistance
     damageCoefficient: 0.3 # Trauma - was 0.5
   - type: FireProtection
@@ -297,15 +291,13 @@
     coverage: # Shitmed
     - Torso
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5 # Trauma
-        Heat: 0.8
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 10
+        Heat: 7
       # </Trauma>
 # Armor covering multiple body parts including limbs
 - type: entity
@@ -337,16 +329,14 @@
       BoneDamage: 0.5
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3
-        Ballistic: 0.3 # Trauma
-        Heat: 0.5
-        # Caustic: 0.3
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 15
+        Slash: 15
+        Piercing: 15
+        Ballistic: 15
+        Heat: 10
+        Caustic: 15
       # </Trauma>
   - type: ExplosionResistance
     damageCoefficient: 0.35
@@ -426,11 +416,11 @@
       BoneDamage: 0.4
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.35
-        Slash: 0.35
-        Piercing: 0.35 # Trauma, was 0.7
-        Heat: 0.8
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Heat: 9
   - type: ExplosionResistance
     damageCoefficient: 0.75 # Trauma - was 0.9, it doesnt cover head/hands/feet
   - type: GroupExamine
@@ -462,12 +452,12 @@
       BoneDamage: 0.33
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.4
-        Slash: 0.4
-        Piercing: 0.4
-        Ballistic: 0.5 # Trauma
-        Heat: 0.5
+      flatReductions:
+        Blunt: 4
+        Slash: 10
+        Piercing: 14
+        Ballistic: 8
+        Heat: 9
   - type: GroupExamine
   - type: ModifyDelayedKnockdown # Goobstation
     delayDelta: 3
@@ -501,16 +491,14 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.2
-        Slash: 0.2
-        Piercing: 0.2
-        Ballistic: 0.2 # Trauma
-        Heat: 0.5
-        Radiation: 0
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 16
+        Slash: 16
+        Piercing: 16
+        Ballistic: 16
+        Heat: 10
+        Radiation: 1000
       # </Trauma>
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
@@ -556,17 +544,15 @@
     sprite: Clothing/OuterClothing/Armor/magusblue.rsi
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.4
-        Slash: 0.4
-        Piercing: 0.4
-        Ballistic: 0.4 # Trauma
-        Heat: 0.4
-        Radiation: 0.1
-        Caustic: 0.1
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 14
+        Radiation: 100
+        Caustic: 100
       # </Trauma>
   - type: ClothingSpeedModifier # Goobstation
     walkModifier: 1.0
@@ -618,13 +604,13 @@
       BoneDamage: 0.4
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5 # Trauma
-        Heat: 0.5
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Ballistic: 12
+        Heat: 12
+        Caustic: 12
   - type: ClothingSpeedModifier
     walkModifier: 0.65
     sprintModifier: 0.65
@@ -664,10 +650,10 @@
       BoneDamage: 1 # this is bones dude
       VeinsDamage: -1
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
+      flatReductions:
+        Blunt: 8
+        Slash: 10
+        Piercing: 14
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
@@ -711,11 +697,11 @@
       BoneDamage: 0.27
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3 # Trauma, was 0.7
-        Heat: 0.7
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Heat: 6
   - type: GroupExamine
   - type: ProtectedFromStepTriggers
     slots: WITHOUT_POCKET
@@ -740,8 +726,8 @@
     sprite: Clothing/OuterClothing/Armor/card_armour.rsi
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
+      flatReductions:
+        Blunt: 7
   - type: StaminaResistance
     damageCoefficient: 0.90
   - type: Construction

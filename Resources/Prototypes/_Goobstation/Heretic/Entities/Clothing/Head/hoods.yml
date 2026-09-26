@@ -59,15 +59,13 @@
       coverage:
       - Head
       modifiers:
-        coefficients:
-          Blunt: 0.4
-          Slash: 0.4
-          Piercing: 0.4
-          Ballistic: 0.4
-          Heat: 0.4
-          Caustic: 0.4
         flatReductions:
-          Ballistic: 3
+          Blunt: 8
+          Slash: 8
+          Piercing: 8
+          Ballistic: 8
+          Heat: 8
+          Caustic: 8
       traumaDeductions:
         Dismemberment: 0.4
         OrganDamage: 0.4
@@ -82,15 +80,13 @@
       coverage:
       - Head
       modifiers:
-        coefficients:
-          Blunt: 0.7
-          Slash: 0.7
-          Piercing: 0.7
-          Ballistic: 0.7
-          Heat: 0.7
-          Caustic: 0.7
         flatReductions:
-          Ballistic: 2
+          Blunt: 6
+          Slash: 6
+          Piercing: 6
+          Ballistic: 6
+          Heat: 6
+          Caustic: 6
       traumaDeductions:
         Dismemberment: 0.2
         OrganDamage: 0.2

@@ -20,13 +20,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.65
-        Piercing: 0.65
-        Ballistic: 0.5
-        Heat: 0.5
-        Caustic: 0.65
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Ballistic: 10
+        Heat: 10
+        Caustic: 12
   - type: ClothingSpeedModifier
     walkModifier: 0.90
     sprintModifier: 0.90
@@ -58,13 +58,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.55
-        Heat: 0.55
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 20
+        Heat: 20
+        Caustic: 14
 
 - type: entity
   id: GoobSuitStorageSpirate

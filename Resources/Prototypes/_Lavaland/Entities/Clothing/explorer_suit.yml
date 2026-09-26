@@ -24,12 +24,12 @@
       BoneDamage: 0.25
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Heat: 0.6
-        Caustic: 0.6
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Heat: 12
+        Caustic: 12
   - type: ExplosionResistance
     damageCoefficient: 0.6
   - type: ContainerContainer
@@ -78,12 +78,12 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.65
-        Piercing: 0.65
-        Heat: 0.65
-        Caustic: 0.65
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Heat: 12
+        Caustic: 12
   - type: PressureArmorChange
   - type: PressureEfficiency
 
@@ -96,12 +96,12 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Heat: 0.5
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 17
+        Slash: 17
+        Piercing: 17
+        Heat: 17
+        Caustic: 17
   - type: ExplosionResistance
     damageCoefficient: 0.5
   - type: FireProtection
@@ -134,12 +134,12 @@
     equippedState: reinforced1-equipped-HELMET
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.55
-        Slash: 0.55
-        Piercing: 0.55
-        Heat: 0.55
-        Caustic: 0.55
+      flatReductions:
+        Blunt: 16
+        Slash: 16
+        Piercing: 16
+        Heat: 16
+        Caustic: 16
 
 - type: entity
   parent: LavalandEquipmentExplorerSuit
@@ -156,12 +156,12 @@
     equippedState: reinforced2-equipped-OUTERCLOTHING
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.4
-        Slash: 0.4
-        Piercing: 0.4
-        Heat: 0.4
-        Caustic: 0.4
+      flatReductions:
+        Blunt: 21
+        Slash: 21
+        Piercing: 21
+        Heat: 21
+        Caustic: 21
   - type: ExplosionResistance
     damageCoefficient: 0.4
   - type: FireProtection
@@ -188,12 +188,12 @@
     equippedState: reinforced2-equipped-HELMET
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Heat: 0.45
-        Caustic: 0.45
+      flatReductions:
+        Blunt: 20
+        Slash: 20
+        Piercing: 20
+        Heat: 20
+        Caustic: 20
 
 - type: entity
   parent: LavalandEquipmentExplorerSuit
@@ -210,12 +210,12 @@
     equippedState: reinforced3-equipped-OUTERCLOTHING
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3
-        Heat: 0.3
-        Caustic: 0.3
+      flatReductions:
+        Blunt: 29
+        Slash: 29
+        Piercing: 29
+        Heat: 29
+        Caustic: 29
   - type: ExplosionResistance
     damageCoefficient: 0.3
   - type: FireProtection
@@ -242,9 +242,9 @@
     equippedState: reinforced3-equipped-HELMET
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.35
-        Slash: 0.35
-        Piercing: 0.35
-        Heat: 0.35
-        Caustic: 0.35
+      flatReductions:
+        Blunt: 28
+        Slash: 28
+        Piercing: 28
+        Heat: 28
+        Caustic: 28

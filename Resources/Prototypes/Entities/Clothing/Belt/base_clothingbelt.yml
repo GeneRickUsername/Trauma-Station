@@ -39,10 +39,10 @@
     coverage:
     - Torso
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
+      flatReductions:
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
     traumaDeductions:
       Dismemberment: 0
       OrganDamage: 0.05

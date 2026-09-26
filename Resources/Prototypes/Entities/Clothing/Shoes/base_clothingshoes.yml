@@ -48,10 +48,10 @@
     coverage:
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
+      flatReductions:
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
 
 - type: entity
   abstract: true
@@ -101,10 +101,10 @@
       BoneDamage: 0.1
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
 
 - type: entity
   abstract: true

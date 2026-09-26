@@ -18,13 +18,13 @@
     sprintModifier: 1.0
   - type: Armor
     modifiers: &cult_armor_modifiers
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.6
-        Piercing: 0.6
-        Heat: 0.7
-        Caustic: 0.2
-        Radiation: 0.2
+      flatReductions:
+        Blunt: 5
+        Slash: 8
+        Piercing: 8
+        Heat: 1
+        Caustic: 3
+        Radiation: 3
   - type: ExplosionResistance
     damageCoefficient: 0.5
   - type: TemperatureProtection

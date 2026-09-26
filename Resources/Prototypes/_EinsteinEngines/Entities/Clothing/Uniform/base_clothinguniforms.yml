@@ -106,8 +106,8 @@
     maxCharges: 4
   - type: Armor
     modifiers:
-      coefficients:
-        Caustic: 0.85
+      flatReductions:
+        Caustic: 4
   - type: Tag
     tags:
     - WhitelistChameleon

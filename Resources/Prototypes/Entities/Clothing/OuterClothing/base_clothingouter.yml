@@ -238,12 +238,12 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.95
-        Heat: 0.90
-        Radiation: 0.25
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 3
+        Heat: 4
+        Radiation: 20
   - type: ToggleableClothing
     verbText: toggle-clothing-verb-helmet
   - type: ContainerContainer

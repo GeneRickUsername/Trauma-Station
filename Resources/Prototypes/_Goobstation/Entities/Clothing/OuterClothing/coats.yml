@@ -62,12 +62,12 @@
     - Leg
     - Tail
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7
-        Heat: 0.8
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Ballistic: 4
+        Heat: 3
   - type: ModifyDelayedKnockdown
     delayDelta: 1.5
     knockdownTimeDelta: -1.5
@@ -104,9 +104,9 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.6
-        Radiation: 0.6
+      flatReductions:
+        Caustic: 6
+        Radiation: 6
 
 
 - type: entity

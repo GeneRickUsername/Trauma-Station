@@ -227,8 +227,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Radiation: 0.8
+      flatReductions:
+        Radiation: 4
 
 - type: entity
   parent: ClothingUniformBase

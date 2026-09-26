@@ -36,16 +36,16 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.1 # Best armor in the game - Yeah no shit.
-        Slash: 0.1
-        Piercing: 0.1
-        Ballistic: 0.1
-        Heat: 0.1
-        Cold: 0.1
-        Cellular: 0.1
-        Radiation: 0.1
-        Caustic: 0.1
+      flatReductions: # Best armor in the game - Yeah no shit.
+        Blunt: 40
+        Slash: 40
+        Piercing: 40
+        Ballistic: 40
+        Heat: 40
+        Cold: 40
+        Cellular: 40
+        Radiation: 40
+        Caustic: 40
 
 - type: entity
   parent: [ ClothingModsuitGauntletsStandard, BaseModsuitPieceDeathsquad ]

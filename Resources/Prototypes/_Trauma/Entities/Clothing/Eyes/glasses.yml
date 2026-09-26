@@ -24,11 +24,11 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Heat: 0.95
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
+      flatReductions:
+        Heat: 2
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
     traumaDeductions:
       Dismemberment: 0
       OrganDamage: 0.13

@@ -74,10 +74,10 @@
   - type: SelfEquipOnly
   - type: CursedMask
     despairDamageModifier:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.4
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 8
   - type: HideLayerClothing
     slots:
     - Snout

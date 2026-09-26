@@ -44,14 +44,14 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6
-        Heat: 0.6
-        Caustic: 0.1
-        Radiation: 0.1
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Ballistic: 5
+        Heat: 5
+        Caustic: 14
+        Radiation: 14
   - type: ExplosionResistance
     damageCoefficient: 0.8
   - type: GroupExamine
@@ -76,14 +76,14 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6
-        Heat: 0.6
-        Radiation: 0.1
-        Caustic: 0.1
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Ballistic: 5
+        Heat: 5
+        Radiation: 14
+        Caustic: 14
   - type: ExplosionResistance
     damageCoefficient: 0.25
   - type: GroupExamine
@@ -317,14 +317,14 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.45
-        Slash: 0.45
-        Piercing: 0.45
-        Ballistic: 0.45
-        Heat: 0.45
-        Radiation: 0
-        Caustic: 0.1
+      flatReductions:
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Ballistic: 8
+        Heat: 8
+        Radiation: 1000
+        Caustic: 100
   - type: ToggleableClothing
     clothingPrototypes:
       head: ClothingHeadHatOblivionEnforcer

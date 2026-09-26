@@ -27,13 +27,13 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.65
-        Piercing: 0.65
-        Heat: 0.7
-        Radiation: 0.55
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Heat: 5
+        Radiation: 8
+        Caustic: 5
   - type: ClothingSpeedModifier
     walkModifier: 0.95
     sprintModifier: 0.95
@@ -74,10 +74,10 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.65
-        Piercing: 0.65
-        Heat: 0.7
-        Radiation: 0.55
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 4
+        Radiation: 7
+        Caustic: 4

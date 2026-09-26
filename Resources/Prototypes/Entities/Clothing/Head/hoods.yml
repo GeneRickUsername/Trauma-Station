@@ -27,8 +27,8 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Caustic: 0.75
+      flatReductions:
+        Caustic: 5
   # Goobstation
   - type: DiseaseProtection
     # full prot with even a normal mask
@@ -100,12 +100,12 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Heat: 0.8
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Heat: 5
+        Caustic: 5
 
 - type: entity
   parent: ClothingHeadHatHoodBioGeneral
@@ -192,8 +192,8 @@
     - Head
     modifiers:
       coefficients:
-        Heat: 0.85
-        Radiation: 0.01
+        Heat: 4
+        Radiation: 400
   - type: IdentityBlocker
   - type: IngestionBlocker
   - type: BreathMask

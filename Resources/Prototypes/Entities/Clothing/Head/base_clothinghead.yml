@@ -188,12 +188,12 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.95
-        Heat: 0.90
-        Radiation: 0.25
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 2
+        Heat: 4
+        Radiation: 40
     traumaDeductions:
       Dismemberment: 0.2
       OrganDamage: 0.2

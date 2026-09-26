@@ -229,7 +229,7 @@
         layer:
           - MobLayer
   - type: Damageable
-    damageModifierSet: HeavyArmorSyndi # Massive daamge reduction, but very low health.
+    damageModifierSet: HeavyArmorSyndi # Massive damage reduction, but very low health.
   - type: Injurable
     damageContainer: ManifestedSpirit
   - type: NoSlip
