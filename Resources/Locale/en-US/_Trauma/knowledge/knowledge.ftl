@@ -17,6 +17,8 @@ language-curse-pain = You hear bad language!
 
 trauma-skill-title = Skills Tab
 trauma-attribute-title = Attributes Tab
+trauma-talent-title = Talents Tab
+trauma-proficiency-title = Proficiencies Tab
 trauma-character-title = Character Tab
 
 knowledge-zenkai-boost = Your body is filled with a second wind as you finally understand something.

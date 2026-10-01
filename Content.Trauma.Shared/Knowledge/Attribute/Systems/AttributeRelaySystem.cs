@@ -11,24 +11,7 @@ namespace Content.Trauma.Shared.Knowledge.Attribute.Attribute.Systems;
 /// </summary>
 public sealed partial class AttributeRelaySystem : EntitySystem
 {
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<AttackAttributeComponent, GetAttackModifierEvent>(OnCalculateAttack);
-        SubscribeLocalEvent<DefenseAttributeComponent, GetDefenseModifierEvent>(OnCalculateDefense);
-        SubscribeLocalEvent<DamageAttributeComponent, GetDamageModifierEvent>(OnCalculateDamage);
-        SubscribeLocalEvent<StrengthFeatComponent, GetStrengthFeatEvent>(OnStrengthFeat);
-        SubscribeLocalEvent<AgilityFeatComponent, GetAgilityFeatEvent>(OnCalculateAgility);
-        SubscribeLocalEvent<DodgeAttributeComponent, GetDodgeSavingThrowEvent>(OnCalculateDodge);
-        SubscribeLocalEvent<PhysicalAttributeComponent, GetPhysicalSavingThrowEvent>(OnCalculatePhysical);
-        SubscribeLocalEvent<MentalAttributeComponent, GetMentalSavingThrowEvent>(OnCalculateMental);
-        SubscribeLocalEvent<LiftAttributeComponent, GetCarryLimitsEvent>(OnLift);
-        SubscribeLocalEvent<CarryAttributeComponent, GetCarryLimitsEvent>(OnCarry);
-        SubscribeLocalEvent<DragAttributeComponent, GetCarryLimitsEvent>(OnDrag);
-        SubscribeLocalEvent<MoraleAttributeComponent, GetMoraleModifierEvent>(OnCalculateMorale);
-    }
-
+    [SubscribeLocalEvent]
     private void OnCalculateAttack(Entity<AttackAttributeComponent> ent, ref GetAttackModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -37,6 +20,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateDefense(Entity<DefenseAttributeComponent> ent, ref GetDefenseModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -45,6 +29,16 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
+    private void OnCalculateSpeed(Entity<SpeedAttributeComponent> ent, ref GetSpeedModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
+    }
+
+    [SubscribeLocalEvent]
     private void OnCalculateDamage(Entity<DamageAttributeComponent> ent, ref GetDamageModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -53,6 +47,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnStrengthFeat(Entity<StrengthFeatComponent> ent, ref GetStrengthFeatEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -62,6 +57,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
     }
 
 
+    [SubscribeLocalEvent]
     private void OnCalculateAgility(Entity<AgilityFeatComponent> ent, ref GetAgilityFeatEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -70,6 +66,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateDodge(Entity<DodgeAttributeComponent> ent, ref GetDodgeSavingThrowEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -78,6 +75,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculatePhysical(Entity<PhysicalAttributeComponent> ent, ref GetPhysicalSavingThrowEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -86,6 +84,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateMental(Entity<MentalAttributeComponent> ent, ref GetMentalSavingThrowEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -94,6 +93,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Mod += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnLift(Entity<LiftAttributeComponent> ent, ref GetCarryLimitsEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -102,6 +102,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Lift += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnCarry(Entity<CarryAttributeComponent> ent, ref GetCarryLimitsEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -110,6 +111,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Carry += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnDrag(Entity<DragAttributeComponent> ent, ref GetCarryLimitsEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -118,6 +120,7 @@ public sealed partial class AttributeRelaySystem : EntitySystem
         args.Drag += AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY);
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateMorale(Entity<MoraleAttributeComponent> ent, ref GetMoraleModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))

@@ -2,6 +2,7 @@
 using Content.Medical.Common.Body;
 using Content.Medical.Common.Damage;
 using Content.Medical.Common.Targeting;
+using Content.Trauma.Common.Knowledge;
 // </Trauma>
 using System.Linq;
 using Content.Shared.Damage.Components;
@@ -223,8 +224,17 @@ public sealed partial class DamageableSystem
             }
             // </Trauma>
 
+            // <Shitcode>
             if (damage.Empty)
+            {
+                if (origin != null && damage.RollSummary is { } rolls)
+                {
+                    var evSummary = new SpecialResultsSumEvent(origin.Value, ent.Owner, rolls, damageDone);
+                    RaiseLocalEvent(origin.Value, ref evSummary);
+                }
                 return damageDone;
+            }
+            // <Shitcode>
         }
 
         // <Goob> - For entities with a body, route damage through body parts. no damage is added to the body's DamageableComponent
@@ -241,6 +251,13 @@ public sealed partial class DamageableSystem
             var ev = new DamageDealtEvent(damage, origin, interruptsDoAfters, ignoreBlockers, damage);
             RaiseLocalEvent(ent, ref ev);
 
+            // <Shitcode>
+            if(origin != null && damage.RollSummary is { } rolls)
+            {
+                var evSummary = new SpecialResultsSumEvent(origin.Value, ent.Owner, rolls, ev.ModifiedDamage);
+                RaiseLocalEvent(origin.Value, ref evSummary);
+            }
+            // </Shitcode>
             return ev.ModifiedDamage;
         }
         // </Goob>
@@ -258,6 +275,13 @@ public sealed partial class DamageableSystem
             ignoreBlockers, damage); // Trauma
         RaiseLocalEvent(ent, ref evt);
 
+        // <Shitcode>
+        if (origin != null && damage.RollSummary is { } rolls1)
+        {
+            var evSummary = new SpecialResultsSumEvent(origin.Value, ent.Owner, rolls1, damageDone);
+            RaiseLocalEvent(origin.Value, ref evSummary);
+        }
+        // </Shitcode>
         return evt.ModifiedDamage; // Trauma - damage -> evt.ModifiedDamage
     }
 

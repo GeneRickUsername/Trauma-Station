@@ -114,7 +114,7 @@ public sealed partial class CombatSystem : EntitySystem
             minSpeed = GetMinimumSpeedSize(itemComp.Size);
 
         var speed = 0.1f / rate;
-        speed = MathF.Max((speed - evSpeedMod.Mod) * (isOpponentUnarmed ? 0.5f : 1.0f), minSpeed); // You can't be faster than the weapon sizes, it's a minimum weapon speed.
+        speed = MathF.Max((speed + evSpeedMod.Mod) * (isOpponentUnarmed ? 0.5f : 1.0f), minSpeed); // You can't be faster than the weapon sizes, it's a minimum weapon speed.
         return speed;
     }
 
@@ -186,7 +186,7 @@ public sealed partial class CombatSystem : EntitySystem
         if (!evInterceptionContest.Failed)
         {
             _popup.PopupEntity("You intercept the unarmed strike with your weapon!", defender, defender, PopupType.Small);
-            _popup.PopupEntity("The opponent intercepted your attack with their weapon!", attacker, attacker, PopupType.Small);
+            _popup.PopupEntity($"{Name(defender)} intercepted your attack with their weapon!", attacker, attacker, PopupType.Small);
 
             if (!TryComp<MeleeWeaponComponent>(defenderWeapon, out var meleeComp))
                 return true;
@@ -236,11 +236,27 @@ public sealed partial class CombatSystem : EntitySystem
         var evOpposedContest = new OpposedContestEvent(defender, 20, evAttackMod.Mod, evDefenseDice.Dice, evDodgeMod.Mod);
         RaiseLocalEvent(attacker, ref evOpposedContest);
 
+        var totalAttackRoll = evOpposedContest.DiceUser + evOpposedContest.ModUser;
+        var totalDefenseRoll = evOpposedContest.DiceOpposed + evOpposedContest.ModOpposed;
+        if (damage != null)
+        {
+            damage.RollSummary = new CombatRollSummary(
+                totalAttackRoll,
+                totalDefenseRoll,
+                evOpposedContest.CriticallySucceededUser
+            );
+        }
+
         if (evOpposedContest.Failed)
         {
+            var parrySound = ParrySound;
+            if (TryComp<ParryComponent>(weapon, out var parryComp))
+                parrySound = parryComp.SoundOnParry;
+            _audio.PlayPredicted(parrySound, defender, _player.LocalEntity);
+
             cancelled = true;
 
-            _popup.PopupEntity("The enemy dodged your attack!", attacker, attacker, PopupType.Small);
+            _popup.PopupEntity($"{Name(defender)} dodged your attack!", attacker, attacker, PopupType.Small);
             _popup.PopupEntity("You narrowly dodge the incoming attack!", defender, defender, PopupType.Small);
 
             if (evOpposedContest.CriticallyFailedUser)
@@ -254,7 +270,16 @@ public sealed partial class CombatSystem : EntitySystem
         }
 
         if (evOpposedContest.CriticallyFailedOpposed)
-            _popup.PopupEntity("The enemy clumsily failed to dodge your strike!", attacker, attacker, PopupType.Small);
+        {
+            _popup.PopupEntity($"{Name(defender)} goes under youw wild swing!", attacker, attacker, PopupType.Small);
+            cancelled = true;
+            var parrySound = ParrySound;
+            if (TryComp<ParryComponent>(weapon, out var parryComp))
+                parrySound = parryComp.SoundOnParry;
+            _audio.PlayPredicted(parrySound, defender, _player.LocalEntity);
+
+            return;
+        }
 
         if (evOpposedContest.CriticallySucceededUser)
         {
@@ -300,11 +325,27 @@ public sealed partial class CombatSystem : EntitySystem
         defenseDown.Mod += 1.0f;
         Dirty(defender, defenseDown);
 
+        var totalAttackRoll = evOpposedContest.DiceUser + evOpposedContest.ModUser;
+        var totalDefenseRoll = evOpposedContest.DiceOpposed + evOpposedContest.ModOpposed;
+        if (damage != null)
+        {
+            damage.RollSummary = new CombatRollSummary(
+                totalAttackRoll,
+                totalDefenseRoll,
+                evOpposedContest.CriticallySucceededUser
+            );
+        }
+
         if (evOpposedContest.CriticallyFailedUser && evOpposedContest.CriticallyFailedOpposed)
         {
             cancelled = true;
             _popup.PopupEntity("You try to strike the enemy, but end up not doing much of anything.", attacker, attacker, PopupType.Small);
             _popup.PopupEntity("You stumble around like a bummbling fool, not doing anything effect.", defender, defender, PopupType.Small);
+            var parrySound = ParrySound;
+            if (TryComp<ParryComponent>(weapon, out var parryComp))
+                parrySound = parryComp.SoundOnParry;
+            _audio.PlayPredicted(parrySound, defender, _player.LocalEntity);
+
         }
 
         if (evOpposedContest.Failed)
@@ -323,7 +364,8 @@ public sealed partial class CombatSystem : EntitySystem
             var parrySound = ParrySound;
             if (TryComp<ParryComponent>(weapon, out var parryComp))
                 parrySound = parryComp.SoundOnParry;
-            _audio.PlayLocal(parrySound, defender, _player.LocalEntity);
+            _audio.PlayPredicted(parrySound, defender, _player.LocalEntity);
+
             if (evOpposedContest.ModOpposed >= 19)
             {
                 var queued = AddComp<QueuedStrikeComponent>(defender); // Defender gets a free strike.
@@ -333,7 +375,7 @@ public sealed partial class CombatSystem : EntitySystem
                 Dirty(defender, queued);
                 // TODO: Replace with sound effects to not flood up chat.
                 _popup.PopupEntity("You've shown an opening!", attacker, attacker, PopupType.Small);
-                _popup.PopupEntity("The opponent has shown an opening, prepare for an attack!", defender, defender, PopupType.Small);
+                _popup.PopupEntity($"{Name(attacker)} has shown an opening, prepare for an attack!", defender, defender, PopupType.Small);
             }
             else
             {
@@ -369,6 +411,10 @@ public sealed partial class CombatSystem : EntitySystem
         {
             _popup.PopupEntity("You missed, but it could have been worse.", attacker, attacker, PopupType.Small);
             cancelled = true;
+            var parrySound = ParrySound;
+            if (TryComp<ParryComponent>(weapon, out var parryComp))
+                parrySound = parryComp.SoundOnParry;
+            _audio.PlayPredicted(parrySound, defender, _player.LocalEntity);
             return;
         }
 
@@ -376,7 +422,7 @@ public sealed partial class CombatSystem : EntitySystem
         {
             var ev = new CriticalHitEvent(attacker, damage ?? new());
             RaiseLocalEvent(defender, ref ev);
-            _popup.PopupEntity("Good strike!", attacker, attacker, PopupType.Small);
+            _popup.PopupEntity("Critical Hit!", attacker, attacker, PopupType.Small);
         }
     }
 
@@ -397,5 +443,13 @@ public sealed partial class CombatSystem : EntitySystem
         var ev = new SingleContestEvent(20, defense, 20);
         RaiseLocalEvent(ent, ref ev);
         return !ev.Failed;
+    }
+
+    public void SpecialResultsSum(EntityUid attacker, EntityUid defender, int attackRoll, int defenseRoll)
+    {
+        if (!_hands.TryGetActiveItem(attacker, out _))
+            return;
+
+
     }
 }

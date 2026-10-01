@@ -14,15 +14,7 @@ public sealed partial class RollSystem : EntitySystem
 {
     [Dependency] private IGameTiming _timing = default!;
 
-    /// <inheritdoc/>
-    public override void Initialize()
-    {
-        base.Initialize();
-
-        SubscribeLocalEvent<KnowledgeHolderComponent, SingleContestEvent>(OnSingleContest);
-        SubscribeLocalEvent<KnowledgeHolderComponent, OpposedContestEvent>(OnOpposedContest);
-    }
-
+    [SubscribeLocalEvent]
     private void OnSingleContest(Entity<KnowledgeHolderComponent> ent, ref SingleContestEvent args)
     {
         (args.DiceUser, args.CriticallySucceeded) = RollContest(args.DiceUser, ent.Owner);
@@ -38,6 +30,7 @@ public sealed partial class RollSystem : EntitySystem
         // _popup.PopupClient($"{args.DiceUser}+{args.ModUser} vs. {args.Threshold}", ent, ent, PopupType.Medium);
     }
 
+    [SubscribeLocalEvent]
     private void OnOpposedContest(Entity<KnowledgeHolderComponent> ent, ref OpposedContestEvent args)
     {
         (args.DiceUser, args.CriticallySucceededUser) = RollContest(args.DiceUser, ent.Owner);

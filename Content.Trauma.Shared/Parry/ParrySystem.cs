@@ -85,7 +85,7 @@ public sealed partial class ParrySystem : EntitySystem
         _alert.ClearAlert(ent.Owner, ent.Comp.Alert);
     }
 
-    [SubscribeLocalEvent]
+    //[SubscribeLocalEvent]
     private void OnReflectProjectile(Entity<ParryComponent> ent,
         ref HeldRelayedEvent<ProjectileReflectAttemptEvent> args)
     {
@@ -95,7 +95,7 @@ public sealed partial class ParrySystem : EntitySystem
             args.Args.Cancelled = true;
     }
 
-    [SubscribeLocalEvent]
+    //[SubscribeLocalEvent]
     private void OnReflectHitscan(Entity<ParryComponent> ent, ref HeldRelayedEvent<HitScanReflectAttemptEvent> args)
     {
         if (args.Args.Reflected)
@@ -114,7 +114,7 @@ public sealed partial class ParrySystem : EntitySystem
         args.Args.Reflected = true;
     }
 
-    [SubscribeLocalEvent]
+    //[SubscribeLocalEvent]
     private void OnParry(Entity<ParryComponent> ent, ref HeldRelayedEvent<BeforeHarmfulActionEvent> args)
     {
         if (args.Args.Cancelled || args.Args.Type != HarmfulActionType.Harm)
@@ -266,7 +266,7 @@ public sealed partial class ParrySystem : EntitySystem
         return true;
     }
 
-    [SubscribeLocalEvent]
+    //[SubscribeLocalEvent]
     private void OnExamine(Entity<ParryComponent> ent, ref ExaminedEvent args)
     {
         AppendParryExamine(ent, ref args);

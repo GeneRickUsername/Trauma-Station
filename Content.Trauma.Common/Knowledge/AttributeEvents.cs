@@ -3,16 +3,10 @@
 namespace Content.Trauma.Common.Knowledge;
 
 /// <summary>
-/// Raised on an attribute holder to calculate the damage modifier.
+/// Raised on an attribute holder to calculate the attack modifier.
 /// </summary>
 [ByRefEvent]
-public record struct GetDamageModifierEvent(int Mod = 0);
-
-/// <summary>
-/// Raised on an attribute holder to calculate the speed modifier.
-/// </summary>
-[ByRefEvent]
-public record struct GetSpeedModifierEvent(int Mod = 0);
+public record struct GetAttackModifierEvent(int Mod = 0);
 
 /// Raised on an attribute holder to calculate the defense modifier.
 /// </summary>
@@ -20,10 +14,16 @@ public record struct GetSpeedModifierEvent(int Mod = 0);
 public record struct GetDefenseModifierEvent(int Mod = 0);
 
 /// <summary>
-/// Raised on an attribute holder to calculate the attack modifier.
+/// Raised on an attribute holder to calculate the speed modifier.
 /// </summary>
 [ByRefEvent]
-public record struct GetAttackModifierEvent(int Mod = 0);
+public record struct GetSpeedModifierEvent(int Mod = 0);
+
+/// <summary>
+/// Raised on an attribute holder to calculate the damage modifier.
+/// </summary>
+[ByRefEvent]
+public record struct GetDamageModifierEvent(int Mod = 0);
 
 /// <summary>
 /// Raised on an attribute holder to calculate carry limits.

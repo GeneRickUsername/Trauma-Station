@@ -1,0 +1,23 @@
+- type: entity
+  parent: MobStatusEffectDebuff
+  id: StatusEffectPain
+  name: agony
+  components:
+  - type: StutteringAccent
+  - type: StunnedStatusEffect
+  - type: KnockdownStatusEffect
+  - type: ForcedSpeechStatusEffect
+    sayings:
+    - "OH GOD"
+    - "FUCK"
+    - "AHHH"
+    - "IT HURTS"
+
+- type: entity
+  parent: MobStatusEffectDebuff
+  id: StatusEffectKnockout
+  name: knocked out
+  components:
+  - type: ForcedSleepingStatusEffect
+  - type: StunnedStatusEffect
+  - type: KnockdownStatusEffect

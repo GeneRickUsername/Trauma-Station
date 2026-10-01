@@ -19,6 +19,8 @@ public sealed partial class KnowledgeRelaySystem : EntitySystem
         base.Initialize();
 
         // For knowledge specific events
+        SubscribeLocalEvent<KnowledgeHolderComponent, GetAttackModifierEvent>(_knowledge.RelayEvent);
+        SubscribeLocalEvent<KnowledgeHolderComponent, GetDefenseModifierEvent>(_knowledge.RelayEvent);
         SubscribeLocalEvent<KnowledgeHolderComponent, GetSpeedModifierEvent>(_knowledge.RelayEvent);
         SubscribeLocalEvent<KnowledgeHolderComponent, GetDamageModifierEvent>(_knowledge.RelayEvent);
         SubscribeLocalEvent<KnowledgeHolderComponent, GetStrengthFeatEvent>(_knowledge.RelayEvent);

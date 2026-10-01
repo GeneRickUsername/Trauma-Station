@@ -30,17 +30,6 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
     {
         base.Initialize();
 
-        SubscribeLocalEvent<DamageAttributeComponent, GetAttributeModifierEvent>(OnCalculateDamage);
-        SubscribeLocalEvent<StrengthFeatComponent, GetAttributeModifierEvent>(OnStrengthFeat);
-        SubscribeLocalEvent<AgilityFeatComponent, GetAttributeModifierEvent>(OnCalculateAgility);
-        SubscribeLocalEvent<DodgeAttributeComponent, GetAttributeModifierEvent>(OnCalculateDodge);
-        SubscribeLocalEvent<PhysicalAttributeComponent, GetAttributeModifierEvent>(OnCalculatePhysical);
-        SubscribeLocalEvent<MentalAttributeComponent, GetAttributeModifierEvent>(OnCalculateMental);
-        SubscribeLocalEvent<LiftAttributeComponent, GetAttributeModifierEvent>(OnLift);
-        SubscribeLocalEvent<CarryAttributeComponent, GetAttributeModifierEvent>(OnCarry);
-        SubscribeLocalEvent<DragAttributeComponent, GetAttributeModifierEvent>(OnDrag);
-        SubscribeLocalEvent<MoraleAttributeComponent, GetAttributeModifierEvent>(OnCalculateMorale);
-
         Subs.CVar(_cfg, TraumaCVars.SkillPopups, x => _showPopups = x, true);
 
         CharacterWindow.OnOpened += EnsureKnowledgeTab;
@@ -55,7 +44,26 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         LobbyUIController.OnProfileEditorCreated -= AddProfileEditorTab;
     }
 
-    private void OnCalculateAttack(Entity<SpeedAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    [SubscribeLocalEvent]
+    private void OnCalculateAttack(Entity<AttackAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Attack: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    [SubscribeLocalEvent]
+    private void OnCalculateDefense(Entity<DefenseAttributeComponent> ent, ref GetAttributeModifierEvent args)
+    {
+        if (!TryComp<AttributeComponent>(ent, out var comp))
+            return;
+
+        args.Modifiers.Add(("Defense: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
+    }
+
+    [SubscribeLocalEvent]
+    private void OnCalculateSpeed(Entity<SpeedAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
             return;
@@ -63,6 +71,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Speed: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateDamage(Entity<DamageAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -71,6 +80,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Damage: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnStrengthFeat(Entity<StrengthFeatComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -79,7 +89,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Strength Feat: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
-
+    [SubscribeLocalEvent]
     private void OnCalculateAgility(Entity<AgilityFeatComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -88,6 +98,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Agility Feat: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateDodge(Entity<DodgeAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -96,6 +107,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Dodge: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculatePhysical(Entity<PhysicalAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -104,6 +116,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Physical: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateMental(Entity<MentalAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -112,6 +125,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Mental: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnLift(Entity<LiftAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -120,6 +134,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Lift: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnCarry(Entity<CarryAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -128,6 +143,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Carry: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnDrag(Entity<DragAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -136,6 +152,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
         args.Modifiers.Add(("Drag: ", AttributeSystem.LerpCurve(comp.Attribute, ent.Comp.MinX, ent.Comp.MaxX, ent.Comp.MinY, ent.Comp.MaxY).ToString()));
     }
 
+    [SubscribeLocalEvent]
     private void OnCalculateMorale(Entity<MoraleAttributeComponent> ent, ref GetAttributeModifierEvent args)
     {
         if (!TryComp<AttributeComponent>(ent, out var comp))
@@ -181,6 +198,26 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
             }
         }
 
+        TalentTab? talentTab = null;
+        foreach (var child in window.Tabs.Children)
+        {
+            if (child is TalentTab)
+            {
+                talentTab = (TalentTab) child;
+                break;
+            }
+        }
+
+        ProficiencyTab? proficiencyTab = null;
+        foreach (var child in window.Tabs.Children)
+        {
+            if (child is ProficiencyTab)
+            {
+                proficiencyTab = (ProficiencyTab) child;
+                break;
+            }
+        }
+
         TabContainer.SetTabTitle(window.CharacterTab, Loc.GetString("trauma-character-title"));
 
         if (skillTab == null)
@@ -195,10 +232,24 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
             window.Tabs.AddChild(attributeTab);
         }
 
+        if (talentTab == null)
+        {
+            talentTab = new TalentTab();
+            window.Tabs.AddChild(talentTab);
+        }
+
+        if (proficiencyTab == null)
+        {
+            proficiencyTab = new ProficiencyTab();
+            window.Tabs.AddChild(proficiencyTab);
+        }
+
         if (_player.LocalEntity is { } player)
         {
             skillTab.UpdateSkillTab(player);
             attributeTab.UpdateAttributeTab(player, EntityManager);
+            talentTab.UpdateTalentTab(player);
+            proficiencyTab.UpdateProficiencyTab(player);
         }
     }
 

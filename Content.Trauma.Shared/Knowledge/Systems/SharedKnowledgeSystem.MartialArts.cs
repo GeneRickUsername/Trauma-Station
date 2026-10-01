@@ -98,8 +98,8 @@ public abstract partial class SharedKnowledgeSystem
         RaiseLocalEvent(skill, ref ev);
     }
 
-    [SubscribeLocalEvent]
-    private void OnDamageDealt(Entity<KnowledgeHolderComponent> ent, ref DamageDealtEvent args)
+    //[SubscribeLocalEvent]
+    public void OnDamageDealt(Entity<KnowledgeHolderComponent> ent, ref DamageDealtEvent args)
     {
         // ignore healing
         if (!args.Damage.AnyPositive() ||

@@ -106,4 +106,27 @@ public sealed partial class DamageSpecifier
         PreciseHit = 1 << 0,
         MartialArtCombo = 1 << 1,
     }
+
+    /// <summary>
+    /// Metadata tracking the contest rolls for this attack instance.
+    /// </summary>
+    [DataField]
+    public CombatRollSummary? RollSummary;
+}
+
+[Serializable, NetSerializable]
+public struct CombatRollSummary
+{
+    public int AttackRoll;
+    public int DefenseRoll;
+    public bool IsCriticalHit;
+    public bool IsUnarmedInterception;
+    public readonly int Margin => AttackRoll - DefenseRoll;
+    public CombatRollSummary(int attackRoll, int defenseRoll, bool isCrit = false, bool isInterception = false)
+    {
+        AttackRoll = attackRoll;
+        DefenseRoll = defenseRoll;
+        IsCriticalHit = isCrit;
+        IsUnarmedInterception = isInterception;
+    }
 }
