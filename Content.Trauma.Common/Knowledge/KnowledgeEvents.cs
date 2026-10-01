@@ -70,7 +70,7 @@ public record struct OnFumbleEvent(int FumbleDifference);
 public record struct GetBlockFractionEvent(EntityUid User, EntityUid Blocker, float Fraction);
 
 /// <summary>
-/// 
+///
 /// </summary>
 [ByRefEvent]
 public record struct SpecialResultsSumEvent(EntityUid Attacker, EntityUid Defender, CombatRollSummary Rolls, DamageSpecifier DamageDealt);
