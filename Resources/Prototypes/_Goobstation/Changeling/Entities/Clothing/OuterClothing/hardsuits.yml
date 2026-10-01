@@ -42,4 +42,4 @@
     cancel: true
   - type: StaminaResistance # Goobstation
     damageCoefficient: 0.4
-    
+
