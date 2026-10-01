@@ -5,6 +5,7 @@
   abstract: true
   components:
   - type: Talent
+    cost: 20
 
 - type: entity
   parent: BaseTalent

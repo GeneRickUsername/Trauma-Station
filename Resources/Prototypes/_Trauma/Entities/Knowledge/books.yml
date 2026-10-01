@@ -106,7 +106,7 @@
     - state: melee
   - type: KnowledgeGrantOnUse
     skills:
-      MeleeKnowledge: 30
+      UnarmedKnowledge: 30
       WeaponsKnowledge: 50
       KnowledgeWeaponsPolearm: 30
       KnowledgeWeaponsShortBlade: 30
@@ -114,7 +114,7 @@
       KnowledgeWeaponsBludgeon: 30
       KnowledgeWeaponsNonLethal: 30 # For Rev Mace
     experience:
-      MeleeKnowledge: 15
+      UnarmedKnowledge: 15
       WeaponsKnowledge: 15
       KnowledgeWeaponsPolearm: 15
       KnowledgeWeaponsShortBlade: 15

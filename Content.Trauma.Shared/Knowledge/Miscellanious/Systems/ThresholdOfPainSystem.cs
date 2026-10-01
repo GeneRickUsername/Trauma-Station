@@ -35,9 +35,9 @@ public sealed partial class ThresholdOfPainSystem : EntitySystem
         RaiseLocalEvent(ent, ref ev);
 
         if (ev.CriticallySucceeded)
-            _status.TryAddStatusEffect(ent.Owner, StatusEffectKnockout, out _, TimeSpan.FromSeconds((ev.DiceUser - halfCon) * 5 * 60), null);
+            _status.TryAddStatusEffectDuration(ent.Owner, StatusEffectKnockout, out _, TimeSpan.FromSeconds((ev.DiceUser - halfCon) * 5 * 60), null);
         else if (!ev.Failed)
-            _status.TryAddStatusEffect(ent.Owner, StatusEffectPain, out _, TimeSpan.FromSeconds((ev.DiceUser - halfCon) * 5), null);
+            _status.TryAddStatusEffectDuration(ent.Owner, StatusEffectPain, out _, TimeSpan.FromSeconds((ev.DiceUser - halfCon) * 5), null);
 
     }
 }

@@ -8,44 +8,30 @@
 
 - type: entity
   parent: BaseProficiency
-  id: UnarmedProficiency
-
-- type: entity
-  parent: BaseProficiency
-  id: ImprovisedProficiency
-
-- type: entity
-  parent: BaseProficiency
-  id: StaveProficiency
-
-- type: entity
-  parent: BaseProficiency
-  id: SwordProficiency
-
-- type: entity
-  parent: BaseProficiency
-  id: MaceProficiency
-
-- type: entity
-  parent: BaseProficiency
-  id: AxeProficiency
-
-- type: entity
-  parent: BaseProficiency
   id: LightArmorProficiency
+  name: Light Armor
+  description: Does Nothing
 
 - type: entity
   parent: BaseProficiency
   id: MediumArmorProficiency
+  name: Medium Armor
+  description: Does Nothing
 
 - type: entity
   parent: BaseProficiency
   id: HeavyProficiency
+  name: Heavy Armor
+  description: Does Nothing
 
 - type: entity
   parent: BaseProficiency
   id: GroinStompProficiency # Beat them where it hurts.
+  name: Groin Stomp
+  description: Does Nothing
 
 - type: entity
   parent: BaseProficiency
   id: MaintenanceProficiency # Know how to actually upkeep your items/weapons.
+  name: Maintenance Proficiency
+  description: Does Nothing

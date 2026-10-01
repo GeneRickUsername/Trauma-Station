@@ -32,7 +32,7 @@
     SurgeryKnowledge: 0
     # Combat Skill
     ThrowingKnowledge: 0
-    MeleeKnowledge: 1
+    UnarmedKnowledge: 1
     KnowledgeWeaponsBludgeon: 1
     KnowledgeWeaponsMining: 2
     ShootingKnowledge: 0

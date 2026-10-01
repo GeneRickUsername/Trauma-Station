@@ -26,9 +26,9 @@
     modifiers:
       # <Trauma>
       flatReductions:
-        Blunt: 12
-        Slash: 12
-        Piercing: 12
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
         Ballistic: 12
         Heat: 7
       # </Trauma>
@@ -85,11 +85,11 @@
     modifiers:
       # <Trauma>
       flatReductions:
-        Blunt: 4
-        Slash: 4
-        Piercing: 4
-        Ballistic: 8
-        Heat: 4
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 15
+        Heat: 6
       # </Trauma>
   - type: ExplosionResistance
     damageCoefficient: 0.65 # Trauma - was 0.8

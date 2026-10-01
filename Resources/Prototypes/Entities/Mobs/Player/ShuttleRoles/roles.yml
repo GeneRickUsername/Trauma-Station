@@ -308,7 +308,7 @@
     # <Trauma>
     - type: KnowledgeGrant
       skills:
-        MeleeKnowledge: 26
+        UnarmedKnowledge: 26
     # </Trauma>
 
 - type: entity

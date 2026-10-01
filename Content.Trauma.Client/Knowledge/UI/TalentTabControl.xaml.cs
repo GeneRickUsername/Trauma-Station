@@ -24,7 +24,7 @@ public sealed partial class TalentTabControl : BoxContainer
         if (info.Sprite != null)
             TalentIcon.Texture = _sprite.Frame0(info.Sprite);
 
-        TalentName.Text = info.Name;
+        TalentName.Text = info.Name + " | " + info.Rank;
         TalentDescription.Text = info.Description;
     }
 }

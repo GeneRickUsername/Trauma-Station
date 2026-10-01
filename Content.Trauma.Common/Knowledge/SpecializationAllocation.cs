@@ -30,6 +30,9 @@ public partial record struct SpecializationAllocation
 
     private static int TotalIter(int cost)
     {
+        if (cost <= 0)
+            return 0;
+
         return cost * (cost + 1) / 2;
     }
 }

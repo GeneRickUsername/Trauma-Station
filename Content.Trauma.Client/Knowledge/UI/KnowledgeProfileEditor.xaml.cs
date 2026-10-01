@@ -4,8 +4,11 @@ using System.Linq;
 using Content.Shared.Humanoid.Prototypes;
 using Content.Trauma.Client.Knowledge;
 using Content.Trauma.Common.Knowledge;
+using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Knowledge.Prototypes;
+using Content.Trauma.Shared.Knowledge.Components;
 using Content.Trauma.Shared.Weapons.Classes;
+using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Prototypes;
 
 namespace Content.Trauma.Client.Knowledge.UI;
@@ -43,7 +46,7 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
             ResetButton.Disabled = true;
             ReloadSkills();
             ReloadAttributes();
-            ReloadWeaponProficiencies();
+            ReloadProficiencies();
             ReloadTalents();
         };
     }
@@ -54,7 +57,7 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
         _parent = _proto.Index(_proto.Index(species).Knowledge);
         ReloadSkills();
         ReloadAttributes();
-        ReloadWeaponProficiencies();
+        ReloadProficiencies();
         ReloadTalents();
         UpdateReset();
     }
@@ -94,7 +97,6 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
                 UpdateReset();
             };
 
-            // Put the skill in its respective category (or create it if there isn't one yet)
             if (categories.TryGetValue(comp.Category, out var category))
             {
                 category.AddChild(control);
@@ -147,28 +149,34 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
         }
     }
 
-    private void ReloadWeaponProficiencies()
+    private void ReloadProficiencies()
     {
         EnabledProficiencies.RemoveAllChildren();
 
-        // Iterate over defined weapon classes
-        foreach (var weaponClass in _proto.EnumeratePrototypes<WeaponClassPrototype>())
-        {
-            if (!_proto.TryIndex(weaponClass.Knowledge, out var knowledgeProto))
-                continue;
+        // Get all weapon classes that explicitly support specializations
+        var specializationEnabledClasses = _proto.EnumeratePrototypes<WeaponClassPrototype>()
+            .Select(wc => wc.Knowledge)
+            .ToHashSet();
 
-            var protoId = (EntProtoId) weaponClass.ID;
-            var control = new WeaponClassProficiencyControl(weaponClass.Name, costPerLevel: 10);
+        foreach (var (protoId, profComp) in _knowledge.AllProficiencies)
+        {
+            var costPerLevel = profComp.Cost;
+            var name = _proto.Index(protoId).Name;
+
+            var control = new WeaponClassProficiencyControl(name, costPerLevel: costPerLevel, maxLevel: 1);
             var profLevel = _profile.Proficiencies.GetValueOrDefault(protoId, 0);
 
-            // Bind parent level changes
+            var hasSpecializations = specializationEnabledClasses.Contains(protoId);
+            control.SetSpecializationVisible(hasSpecializations);
+
+            // Proficiency level is capped at 0 or 1
             control.OnChangeProficiencyLevel += diff =>
             {
-                var nextLevel = Math.Max(0, control.Level + diff);
+                var nextLevel = Math.Clamp(control.Level + diff, 0, 1);
                 if (nextLevel == 0)
                 {
                     _profile.Proficiencies.Remove(protoId);
-                    _profile.Specializations.Remove(protoId); // Drop specs if proficiency is removed
+                    _profile.Specializations.Remove(protoId); // Clear specializations if proficiency is lost
                 }
                 else
                 {
@@ -182,44 +190,66 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
                 UpdateReset();
             };
 
-            // HackMaster Specializations: 4-category allocation (Speed, Attack, Defense, Damage)
-            var currentAlloc = _profile.Specializations.GetValueOrDefault(protoId);
-            control.SetSpecializationAllocation(currentAlloc);
-
-            control.OnChangeSpecializationAllocation += (category, diff) =>
+            // Specialization allocation can be bought infinitely as long as proficiency >= 1
+            if (hasSpecializations)
             {
-                // Verify active proficiency before permitting specialization adjustments
-                if (!_profile.Proficiencies.TryGetValue(protoId, out var level) || level <= 0)
-                    return;
+                var currentAlloc = _profile.Specializations.GetValueOrDefault(protoId);
+                control.SetSpecializationAllocation(currentAlloc);
 
-                var alloc = _profile.Specializations.GetValueOrDefault(protoId);
-                switch (category)
+                control.OnChangeSpecializationAllocation += (category, diff) =>
                 {
-                    case SpecializationCategory.Speed:
-                        alloc.Speed = Math.Max(0, alloc.Speed + diff);
-                        break;
-                    case SpecializationCategory.Attack:
-                        alloc.Attack = Math.Max(0, alloc.Attack + diff);
-                        break;
-                    case SpecializationCategory.Defense:
-                        alloc.Defense = Math.Max(0, alloc.Defense + diff);
-                        break;
-                    case SpecializationCategory.Damage:
-                        alloc.Damage = Math.Max(0, alloc.Damage + diff);
-                        break;
-                }
+                    if (!_profile.Proficiencies.TryGetValue(protoId, out var level) || level <= 0)
+                        return;
 
-                if (alloc.IsEmpty)
-                    _profile.Specializations.Remove(protoId);
-                else
-                    _profile.Specializations[protoId] = alloc;
+                    var alloc = _profile.Specializations.GetValueOrDefault(protoId);
 
-                control.SetSpecializationAllocation(alloc);
+                    if (diff > 0)
+                    {
+                        // Find the current minimum points among all 4 specialization categories
+                        var minVal = Math.Min(Math.Min(alloc.Speed, alloc.Attack), Math.Min(alloc.Defense, alloc.Damage));
 
-                _modified = true;
-                UpdatePoints();
-                UpdateReset();
-            };
+                        // Prevent increasing any category if it would exceed minVal + 1
+                        var currentVal = category switch
+                        {
+                            SpecializationCategory.Speed => alloc.Speed,
+                            SpecializationCategory.Attack => alloc.Attack,
+                            SpecializationCategory.Defense => alloc.Defense,
+                            SpecializationCategory.Damage => alloc.Damage,
+                            _ => 0
+                        };
+
+                        if (currentVal >= minVal + 1)
+                            return;
+                    }
+
+                    switch (category)
+                    {
+                        case SpecializationCategory.Speed:
+                            alloc.Speed = Math.Max(0, alloc.Speed + diff);
+                            break;
+                        case SpecializationCategory.Attack:
+                            alloc.Attack = Math.Max(0, alloc.Attack + diff);
+                            break;
+                        case SpecializationCategory.Defense:
+                            alloc.Defense = Math.Max(0, alloc.Defense + diff);
+                            break;
+                        case SpecializationCategory.Damage:
+                            alloc.Damage = Math.Max(0, alloc.Damage + diff);
+                            break;
+                    }
+
+                    if (alloc.IsEmpty)
+                        _profile.Specializations.Remove(protoId);
+                    else
+                        _profile.Specializations[protoId] = alloc;
+
+                    control.SetSpecializationAllocation(alloc);
+
+                    _modified = true;
+                    UpdatePoints();
+                    UpdateReset();
+                };
+            }
 
             control.SetLevel(profLevel);
             EnabledProficiencies.AddChild(control);
@@ -235,12 +265,14 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
             var rank = _profile.Talents.GetValueOrDefault(id, 0);
             var name = _proto.Index(id).Name;
 
-            var control = new TalentControl(name, talentComp.Cost);
+            // Allow infinite purchases if Repeat is true, otherwise hard-cap at 1 rank
+            var maxRank = talentComp.Repeat ? int.MaxValue : 1;
+            var control = new TalentControl(name, talentComp.Cost, maxRank);
             control.SetRank(rank);
 
             control.OnChangeRank += diff =>
             {
-                var nextRank = Math.Clamp(control.Rank + diff, 0, talentComp.Repeat ? int.MaxValue : 1);
+                var nextRank = Math.Clamp(control.Rank + diff, 0, maxRank);
                 if (nextRank == 0)
                     _profile.Talents.Remove(id);
                 else
@@ -270,7 +302,6 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
             return;
         }
 
-        // Can't save with a deficit
         PointsLabel.FontColorOverride = Color.Red;
         SaveButton.Disabled = true;
     }
@@ -279,7 +310,6 @@ public sealed partial class KnowledgeProfileEditor : BoxContainer
     {
         ResetButton.Disabled = true;
 
-        // Enable reset button if ANY profile dictionary contains modified data
         if (_profile.SkillRolls.Values.Any(level => level != 0) ||
             _profile.Attributes.Values.Any(level => level != 0) ||
             _profile.Proficiencies.Values.Any(level => level != 0) ||

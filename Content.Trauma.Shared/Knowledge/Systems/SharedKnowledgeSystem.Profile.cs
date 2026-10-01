@@ -120,7 +120,7 @@ public abstract partial class SharedKnowledgeSystem
         var total = 0;
         foreach (var (id, rolls) in profile.SkillRolls)
         {
-            total += SkillCost(id, rolls) ?? 0; // this should never have locked skills so ignore if it happens
+            total += SkillCost(id, rolls) ?? 0;
         }
         foreach (var (id, purchases) in profile.Attributes)
         {
@@ -137,14 +137,15 @@ public abstract partial class SharedKnowledgeSystem
         {
             if (!ProtoMan.Index(id).TryComp<ProficiencyComponent>(out var prof, Factory))
                 continue;
+
             total += purchases * prof.Cost;
         }
-        foreach (var (id, purchases) in profile.Specializations)
+        foreach (var (id, alloc) in profile.Specializations)
         {
-            if (!ProtoMan.Index(id).TryComp<SpecializationComponent>(out var spec, Factory) || !ProtoMan.Index(id).TryComp<ProficiencyComponent>(out var prof, Factory))
+            if (!ProtoMan.Index(id).TryComp<ProficiencyComponent>(out var prof, Factory))
                 continue;
 
-            total += purchases.TotalCost(prof.Cost);
+            total += alloc.TotalCost(prof.Cost);
         }
         return total;
     }

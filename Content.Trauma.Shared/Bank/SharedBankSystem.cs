@@ -179,10 +179,10 @@ public abstract partial class SharedBankSystem : EntitySystem
                 else
                     _stack.TryMergeStacks(spawned, existingMoney, out _);
             }
+            if (popup && amountToSpawn > 0 && money is { } ent)
+                _popup.PopupEntity($"Printed {amountToSpawn} {Name(ent)}.", uid, PopupType.Medium);
             amountRemaining -= value * amountToSpawn;
         }
-        if (money is { } ent && popup)
-            _popup.PopupPredictedCoordinates($"Printed {amount} {Name(ent)}.", coordinates, uid, PopupType.Medium);
         return amountRemaining;
     }
 

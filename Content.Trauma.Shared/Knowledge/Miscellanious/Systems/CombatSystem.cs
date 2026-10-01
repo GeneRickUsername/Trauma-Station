@@ -271,7 +271,7 @@ public sealed partial class CombatSystem : EntitySystem
 
         if (evOpposedContest.CriticallyFailedOpposed)
         {
-            _popup.PopupEntity($"{Name(defender)} goes under youw wild swing!", attacker, attacker, PopupType.Small);
+            _popup.PopupEntity($"{Name(defender)} goes under your wild swing!", attacker, attacker, PopupType.Small);
             cancelled = true;
             var parrySound = ParrySound;
             if (TryComp<ParryComponent>(weapon, out var parryComp))

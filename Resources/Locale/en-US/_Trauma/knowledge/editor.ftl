@@ -9,3 +9,8 @@ knowledge-editor-mastery = {$mastery} ({$cost})
 knowledge-editor-save = Save Skills
 knowledge-editor-reset = Reset Changes
 knowledge-editor-save-deficit = Not enough points!
+
+knowledge-editor-header-attributes = Attributes
+knowledge-editor-header-skills = Skills
+knowledge-editor-header-talents = Talents
+knowledge-editor-header-proficiencies = Proficiencies

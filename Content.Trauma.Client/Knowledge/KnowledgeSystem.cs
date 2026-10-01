@@ -25,6 +25,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
     private bool _showPopups;
     private TimeSpan _nextPopup;
     private TimeSpan _popupCooldown = TimeSpan.FromSeconds(3);
+    private IComponentFactory _factory = default!;
 
     public override void Initialize()
     {
@@ -34,6 +35,7 @@ public sealed partial class KnowledgeSystem : SharedKnowledgeSystem
 
         CharacterWindow.OnOpened += EnsureKnowledgeTab;
         LobbyUIController.OnProfileEditorCreated += AddProfileEditorTab;
+        _factory = Factory;
     }
 
     public override void Shutdown()

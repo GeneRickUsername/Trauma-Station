@@ -26,12 +26,15 @@ public sealed partial class WeaponClassProficiencyControl : BoxContainer
     public SpecializationAllocation Allocation { get; private set; }
 
     private readonly int _costPerLevel;
+    private readonly int _maxLevel;
+    private bool _specializationSupported = true;
 
-    public WeaponClassProficiencyControl(string name, int costPerLevel)
+    public WeaponClassProficiencyControl(string name, int costPerLevel, int maxLevel = 1)
     {
         RobustXamlLoader.Load(this);
 
         _costPerLevel = costPerLevel;
+        _maxLevel = maxLevel;
         WeaponClassLabel.Text = name;
 
         DecreaseButton.OnPressed += _ => OnChangeProficiencyLevel?.Invoke(-1);
@@ -51,22 +54,27 @@ public sealed partial class WeaponClassProficiencyControl : BoxContainer
         DamageIncreaseButton.OnPressed += _ => OnChangeSpecializationAllocation?.Invoke(SpecializationCategory.Damage, +1);
     }
 
+    public void SetSpecializationVisible(bool visible)
+    {
+        _specializationSupported = visible;
+        UpdateSpecializationUI();
+    }
+
     public void SetLevel(int level, int racialBase = 0)
     {
-        Level = level;
+        Level = Math.Clamp(level, 0, _maxLevel);
         var added = Math.Max(Level - racialBase, 0);
         var cost = added * _costPerLevel;
 
-        LevelLabel.Text = $"Proficiency Lvl: {Level} (Cost: {cost})";
+        LevelLabel.Text = $"Proficiency: {Level}/{_maxLevel} (Cost: {cost})";
         DecreaseButton.Disabled = Level <= racialBase;
-        IncreaseButton.Disabled = false;
+        IncreaseButton.Disabled = Level >= _maxLevel;
 
         var isProficient = Level > 0;
         var color = !isProficient ? Color.Gray : Color.White;
         LevelLabel.Modulate = color;
         WeaponClassLabel.Modulate = color;
 
-        SpecializationsContainer.Visible = isProficient;
         UpdateSpecializationUI();
     }
 
@@ -79,6 +87,10 @@ public sealed partial class WeaponClassProficiencyControl : BoxContainer
     private void UpdateSpecializationUI()
     {
         var isProficient = Level > 0;
+        SpecializationsContainer.Visible = _specializationSupported && isProficient;
+
+        if (!_specializationSupported)
+            return;
 
         var speedCost = CalculateCategoryCost(Allocation.Speed);
         var attackCost = CalculateCategoryCost(Allocation.Attack);
@@ -90,17 +102,19 @@ public sealed partial class WeaponClassProficiencyControl : BoxContainer
         DefenseLabel.Text = $"+{Allocation.Defense} (Cost: {defenseCost})";
         DamageLabel.Text = $"+{Allocation.Damage} (Cost: {damageCost})";
 
+        var minVal = Math.Min(Math.Min(Allocation.Speed, Allocation.Attack), Math.Min(Allocation.Defense, Allocation.Damage));
+
         SpeedDecreaseButton.Disabled = !isProficient || Allocation.Speed <= 0;
-        SpeedIncreaseButton.Disabled = !isProficient;
+        SpeedIncreaseButton.Disabled = !isProficient || Allocation.Speed >= minVal + 1;
 
         AttackDecreaseButton.Disabled = !isProficient || Allocation.Attack <= 0;
-        AttackIncreaseButton.Disabled = !isProficient;
+        AttackIncreaseButton.Disabled = !isProficient || Allocation.Attack >= minVal + 1;
 
         DefenseDecreaseButton.Disabled = !isProficient || Allocation.Defense <= 0;
-        DefenseIncreaseButton.Disabled = !isProficient;
+        DefenseIncreaseButton.Disabled = !isProficient || Allocation.Defense >= minVal + 1;
 
         DamageDecreaseButton.Disabled = !isProficient || Allocation.Damage <= 0;
-        DamageIncreaseButton.Disabled = !isProficient;
+        DamageIncreaseButton.Disabled = !isProficient || Allocation.Damage >= minVal + 1;
     }
 
     private int CalculateCategoryCost(int points)
