@@ -488,7 +488,7 @@
     baseWalkSpeed: 2
     baseSprintSpeed: 2
   - type: MeleeWeapon
-    attackRate: 0.6
+    attackRate: 0.05
   - type: Damageable
     damageModifierSet: CoconutCrab
   - type: Injurable

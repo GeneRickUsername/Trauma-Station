@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Shared.Damage;
 using Content.Shared.Inventory;
 
 namespace Content.Trauma.Common.Weapons;
@@ -9,6 +10,7 @@ public record struct BeforeHarmfulActionEvent(
     EntityUid User,
     EntityUid Target,
     HarmfulActionType Type,
+    DamageSpecifier? Damage = null,
     EntityUid? Used = null,
     bool CanRiposte = true,
     bool Cancelled = false)
@@ -20,6 +22,7 @@ public record struct BeforeHarmfulActionEvent(
 public enum HarmfulActionType : byte
 {
     Harm,
+    Heavy,
     Disarm,
     Grab,
 }

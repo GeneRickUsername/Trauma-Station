@@ -12,6 +12,7 @@
   - CosmicCult
   - XenomorphsInfestationRoundstart
   - Spies
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: AllerAtOnce
@@ -28,11 +29,13 @@
   - CosmicCult
   - XenomorphsInfestationRoundstart
   - Spies
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Secret
   rules:
   - Insurgency
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Traitor
@@ -41,6 +44,7 @@
   - SubGamemodesRule
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Nukeops
@@ -48,6 +52,7 @@
   - !Remove SubGamemodesRuleNoWizard
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Revolutionary
@@ -56,6 +61,7 @@
   - SubGamemodesRule
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Wizard
@@ -65,6 +71,7 @@
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
   - SleepersOnWizardDeath
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Xenoborgs
@@ -74,15 +81,18 @@
   - SubGamemodesRuleNoXenoborg
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Zombie
   rules:
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
+  - DeathlessStationEventScheduler
 
 - type: gamePreset
   id: Zombieteors
   rules:
   - BasicAntagEventScheduler
   - ModerateAntagEventScheduler
+  - DeathlessStationEventScheduler

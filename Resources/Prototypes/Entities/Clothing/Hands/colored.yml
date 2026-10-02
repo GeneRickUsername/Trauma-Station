@@ -338,11 +338,11 @@
     fiberColor: fibers-yellow
   - type: Armor # Goob
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Shock: 0.75
+      flatReductions:
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
+        Shock: 10
 
 # Insulated Gloves (Yellow Gloves)
 # Currently can not be greyscaled without looking like shit.
@@ -383,10 +383,11 @@
       - BudgetInsuls
   - type: Armor # Goob
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
+      flatReductions:
+        Blunt: 2
+        Slash: 2
+        Piercing: 2
+        Shock: 1
 
 # Conductive Insulated Gloves
 - type: entity

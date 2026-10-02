@@ -32,7 +32,7 @@
   - type: MeleeWeapon
     animationRotation: 180 # WWDP
     wideAnimationRotation: 180
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 0
@@ -55,7 +55,7 @@
   - type: MeleeWeapon
     animationRotation: 180 # WWDP
     wideAnimationRotation: 180
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Piercing: 5
@@ -95,7 +95,7 @@
   - type: MeleeWeapon
     animationRotation: 180 # WWDP
     wideAnimationRotation: 180
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 1
@@ -184,7 +184,7 @@
   - type: MeleeWeapon
     animationRotation: 180 # WWDP
     wideAnimationRotation: 180
-    attackRate: 2
+    attackRate: 0.4
     damage:
       types:
         Blunt: 2

@@ -18,7 +18,7 @@
   - type: GuideHelp
     guides: [ Plasmaman ]
   - type: MeleeWeapon # Same values as double emergency tank
-    attackRate: 0.9
+    attackRate: 0.08
     wideAnimationRotation: 45
     range: 1.75
     damage:

@@ -65,12 +65,12 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.90
-        Heat: 0.90
-        Ballistic: 0.90
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 5
+        Ballistic: 5
 
 - type: entity
   parent: ClothingOuterStorageBase
@@ -98,12 +98,12 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.90
-        Heat: 0.90
-        Ballistic: 0.90
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 5
+        Ballistic: 5
   - type: StaminaResistance
     damageCoefficient: 0.5
   - type: ModifyDelayedKnockdown
@@ -119,12 +119,12 @@
     coverage:
     - Hand
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.90
-        Heat: 0.90
-        Ballistic: 0.90
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 5
+        Ballistic: 5
 
 - type: entity
   parent: ClothingShoesLeather
@@ -136,12 +136,12 @@
     coverage:
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.90
-        Slash: 0.90
-        Piercing: 0.90
-        Heat: 0.90
-        Ballistic: 0.90
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 5
+        Ballistic: 5
 
 - type: entity
   id: SlasherMeatSpike

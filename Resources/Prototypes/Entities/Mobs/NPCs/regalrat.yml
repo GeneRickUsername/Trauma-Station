@@ -171,7 +171,7 @@
     soundHit:
         path: /Audio/Weapons/Xeno/alien_claw_flesh2.ogg
     angle: 0
-    attackRate: 0.75
+    attackRate: 0.065
     animation: WeaponArcFist
     damage:
       types:

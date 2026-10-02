@@ -32,12 +32,12 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7 # Trauma
-        Heat: 0.8
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 6
+        Heat: 3
 
 - type: entity
   parent: [ClothingOuterCoatDetectiveLoadout]
@@ -84,16 +84,14 @@
     - Arm
     - Leg
     modifiers:
-      coefficients: # Trauma - changed completely
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6 # Trauma, was 0.55
-        Ballistic: 0.55 # Trauma
-        Heat: 0.55
-        Caustic: 0.6
-      # <Trauma> - This is done so shotguns are worse against armor
-      flatReductions:
-        Ballistic: 3
+      # <Trauma>
+      flatReductions: # Trauma - changed completely
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 8
+        Heat: 8
+        Caustic: 6
       # </Trauma>
   - type: ModifyDelayedKnockdown # Goobstation
     delayDelta: 3
@@ -120,13 +118,13 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6 # Trauma
-        Heat: 0.7
-        Caustic: 0.9
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 6
+        Heat: 8
+        Caustic: 4
 
 - type: entity
   parent: [BaseSecurityCommandContraband, ClothingOuterArmorHoS]
@@ -180,8 +178,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Slash: 0.95
+      flatReductions:
+        Slash: 3
 
 - type: entity
   parent: ClothingOuterStorageFoldableBase
@@ -200,8 +198,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLab]
@@ -225,8 +223,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabChem]
@@ -250,8 +248,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabViro]
@@ -275,8 +273,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabGene]
@@ -300,10 +298,10 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Slash: 0.9
-        Heat: 0.9
-        Caustic: 0.4
+      flatReductions:
+        Slash: 3
+        Heat: 3
+        Caustic: 8
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabCmo]
@@ -327,8 +325,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatRnd]
@@ -352,8 +350,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatRobo]
@@ -377,9 +375,9 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.6
-        Radiation: 0.6
+      flatReductions:
+        Caustic: 6
+        Radiation: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatRD]
@@ -447,10 +445,10 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
   - type: ModifyDelayedKnockdown # Goobstation
     delayDelta: 3
     knockdownTimeDelta: -3
@@ -505,13 +503,13 @@
     - Torso
     - Tail
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7 # Trauma
-        Heat: 0.8
-        Caustic: 0.4
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Ballistic: 4
+        Heat: 3
+        Caustic: 8
   - type: ModifyDelayedKnockdown # Goobstation
     delayDelta: 3
     knockdownTimeDelta: 3
@@ -535,8 +533,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabSeniorResearcher]
@@ -560,8 +558,8 @@
     - Arm
     - Leg
     modifiers:
-      coefficients:
-        Caustic: 0.65
+      flatReductions:
+        Caustic: 6
 
 - type: entity
   parent: [ClothingOuterStorageFoldableBaseOpened, ClothingOuterCoatLabSeniorPhysician]

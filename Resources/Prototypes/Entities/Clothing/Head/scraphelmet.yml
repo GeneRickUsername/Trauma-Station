@@ -71,13 +71,14 @@
     # <Trauma>
     coverage:
     - Head
-    # </Trauma>
     modifiers:
-      coefficients:
-        Blunt: 0.4 # Trauma, was 0.9
-        Slash: 0.4 # Trauma, was 0.9
-        Piercing: 0.4 # Trauma, was 0.9
-        Heat: 0.9
+      flatReductions:
+        Blunt: 11
+        Slash: 11
+        Piercing: 11
+        Ballistic: 7
+        Heat: 5
+    # </Trauma>
   - type: HideLayerClothing
     slots:
     - Hair

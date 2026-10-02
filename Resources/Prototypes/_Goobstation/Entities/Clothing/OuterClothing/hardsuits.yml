@@ -26,16 +26,16 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.01
-        Slash: 0.01
-        Piercing: 0.01
-        Ballistic: 0.01
-        Heat: 0.01
-        Cold: 0.01
-        Shock: 0.01
-        Caustic: 0.01
-        Radiation: 0.01
+      flatReductions:
+        Blunt: 100
+        Slash: 100
+        Piercing: 100
+        Ballistic: 100
+        Heat: 100
+        Cold: 100
+        Shock: 100
+        Caustic: 100
+        Radiation: 100
   - type: ClothingSpeedModifier
     walkModifier: 0.70
     sprintModifier: 0.70
@@ -122,14 +122,14 @@
       BoneDamage: 0.9
       VeinsDamage: 0.9
     modifiers:
-      coefficients:
-        Blunt: 0.1
-        Slash: 0.1 # holy shit bruv
-        Piercing: 0.1
-        Ballistic: 0.1
-        Heat: 0.1
-        Radiation: 0.25 # do people even know rad ammo exists? anyway making rad its weakness is kinda fair
-        Caustic: 0.4
+      flatReductions:
+        Blunt: 30
+        Slash: 30 # holy shit bruv
+        Piercing: 30
+        Ballistic: 30
+        Heat: 30
+        Radiation: 10 # do people even know rad ammo exists? anyway making rad its weakness is kinda fair
+        Caustic: 20
   - type: ClothingSpeedModifier
     walkModifier: 0.7
     sprintModifier: 0.5
@@ -177,15 +177,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7
-        Heat: 0.8
-        Radiation: 0.6
-      flatReductions: # This is done so shotguns are worse against armor
-        Ballistic: 2
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Ballistic: 7
+        Heat: 4
+        Radiation: 6
   - type: ClothingSpeedModifier
     sprintModifier: 0.85
     walkModifier: 0.85
@@ -245,14 +243,14 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Ballistic: 0.75
-        Heat: 0.8
-        Radiation: 0.7
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Ballistic: 7
+        Heat: 8
+        Radiation: 6
+        Caustic: 6
   - type: ClothingSpeedModifier
     sprintModifier: 0.95
     walkModifier: 0.95

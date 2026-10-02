@@ -5,10 +5,10 @@ using Content.Shared.Clothing;
 using Content.Shared.EntityConditions;
 using Content.Shared.Examine;
 using Content.Shared.Implants;
+using Content.Trauma.Common.Knowledge.Components;
 using Content.Trauma.Common.Silicons.Borgs;
 using Content.Trauma.Shared.Body.Chips;
-using Content.Trauma.Shared.Knowledge.Components;
-using Content.Trauma.Shared.MartialArts.Components;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 
 namespace Content.Trauma.Shared.Knowledge.Systems;
 
@@ -31,7 +31,7 @@ public abstract partial class SharedKnowledgeSystem
         using (args.PushGroup(nameof(KnowledgeGrantOnWearComponent)))
         {
             args.PushMarkup("This offsets these skills when used:");
-            foreach (var (skill, level) in ent.Comp.Skills)
+            foreach (var (skill, level) in ent.Comp.Knowledge)
             {
                 var color = level < 0
                     ? "red"
@@ -102,9 +102,9 @@ public abstract partial class SharedKnowledgeSystem
             return;
 
         // Handle Skills (Temporary Levels)
-        foreach (var (id, level) in ent.Comp.Skills)
+        foreach (var (id, level) in ent.Comp.Knowledge)
         {
-            if (EnsureKnowledge(brain, id) is { } unit)
+            if (EnsureKnowledge<SkillComponent>(brain, id) is { } unit)
             {
                 unit.Comp.TemporaryLevel += level;
                 Dirty(unit);
@@ -125,7 +125,7 @@ public abstract partial class SharedKnowledgeSystem
         // Handle Blocks
         foreach (var id in ent.Comp.Blocked.Keys)
         {
-            if (GetKnowledge(brain, id) is { } unit && TryComp<MartialArtsKnowledgeComponent>(unit, out var martial))
+            if (GetSkill(brain, id) is { } unit && TryComp<MartialArtsSkillComponent>(unit, out var martial))
             {
                 martial.TemporaryBlockedCounter++;
                 martial.Blocked = true;
@@ -143,9 +143,9 @@ public abstract partial class SharedKnowledgeSystem
         DirtyField(ent, ent.Comp, nameof(KnowledgeGrantOnWearComponent.Applied));
 
         // Remove Skills
-        foreach (var (id, level) in ent.Comp.Skills)
+        foreach (var (id, level) in ent.Comp.Knowledge)
         {
-            if (GetKnowledge(brain, id) is not { } unit)
+            if (GetSkill(brain, id) is not { } unit)
                 continue;
 
             unit.Comp.TemporaryLevel = Math.Max(0, unit.Comp.TemporaryLevel - level);
@@ -174,7 +174,7 @@ public abstract partial class SharedKnowledgeSystem
         // Remove Blocks
         foreach (var id in ent.Comp.Blocked.Keys)
         {
-            if (GetKnowledge(brain, id) is { } unit && TryComp<MartialArtsKnowledgeComponent>(unit, out var martial))
+            if (GetSkill(brain, id) is { } unit && TryComp<MartialArtsSkillComponent>(unit, out var martial))
             {
                 martial.Blocked = --martial.TemporaryBlockedCounter == 0;
                 Dirty(unit, martial);
@@ -193,9 +193,9 @@ public abstract partial class SharedKnowledgeSystem
 
         foreach (var (id, level) in skills)
         {
-            ent.Comp.Skills[id] = ent.Comp.Skills.GetValueOrDefault(id) + level;
+            ent.Comp.Knowledge[id] = ent.Comp.Knowledge.GetValueOrDefault(id) + level;
         }
-        DirtyField(ent, ent.Comp, nameof(KnowledgeGrantOnWearComponent.Skills));
+        DirtyField(ent, ent.Comp, nameof(KnowledgeGrantOnWearComponent.Knowledge));
 
         // adjust immediately if it was applied already, if it wasn't applied it will be handled later
         if (!ent.Comp.Applied || GetContainer(user) is not { } brain)
@@ -203,7 +203,7 @@ public abstract partial class SharedKnowledgeSystem
 
         foreach (var (id, level) in skills)
         {
-            if (EnsureKnowledge(brain, id) is { } unit)
+            if (EnsureKnowledge<SkillComponent>(brain, id) is { } unit)
             {
                 unit.Comp.TemporaryLevel += level;
                 Dirty(unit);

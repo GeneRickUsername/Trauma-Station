@@ -12,9 +12,10 @@
     sprite: _DV/Clothing/Head/Helmets/roman_helmet.rsi
   - type: Armor
     modifiers:
-      coefficients:
-        Slash: 0.90
-        Blunt: 0.95
+      flatReductions:
+        Slash: 2
+        Blunt: 3
+
   - type: Tag
     tags:
     - WhitelistChameleon

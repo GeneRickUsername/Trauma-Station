@@ -20,7 +20,7 @@
       - Tail
       - Arm
       modifiers:
-        coefficients:
-          Slash: 0.9
-          Heat: 0.8
+        flatReductions:
+          Slash: 4
+          Heat: 6
       showArmorOnExamine: false

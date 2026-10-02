@@ -8,7 +8,7 @@
   components:
   - type: ModifyKnowledgeGrant
     skills:
-      MeleeKnowledge: 51
+      UnarmedKnowledge: 51
       ShootingKnowledge: 50
       WeaponsKnowledge: 51
   - type: Speech

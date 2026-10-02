@@ -11,7 +11,7 @@
     - type: StaminaDamageOnHit
       damage: 8
     - type: MeleeWeapon
-      attackRate: 1.5
+      attackRate: 0.11
       damage:
         types:
           Blunt: 0
@@ -333,7 +333,7 @@
     sprite: _Goobstation/Heretic/mansus_grasp.rsi
     state: icon
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     angle: 0
     animation: WeaponArcThrust
     wideAnimationRotation: 90
@@ -362,7 +362,7 @@
     sprite: _Goobstation/Heretic/Blades/eldritch_blade.rsi
     state: icon
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     wideAnimationRotation: -125
     damage:
       types:

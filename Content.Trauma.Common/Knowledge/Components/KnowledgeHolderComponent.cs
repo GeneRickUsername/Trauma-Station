@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
+using Content.Trauma.Common.Weapons;
 
 namespace Content.Trauma.Common.Knowledge.Components;
 
@@ -15,4 +16,28 @@ public sealed partial class KnowledgeHolderComponent : Component
     /// </summary>
     [DataField, AutoNetworkedField]
     public EntityUid? KnowledgeEntity;
+
+    /// <summary>
+    /// The exact server time when the current queued action is allowed to execute.
+    /// </summary>
+    [DataField]
+    public TimeSpan ScheduledExecutionTime = TimeSpan.Zero;
+
+    /// <summary>
+    /// Target entities the user is currently winding up to strike.
+    /// </summary>
+    [DataField]
+    public List<EntityUid> QueuedTargets = new();
+
+    /// <summary>
+    /// Weapon ID, if any.
+    /// </summary>
+    [DataField]
+    public EntityUid? Weapon;
+
+    /// <summary>
+    /// What kind are we fighting?
+    /// </summary>
+    [DataField]
+    public HarmfulActionType NextAttackType = HarmfulActionType.Harm;
 }

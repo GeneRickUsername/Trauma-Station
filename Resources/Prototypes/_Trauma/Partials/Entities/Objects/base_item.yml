@@ -4,6 +4,8 @@
   abstract: true
   id: BaseItem
   components:
+  - type: SellPrice
+    price: 0.99
   - type: EmitSoundOnPickup
     sound:
       collection: GenericPickup

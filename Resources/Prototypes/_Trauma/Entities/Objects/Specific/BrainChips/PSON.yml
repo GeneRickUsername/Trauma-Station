@@ -30,7 +30,7 @@
       KnowledgeWeaponsLongBlade: -1000
       KnowledgeWeaponsNonLethal: -1000
       KnowledgeWeaponsPolearm: -1000
-      MeleeKnowledge: -1000
+      UnarmedKnowledge: -1000
 
 - type: entity # TODO: add drooling marking when this gets used on you
   parent: SkillChipCombatDampener
@@ -47,5 +47,5 @@
     canSelfRemove: false # make a friend challenge
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: -15
+      UnarmedKnowledge: -15
       ShootingKnowledge: -15

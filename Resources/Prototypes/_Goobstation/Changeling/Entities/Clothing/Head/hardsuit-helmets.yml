@@ -20,8 +20,8 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.85
-        Slash: 0.85
-        Piercing: 0.9
-        Heat: 0.4
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 3
+        Heat: 5

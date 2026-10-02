@@ -70,7 +70,7 @@
       force: true
       speedModifier: 4.5
   - type: MeleeWeapon
-    attackRate: 1.2
+    attackRate: 0.095
     damage:
       types:
         Blunt: 32
@@ -95,7 +95,7 @@
           state: icon
         components:
         - type: MeleeWeapon
-          attackRate: 1.2
+          attackRate: 0.095
           damage:
             types:
               Blunt: 32
@@ -120,7 +120,7 @@
           state: icon-on
         components:
         - type: MeleeWeapon
-          attackRate: 2
+          attackRate: 0.4
           autoAttack: true
           damage:
             types:
@@ -192,7 +192,7 @@
     sprite: _Goobstation/Clothing/Hands/Gloves/conquest.rsi
   - type: Insulated
   - type: MeleeWeapon
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Blunt: 80
@@ -247,7 +247,7 @@
     size: Small
     storedRotation: -90
   - type: MeleeWeapon
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Blunt: 12
@@ -324,7 +324,7 @@
   - type: Sprite
     state: goldenknuckleduster
   - type: MeleeWeapon
-    attackRate: 2
+    attackRate: 0.4
     damage:
       types:
         Blunt: 35

@@ -7,6 +7,7 @@ using Content.Shared.Mobs.Components;
 using Content.Shared.Mobs.Systems;
 using Content.Shared.Popups;
 using Content.Trauma.Common.MartialArts;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 using Content.Trauma.Shared.MartialArts.Components;
 
 namespace Content.Trauma.Shared.MartialArts;
@@ -43,7 +44,7 @@ public partial class MartialArtsSystem
         if (attemptEv.Cancelled)
             return;
 
-        if (TryComp<MartialArtsKnowledgeComponent>(ent, out var martialArtsComp) && martialArtsComp.Blocked)
+        if (TryComp<MartialArtsSkillComponent>(ent, out var martialArtsComp) && martialArtsComp.Blocked)
             return;
 
         if (!TryComp<MobStateComponent>(args.Target, out var targetState))
@@ -162,7 +163,7 @@ public partial class MartialArtsSystem
         var ev = new ComboPerformedEvent(performer, target);
         RaiseLocalEvent(ent, ref ev);
         // TODO: move xp logic into an event handler
-        if (TryComp<MartialArtsKnowledgeComponent>(ent, out var comp) && comp.GiveExperience && !comp.Blocked && _mobState.IsAlive(target) && proto.GiveExperience)
+        if (TryComp<MartialArtsSkillComponent>(ent, out var comp) && comp.GiveExperience && !comp.Blocked && _mobState.IsAlive(target) && proto.GiveExperience)
         {
             // you can only go up to your opponents level + 10, to encourage actual training between masters
             var opponent = GetMartialArtLevel(target);

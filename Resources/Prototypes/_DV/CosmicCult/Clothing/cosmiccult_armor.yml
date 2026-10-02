@@ -23,12 +23,12 @@
     damageCoefficient: 0.4
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6 # Trauma, was 0.4
-        Ballistic: 0.5 # Trauma
-        Heat: 0.6
+      flatReductions:
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 8
+        Heat: 10
   - type: ModifyDelayedKnockdown # You can't have 20 cultists anymore, so this is kinda needed
     delayDelta: 3
     knockdownTimeDelta: -3
@@ -118,14 +118,14 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5 # Trauma
-        Heat: 0.5
-        Radiation: 0.5
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Ballistic: 8
+        Heat: 8
+        Radiation: 8
+        Caustic: 8
   - type: UnholyItem # Goobstation Shitchap
   - type: FlashImmunity # Goobstation
   - type: FlashSoundSuppression # Goobstation

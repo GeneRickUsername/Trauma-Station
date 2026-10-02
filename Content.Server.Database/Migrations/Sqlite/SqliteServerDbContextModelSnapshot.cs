@@ -1183,6 +1183,11 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("age");
 
+                    b.Property<string>("AttributePurchases")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("attribute_purchases");
+
                     b.Property<string>("BarkVoice")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -1228,11 +1233,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("hair_name");
 
-                    b.Property<string>("KnowledgeMastery")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("knowledge_mastery");
-
                     b.Property<byte[]>("Markings")
                         .HasColumnType("jsonb")
                         .HasColumnName("markings");
@@ -1249,10 +1249,20 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("pref_unavailable");
 
+                    b.Property<string>("Proficiencies")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("proficiencies");
+
                     b.Property<string>("Sex")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("sex");
+
+                    b.Property<string>("SkillRolls")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("skill_rolls");
 
                     b.Property<string>("SkinColor")
                         .IsRequired()
@@ -1267,10 +1277,35 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("spawn_priority");
 
+                    b.Property<string>("SpecializationAttack")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("specialization_attack");
+
+                    b.Property<string>("SpecializationDamage")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("specialization_damage");
+
+                    b.Property<string>("SpecializationDefense")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("specialization_defense");
+
+                    b.Property<string>("SpecializationSpeed")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("specialization_speed");
+
                     b.Property<string>("Species")
                         .IsRequired()
                         .HasColumnType("TEXT")
                         .HasColumnName("species");
+
+                    b.Property<string>("Talents")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("talents");
 
                     b.Property<string>("Voice")
                         .HasColumnType("TEXT")

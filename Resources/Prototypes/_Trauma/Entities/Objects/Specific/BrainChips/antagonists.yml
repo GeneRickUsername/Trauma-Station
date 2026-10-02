@@ -11,7 +11,7 @@
   - type: KnowledgeGrantOnWear
     skills:
       # Nukies are well-trained
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       ShootingKnowledge: 50
       KnowledgeWeaponsShield: 50
       KnowledgeWeaponsBludgeon: 50
@@ -52,7 +52,7 @@
   - type: KnowledgeGrantOnWear
     skills:
       # still trained with guns but not much else
-      MeleeKnowledge: 28
+      UnarmedKnowledge: 28
       ShootingKnowledge: 28
       MartialArtCQC: 50
 
@@ -65,7 +65,7 @@
     disableChance: 1
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: 15
+      UnarmedKnowledge: 15
       ShootingKnowledge: 15
       KnowledgeWeaponsShortBlade: 10
       KnowledgeWeaponsPistol: 10
@@ -79,7 +79,7 @@
     disableChance: 0.01
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       ShootingKnowledge: 35
       KnowledgeWeaponsShortBlade: 20
       KnowledgeWeaponsLongBlade: 80 # yarr
@@ -96,7 +96,7 @@
     disableChance: 0.5
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: 30
+      UnarmedKnowledge: 30
       ShootingKnowledge: 25
       KnowledgeWeaponsShortBlade: 20
       KnowledgeWeaponsLongBlade: 40 # yarr
@@ -113,7 +113,7 @@
     disableChance: 1
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: 20
+      UnarmedKnowledge: 20
       ShootingKnowledge: 20
       KnowledgeWeaponsShortBlade: 10
       KnowledgeWeaponsPistol: 10
@@ -127,7 +127,7 @@
     disableChance: 1
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: 25
+      UnarmedKnowledge: 25
       ShootingKnowledge: 25
       KnowledgeWeaponsBludgeon: 10
       KnowledgeWeaponsShortBlade: 10

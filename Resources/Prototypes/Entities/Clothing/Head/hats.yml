@@ -1102,8 +1102,8 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.9
+      flatReductions:
+        Blunt: 3
 
 - type: entity
   parent: ClothingHeadBase
@@ -1119,9 +1119,9 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Caustic: 0.9
-        Radiation: 0.9
+      flatReductions:
+        Caustic: 3
+        Radiation: 3
 
 
 - type: entity

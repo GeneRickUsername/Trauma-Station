@@ -47,7 +47,7 @@
       color: "#40a7d7"
       shader: unshaded
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     resistanceBypass: true
     damage:
       types:
@@ -84,7 +84,7 @@
     damageShare: 0.7
     distanceAllowed: 10
   - type: MeleeWeapon
-    attackRate: 1.6
+    attackRate: 0.13
     damage:
       types:
         Blunt: 25
@@ -125,7 +125,7 @@
     damageShare: 0.5
     distanceAllowed: 10
   - type: MeleeWeapon
-    attackRate: 2.5
+    attackRate: 0.4
     damage:
       types:
         Blunt: 12
@@ -157,7 +157,7 @@
     damageShare: 0.6
     distanceAllowed: 10
   - type: MeleeWeapon
-    attackRate: 1.3
+    attackRate: 0.097
     resistanceBypass: true
     damage:
       types:
@@ -190,7 +190,7 @@
     damageShare: 0.5
     distanceAllowed: 10
   - type: MeleeWeapon
-    attackRate: 1.4
+    attackRate: 0.012
     damage:
       types:
         Cold: 30
@@ -223,7 +223,7 @@
     damageShare: 0.3
     distanceAllowed: 15
   - type: MeleeWeapon
-    attackRate: 1.2
+    attackRate: 0.095
     resistanceBypass: true
     damage:
       types:

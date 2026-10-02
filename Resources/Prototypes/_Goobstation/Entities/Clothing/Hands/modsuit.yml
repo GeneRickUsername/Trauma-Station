@@ -87,11 +87,11 @@
     sprite: _Goobstation/Clothing/Hands/Modsuits/paramedic.rsi
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Ballistic: 0.9
+      flatReductions:
+        Blunt: 3
+        Slash: 3
+        Piercing: 3
+        Ballistic: 3
 
 - type: entity
   parent: [ ClothingHandModsuitBase, BaseModsuitPieceHOS ]
@@ -105,12 +105,12 @@
   - type: Insulated
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Ballistic: 0.9
-        Shock: 0.75
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Ballistic: 4
+        Shock: 10
 
 - type: entity
   parent: [ ClothingHandModsuitBase, BaseModsuitPieceEngineer ]
@@ -124,11 +124,11 @@
   - type: Insulated
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Shock: 0.5
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Shock: 20
 
 - type: entity
   parent: [ ClothingHandModsuitBase, BaseModsuitPieceAtmos ]
@@ -142,12 +142,12 @@
   - type: Insulated
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Heat: 0.9
-        Shock: 0.75
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Heat: 4
+        Shock: 20
 
 - type: entity
   parent: [ ClothingHandModsuitBase, BaseModsuitPieceRD ]
@@ -161,11 +161,11 @@
   - type: Insulated
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Shock: 0.75
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Shock: 20
 
 - type: entity
   parent: [ ClothingHandModsuitBase, BaseModsuitPieceCaptain ]
@@ -179,9 +179,9 @@
   - type: Insulated
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
-        Piercing: 0.95
-        Ballistic: 0.95
-        Shock: 0.75
+      flatReductions:
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Ballistic: 8
+        Shock: 20

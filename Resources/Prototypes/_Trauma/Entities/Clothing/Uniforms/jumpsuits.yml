@@ -53,9 +53,9 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.85
-        Heat: 0.85
+      flatReductions:
+        Blunt: 4
+        Heat: 4
 
 - type: entity
   parent: [ ClothingUniformBase, ClothingUniformFoldableBase ]

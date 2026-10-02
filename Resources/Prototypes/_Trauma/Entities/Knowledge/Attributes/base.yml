@@ -1,0 +1,141 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: BaseAttribute
+  abstract: true
+  components:
+  - type: Attribute
+    inherent: 1.01
+
+- type: entity
+  parent: BaseAttribute
+  id: StrengthAttribute
+  name: Strength
+  description: Hit harder. Lift more.
+  components:
+  - type: DamageAttribute
+    minX: 1.01
+    maxX: 20.51
+    minY: -14
+    maxY: 14
+  - type: LiftAttribute
+    minX: 1.01
+    maxX: 20.51
+    minY: 32
+    maxY: 675
+  - type: CarryAttribute
+    minX: 1.01
+    maxX: 20.51
+    minY: 15
+    maxY: 384
+  - type: DragAttribute
+    minX: 1.01
+    maxX: 20.51
+    minY: 80
+    maxY: 1688
+  - type: StrengthFeat
+    minX: 1.01
+    maxX: 20.51
+    minY: -14
+    maxY: 18
+  - type: Attribute
+    order: 0
+
+- type: entity
+  parent: BaseAttribute
+  id: IntelligenceAttribute
+  name: Intelligence
+  description: One smart cookie! It's been said that David beat Goliath, and he didn't do it with raw strength.
+  components:
+  - type: AttackAttribute
+    minX: 1.01
+    maxX: 20.01
+    minY: -5
+    maxY: 3
+  - type: Attribute
+    order: 1
+
+- type: entity
+  parent: BaseAttribute
+  id: WisdomAttribute
+  name: Wisdom
+  description: A wise old man... A wise old man once said...
+  components:
+  - type: DefenseAttribute
+    minX: 1.01
+    maxX: 20.51
+    minY: -4
+    maxY: 3
+  - type: MentalAttribute
+    minX: 1.01
+    maxX: 20.01
+    minY: -5
+    maxY: 4
+  - type: Attribute
+    order: 2
+
+- type: entity
+  parent: BaseAttribute
+  id: DexterityAttribute
+  name: Dexterity
+  description: Can't go wrong with a little bit of dexterity.
+  components:
+  - type: AttackAttribute
+    minX: 3.01
+    maxX: 20.51
+    minY: -4
+    maxY: 5
+  - type: DefenseAttribute
+    minX: 3.01
+    maxX: 20.51
+    minY: -5
+    maxY: 7
+  - type: AgilityFeat
+    minX: 3.01
+    maxX: 20.51
+    minY: -10
+    maxY: 18
+  - type: DodgeAttribute
+    minX: 3.01
+    maxX: 20.51
+    minY: -3
+    maxY: 3
+  - type: Attribute
+    order: 3
+
+- type: entity
+  parent: BaseAttribute
+  id: ConstitutionAttribute
+  name: Constitution
+  description: Do you like not dying from chemicals? Like shaking off pain? Maybe a hardier body? Look no further.
+  components:
+  - type: PhysicalAttribute
+    minX: 1.01
+    maxX: 22.01
+    minY: -5
+    maxY: 6
+  - type: Attribute
+    order: 4
+
+- type: entity
+  parent: BaseAttribute
+  id: LooksAttribute
+  name: Looks
+  description: Mog 'em all.
+  components:
+  - type: Attribute
+    order: 5
+
+- type: entity
+  parent: BaseAttribute
+  id: CharismaAttribute
+  name: Charisma
+  description: I'm not too sure what this could do. Talk fast?
+  components:
+  - type: MoraleAttribute
+    minX: 1.01
+    maxX: 22.01
+    minY: -5
+    maxY: 6
+  - type: Attribute
+    order: 6

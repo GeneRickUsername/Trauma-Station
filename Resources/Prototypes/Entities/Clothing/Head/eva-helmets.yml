@@ -49,11 +49,11 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Radiation: 0.5
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Radiation: 12
   - type: StaticPrice
     price: 500 # Suit is 1000
   - type: FaceHuggerBlocker # Trauma
@@ -91,10 +91,10 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Heat: 0.90
-        Radiation: 0.75
-        Caustic: 0.5 # Trauma
+      flatReductions:
+        Heat: 3
+        Radiation: 8
+        Caustic: 12 # Trauma
     traumaDeductions:
       Dismemberment: 0
       OrganDamage: 0.14

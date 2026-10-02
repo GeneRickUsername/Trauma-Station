@@ -105,7 +105,7 @@ public sealed partial class EnchanterSystem : EntitySystem
             return false;
         }
 
-        if (_knowledge.GetKnowledge(user, MagicalLiteracy) is not { } skill || _knowledge.GetMastery(skill.Comp) < 1)
+        if (_knowledge.GetSkill(user, MagicalLiteracy) is not { } skill || _knowledge.GetMastery(skill.Comp) < 1)
         {
             _popup.PopupEntity(Loc.GetString("enchanter-no-skill"), item, user);
             return false;

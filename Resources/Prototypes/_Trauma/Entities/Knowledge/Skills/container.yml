@@ -1,0 +1,22 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+# For entities that directly store knowledge e.g. a brain
+- type: entity
+  abstract: true
+  id: BaseKnowledgeContainer
+  components:
+  - type: KnowledgeContainer
+  - type: ContainerContainer
+    containers:
+      knowledge: !type:Container
+  - type: KnowledgeGrant
+    skills:
+      StrengthAttribute: 10
+      IntelligenceAttribute: 10
+      DexterityAttribute: 10
+      ConstitutionAttribute: 10
+      WisdomAttribute: 10
+      LooksAttribute: 10
+      CharismaAttribute: 10
+      # FirstAidKnowledge: 0 # needed for injector speed to be slower when unskilled
+      # MeleeKnowledge 0 # needed for lower base melee attack speed when unskilled

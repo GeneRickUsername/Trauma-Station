@@ -1693,7 +1693,7 @@
     # This needs to be moved to boxinggloves
     #knockdownSound: /Audio/Weapons/boxingbell.ogg
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Blunt: 0.4

@@ -106,7 +106,7 @@
   - type: MeleeWeapon
     wideAnimationRotation: 90
     swingLeft: true
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 8
@@ -314,7 +314,7 @@
     storedRotation: 90
     heldPrefix: advanced
   - type: MeleeWeapon
-    attackRate: 1.5
+    attackRate: 0.11
   - type: Tool
     speedModifier: 2.0
   - type: BoneSaw # Shitmed

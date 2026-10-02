@@ -52,7 +52,7 @@
   - type: MeleeWeapon
     animationRotation: -45 # WWDP
     wideAnimationRotation: 45
-    attackRate: 0.8
+    attackRate: 0.07
     damage:
       types:
         Blunt: 10
@@ -216,7 +216,7 @@
   - type: Clothing
     sprite: Objects/Tanks/emergency_double.rsi
   - type: MeleeWeapon
-    attackRate: 0.9
+    attackRate: 0.08
     damage:
       types:
         Blunt: 7.5

@@ -23,7 +23,7 @@
       FirstAidKnowledge: 100
       ChemistryKnowledge: 100
       ThrowingKnowledge: 100
-      MeleeKnowledge: 100
+      UnarmedKnowledge: 100
       ShootingKnowledge: 100
       KnowledgeWeaponsShield: 100
       KnowledgeWeaponsBludgeon: 100
@@ -68,7 +68,7 @@
       FirstAidKnowledge: 50
       ChemistryKnowledge: 50
       ThrowingKnowledge: 50
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       ShootingKnowledge: 50
       KnowledgeWeaponsShield: 50
       KnowledgeWeaponsBludgeon: 50

@@ -95,6 +95,7 @@ public record struct GetMeleeDamageEvent(EntityUid Weapon, DamageSpecifier Damag
 /// </summary>
 /// <remarks>
 /// Can't be in common because of DamageSpecifier and DamageModifierSet.
+/// TODO: Move to common as remark is outdated.
 /// </remarks>
 [ByRefEvent]
 public record struct GetUserMeleeDamageEvent(EntityUid Weapon, DamageSpecifier Damage, List<DamageModifierSet> Modifiers);

@@ -2,7 +2,7 @@
 
 using Content.Shared.Damage.Systems;
 using Content.Trauma.Common.Knowledge.Components;
-using Content.Trauma.Shared.Knowledge.Components;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 
 namespace Content.Trauma.Shared.Knowledge.Systems;
 
@@ -15,10 +15,10 @@ public sealed partial class DamageModifyKnowledgeSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<KnowledgeHolderComponent, DamageModifyEvent>(_knowledge.RelayActiveEvent);
-        SubscribeLocalEvent<DamageModifyKnowledgeComponent, DamageModifyEvent>(OnDamageModify);
+        SubscribeLocalEvent<DamageModifySkillComponent, DamageModifyEvent>(OnDamageModify);
     }
 
-    private void OnDamageModify(Entity<DamageModifyKnowledgeComponent> ent, ref DamageModifyEvent args)
+    private void OnDamageModify(Entity<DamageModifySkillComponent> ent, ref DamageModifyEvent args)
     {
         // most environment things like radiation should have no origin?
         if (args.Damage.GetTotal() <= 0 || args.Origin == null)

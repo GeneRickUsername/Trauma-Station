@@ -15,13 +15,13 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.35
-        Slash: 0.35
-        Piercing: 0.35
-        Ballistic: 0.35
-        Heat: 0.35
-        Caustic: 0.35
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Ballistic: 7
+        Heat: 7
+        Caustic: 7
   - type: BreathMask
   - type: Sprite
     sprite: _Goobstation/Clothing/Head/Helmets/helldiver.rsi
@@ -47,11 +47,11 @@
     sprite: _Goobstation/Clothing/Head/Helmets/hev.rsi
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.75
-        Shock: 0.7
-        Radiation: 0.01
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 7
+        Shock: 10
+        Radiation: 300
+        Caustic: 15
   - type: HideLayerClothing
     layers:
       HeadTop : HEAD
@@ -109,11 +109,11 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.55
-        Slash: 0.55
-        Piercing: 0.55
-        Heat: 0.75
+      flatReductions:
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Heat: 10
   - type: PressureProtection
     lowPressureMultiplier: 1000
 
@@ -159,10 +159,10 @@
     coverage:
     - Head
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
+      flatReductions:
+        Blunt: 11
+        Slash: 11
+        Piercing: 11
   - type: Tag
     tags:
     - HidesHair

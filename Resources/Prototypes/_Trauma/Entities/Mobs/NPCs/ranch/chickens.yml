@@ -1039,7 +1039,7 @@
     baseWalkSpeed: 5.5
     baseSprintSpeed: 5.5
   - type: MeleeWeapon
-    attackRate: 2
+    attackRate: 0.4
     soundHit:
       collection: AlienClaw
     angle: 30

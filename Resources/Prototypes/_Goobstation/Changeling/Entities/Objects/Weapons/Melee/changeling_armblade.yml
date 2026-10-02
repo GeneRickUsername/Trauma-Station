@@ -11,7 +11,7 @@
   - type: MeleeWeapon
     angle: 0
     wideAnimationRotation: 75
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 15

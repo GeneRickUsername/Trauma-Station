@@ -32,7 +32,7 @@
       heavyStaminaCost: 10
       swingLeft: true
       wideAnimationRotation: 135
-      attackRate: 1
+      attackRate: 0.09
       damage:
         types:
           Slash: 2

@@ -144,7 +144,7 @@
   components:
   - type: KnowledgeGrantOnWear
     skills:
-      MeleeKnowledge: 28
+      UnarmedKnowledge: 28
 
 - type: entity
   parent: BaseSkillChipAPTR
@@ -182,4 +182,4 @@
       KnowledgeWeaponsLongBlade: 28
       KnowledgeWeaponsNonLethal: 28
       KnowledgeWeaponsPolearm: 28
-      MeleeKnowledge: 28
+      UnarmedKnowledge: 28

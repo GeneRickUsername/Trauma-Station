@@ -49,7 +49,7 @@
     maxModules: 7
   - type: ModifyKnowledgeGrant
     skills:
-      MeleeKnowledge: 51
+      UnarmedKnowledge: 51
       ShootingKnowledge: 50
       WeaponsKnowledge: 51
 
@@ -62,7 +62,7 @@
       SurgeryKnowledge: 60
       FirstAidKnowledge: 60
       ChemistryKnowledge: 60
-      MeleeKnowledge: 20
+      UnarmedKnowledge: 20
       ShootingKnowledge: 20
       WeaponsKnowledge: 20
   - type: BorgChassis
@@ -102,7 +102,7 @@
       GunsmithingKnowledge: 60
       MechanicsKnowledge: 60
       BotsKnowledge: 60
-      MeleeKnowledge: 20
+      UnarmedKnowledge: 20
       ShootingKnowledge: 20
       WeaponsKnowledge: 20
   - type: Sprite

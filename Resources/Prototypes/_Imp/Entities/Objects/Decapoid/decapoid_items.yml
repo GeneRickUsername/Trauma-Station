@@ -18,7 +18,7 @@
     angle: 20
     resetOnHandSelected: true
     wideAnimationRotation: 135
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Piercing: 10

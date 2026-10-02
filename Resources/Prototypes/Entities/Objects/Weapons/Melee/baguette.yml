@@ -5,7 +5,7 @@
   components:
   - type: MeleeWeapon
     wideAnimationRotation: -120
-    attackRate: 1.5
+    attackRate: 0.11
     damage:
       types:
         Slash: 17

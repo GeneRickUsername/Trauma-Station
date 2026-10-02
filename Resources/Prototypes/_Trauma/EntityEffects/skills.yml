@@ -5,7 +5,7 @@
   effects:
   - !type:GrantSkills
     skills:
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       ShootingKnowledge: 50
       WeaponsKnowledge: 50
       ThrowingKnowledge: 25
@@ -19,7 +19,7 @@
       KnowledgeWeaponsPolearm: 50 # Ice spear
       KnowledgeWeaponsLongBlade: 50 # Ragged sword
       KnowledgeWeaponsShortBlade: 50
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       WeaponsKnowledge: 50
       ThrowingKnowledge: 25
       FirstAidKnowledge: 25
@@ -34,7 +34,7 @@
       KnowledgeWeaponsPolearm: 50 # Ice spear
       KnowledgeWeaponsLongBlade: 50 # Ragged sword
       KnowledgeWeaponsShortBlade: 50
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       WeaponsKnowledge: 50
       ThrowingKnowledge: 25
       FirstAidKnowledge: 25
@@ -54,7 +54,7 @@
       KnowledgeWeaponsPolearm: 50 # Ice spear
       KnowledgeWeaponsLongBlade: 50 # Ragged sword
       KnowledgeWeaponsShortBlade: 50
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       WeaponsKnowledge: 50
       ThrowingKnowledge: 25
       FirstAidKnowledge: 25
@@ -66,7 +66,7 @@
   effects:
   - !type:GrantSkills
     skills:
-      MeleeKnowledge: 50
+      UnarmedKnowledge: 50
       WeaponsKnowledge: 50
       ThrowingKnowledge: 25
       FirstAidKnowledge: 25
@@ -77,7 +77,7 @@
   - !type:GrantSkills
     skills:
       # Whatever can be sourced from grimoire or wizard den
-      MeleeKnowledge: 88
+      UnarmedKnowledge: 88
       ShootingKnowledge: 88
       KnowledgeWeaponsPolearm: 88
       KnowledgeWeaponsLongBlade: 88
@@ -94,7 +94,7 @@
   effects:
   - !type:GrantSkills
     skills:
-      MeleeKnowledge: 25
+      UnarmedKnowledge: 25
       ShootingKnowledge: 25
       WeaponsKnowledge: 25
       ThrowingKnowledge: 25

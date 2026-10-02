@@ -23,13 +23,11 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3
-        Heat: 0.3
-        Ballistic: 0.3
       flatReductions:
+        Blunt: 3.5
+        Slash: 3.5
+        Piercing: 3.5
+        Heat: 3.5
         Ballistic: 3.5
   - type: ExplosionResistance
     damageCoefficient: 0.75
@@ -52,11 +50,11 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Heat: 0.1
+      flatReductions:
+        Blunt: 3.5
+        Slash: 3.5
+        Piercing: 3.5
+        Heat: 35
   - type: ExplosionResistance
     damageCoefficient: 0.4
   - type: FireProtection

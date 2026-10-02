@@ -12,7 +12,7 @@
     state: paddy_claw
   - type: MeleeWeapon
     hidden: true
-    attackRate: 0.75
+    attackRate: 0.065
     damage:
       types:
         Blunt: 40

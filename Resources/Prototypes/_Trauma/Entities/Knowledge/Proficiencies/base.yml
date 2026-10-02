@@ -1,0 +1,37 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: entity
+  id: BaseProficiency
+  abstract: true
+  components:
+  - type: Proficiency
+
+- type: entity
+  parent: BaseProficiency
+  id: LightArmorProficiency
+  name: Light Armor
+  description: Does Nothing
+
+- type: entity
+  parent: BaseProficiency
+  id: MediumArmorProficiency
+  name: Medium Armor
+  description: Does Nothing
+
+- type: entity
+  parent: BaseProficiency
+  id: HeavyProficiency
+  name: Heavy Armor
+  description: Does Nothing
+
+- type: entity
+  parent: BaseProficiency
+  id: GroinStompProficiency # Beat them where it hurts.
+  name: Groin Stomp
+  description: Does Nothing
+
+- type: entity
+  parent: BaseProficiency
+  id: MaintenanceProficiency # Know how to actually upkeep your items/weapons.
+  name: Maintenance Proficiency
+  description: Does Nothing

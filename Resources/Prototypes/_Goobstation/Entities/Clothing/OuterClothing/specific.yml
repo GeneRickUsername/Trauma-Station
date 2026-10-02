@@ -14,11 +14,11 @@
     damageCoefficient: 0.7
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Shock: 0.7
-        Radiation: 0.01
-        Caustic: 0.5
+      flatReductions:
+        Blunt: 7
+        Shock: 7
+        Radiation: 100
+        Caustic: 30
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9

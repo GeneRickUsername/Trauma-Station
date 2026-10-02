@@ -56,7 +56,7 @@ public sealed partial class EnchantingSystem : EntitySystem
             return;
 
         var mastery = 0;
-        if (_knowledge.GetKnowledge(args.Examiner, MagicalLiteracy) is { } skill)
+        if (_knowledge.GetSkill(args.Examiner, MagicalLiteracy) is { } skill)
             mastery = _knowledge.GetMastery(skill.Comp);
 
         using (args.PushGroup(nameof(EnchantedComponent)))

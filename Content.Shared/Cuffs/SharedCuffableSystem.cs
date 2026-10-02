@@ -656,7 +656,10 @@ namespace Content.Shared.Cuffs
                 var attemptEv = new InstantUncuffEvent(target, cuff);
                 RaiseLocalEvent(user, ref attemptEv);
                 if (attemptEv.CuffsBroken)
+                {
+                    Uncuff(target, user, cuff);
                     return;
+                }
                 // </Trauma>
             }
 

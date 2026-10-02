@@ -7,8 +7,8 @@
   components:
   - type: Armor
     modifiers:
-      coefficients:
-        Caustic: 0.95
+      flatReductions:
+        Caustic: 4
   - type: IgniteFromGasImmunity
     parts:
     - HandLeft

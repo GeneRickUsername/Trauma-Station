@@ -1,0 +1,14 @@
+<!--
+SPDX-License-Identifier: AGPL-3.0-or-later
+-->
+
+<BoxContainer
+    xmlns="https://spacestation14.io"
+    Orientation="Horizontal"
+    SeparationOverride="8">
+    <TextureRect Name="TalentIcon" Margin="0, 4, 0, 0" MinSize="32 32"/>
+    <BoxContainer Orientation="Vertical" HorizontalExpand="True">
+        <RichTextLabel Name="TalentName" />
+        <RichTextLabel Name="TalentDescription" StyleClasses="LabelSubText" />
+    </BoxContainer>
+</BoxContainer>

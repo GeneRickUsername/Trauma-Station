@@ -1,0 +1,38 @@
+# SPDX-License-Identifier: AGPL-3.0-or-later
+
+- type: fumble
+  id: StandardFumble
+  entries:
+    # Minor Fumble: Brief self-stun / stumble
+    - minThreshold: 300
+      effects:
+        - !type:StatusEffect
+          key: Stun
+          time: 1
+
+    # Moderate Fumble: Knocked down briefly
+    - minThreshold: 600
+      effects:
+        - !type:StatusEffect
+          key: KnockedDown
+          time: 2
+
+    # Severe Fumble: Longer knockdown and self-stun
+    - minThreshold: 900
+      effects:
+        - !type:StatusEffect
+          key: KnockedDown
+          time: 4
+        - !type:StatusEffect
+          key: Stun
+          time: 2
+
+    # Catastrophic Fumble (1000+ roll)
+    - minThreshold: 2000
+      effects:
+        - !type:StatusEffect
+          key: KnockedDown
+          time: 6
+        - !type:StatusEffect
+          key: Stun
+          time: 4

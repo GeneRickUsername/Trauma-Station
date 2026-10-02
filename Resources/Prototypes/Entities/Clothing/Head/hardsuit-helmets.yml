@@ -47,12 +47,12 @@
     reduction: 1 # Trauma - was 0.2, 5x for limb coverage
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Heat: 0.8
-        Radiation: 0.15
+      flatReductions:
+        Blunt: 3
+        Slash: 3
+        Piercing: 3
+        Heat: 5
+        Radiation: 20
   - type: Tag
     tags:
     - CorgiWearable
@@ -81,10 +81,10 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Shock: 0.5
-        Caustic: 0.7
-        Radiation: 0.05
+      flatReductions:
+        Shock: 8
+        Caustic: 5
+        Radiation: 20
   - type: Tag
     tags:
     - CorgiWearable
@@ -127,12 +127,12 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Radiation: 0.5 # Trauma - was 0.1
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 3
+        Slash: 3
+        Piercing: 3
+        Radiation: 10 # Trauma - was 0.1
+        Caustic: 4
   - type: Tag
     tags:
     - CorgiWearable
@@ -161,13 +161,13 @@
     energy: 3
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.65
-        Piercing: 0.75
-        Heat: 0.75
-        Radiation: 0.1
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 5
+        Radiation: 40
+        Caustic: 6
   - type: Tag
     tags:
     - CorgiWearable
@@ -214,13 +214,13 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.75
-        Piercing: 0.75 # Trauma, was .55
-        Heat: 0.75 #Goliath hide gets grilled instead of you
-        Radiation: 0.1
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 6
+        Slash: 6
+        Piercing: 6 # Trauma, was .55
+        Heat: 6 #Goliath hide gets grilled instead of you
+        Radiation: 40
+        Caustic: 4
   - type: Tag
     tags:
     - CorgiWearable
@@ -252,12 +252,12 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.65
-        Piercing: 0.65 # Trauma was .75
-        Heat: 0.35
-        Radiation: 0.01
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5 # Trauma was .75
+        Heat: 10
+        Radiation: 40
 
 #Security Hardsuit - Goob deprecated
 - type: entity
@@ -288,16 +288,14 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.65
-        Slash: 0.65
-        Piercing: 0.65
-        Ballistic: 0.65 # Trauma
-        Heat: 0.8
-        Caustic: 0.7
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 2
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Ballistic: 6
+        Heat: 3
+        Caustic: 4
       # </Trauma>
   - type: Tag
     tags:
@@ -325,17 +323,15 @@
     color: "#00FFFF"
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9 #Trauma was 0.75
-        Ballistic: 0.75 # Trauma
-        Heat: 0.9
-        Radiation: 0.4
-        Caustic: 0.4
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 2
+        Blunt: 3
+        Slash: 3
+        Piercing: 3
+        Ballistic: 5
+        Heat: 3
+        Radiation: 12
+        Caustic: 12
       # </Trauma>
   - type: PressureProtection
     highPressureMultiplier: 0.6
@@ -368,16 +364,14 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.45
-        Slash: 0.55
-        Piercing: 0.55 # Trauma, was .65
-        Ballistic: 0.65 # Trauma
-        Heat: 0.8
-        Caustic: 0.7
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 7
+        Slash: 6
+        Piercing: 6
+        Ballistic: 4
+        Heat: 2
+        Caustic: 3
       # </Trauma>
   - type: FlashImmunity # Goobstation
   - type: FlashSoundSuppression # Goobstation
@@ -409,14 +403,14 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.9 #Goob - Modsuit Rebalance start
-        Slash: 0.9
-        Piercing: 0.9 # Trauma, was .75
-        Ballistic: 0.75 # Trauma
-        Heat: 0.65
-        Radiation: 0.15
-        Caustic: 0.65 #Goob - Modsuit Rebalance end
+      flatReductions:
+        Blunt: 3
+        Slash: 3
+        Piercing: 3
+        Ballistic: 5
+        Heat: 8
+        Radiation: 12
+        Caustic: 8
   - type: Tag
     tags:
     - CorgiWearable
@@ -446,13 +440,13 @@
     reduction: 1 # Trauma - was 1, 5x for limb coverage
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.4
-        Radiation: 0.0
-        Caustic: 0.7
+      flatReductions:
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Heat: 26
+        Radiation: 1000
+        Caustic: 12
   - type: EyeProtection # goob
   - type: Tag
     tags:
@@ -477,8 +471,8 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Caustic: 0.1
+      flatReductions:
+        Caustic: 40
   - type: Tag
     tags:
     - CorgiWearable
@@ -506,13 +500,13 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients: #Goob - Modsuit edited all but pierce/blunt
-        Blunt: 0.7
-        Slash: 0.9
-        Piercing: 0.95
-        Heat: 0.45
-        Radiation: 0.05
-        Caustic: 0.4
+      flatReductions:
+        Blunt: 9
+        Slash: 5
+        Piercing: 4
+        Heat: 16
+        Radiation: 400
+        Caustic: 18
   - type: EyeProtection #Goob
   - type: FlashImmunity #Goob
   - type: Tag
@@ -549,17 +543,15 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7 # Trauma
-        Heat: 0.8
-        Radiation: 0.5
-        Caustic: 0.5
-      # <Trauma> - This is done so shotguns are worse against armor
       flatReductions:
-        Ballistic: 3
+      # <Trauma>
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 10
+        Heat: 6
+        Radiation: 20
+        Caustic: 20
       # </Trauma>
 
 #Luxury Mining Hardsuit
@@ -586,12 +578,12 @@
     energy: 3
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.8
-        Piercing: 0.9
-        Radiation: 0.15
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 8
+        Slash: 10
+        Piercing: 8
+        Radiation: 30
+        Caustic: 10
 
 #ANTAG HARDSUITS
 #Blood-red Hardsuit
@@ -623,16 +615,14 @@
       BoneDamage: 0.5
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.3 # Trauma, was 0.5
-        Slash: 0.3 # Trauma, was 0.5
-        Piercing: 0.3 # Trauma, was 0.5
-        Ballistic: 0.3 # Trauma
-        Heat: 0.3 # Trauma, was 0.5
-        Radiation: 0.3 # Trauma, was 0.5
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 18
+        Slash: 18
+        Piercing: 18
+        Ballistic: 18
+        Heat: 18
+        Radiation: 18
       # </Trauma>
   - type: Tag
     tags:
@@ -680,17 +670,15 @@
       BoneDamage: 0.5
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.8 # Trauma, was 0.6
-        Slash: 0.8 # Trauma, was 0.6
-        Piercing: 0.8 # Trauma, was 0.6
-        Ballistic: 0.8 # Trauma
-        Heat: 0.3 # Trauma, was 0.6
-        Radiation: 0.01
-        # Caustic: 0.4 # Trauma
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 2
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 18
+        Radiation: 100
+        Caustic: 16
       # </Trauma>
   - type: FlashImmunity # Goobstation
   - type: FlashSoundSuppression # Goobstation
@@ -728,17 +716,15 @@
       BoneDamage: 0.6
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.4
-        Slash: 0.4
-        Piercing: 0.4 # Trauma, was 0.35
-        Ballistic: 0.35 # Trauma
-        Heat: 0.5
-        Radiation: 0.2
-        Caustic: 0.4
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 15
+        Slash: 15
+        Piercing: 15
+        Ballistic: 18
+        Heat: 12
+        Radiation: 20
+        Caustic: 15
       # </Trauma>
   - type: Tag
     tags:
@@ -770,17 +756,15 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.2
-        Slash: 0.2
-        Piercing: 0.2
-        Ballistic: 0.2 # Trauma
-        Heat: 0.2
-        Radiation: 0.2
-        # Caustic: 0.2 # Trauma
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 30
+        Slash: 30
+        Piercing: 30
+        Ballistic: 30
+        Heat: 30
+        Radiation: 30
+        Caustic: 30
       # </Trauma>
   - type: FlashImmunity # Goobstation
   - type: FlashSoundSuppression # Goobstation
@@ -818,17 +802,15 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.4
-        Slash: 0.4
-        Piercing: 0.4
-        Ballistic: 0.4 # Trauma
-        Heat: 0.4
-        Radiation: 0.05
-        Caustic: 0.1
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 25
+        Slash: 25
+        Piercing: 25
+        Ballistic: 25
+        Heat: 25
+        Radiation: 400
+        Caustic: 100
       # </Trauma>
   - type: FlashImmunity # Goobstation
   - type: FlashSoundSuppression # Goobstation
@@ -858,8 +840,8 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Heat: 0.5
+      flatReductions:
+        Heat: 10
 
 #Pirate EVA Suit (Deep Space EVA Suit)
 - type: entity
@@ -882,13 +864,13 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.9
-        Ballistic: 0.4 # Trauma
-        Heat: 0.4
-        Caustic: 0.75
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 6
+        Ballistic: 14
+        Heat: 14
+        Caustic: 9
 
 #Pirate Captain Hardsuit
 - type: entity
@@ -928,13 +910,13 @@
   - type: FlashSoundSuppression # Goobstation
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.8
-        Piercing: 0.85
-        Ballistic: 0.4 # Trauma
-        Heat: 0.4
-        Caustic: 0.75
+      flatReductions:
+        Blunt: 12
+        Slash: 10
+        Piercing: 8
+        Ballistic: 16
+        Heat: 16
+        Caustic: 12
 
 #CENTCOMM / ERT HARDSUITS
 #ERT Leader Hardsuit
@@ -1058,15 +1040,15 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.75
-        Slash: 0.4 # Goobstation - CBURN should protect against zombie attacks
-        Piercing: 0.65
-        Heat: 0.15
-        Cold: 0.10
-        Shock: 0.15
-        Radiation: 0.1
-        Caustic: 0.1
+      flatReductions:
+        Blunt: 7
+        Slash: 12
+        Piercing: 9
+        Heat: 25
+        Cold: 40
+        Shock: 25
+        Radiation: 40
+        Caustic: 40
   - type: ZombificationResistance
     zombificationResistanceCoefficient: 0.75
 
@@ -1098,16 +1080,16 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.15 # Best armor in the game - Yeah no shit.
-        Slash: 0.15
-        Piercing: 0.15
-        Ballistic: 0.15 # Trauma
-        Heat: 0.15
-        Cold: 0.1
-        Cellular: 0.1
-        Radiation: 0.1
-        Caustic: 0.1
+      flatReductions:
+        Blunt: 40
+        Slash: 40
+        Piercing: 40
+        Ballistic: 40
+        Heat: 40
+        Cold: 60
+        Cellular: 60
+        Radiation: 60
+        Caustic: 60
   - type: FlashImmunity # Goobstation
   - type: FlashSoundSuppression # Goobstation
     protectionRange: 0
@@ -1152,11 +1134,11 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Caustic: 6
 
 #Mime Hardsuit
 - type: entity
@@ -1177,11 +1159,11 @@
       BoneDamage: 0.2
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Caustic: 6
 
 #Santas Hardsuit
 - type: entity
@@ -1205,8 +1187,8 @@
     energy: 2
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.85
-        Slash: 0.9
-        Piercing: 0.85
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 5
+        Slash: 4
+        Piercing: 5
+        Caustic: 6

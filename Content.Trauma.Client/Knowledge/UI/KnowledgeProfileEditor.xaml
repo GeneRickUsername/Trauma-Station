@@ -3,13 +3,37 @@ SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 
 <BoxContainer xmlns="https://spacestation14.io"
-        Orientation="Vertical">
+              Orientation="Vertical"
+              SeparationOverride="8">
+    <!-- Top Bar / Summary -->
     <BoxContainer Orientation="Horizontal" Align="Center" HorizontalExpand="True">
         <Label Name="PointsLabel"/>
+        <BoxContainer HorizontalExpand="True"/>
+        <!-- Spacer -->
         <Button Name="SaveButton" Text="{Loc 'knowledge-editor-save'}" Margin="4" Disabled="True"/>
         <Button Name="ResetButton" Text="{Loc 'knowledge-editor-reset'}" Margin="4" StyleClasses="negative" Disabled="True"/>
     </BoxContainer>
-    <ScrollContainer VerticalExpand="True">
-	    <BoxContainer Name="EnabledSkills" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
-    </ScrollContainer>
+
+    <!-- Main Content Tabs -->
+    <TabContainer VerticalExpand="True" HorizontalExpand="True">
+        <!-- Attributes Tab -->
+        <ScrollContainer TabContainer.TabTitle="{Loc 'knowledge-editor-header-attributes'}" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Name="EnabledAttributes" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
+        </ScrollContainer>
+
+        <!-- Skills Tab -->
+        <ScrollContainer TabContainer.TabTitle="{Loc 'knowledge-editor-header-skills'}" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Name="EnabledSkills" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
+        </ScrollContainer>
+
+        <!-- Talents Tab -->
+        <ScrollContainer TabContainer.TabTitle="{Loc 'knowledge-editor-header-talents'}" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Name="EnabledTalents" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
+        </ScrollContainer>
+
+        <!-- Weapon Proficiencies Tab -->
+        <ScrollContainer TabContainer.TabTitle="{Loc 'knowledge-editor-header-proficiencies'}" VerticalExpand="True" HorizontalExpand="True">
+            <BoxContainer Name="EnabledProficiencies" VerticalExpand="True" Orientation="Vertical" Align="Begin" HorizontalAlignment="Left"/>
+        </ScrollContainer>
+    </TabContainer>
 </BoxContainer>

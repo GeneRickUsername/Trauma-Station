@@ -242,7 +242,7 @@
       0: Alive
       150: Dead
   - type: MeleeWeapon
-    attackRate: 1
+    attackRate: 0.09
     damage:
       types:
         Slash: 15

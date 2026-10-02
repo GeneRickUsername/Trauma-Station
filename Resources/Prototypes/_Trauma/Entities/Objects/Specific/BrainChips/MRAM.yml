@@ -318,7 +318,7 @@
       KnowledgeWeaponsLongBlade: -25
       KnowledgeWeaponsNonLethal: -25
       KnowledgeWeaponsPolearm: -25
-      MeleeKnowledge: -25
+      UnarmedKnowledge: -25
 
 - type: entity
   parent: BaseSkillChipMRAM
@@ -340,7 +340,7 @@
       KnowledgeWeaponsLongBlade: -25
       KnowledgeWeaponsNonLethal: -25
       KnowledgeWeaponsPolearm: -25
-      MeleeKnowledge: -25
+      UnarmedKnowledge: -25
 
 - type: entity
   parent: BaseSkillChipMRAM
@@ -362,7 +362,7 @@
       KnowledgeWeaponsLongBlade: -25
       KnowledgeWeaponsNonLethal: -25
       KnowledgeWeaponsPolearm: -25
-      MeleeKnowledge: -25
+      UnarmedKnowledge: -25
 
 - type: entity
   parent: BaseSkillChipMRAM

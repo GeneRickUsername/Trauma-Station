@@ -17,13 +17,14 @@ using Content.Shared.Weapons.Ranged.Components;
 using Content.Shared.Weapons.Ranged.Events;
 using Content.Shared.Weapons.Ranged.Systems;
 using Content.Trauma.Common.Construction;
-using Content.Trauma.Common.Knowledge.Components;
+using Content.Trauma.Common.Knowledge;
 using Content.Trauma.Common.Knowledge.Prototypes;
 using Content.Trauma.Common.Projectiles;
 using Content.Trauma.Common.Quality;
 using Content.Trauma.Common.Stack;
 using Content.Trauma.Shared.Damage;
 using Content.Trauma.Shared.Durability.Components;
+using Content.Trauma.Shared.Knowledge.Skills.Components;
 using Content.Trauma.Shared.Knowledge.Systems;
 using Robust.Shared.Timing;
 
@@ -40,8 +41,8 @@ public sealed partial class QualitySystem : EntitySystem
     [Dependency] private SharedKnowledgeSystem _knowledge = default!;
     [Dependency] private EntityQuery<QualityComponent> _query = default!;
 
-    private static readonly EntProtoId FabricationKnowledge = "FabricationKnowledge";
-    private static readonly ProtoId<KnowledgeCategoryPrototype> CraftingCategory = "Crafting";
+    private static readonly EntProtoId ManufacturingKnowledge = "ManufacturingKnowledge";
+    private static readonly ProtoId<SkillCategoryPrototype> CraftingCategory = "Crafting";
 
     #region Quality effects
 
@@ -276,7 +277,6 @@ public sealed partial class QualitySystem : EntitySystem
         RaiseLocalEvent(ent, ref ev);
     }
 
-    // technically its not actually rolling but whatever
     public void RollQuality(Entity<QualityComponent> ent, EntityUid user)
     {
         if (_knowledge.GetContainer(user) is not { } brain)
@@ -288,27 +288,29 @@ public sealed partial class QualitySystem : EntitySystem
         var rand = SharedRandomExtensions.PredictedRandom(_timing, GetNetEntity(ent));
         var roll = rand.Next(1, 100);
         var modifier = 100 - roll * 2; // 99 to -100 if skills are disabled, purely random
-        if (_knowledge.SkillsEnabled)
-        {
-            var (knowledgeToUse, lowestId, lowestDelta, skillDelta) = FindLowestDelta(brain, ent.Comp.LevelDeltas);
-            var added = _knowledge.GetKnowledge(brain, knowledgeToUse)?.Comp.NetLevel ?? -1;
-            modifier = added + lowestDelta * 15 + ent.Comp.Quality + ent.Comp.QualityModifiers - roll;
-        }
+        if (!_knowledge.SkillsEnabled)
+            return;
 
-        ent.Comp.Quality = modifier switch
-        {
-            >= 88 => 5,
-            >= 44 => 4,
-            >= 20 => 3,
-            >= 10 => 2,
-            >= 5 => 1,
-            >= 0 => 0,
-            >= -5 => -1,
-            >= -10 => -2,
-            >= -20 => -3,
-            >= -44 => -4,
-            _ => -5,
-        };
+        var (knowledgeToUse, lowestId, lowestDelta, skillDelta) = FindLowestDelta(brain, ent.Comp.LevelDeltas);
+        var added = _knowledge.GetSkill(brain, knowledgeToUse)?.Comp.NetLevel ?? -1;
+        modifier = added + lowestDelta * 15 + ent.Comp.Quality + ent.Comp.QualityModifiers - roll;
+
+        var skill = _knowledge.GetSkill(brain, knowledgeToUse)?.Comp.NetLevel ?? -1;
+        var mastery = _knowledge.GetMastery(skill) + lowestDelta;
+
+        var ev = new SingleContestEvent(100, skillDelta * 5, skill, true);
+        RaiseLocalEvent(user, ref ev);
+        if (ev.CriticallyFailed)
+            ent.Comp.Quality = 2 * mastery - 5 - 2;
+        if (ev.Failed)
+            ent.Comp.Quality = 2 * mastery - 5 - 1;
+        else if (ev.CriticallySucceeded)
+            ent.Comp.Quality = 2 * mastery - 5 + 1;
+        else
+            ent.Comp.Quality = 2 * mastery - 5;
+
+        ent.Comp.Quality = Math.Clamp(ent.Comp.Quality, -5, 5);
+
         Dirty(ent);
         ApplyQuality(ent);
     }
@@ -318,11 +320,11 @@ public sealed partial class QualitySystem : EntitySystem
         int lowestDelta = 0;
         int skillDelta = 0;
         EntProtoId? lowestId = null;
-        EntProtoId knowledgeToUse = FabricationKnowledge;
+        EntProtoId knowledgeToUse = ManufacturingKnowledge;
         bool setKnowledge = false;
         foreach (var (id, delta) in levelDeltas)
         {
-            if (_knowledge.GetKnowledge(brain, id) is not { } skill)
+            if (_knowledge.GetSkill(brain, id) is not { } skill)
                 continue;
 
             if (skill.Comp.Category == CraftingCategory && !setKnowledge)

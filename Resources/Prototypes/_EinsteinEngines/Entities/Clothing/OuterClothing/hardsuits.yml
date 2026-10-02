@@ -25,15 +25,13 @@
     - Foot
     - Tail
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5
-        Heat: 0.5
-        Radiation: 0.1
-      flatReductions: # This is done so shotguns are worse against armor
-        Ballistic: 3
+      flatReductions:
+        Blunt: 15
+        Slash: 15
+        Piercing: 15
+        Ballistic: 15
+        Heat: 15
+        Radiation: 25
   - type: ClothingSpeedModifier
     walkModifier: 0.75
     sprintModifier: 0.75
@@ -84,15 +82,13 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5
-        Heat: 0.5
-        Radiation: 0.1
-      flatReductions: # This is done so shotguns are worse against armor
-        Ballistic: 3
+      flatReductions:
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 10
+        Heat: 10
+        Radiation: 20
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
@@ -129,14 +125,12 @@
     - Leg
     - Foot
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Ballistic: 0.3
-        Heat: 0.5
-        Radiation: 0.1
-      flatReductions: # This is done so shotguns are worse against armor
-        Ballistic: 3
+      flatReductions:
+        Blunt: 10
+        Slash: 10
+        Ballistic: 10
+        Heat: 8
+        Radiation: 20
   - type: ClothingSpeedModifier
     walkModifier: 0.60
     sprintModifier: 0.60

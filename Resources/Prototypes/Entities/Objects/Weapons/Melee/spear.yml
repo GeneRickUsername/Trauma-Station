@@ -54,7 +54,7 @@
     # <Trauma>
     canWideSwing: false
     range: 2.2
-    attackRate: 0.6
+    attackRate: 0.05
     animationRotation: -135
     # </Trauma>
     wideAnimationRotation: -135

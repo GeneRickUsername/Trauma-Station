@@ -21,9 +21,9 @@
     damageCoefficient: 0.5
   - type: Armor
     modifiers:
-      coefficients:
-        Heat: 0.2
-        Radiation: 0.15
+      flatReductions:
+        Heat: 14
+        Radiation: 30
   - type: ClothingSpeedModifier
     walkModifier: 0.7
     sprintModifier: 0.7
@@ -55,10 +55,10 @@
     damageCoefficient: 0.5
   - type: Armor
     modifiers:
-      coefficients:
-        Shock: 0.5
-        Heat: 0.7
-        Radiation: 0.05
+      flatReductions:
+        Shock: 10
+        Heat: 14
+        Radiation: 200
   - type: ClothingSpeedModifier
     walkModifier: 0.85
     sprintModifier: 0.85
@@ -89,12 +89,12 @@
   - type: Armor
     modifiers:
       # <Trauma>
-      coefficients:
-        Radiation: 0.5 # was 0.1
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Caustic: 0.8
+      flatReductions:
+        Radiation: 100
+        Blunt: 6
+        Slash: 6
+        Piercing: 6
+        Caustic: 8
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.8
@@ -128,12 +128,12 @@
     damageCoefficient: 0.3 # Goob
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Heat: 0.8
-        Radiation: 0.1
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Heat: 88
+        Radiation: 40
   - type: ClothingSpeedModifier
     walkModifier: 0.75
     sprintModifier: 0.75
@@ -170,12 +170,12 @@
     damageCoefficient: 0.3
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.7
-        Heat: 0.7 #Goliath hide gets grilled instead of you
-        Radiation: 0.1
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 14
+        Heat: 14
+        Radiation: 40
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
@@ -228,11 +228,11 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.6
-        Heat: 0.6
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 12
+        Heat: 12
         Radiation: 0.01
   - type: ExplosionResistance
     damageCoefficient: 0.2
@@ -263,15 +263,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7 # Trauma
-        Heat: 0.8
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Ballistic: 12
+        Heat: 8
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.75
@@ -308,17 +306,15 @@
     damageCoefficient: 0.7
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.85
-        Slash: 0.85
-        Piercing: 0.85
-        Ballistic: 0.85 # Trauma
-        Heat: 0.85
-        Radiation: 0.05
-        Caustic: 0.4
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 2
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 10
+        Heat: 10
+        Radiation: 200
+        Caustic: 14
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.9
@@ -356,15 +352,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6 # Trauma
-        Heat: 0.7
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 12
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.8
@@ -402,13 +396,13 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.6 #Goob - Modsuit Rebalance start
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6 # Trauma
-        Heat: 0.7 #Goob - Modsuit Rebalance end
-        Radiation: 0.05
+      flatReductions:
+        Blunt: 7
+        Slash: 7
+        Piercing: 7
+        Ballistic: 7
+        Heat: 5
+        Radiation: 200
   - type: ClothingSpeedModifier
     walkModifier: 0.9 #Goob - Modsuit Rebalance
     sprintModifier: 0.9 #Goob - Modsuit Rebalance
@@ -446,11 +440,11 @@
     damageCoefficient: 0.2
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.8
-        Slash: 0.8
-        Piercing: 0.8
-        Heat: 0.2
+      flatReductions:
+        Blunt: 5
+        Slash: 5
+        Piercing: 5
+        Heat: 12
         Radiation: 0.0
   - type: ClothingSpeedModifier
     walkModifier: 0.8
@@ -492,8 +486,8 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients:
-        Caustic: 0.0
+      flatReductions:
+        Caustic: 1000
   - type: ZombificationResistance
     zombificationResistanceCoefficient: 0.4
   - type: ClothingSpeedModifier
@@ -525,12 +519,12 @@
     lowPressureMultiplier: 1000
   - type: Armor
     modifiers:
-      coefficients: #Goob - Modsuits all but pierce
-        Blunt: 0.75
-        Slash: 0.85
-        Piercing: 0.95
-        Heat: 0.4
-        Radiation: 0.05
+      flatReductions: #Goob - Modsuits all but pierce
+        Blunt: 7
+        Slash: 6
+        Piercing: 4
+        Heat: 12
+        Radiation: 200
   - type: ExplosionResistance
     damageCoefficient: 0.55 #Goob - Modsuits
   - type: ClothingSpeedModifier
@@ -578,16 +572,14 @@
       BoneDamage: 0.3
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6 # Trauma
-        Heat: 0.7
-        Radiation: 0.5
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 12
+        Radiation: 16
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.9
@@ -621,12 +613,12 @@
     damageCoefficient: 0.5 # Goob
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Heat: 0.8
-        Radiation: 0.1
+      flatReductions:
+        Blunt: 8
+        Slash: 8
+        Piercing: 8
+        Heat: 6
+        Radiation: 20
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -670,16 +662,14 @@
       BoneDamage: 0.5
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.5
-        Slash: 0.5
-        Piercing: 0.5
-        Ballistic: 0.5
-        Heat: 0.5
-        Radiation: 0.5
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 15
+        Slash: 15
+        Piercing: 15
+        Ballistic: 15
+        Heat: 15
+        Radiation: 15
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.9
@@ -752,16 +742,14 @@
       BoneDamage: 0.5
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.8 # Trauma - was .55
-        Slash: 0.8 # Trauma - was .55
-        Piercing: 0.8 # Trauma - was .55
-        Ballistic: 0.8 # Trauma - was .55
-        Heat: 0.2
-        Radiation: 0.01
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 2
+        Blunt: 10
+        Slash: 10
+        Piercing: 10
+        Ballistic: 10
+        Heat: 30
+        Radiation: 100
       # </Trauma>
   - type: Item
     size: Huge
@@ -804,16 +792,14 @@
       BoneDamage: 0.6
       VeinsDamage: 0
     modifiers:
-      coefficients:
-        Blunt: 0.35 # Trauma - was 0.5
-        Slash: 0.35 # Trauma - was 0.5
-        Piercing: 0.35 # Trauma - was 0.5
-        Ballistic: 0.35 # Trauma - was 0.5
-        Heat: 0.35 # Trauma - was 0.5
-        Radiation: 0.35 # Trauma - was 0.5
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 21
+        Slash: 21
+        Piercing: 21
+        Ballistic: 21
+        Heat: 21
+        Radiation: 21
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 1.1 # Trauma, was 0.9
@@ -856,16 +842,14 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.2
-        Slash: 0.2
-        Piercing: 0.2
-        Ballistic: 0.2 # Trauma
-        Heat: 0.2
-        Radiation: 0.2
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 35
+        Slash: 35
+        Piercing: 35
+        Ballistic: 35
+        Heat: 35
+        Radiation: 35
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.65
@@ -905,16 +889,14 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.3
-        Slash: 0.3
-        Piercing: 0.3
-        Ballistic: 0.3 # Trauma
-        Heat: 0.3
-        Radiation: 0
-      # <Trauma> - This is done so shotguns are worse against armor
+      # <Trauma>
       flatReductions:
-        Ballistic: 3
+        Blunt: 19
+        Slash: 19
+        Piercing: 19
+        Ballistic: 19
+        Heat: 19
+        Radiation: 0
       # </Trauma>
   - type: ClothingSpeedModifier
     walkModifier: 0.9 # Goob edit
@@ -955,11 +937,11 @@
     damageCoefficient: 0.2
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.95
-        Slash: 0.95
+      flatReductions:
+        Blunt: 1
+        Slash: 1
         Piercing: 1
-        Heat: 0.5
+        Heat: 6
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
@@ -993,12 +975,12 @@
     damageCoefficient: 0.7
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
-        Slash: 0.7
-        Piercing: 0.7
-        Ballistic: 0.7 # Trauma
-        Heat: 0.5
+      flatReductions:
+        Blunt: 12
+        Slash: 12
+        Piercing: 12
+        Ballistic: 12
+        Heat: 18
   - type: ClothingSpeedModifier
     walkModifier: 0.6
     sprintModifier: 0.6
@@ -1036,13 +1018,13 @@
     damageCoefficient: 0.6
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.6
-        Slash: 0.6
-        Piercing: 0.6
-        Ballistic: 0.6 # Trauma
-        Heat: 0.4
-        Caustic: 0.75
+      flatReductions:
+        Blunt: 14
+        Slash: 14
+        Piercing: 14
+        Ballistic: 14
+        Heat: 20
+        Caustic: 12
   - type: ClothingSpeedModifier
     walkModifier: 0.8
     sprintModifier: 0.8
@@ -1217,16 +1199,16 @@
       BoneDamage: 1
       VeinsDamage: 1
     modifiers:
-      coefficients:
-        Blunt: 0.1 # Best armor in the game - Yeah no shit.
-        Slash: 0.1
-        Piercing: 0.1
-        Ballistic: 0.1 # Trauma
-        Heat: 0.1
-        Cold: 0.1
-        Cellular: 0.1
-        Radiation: 0.1
-        Caustic: 0.1
+      flatReductions:
+        Blunt: 50 # Best armor in the game - Yeah no shit.
+        Slash: 50
+        Piercing: 50
+        Ballistic: 50
+        Heat: 50
+        Cold: 50
+        Cellular: 50
+        Radiation: 50
+        Caustic: 50
   - type: ClothingSpeedModifier
     walkModifier: 1.0
     sprintModifier: 1.0
@@ -1257,16 +1239,16 @@
     damageCoefficient: 0.7
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.7
+      flatReductions:
         # <Trauma>
-        Slash: 0.5 # was 0.7
-        Piercing: 0.5 # was 0.6
+        Blunt: 14
+        Slash: 16
+        Piercing: 16
         # Heat: 0.10
         # Cold: 0.10
-        # Shock: 0.15
-        Radiation: 0.1
-        Caustic: 0.5 # was 0.1
+        Shock: 25
+        Radiation: 40
+        Caustic: 16
         # </Trauma>
   - type: ZombificationResistance
     zombificationResistanceCoefficient: 0.25
@@ -1302,11 +1284,11 @@
     damageCoefficient: 0.9
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.9
-        Slash: 0.9
-        Piercing: 0.9
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 4
+        Slash: 4
+        Piercing: 4
+        Caustic: 6
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
@@ -1357,11 +1339,11 @@
     damageCoefficient: 0.85
   - type: Armor
     modifiers:
-      coefficients:
-        Blunt: 0.85
-        Slash: 0.9
-        Piercing: 0.85
-        Caustic: 0.8
+      flatReductions:
+        Blunt: 6
+        Slash: 3
+        Piercing: 5
+        Caustic: 4
   - type: ClothingSpeedModifier
     walkModifier: 0.9
     sprintModifier: 0.9
